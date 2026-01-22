@@ -1,0 +1,58 @@
+/* Comandos Git*/
+
+-- (*)Comandos que se usan todos los días --
+git status
+git add .
+git commit -m "mensaje"
+git pull
+git push
+
+-- Básicos --
+(*)git status - Muestra archivos modificados, nuevos y listos para commit.
+git init - Crea un repositorio Git en el proyecto.
+git clone <url> - Copia un repositorio remoto a tu computadora.
+
+-- Trabajar con cambios --
+git diff - Muestra cambios línea por línea.
+(*)git add . - Agrega todos los cambios.
+git add archivo.txt - Agrega un archivo específico.
+(*)git commit -m "mensaje descriptivo" - Confirmar cambios.
+
+--Actualizar y sincronizar --
+(*)git pull - Traer y fusionar cambios del remoto.
+git pull origin main- " " ".
+(*)git push - Subir cambios al remoto.
+git fetch - sólo descargar cambios(sin fusionar)
+
+-- Ramas --
+git branch - Ver Ramas
+git branch nueva-rama - Crear una rama.
+git checkout nueva-rama - Cambiar de rama.
+git switch nueva-rama - " " " ".
+git checkout -b nueva-rama - Crear y cambiar de rama.
+git merge nueva-rama - Fusionar una rama.
+git branch -d nueva-rama - Eliminar una rama.
+
+-- Historial --
+git log - Ver historial de commits
+git log --oneline - " " ".
+git show <id-commit> - Ver cambios de un commit.
+
+-- Deshacer cambios --
+git checkout -- archivo.txt - Descartar cambios no guardados.
+git reset archivo.txt - Deshacer git add.
+git reset --hard <id-commit> - Volver a un commit anterior.
+git stash - Guardar cambios temporalmente
+git stash pop - " " ".
+
+-- Limpieza --
+git clean -f - Eliminar archivos no rastreados.
+
+-- Comando útiles --
+git remote -v - Ver repositorios remotos.
+git blame archivo.txt - Ver quién modificó cada línea.
+
+
+
+
+
