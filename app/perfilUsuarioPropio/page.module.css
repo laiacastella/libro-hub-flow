@@ -1,0 +1,27 @@
+body {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/imagen-fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.fondoPerfil {
+    background-color: #f9f9f9cc;
+    border-radius: 12px;
+    width: 80%;
+    justify-self: center;
+    padding: 60px;
+    margin: 100px;
+}
+
+.titular {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.biblioteca {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
