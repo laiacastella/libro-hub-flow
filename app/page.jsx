@@ -16,19 +16,19 @@ export default function Home() {
                 </section>
                 <section>
                     <h3>¿Por qué LibroHubFlow</h3>
-                    <article class="card-one">
+                    <article className="card-one">
                         <img src="src/assets/imagen/icono-card1-home.svg" alt="card-one" />
                         <p>Añade facilmente los libros que quieres intercambiar</p>
                     </article>
-                    <article class="card-two">
+                    <article className="card-two">
                         <img src="src/assets/imagen/icono-card2-home.svg" alt="card-two" />
                         <p>Explora miles de ejemplares de otros usuarios y solicita los que te interesen con un solo clic</p>
                     </article>
-                    <article class="card-three">
+                    <article className="card-three">
                         <img src="src/assets/imagen/icono-card3-home.svg" alt="card-three" />
                         <p>Una vez aceptado el intercambio , coordina el envio con el otro usuario</p>
                     </article>
-                    <article class="card-four">
+                    <article className="card-four">
                         <img src="src/assets/imagen/icono-card4-home.svg" alt="card-four" />
                         <p>Intercambiaste, leíste... ¡Ahora inspira! ¿Lo prestas o lo recomiendas?</p>
                     </article>
