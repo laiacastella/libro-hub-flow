@@ -2,9 +2,9 @@ export default function Home() {
     return (
         <>
             <header>
-                <img src="src/assets/imagen/logo-h1Blanco.svg" alt="logo" />
-                <a href=""> Sesión</a>
-                <a href="">Registrarse</a>
+                <img src="./public/logo-h1Blanco.svg" alt="logo" />
+                <a href="/EditarCuenta">Editar Cuenta</a>
+                <a href=""> Registrarse</a>
             </header>
             <main>
                 <section>
@@ -17,7 +17,7 @@ export default function Home() {
                 <section>
                     <h3>¿Por qué LibroHubFlow</h3>
                     <article className="card-one">
-                        <img src="src/assets/imagen/icono-card1-home.svg" alt="card-one" />
+                        <img src="../../public/icono-card1-home.svg" alt="card-one" />
                         <p>Añade facilmente los libros que quieres intercambiar</p>
                     </article>
                     <article className="card-two">
