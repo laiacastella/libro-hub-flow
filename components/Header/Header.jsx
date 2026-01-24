@@ -1,9 +1,13 @@
 export function Header(){
     return (
       <header>
-        <img src="../public/logo-h1Blanco" alt="logo" />
-        <a href="/login" className="ButtonLogin">Iniciar Sesión</a>
-        <a href="/register" className="ButtonRegister">Registrarse</a>
+        <img src="../../public/logo-h1Negro.svg" alt="logo"/>
+        <nav>
+          <a href="../../app/home" className="btn-home">Inicio</a>
+        <a href="../../app/biblioteca" className="btn-biblioteca">Biblioteca</a>
+        <a href="../../app/perfil" className="btn-perfil">Perfil</a>
+        <a href="../../app/subir-libro " className="btn-subir-libro">Subir tu libro</a>
+        </nav>
     </header>
     )
 }
