@@ -6,7 +6,7 @@ export default function Home() {
             </header>
 
             <main>
-                <h1>Esta es la página de Perfil de Usuario Ajeno</h1>
+                <h1>Hola Adrian</h1>
             </main>
             
             <footer>
