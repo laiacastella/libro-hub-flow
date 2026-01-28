@@ -9,15 +9,18 @@ import Intercambios from "@/components/Intercambios/page.jsx";
 import Valoraciones from "@/components/Valoraciones/page.jsx";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 
 
 export default function PerfilUsuarioPropio() {
     
     const router = useRouter();
-    const valoracion = 3.5;
-    const [paginaActiva, setPaginaActiva] = useState("biblioteca");
+    const valoracion = 2.5;
+    const searchParams = useSearchParams();
+    const tab = searchParams.get("tab");
 
+    const [paginaActiva, setPaginaActiva] = useState(tab || "biblioteca");
 
     return (
         <>

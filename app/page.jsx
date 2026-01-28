@@ -3,8 +3,8 @@ export default function Home() {
         <>
             <header>
                 <img src="/logo-h1Blanco.svg" alt="logo" />
-                <a href="/EditarCuenta">Editar Cuenta</a>
-                <a href=""> Registrarse</a>
+                <a href="/PerfilUsuarioPropio"> Usuario propio</a>
+                <a href="/PerfilUsuarioAjeno"> Usuario ajeno</a>
             </header>
             <main>
                 <section>

@@ -88,6 +88,10 @@ body {
     cursor: pointer;
 }
 
+.cancelar:hover {
+    opacity: 0.9;
+}
+
 .guardar {
     background: #63A26C;
     color: white;
@@ -97,6 +101,10 @@ body {
     cursor: pointer;
 }
 
+.guardar:hover {
+    opacity: 0.9;
+}
+
 .boton{
     background: #63A26C;
     color: white;
@@ -104,4 +112,8 @@ body {
     border-radius: 12px;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+.boton:hover {
+    opacity: 0.9;
 }
