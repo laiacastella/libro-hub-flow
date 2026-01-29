@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "@/components/Header/Header.jsx";
+import Header from "@/components/Header/page.jsx";
 import Footer from "@/components/Footer/page.jsx";
 import Estrellas from "@/components/Estrellas/page.jsx";
-import Biblioteca from "@/components/Biblioteca/Biblioteca.jsx";
+import Biblioteca from "@/components/Biblioteca/page.jsx";
 import Solicitudes from "@/components/Solicitudes/page.jsx";
 import Intercambios from "@/components/Intercambios/page.jsx";
 import Valoraciones from "@/components/Valoraciones/page.jsx";
@@ -12,7 +12,9 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 
+
 export default function PerfilUsuarioPropio() {
+    
     const router = useRouter();
     const valoracion = 2.5;
     const searchParams = useSearchParams();
@@ -23,12 +25,12 @@ export default function PerfilUsuarioPropio() {
     return (
         <>
             <Header />
-
+             
             <main>
                 <div className={styles.fondo}>
                     <div className={styles.perfil}>
                         <div className={styles.foto}>
-                            <img src="/perfilUsuario.svg" className={styles.fotoPerfil} alt="perfilUsuario" />
+                            <img src="/perfilUsuario.svg" className={styles.fotoPerfil} alt="perfilUsuario"/>
                         </div>
                         <div className={styles.datos}>
                             <h2>Nombre Apellidos (Nombre de usuario)</h2>
@@ -37,12 +39,13 @@ export default function PerfilUsuarioPropio() {
                             <h3>Número de teléfono</h3>
                         </div>
                         <div className={styles.editarDatos}>
-                            <button className={styles.botonEditar} onClick={() => router.push("/EditarCuenta")}>
+                            <button className={styles.botonEditar}
+                            onClick={() => router.push("/EditarCuenta")}>
                                 Editar datos
                             </button>
                         </div>
                     </div>
-
+                    
                     <div className={styles.navegacion}>
                         <div className={styles.paginas} onClick={() => setPaginaActiva("biblioteca")}>
                             <h1>15</h1>
@@ -60,9 +63,7 @@ export default function PerfilUsuarioPropio() {
                         </div>
 
                         <div className={styles.paginas} onClick={() => setPaginaActiva("valoraciones")}>
-                            <h1>
-                                {valoracion} <Estrellas valoracion={valoracion} />
-                            </h1>
+                            <h1>{valoracion} <Estrellas valoracion={valoracion}/></h1>
                             <h2>Valoración media</h2>
                         </div>
                     </div>
@@ -74,8 +75,9 @@ export default function PerfilUsuarioPropio() {
                         {paginaActiva === "valoraciones" && <Valoraciones />}
                     </div>
                 </div>
+                
             </main>
-
+            
             <Footer />
         </>
     );
