@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+}
+
+.bienvenida {
+    background-image: url("/imagen-home.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 60vh;
+    width: 100%;
+    justify-self: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15vh;
+    margin-top: -100px;
+}
+
+.explicacionMasBoton{
+    background-color: #f9f9f998;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 80%;
+}
+
+.explicacion{
+    font-size: 30px;
+}
+
+.boton {
+    background: #63A26C;
+    color: white;
+    max-height: 50px;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.boton:hover {
+    opacity: 0.9;
+}
+
+
+.porque{
+    background-color: #000000d5;
+    color: #ffffff;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 10px;
+}
+
+.cards {
+    justify-self: center;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15vh;
+}
+
+.card {
+    width: 200px;
+    flex-direction: column;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+}

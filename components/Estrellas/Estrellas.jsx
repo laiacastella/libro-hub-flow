@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+import styles from "./Estrellas.module.css";
 
 function Star({ fill = 0 }) {
     return (

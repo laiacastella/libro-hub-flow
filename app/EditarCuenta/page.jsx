@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "@/components/Header/page.jsx";
-import Footer from "@/components/Footer/page.jsx";
+import Header from "@/components/Header/Header.jsx";
+import Footer from "@/components/Footer/Footer.jsx";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 

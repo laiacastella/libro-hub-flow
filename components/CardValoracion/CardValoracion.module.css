@@ -1,0 +1,65 @@
+.valoracionesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.comentarioCard {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px 60px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.usuarioInfo {
+    display: flex;
+}
+.usuarioDatos {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 20px;
+}
+.usuarioDatos p {
+    margin: 0;
+}
+.perfilUsuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+.perfilUsuario:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+.usuario {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #333;
+    cursor: pointer;
+}
+.tiempo {
+    font-size: 0.8rem;
+    color: #666;
+}
+.comentario {
+    background-color: #f0eded;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
