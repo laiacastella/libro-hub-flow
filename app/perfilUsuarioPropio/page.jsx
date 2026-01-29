@@ -6,7 +6,7 @@ import Estrellas from "@/components/Estrellas/page.jsx";
 import Biblioteca from "@/components/Biblioteca/Biblioteca.jsx";
 import Solicitudes from "@/components/Solicitudes/page.jsx";
 import Intercambios from "@/components/Intercambios/page.jsx";
-import Valoraciones from "@/components/Valoraciones/page.jsx";
+import Valoraciones from "@/components/Valoraciones/Valoraciones.jsx";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
