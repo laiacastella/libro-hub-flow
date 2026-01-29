@@ -39,3 +39,21 @@
     color: #666;
     text-transform: uppercase;
 }
+.fondoPerfil {
+    background-color: #f9f9f9cc;
+    border-radius: 12px;
+
+    justify-self: center;
+    padding: 60px;
+}
+.titular {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.biblioteca {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
