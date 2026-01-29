@@ -1,11 +1,8 @@
+import Header from "@/components/Header/Header";
 export default function Home() {
     return (
         <>
-            <header>
-                <img src="src/assets/imagen/logo-h1Blanco.svg" alt="logo" />
-                <a href=""> Sesión</a>
-                <a href="">Registrarse</a>
-            </header>
+            <Header />
             <main>
                 <section>
                     <p>
