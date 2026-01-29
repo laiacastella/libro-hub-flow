@@ -1,7 +1,7 @@
 .libroCard {
     background-color: #ffffff;
     border-radius: 8px;
-    width: 250px;
+    width: 200px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -12,6 +12,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .libroCard:hover {
