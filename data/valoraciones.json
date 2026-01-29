@@ -1,0 +1,36 @@
+{
+  "comentarios": [
+    {
+      "id": 1,
+      "perfil": "https://randomuser.me/api/portraits/men/32.jpg",
+      "usuario": "Juan Perez",
+      "tiempo": "2 horas",
+      "valoracion": 4.5,
+      "comentario": "Juan fue muy amable y rápido respondiendo a mis mensajes. La coordinación fue sencilla y clara. Además, se mostró muy flexible con los horarios y atento a los detalles."
+    },
+    {
+      "id": 2,
+      "perfil": "https://randomuser.me/api/portraits/women/45.jpg",
+      "usuario": "Maria Lopez",
+      "tiempo": "1 día",
+      "valoracion": 5,
+      "comentario": "Maria fue muy cordial y paciente durante todo el intercambio. Todo salió sin problemas. Me hizo sentir seguro y confiado al tratar con ella."
+    },
+    {
+      "id": 3,
+      "perfil": "https://randomuser.me/api/portraits/men/76.jpg",
+      "usuario": "Carlos Gomez",
+      "tiempo": "3 días",
+      "valoracion": 3.5,
+      "comentario": "Carlos fue educado, pero tardó un poco en responder. Aun así, la comunicación fue correcta. Creo que con un poco más de atención todo habría sido perfecto."
+    },
+    {
+      "id": 4,
+      "perfil": "https://randomuser.me/api/portraits/women/12.jpg",
+      "usuario": "Ana Martinez",
+      "tiempo": "5 horas",
+      "valoracion": 2,
+      "comentario": "Ana no respondió a todos los mensajes y hubo confusión en la coordinación del intercambio. Espero que en futuras interacciones sea más clara y puntual."
+    }
+  ]
+}
