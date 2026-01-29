@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "@/components/Header/page.jsx";
+import Header from "@/components/Header/Header.jsx";
 import Footer from "@/components/Footer/page.jsx";
 import Estrellas from "@/components/Estrellas/page.jsx";
-import Biblioteca from "@/components/Biblioteca/page.jsx";
+import Biblioteca from "@/components/Biblioteca/Biblioteca.jsx";
 import Solicitudes from "@/components/Solicitudes/page.jsx";
 import Intercambios from "@/components/Intercambios/page.jsx";
 import Valoraciones from "@/components/Valoraciones/page.jsx";
