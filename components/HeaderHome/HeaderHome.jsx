@@ -1,9 +1,30 @@
-export function HeaderHome(){
-    return (
-      <header>
-        <img src="../../public/logo-h1Blanco" alt="logo" />
-        <link href="../../app/login" className="btn-login">Iniciar Sesión</link>
-        <link href="../../app/registrarse" className="btn-registrarse">Registrarse</link>
-    </header>
+
+import { useRouter } from "next/navigation";
+import styles from "./HeaderHome.module.css";
+
+export default function HeaderHome(){
+  
+  const router = useRouter();  
+  
+  return (
+      <main>
+        <div className={styles.cabecera}>
+          <div className={styles.logo}>
+            <img src="/logo-h1Blanco.svg" alt="logo" /> 
+          </div>
+
+          <div className={styles.menu}>
+            <button className={styles.boton}
+              onClick={() => router.push("")}>
+              Iniciar sesión
+            </button>
+
+            <button className={styles.boton}
+              onClick={() => router.push("")}>
+              Registrarse
+            </button>
+          </div>          
+        </div>
+      </main>
     )
 }

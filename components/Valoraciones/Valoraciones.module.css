@@ -1,0 +1,11 @@
+.titular {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+}
+.valoracionesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
