@@ -1,6 +1,13 @@
-export default function Solicitudes(){
+import styles from "./Solicitudes.module.css";
+import CardSolicitud from "@/components/CardSolicitud/CardSolicitud";
+
+export default function Solicitudes() {
     return (
-      <h1>Aqui van las solicitudes</h1>
-      
-    )
+        <>
+            <h1 className={styles.titular}>Solicitudes pendientes</h1>
+            <div className={styles.contenedorSolicitudes}>
+                <CardSolicitud />
+            </div>
+        </>
+    );
 }

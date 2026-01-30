@@ -1,0 +1,49 @@
+{
+  "solicitudes": [
+    {
+      "id": 1,
+      "libroPropio": {
+        "imagen": "https://covers.openlibrary.org/b/id/10521270-L.jpg",
+        "titulo": "Cien años de soledad"
+      },
+      "libroIntercambio": {
+        "imagen": "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+        "titulo": "1984"
+      },
+      "estado": {
+        "verBiblioteca": true,
+        "confirmar": false
+      }
+    },
+    {
+      "id": 2,
+      "libroPropio": {
+        "imagen": "https://covers.openlibrary.org/b/id/8231856-L.jpg",
+        "titulo": "El nombre del viento"
+      },
+      "libroIntercambio": {
+        "imagen": "https://covers.openlibrary.org/b/id/8101354-L.jpg",
+        "titulo": "Dune"
+      },
+      "estado": {
+        "verBiblioteca": true,
+        "confirmar": false
+      }
+    },
+    {
+      "id": 3,
+      "libroPropio": {
+        "imagen": "https://covers.openlibrary.org/b/id/10523361-L.jpg",
+        "titulo": "La sombra del viento"
+      },
+      "libroIntercambio": {
+        "imagen": "https://covers.openlibrary.org/b/id/6979861-L.jpg",
+        "titulo": "Los juegos del hambre"
+      },
+      "estado": {
+        "verBiblioteca": false,
+        "confirmar": true
+      }
+    }
+  ]
+}
