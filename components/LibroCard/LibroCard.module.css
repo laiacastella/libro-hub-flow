@@ -1,0 +1,42 @@
+.libroCard {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 200px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.libroCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.libroImage {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.libroTitulo {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.libroAutor {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+}

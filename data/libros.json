@@ -1,0 +1,100 @@
+{
+  "libros": [
+    {
+      "id": 1,
+      "titulo": "Cien años de soledad",
+      "autor": "Gabriel García Márquez",
+      "imagen": "https://www.rae.es/sites/default/files/portada_cien_anos_de_soledad_0.jpg"
+    },
+    {
+      "id": 2,
+      "titulo": "1984",
+      "autor": "George Orwell",
+      "imagen": "https://m.media-amazon.com/images/I/71sOSrd+JxL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+      "id": 3,
+      "titulo": "El principito",
+      "autor": "Antoine de Saint-Exupéry",
+      "imagen": "https://m.media-amazon.com/images/I/711MY86KW9L._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+      "id": 4,
+      "titulo": "Don Quijote de la Mancha",
+      "autor": "Miguel de Cervantes",
+      "imagen": "https://www.librerias-picasso.com/imagenes/9788419/978841908700.GIF"
+    },
+    {
+      "id": 5,
+      "titulo": "El Gran Gatsby",
+      "autor": "F. Scott Fitzgerald",
+      "imagen": "https://cms.anagrama-ed.es/uploads/media/portadas/0001/15/b2834bc4ea71357c8b549dfccdd16d611c6586ea.jpeg"
+    },
+    {
+      "id": 6,
+      "titulo": "Frankenstein",
+      "autor": "Mary Shelley",
+      "imagen": "https://www.editorialjuventud.es/wp-content/uploads/3720.jpg"
+    },
+    {
+      "id": 7,
+      "titulo": "El guardián entre el centeno",
+      "autor": "J.D. Salinger",
+      "imagen": "https://m.media-amazon.com/images/I/81OthjkJBuL.jpg"
+    },
+    {
+      "id": 8,
+      "titulo": "Eclipse",
+      "autor": "Stephenie Meyer",
+      "imagen": "https://imagessl1.casadellibro.com/a/l/s5/31/9788420472331.webp"
+    },
+    {
+      "id": 9,
+      "titulo": "Matar a un ruiseñor",
+      "autor": "Harper Lee",
+      "imagen": "https://m.media-amazon.com/images/I/71ScCUdhhQL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+      "id": 10,
+      "titulo": "Orgullo y prejuicio",
+      "autor": "Jane Austen",
+      "imagen": "https://m.media-amazon.com/images/I/91hhCXj9dbL.jpg"
+    },
+    {
+      "id": 11,
+      "titulo": "Drácula",
+      "autor": "Bram Stoker",
+      "imagen": "https://www.akal.com/media/akal/images/cover-34560.jpg"
+    },
+    {
+      "id": 12,
+      "titulo": "La Metamorfosis",
+      "autor": "Franz Kafka",
+      "imagen": "https://m.media-amazon.com/images/I/81B6ebdgtZL.jpg"
+    },
+    {
+      "id": 13,
+      "titulo": "Harry Potter y la piedra filosofal",
+      "autor": "J.K. Rowling",
+      "imagen": "https://m.media-amazon.com/images/I/61mEUsasD-L.jpg"
+    },
+    {
+      "id": 14,
+      "titulo": "El Hobbit",
+      "autor": "J.R.R. Tolkien",
+      "imagen": "https://m.media-amazon.com/images/I/91U3Yg8PFDL._UF1000,1000_QL80_.jpg"
+    },
+    {
+      "id": 15,
+      "titulo": "Los Juegos del Hambre",
+      "autor": "Suzanne Collins",
+      "imagen": "https://m.media-amazon.com/images/I/719PUKRXxaL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+      "id": 16,
+      "titulo": "Cumbres Borrascosas",
+      "autor": "Emily Brontë",
+      "imagen": "https://m.media-amazon.com/images/I/71RO1N7qnBL._AC_UF1000,1000_QL80_.jpg"
+    }
+  ]
+}
