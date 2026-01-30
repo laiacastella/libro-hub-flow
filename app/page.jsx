@@ -15,16 +15,15 @@ export default function Home() {
                             <strong>LibroFlowHub</strong> es la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites. Descubre nuevas historias, dale una segunda vida a tus libros y comienza tu próximo capítulo con un solo clic.
                             <b>Un proceso simple para descubrir tu proxima lectura.</b>
                         </div>
-                        <button className={styles.boton}
-                            onClick={() => router.push("")}>
+                        <button className={styles.boton} onClick={() => router.push("")}>
                             Encuentra tu libro
                         </button>
                     </div>
                 </div>
 
                 <div className={styles.porque}>
-                    <h2>¿Por qué LibroHubFlow?</h2>                    
-                               
+                    <h2>¿Por qué LibroHubFlow?</h2>
+
                     <div className={styles.cards}>
                         <div className={styles.card}>
                             <img src="/icono-card1-home.svg" alt="card-one" />
