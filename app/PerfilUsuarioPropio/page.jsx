@@ -14,7 +14,7 @@ import styles from "./page.module.css";
 
 export default function PerfilUsuarioPropio() {
     const router = useRouter();
-    const valoracion = 2.5;
+    const valoracion = 3.0;
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab");
 
