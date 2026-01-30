@@ -25,7 +25,10 @@ export default function CardSolicitud() {
                         {/* Libro intercambio */}
                         <div className={styles.libro}>
                             {!solicitud.estado.verBiblioteca ? (
-                                <img src={solicitud.libroIntercambio.imagen} alt={solicitud.libroIntercambio.titulo} className={styles.libroImagen} loading="lazy" />
+                                <>
+                                    <img src={solicitud.libroIntercambio.imagen} alt={solicitud.libroIntercambio.titulo} className={styles.libroImagen} loading="lazy" />
+                                    <p className={styles.libroTitulo}>{solicitud.libroIntercambio.titulo}</p>
+                                </>
                             ) : (
                                 <div className={styles.libroImagen}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={styles.libroIcono}>
@@ -40,8 +43,6 @@ export default function CardSolicitud() {
                                     </svg>
                                 </div>
                             )}
-
-                            <p className={styles.libroTitulo}>{solicitud.libroIntercambio.titulo}</p>
                         </div>
                     </div>
 
