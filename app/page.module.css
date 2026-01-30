@@ -1,5 +1,5 @@
 .bienvenida {
-    background-image: url("/imagen-home.jpg");
+    background-image: linear-gradient(rgba(42, 42, 42, 0.5), rgba(42, 42, 42, 0.5), rgba(42, 42, 42, 1)), url("/imagen-home.jpg");
     background-size: cover;
     background-position: center;
     min-height: 60vh;
@@ -13,8 +13,7 @@
     margin-top: -100px;
 }
 
-.explicacionMasBoton{
-    background-color: #f9f9f998;
+.explicacionMasBoton {
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -23,12 +22,13 @@
     width: 80%;
 }
 
-.explicacion{
+.explicacion {
     font-size: 30px;
+    color: white;
 }
 
 .boton {
-    background: #63A26C;
+    background: #63a26c;
     color: white;
     max-height: 50px;
     border: none;
@@ -41,13 +41,12 @@
     opacity: 0.9;
 }
 
-
-.porque{
-    background-color: #000000d5;
+.porque {
+    background-color: rgb(42, 42, 42);
     color: #ffffff;
     width: 100%;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
     padding: 10px;
 }
