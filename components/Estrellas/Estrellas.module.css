@@ -1,4 +1,4 @@
 .estrellas {
-    display: flex;
-    gap: 6px;
+    display: inline-flex;
+    margin-left: 6px;
 }

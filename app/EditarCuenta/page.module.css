@@ -89,8 +89,11 @@ body {
 }
 
 .cancelar:hover {
-    opacity: 0.9;
+    background-color: #e4dede;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
+
 
 .guardar {
     background: #63A26C;
@@ -102,7 +105,9 @@ body {
 }
 
 .guardar:hover {
-    opacity: 0.9;
+    background-color: #4caf50;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .boton{
@@ -115,5 +120,7 @@ body {
 }
 
 .boton:hover {
-    opacity: 0.9;
+    background-color: #4caf50;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
