@@ -3,20 +3,27 @@
 import HeaderHome from "@/components/HeaderHome/HeaderHome.jsx";
 import Footer from "@/components/Footer/Footer.jsx";
 import styles from "./page.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+    // Estado para almacenar las provincias
+    const [provincias, setProvincias] = useState([]);
     // Prueba de conexión a la API
     useEffect(() => {
         fetch("/api/provincias")
             .then((res) => res.json())
-            .then((data) => console.log(data));
+            .then((data) => setProvincias(data));
     }, []);
 
     return (
         <>
             <HeaderHome />
             <main>
+                <ul>
+                    {provincias.map((p) => (
+                        <li key={p.id_provincia}>{p.provincia}</li>
+                    ))}
+                </ul>
                 <div className={styles.bienvenida}>
                     <div className={styles.explicacionMasBoton}>
                         <div className={styles.explicacion}>
