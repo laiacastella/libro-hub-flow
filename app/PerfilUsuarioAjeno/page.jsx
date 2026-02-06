@@ -32,17 +32,23 @@ export default function PerfilUsuarioPropio() {
                     </div>
 
                     <div className={styles.navegacion}>
-                        <div className={styles.paginas} onClick={() => setPaginaActiva("biblioteca")}>
+                        <div tabIndex={0} className={`${styles.paginas}
+                        ${paginaActiva === "biblioteca" ? styles.activo : ""}`}
+                        onClick={() => setPaginaActiva("biblioteca")}>
                             <h1>15</h1>
                             <h2>Libros disponibles</h2>
                         </div>
 
-                        <div className={styles.paginas} onClick={() => setPaginaActiva("intercambios")}>
+                        <div tabIndex={0} className={`${styles.paginas}
+                        ${paginaActiva === "intercambios" ? styles.activo : ""}`}
+                        onClick={() => setPaginaActiva("intercambios")}>
                             <h1>23</h1>
                             <h2>Intercambios completados</h2>
                         </div>
 
-                        <div className={styles.paginas} onClick={() => setPaginaActiva("valoraciones")}>
+                        <div tabIndex={0} className={`${styles.paginas}
+                        ${paginaActiva === "valoraciones" ? styles.activo : ""}`}
+                        onClick={() => setPaginaActiva("valoraciones")}>
                             <h1>
                                 {valoracion} <Estrellas valoracion={valoracion} />
                             </h1>
