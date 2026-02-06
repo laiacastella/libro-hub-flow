@@ -38,56 +38,8 @@ export default function EditarCuenta() {
                 </div>
 
                 <div>
-                    <form className={styles.formulario} /*onSubmit={handleSubmit}*/>
-                        <div className={styles.columnas}>
-                            <div className={styles.columna}>
-                                <label className={styles.label}>
-                                    Nombre completo:
-                                    <input className={styles.text} />
-                                </label>
-
-                                <label className={styles.label}>
-                                    Nombre de usuario
-                                    <input className={styles.text} />
-                                </label>
-
-                                <label className={styles.label}>
-                                    Teléfono
-                                    <input className={styles.text} />
-                                </label>
-                            </div>
-
-                            <div className={styles.columna}>
-                                <label className={styles.label}>
-                                    Correo electrónico
-                                    <input className={styles.text} />
-                                </label>
-
-                                <label className={styles.label}>
-                                    Código postal
-                                    <input className={styles.text} />
-                                </label>
-
-                                <label className={styles.label}>
-                                    Contraseña
-                                    <input className={styles.text} />
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className={styles.botones}>
-                            <button type="button" className={styles.cancelar} onClick={() => router.push("/PerfilUsuarioPropio")}>
-                                Cancelar
-                            </button>
-
-                            <button type="submit" className={styles.guardar}>
-                                Guardar cambios
-                            </button>
-                        </div>
-                    </form>
+                    <FormEditarCuenta />
                 </div>
-                {/* componente para editar cuenta de prueba */}
-                <FormEditarCuenta />
             </div>
 
             <Footer />
