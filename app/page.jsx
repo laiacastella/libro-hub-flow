@@ -3,8 +3,16 @@
 import HeaderHome from "@/components/HeaderHome/HeaderHome.jsx";
 import Footer from "@/components/Footer/Footer.jsx";
 import styles from "./page.module.css";
+import { useEffect } from "react";
 
 export default function Home() {
+    // Prueba de conexión a la API
+    useEffect(() => {
+        fetch("/api/provincias")
+            .then((res) => res.json())
+            .then((data) => console.log(data));
+    }, []);
+
     return (
         <>
             <HeaderHome />
