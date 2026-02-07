@@ -1,5 +1,5 @@
 "use client";
-import { Header, Footer, Estrellas, Biblioteca, Solicitudes, Intercambios, Valoraciones } from "@/components";
+import { Header, Footer, Estrellas, Biblioteca, Solicitudes, Intercambios, Valoraciones, CardComentario } from "@/components";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -82,6 +82,8 @@ export default function PerfilUsuarioPropio() {
                         {paginaActiva === "solicitudes" && <Solicitudes />}
                         {paginaActiva === "intercambios" && <Intercambios />}
                         {paginaActiva === "valoraciones" && <Valoraciones />}
+                        {/* Para prueba, para poder mostrarlo y verlo enalgun sitio */}
+                        <CardComentario />
                     </div>
                 </div>
             </main>
