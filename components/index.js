@@ -18,3 +18,8 @@ export { default as Footer } from "./Footer/Footer";
 
 // Forms
 export { default as FormEditarCuenta } from "./FormEditarCuenta/FormEditarCuenta";
+
+// Para hacer los imports donde queramos se hace de la siguiente manera:
+// import { Header } from "@/components";
+// si quieres mas de un componente, lo puedes hacer asi:
+// import { Header, Footer, Estrellas } from "@/components";
