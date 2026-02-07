@@ -1,5 +1,5 @@
 import data from "@/data/libros.json";
-import styles from "./LibroCard.module.css";
+import styles from "./CardLibro.module.css";
 
 const libros = data.libros;
 
