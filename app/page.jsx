@@ -10,7 +10,7 @@ export default function Home() {
     const [provincias, setProvincias] = useState([]);
     // Prueba de conexión a la API
     useEffect(() => {
-        fetch("/api/provincias")
+        fetch("/api/usuarios")
             .then((res) => res.json())
             .then((data) => setProvincias(data));
     }, []);
@@ -19,11 +19,12 @@ export default function Home() {
         <>
             <HeaderHome />
             <main>
-                <ul>
-                    {provincias.map((p) => (
-                        <li key={p.id_provincia}>{p.provincia}</li>
-                    ))}
-                </ul>
+                {provincias.map((p) => (
+                    <div key={p.id_usuario}>
+                        <p>{p.nombre}</p>
+                        <img src={p.foto_perfil} alt="" />
+                    </div>
+                ))}
                 <div className={styles.bienvenida}>
                     <div className={styles.explicacionMasBoton}>
                         <div className={styles.explicacion}>
