@@ -15,7 +15,7 @@ export async function POST(request) {
 
     // 2. Consulta con los nombres EXACTOS de tu compañero
     const query = `
-      INSERT INTO Usuario 
+      INSERT INTO usuarios 
       (nick_usuario, email, password_hash, nombre, apellidos, telefono, codigo_postal, id_provincia, id_poblacion) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     
