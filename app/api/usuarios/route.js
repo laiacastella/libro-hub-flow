@@ -11,16 +11,18 @@ export async function GET() {
 
 export async function POST(req) {
     try {
-        const { foto_perfil } = await req.json();
+        const { nick_usuario, email, password_hash, nombre, apellidos, telefono, id_provincia, id_poblacion } = await req.json();
 
-        if (!foto_perfil) {
-            return new Response(JSON.stringify({ error: "Falta la URL de la imagen" }), { status: 400 });
+        // Validar campos obligatorios
+        if (!nick_usuario || !email || !password_hash || !nombre || !id_provincia || !id_poblacion || !telefono || !apellidos) {
+            return new Response(JSON.stringify({ error: "Faltan datos obligatorios" }), { status: 400 });
         }
 
-        // Guardamos solo la foto_perfil, id_usuario se genera automáticamente
         const [resultado] = await db.query(
-            "INSERT INTO usuarios (foto_perfil, id_provincia, id_poblacion) VALUES (?, ?, ?)",
-            [foto_perfil, 1, 1], // 1 debe existir en provincias y poblaciones
+            `INSERT INTO usuarios
+      (nick_usuario, email, password_hash, nombre, apellidos, telefono, id_provincia, id_poblacion)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [nick_usuario, email, password_hash, nombre, apellidos, telefono, id_provincia, id_poblacion],
         );
 
         return new Response(JSON.stringify({ success: true, id_usuario: resultado.insertId }), { status: 200 });
