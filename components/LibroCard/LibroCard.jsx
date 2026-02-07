@@ -1,3 +1,4 @@
+"use client"
 import data from "@/data/libros.json";
 import styles from "./LibroCard.module.css";
 
