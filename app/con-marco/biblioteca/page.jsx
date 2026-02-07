@@ -1,7 +1,7 @@
-import Header from './components/Header/Header';
-import BarraBusqueda from './componentes/BarraBusqueda/BarraBusqueda';
-import LibroCard from './componentes/LibroCard/LibroCard';
-import estilos from './Biblioteca.modules.css';
+import {Header} from './components/Header/Header.js';
+import {BarraBusqueda} from './components/BarraBusqueda/BarraBusqueda.js';
+import {LibroCard} from './components/LibroCard/LibroCard.js';
+import styles from './biblioteca.module.css';
 
 //ejemplo para los libros
 const LISTA_LIBROS = [

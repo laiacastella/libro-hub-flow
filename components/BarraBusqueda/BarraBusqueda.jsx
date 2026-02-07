@@ -1,6 +1,6 @@
 import styles from './BarraBusqueda.module.css';
 
-export default function BarraBusqueda() {
+export function BarraBusqueda() {
   return (
     <div className={styles.contenedor}>
       <div className={styles.busquedaCaja}>

@@ -1,0 +1,58 @@
+.contenedorPrincipal {
+    width: 100%;
+    height: 100vh;
+    /* Que ocupe toda la altura de la pantalla */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url("/imagen-home.jpg");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0;
+    padding: 0 10%;
+}
+
+
+.bloqueTexto {
+    max-width: 500px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.subtitulo {
+    display: block;
+    margin-top: 20px;
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+
+.botonAccion {
+    background-color: #67a673;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    /* Bordes más rectos como en la imagen 2 */
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    /* Evita que el texto del botón se corte */
+}
+
+.botonAccion:hover {
+    background-color: #558c5f;
+    transform: scale(1.05);
+    /* Efecto de crecimiento suave */
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .contenedorPrincipal {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 30px;
+    }
+}

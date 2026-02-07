@@ -1,6 +1,8 @@
-export default function Footer(){
+"use client"
+
+export function Footer(){
     return (
-      <h1>Aqui va el Footer</h1>
+      <footer>Aqui va el Footer</footer>
       
     )
 }

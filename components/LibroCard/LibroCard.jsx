@@ -3,7 +3,7 @@ import styles from "./LibroCard.module.css";
 
 const libros = data.libros;
 
-export default function Biblioteca() {
+export function Biblioteca() {
     return libros.map((libro) => (
         <div key={libro.id} className={styles.libroCard}>
             <img src={libro.imagen} alt={libro.titulo} className={styles.libroImage} />

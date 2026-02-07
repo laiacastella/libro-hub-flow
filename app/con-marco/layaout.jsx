@@ -1,4 +1,4 @@
-import {HeaderHome} from "@/components/HeaderHome/HeaderHome.jsx"
+import {Header} from "@/components/Header/Header.jsx"
 import {Footer} from "@/components/Footer/Footer.jsx"
 import "./globals.css";
 
@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                <HeaderHome></HeaderHome>
+                <Header></Header>
                     {children}
                 <Footer></Footer>
             </body>

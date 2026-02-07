@@ -1,0 +1,55 @@
+.pagina {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #212121;
+    /* Evita destellos blancos al cargar */
+}
+
+.seccionSuperior {
+    position: relative;
+    width: 100%;
+    /* Aseguramos que el contenido fluya sin saltos */
+    margin: 0;
+    padding: 0;
+}
+
+.seccionInferior {
+    background-color: #212121;
+    color: white;
+    padding: 100px 5%;
+    /* Más aire arriba y abajo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seccionInferior h2 {
+    font-size: 2.5rem;
+    /* Un poco más grande para impacto visual */
+    margin-bottom: 80px;
+    font-weight: 300;
+    /* Fuente más delgada para un look más moderno */
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.contenedorTarjetas {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    /* Espacio exacto para que respire como en el diseño */
+    max-width: 1300px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Para que las tarjetas no se vean pegadas al borde en móviles */
+@media (max-width: 768px) {
+    .seccionInferior h2 {
+        font-size: 2rem;
+        margin-bottom: 50px;
+    }
+}

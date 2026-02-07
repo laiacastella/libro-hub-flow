@@ -1,0 +1,45 @@
+.envoltorio {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
+    /* Un gris muy claro de fondo */
+}
+
+.contenedorBiblioteca {
+    flex: 1;
+    padding: 40px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* Centra todo el contenido */
+    width: 100%;
+}
+
+.seccionBusqueda {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+/* La cuadrícula mágica */
+.cuadriculaLibros {
+    display: grid;
+    /* Crea columnas de mínimo 200px que llenan el espacio disponible */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    /* Espacio entre libros */
+    justify-items: center;
+    /* Centra las tarjetas dentro de su celda */
+}
+
+/* Ajustes para tablets y móviles */
+@media (max-width: 768px) {
+    .contenedorBiblioteca {
+        padding: 20px 15px;
+    }
+
+    .cuadriculaLibros {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+    }
+}

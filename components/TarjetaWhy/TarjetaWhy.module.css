@@ -1,0 +1,43 @@
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 220px;
+    /* Evita que el texto se estire demasiado */
+    color: #e0e0e0;
+    /* Un blanco grisáceo suave */
+}
+
+.circuloVerde {
+    background-color: #5b7c5c;
+    /* El verde musgo exacto de la imagen */
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    /* Esto hace que sea un círculo perfecto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.circuloVerde:hover {
+    transform: scale(1.1);
+    /* Efecto de aumento al pasar el mouse */
+}
+
+.circuloVerde img {
+    width: 45px;
+    /* Ajusta el tamaño del icono dentro del círculo */
+    height: auto;
+    /* Si tus iconos son negros, puedes usar filter para hacerlos blancos/grises */
+    filter: brightness(0) invert(0.9);
+}
+
+.tarjeta p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+}
