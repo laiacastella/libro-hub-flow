@@ -1,11 +1,8 @@
 "use client";
 
-import Header from "@/components/Header/Header.jsx";
-import Footer from "@/components/Footer/Footer.jsx";
-import Estrellas from "@/components/Estrellas/Estrellas.jsx";
-import Biblioteca from "@/components/Biblioteca/Biblioteca.jsx";
-import Intercambios from "@/components/Intercambios/Intercambios.jsx";
-import Valoraciones from "@/components/Valoraciones/Valoraciones.jsx";
+import { Header, Footer, Estrellas, Biblioteca, 
+    Valoraciones } from "@/components";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.css";
@@ -28,6 +25,7 @@ export default function PerfilUsuarioPropio() {
                         <div className={styles.datos}>
                             <h2>Nombre de usuario</h2>
                             <h3>Ciudad, Provincia</h3>
+                            <h3>23 Intercambios completados</h3>
                         </div>
                     </div>
 
@@ -37,13 +35,6 @@ export default function PerfilUsuarioPropio() {
                         onClick={() => setPaginaActiva("biblioteca")}>
                             <h1>15</h1>
                             <h2>Libros disponibles</h2>
-                        </div>
-
-                        <div tabIndex={0} className={`${styles.paginas}
-                        ${paginaActiva === "intercambios" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("intercambios")}>
-                            <h1>23</h1>
-                            <h2>Intercambios completados</h2>
                         </div>
 
                         <div tabIndex={0} className={`${styles.paginas}
@@ -58,7 +49,6 @@ export default function PerfilUsuarioPropio() {
 
                     <div className={styles.contenido}>
                         {paginaActiva === "biblioteca" && <Biblioteca />}
-                        {paginaActiva === "intercambios" && <Intercambios />}
                         {paginaActiva === "valoraciones" && <Valoraciones />}
                     </div>
                 </div>

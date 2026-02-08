@@ -1,6 +1,6 @@
 "use client";
 import { Header, Footer, Estrellas, Biblioteca, 
-    Solicitudes, Intercambios, Valoraciones, CardComentario } from "@/components";
+    Solicitudes, Valoraciones } from "@/components";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
