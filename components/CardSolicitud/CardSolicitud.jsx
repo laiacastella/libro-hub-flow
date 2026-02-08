@@ -3,78 +3,112 @@ import { useEffect, useState } from "react";
 
 export default function CardSolicitud() {
     const [intercambios, setIntercambios] = useState([]);
-    const [verBibliotecaIds, setVerBibliotecaIds] = useState([]); // IDs de intercambios que muestran biblioteca
+    // Definimos el flujo de estados para cada acción
+    const flujoEstados = {
+        solicitado: "seleccionado",
+        seleccionado: "aceptado",
+        aceptado: "valorar",
+        rechazado: "finalizado",
+        valorar: "finalizado",
+        finalizado: "eliminado",
+        eliminado: null,
+    };
+    // Etiquetas para cada estado del botón
+    const etiquetasBoton = {
+        solicitado: "Ver biblioteca",
+        seleccionado: "Aceptar o rechazar",
+        aceptado: "Intercambiado",
+        rechazado: "Rechazado",
+        valorar: "Valorar",
+        finalizado: "Eliminar",
+        eliminado: "Eliminado",
+    };
 
+    // Cargar intercambios
     useEffect(() => {
         fetch("/api/intercambios")
             .then((res) => res.json())
-            .then((data) => {
-                const intercambiosMapeados = data.map((item) => ({
-                    ...item,
-                    libroPropio: {
-                        titulo: item.libro_solicitado_titulo,
-                        autor: item.libro_solicitado_autor,
-                        imagen: item.libro_solicitado_foto,
-                    },
-                    libroIntercambio: item.id_libro_ofrecido
-                        ? {
-                              titulo: item.libro_ofrecido_titulo,
-                              autor: item.libro_ofrecido_autor,
-                              imagen: item.libro_ofrecido_foto,
-                          }
-                        : null,
-                    confirmar: item.estado_solicitud === "Pendiente",
-                }));
-                setIntercambios(intercambiosMapeados);
-            });
+            .then((data) => setIntercambios(data));
     }, []);
 
-    const toggleBiblioteca = (id) => {
-        setVerBibliotecaIds((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
-    };
+    // Avanzar al siguiente estado
+    async function avanzarEstado(id, estadoActual) {
+        const siguienteEstado = flujoEstados[estadoActual];
+        if (!siguienteEstado) return;
+
+        // Actualizar en la api
+        await fetch("/api/intercambios", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_intercambio: id, estado: siguienteEstado }),
+        });
+
+        // Actualizar visualmente
+        setIntercambios((prev) => prev.map((i) => (i.id_intercambio === id ? { ...i, estado_solicitud: siguienteEstado } : i)));
+    }
+
+    // Eliminar visualmente (solo cuando sea finalizado)
+    async function eliminarIntercambio(id) {
+        await fetch("/api/intercambios", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_intercambio: id, estado: "eliminado" }),
+        });
+
+        setIntercambios((prev) => prev.filter((i) => i.id_intercambio !== id));
+    }
 
     return (
         <>
-            {intercambios.map((solicitud) => {
-                const verBiblioteca = verBibliotecaIds.includes(solicitud.id_intercambio);
-
-                return (
-                    <div key={solicitud.id_intercambio} className={styles.solicitudCard}>
-                        <div className={styles.librosContainer}>
-                            {/* Libro propio */}
-                            <div className={styles.libro}>
-                                <img src={solicitud.libroPropio.imagen} alt={solicitud.libroPropio.titulo} className={styles.libroImagen} loading="lazy" />
-                                <p className={styles.libroTitulo}>{solicitud.libroPropio.titulo}</p>
-                            </div>
-
-                            {/* Icono intercambio */}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.intercambioIcono} aria-hidden="true">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M20 10h-16l5.5 -6" />
-                                <path d="M4 14h16l-5.5 6" />
-                            </svg>
-
-                            {/* Libro intercambio */}
-                            <div className={styles.libro}>
-                                {solicitud.libroIntercambio ? (
-                                    <>
-                                        <img src={solicitud.libroIntercambio.imagen} alt={solicitud.libroIntercambio.titulo} className={styles.libroImagen} loading="lazy" />
-                                        <p className={styles.libroTitulo}>{solicitud.libroIntercambio.titulo}</p>
-                                    </>
-                                ) : (
-                                    <div className={styles.libroImagen}>—</div>
-                                )}
-                            </div>
+            {intercambios.map((intercambio) => (
+                <div key={intercambio.id_intercambio} className={styles.solicitudCard}>
+                    <div className={styles.librosContainer}>
+                        {/* Libro solicitado */}
+                        <div className={styles.libro}>
+                            <img src={intercambio.libro_solicitado_foto} alt={intercambio.libro_solicitado_titulo} className={styles.libroImagen} loading="lazy" />
+                            <p className={styles.libroTitulo}>{intercambio.libro_solicitado_titulo}</p>
                         </div>
 
-                        <button className={styles.boton} onClick={() => toggleBiblioteca(solicitud.id_intercambio)}>
-                            {verBiblioteca ? "Ocultar biblioteca" : "Ver biblioteca"}
-                        </button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.intercambioIcono} aria-hidden="true">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M20 10h-16l5.5 -6" />
+                            <path d="M4 14h16l-5.5 6" />
+                        </svg>
 
-                        {solicitud.confirmar && <button className={styles.boton}>Confirmar intercambio</button>}
+                        {/* Libro ofrecido */}
+                        <div className={styles.libro}>
+                            {intercambio.libro_ofrecido_titulo ? (
+                                <>
+                                    <img src={intercambio.libro_ofrecido_foto} alt={intercambio.libro_ofrecido_titulo} className={styles.libroImagen} loading="lazy" />
+                                    <p className={styles.libroTitulo}>{intercambio.libro_ofrecido_titulo}</p>
+                                </>
+                            ) : (
+                                <div className={styles.libroImagen}>—</div>
+                            )}
+                        </div>
                     </div>
-                );
-            })}
+
+                    {/* Botones */}
+                    {intercambio.estado_solicitud === "seleccionado" ? (
+                        <div className={styles.botonesSeleccion}>
+                            <button className={styles.botonAceptar} onClick={() => avanzarEstado(intercambio.id_intercambio, "aceptado")}>
+                                Aceptar
+                            </button>
+                            <button className={styles.botonRechazar} onClick={() => avanzarEstado(intercambio.id_intercambio, "rechazado")}>
+                                Rechazar
+                            </button>
+                        </div>
+                    ) : ["finalizado", "rechazado"].includes(intercambio.estado_solicitud) ? (
+                        <button className={styles.boton} onClick={() => eliminarIntercambio(intercambio.id_intercambio)}>
+                            Eliminar
+                        </button>
+                    ) : flujoEstados[intercambio.estado_solicitud] ? (
+                        <button className={styles.boton} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)}>
+                            {etiquetasBoton[intercambio.estado_solicitud]}
+                        </button>
+                    ) : null}
+                </div>
+            ))}
         </>
     );
 }
