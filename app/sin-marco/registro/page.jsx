@@ -70,6 +70,7 @@ export default function Registro() {
           <button type="submit" className={styles.button}>
             CREAR USUARIO 👤+
           </button>
+          
         </form>
         
         <p className={styles.footerText}>

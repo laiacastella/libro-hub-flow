@@ -1,15 +1,24 @@
 "use client"
-import data from "@/data/libros.json";
 import styles from "./LibroCard.module.css";
 
-const libros = data.libros;
+export function LibroCard({ titulo, autor, imagen }) {
 
-export function Biblioteca() {
-    return libros.map((libro) => (
-        <div key={libro.id} className={styles.libroCard}>
-            <img src={libro.imagen} alt={libro.titulo} className={styles.libroImage} />
-            <h2 className={styles.libroTitulo}>{libro.titulo}</h2>
-            <p className={styles.libroAutor}>{libro.autor}</p>
+     const manejarErrorImagen = (e) => {
+    e.target.src = "https://via.placeholder.com/150x200?text=Sin+Portada";
+  };
+
+    return (
+        <div className={styles.libroCard}>
+            <img 
+                src={imagen || '/portada-por-defecto.png'} 
+                alt={titulo} 
+                className={styles.libroImage}
+                onError={manejarErrorImagen}
+            />
+            <div className={styles.contenido}>
+                <h2 className={styles.libroTitulo}>{titulo}</h2>
+                <p className={styles.libroAutor}>{autor}</p>
+            </div>
         </div>
-    ));
+    );
 }

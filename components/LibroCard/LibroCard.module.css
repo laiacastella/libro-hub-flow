@@ -1,42 +1,46 @@
 .libroCard {
-    background-color: #ffffff;
-    border-radius: 8px;
-    width: 200px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
+  background-color: #a69697;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease;
 }
 
 .libroCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+/* El contenedor blanco para la imagen */
+.contenedorImagen {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 15px;
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  height: 200px;
 }
 
 .libroImage {
-    width: 180px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 10px;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .libroTitulo {
-    font-size: 1.1rem;
-    margin: 5px 0;
-    color: #333;
-    text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .libroAutor {
-    font-size: 0.8rem;
-    color: #666;
-    text-transform: uppercase;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.9;
 }
