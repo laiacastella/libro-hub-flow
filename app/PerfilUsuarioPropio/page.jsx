@@ -1,12 +1,6 @@
 "use client";
+import { Header, Footer, Estrellas, Biblioteca, Solicitudes, Intercambios, Valoraciones, CardComentario } from "@/components";
 
-import Header from "@/components/Header/Header.jsx";
-import Footer from "@/components/Footer/Footer.jsx";
-import Estrellas from "@/components/Estrellas/Estrellas.jsx";
-import Biblioteca from "@/components/Biblioteca/Biblioteca.jsx";
-import Solicitudes from "@/components/Solicitudes/Solicitudes.jsx";
-import Intercambios from "@/components/Intercambios/Intercambios.jsx";
-import Valoraciones from "@/components/Valoraciones/Valoraciones.jsx";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -44,30 +38,38 @@ export default function PerfilUsuarioPropio() {
                     </div>
 
                     <div className={styles.navegacion}>
-                        <div tabIndex={0} className={`${styles.paginas}
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
                         ${paginaActiva === "biblioteca" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("biblioteca")}>
+                            onClick={() => setPaginaActiva("biblioteca")}>
                             <h1>15</h1>
                             <h2>Libros disponibles</h2>
                         </div>
 
-                        <div tabIndex={0} className={`${styles.paginas}
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
                         ${paginaActiva === "solicitudes" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("solicitudes")}>
+                            onClick={() => setPaginaActiva("solicitudes")}>
                             <h1>7</h1>
                             <h2>Solicitudes de intercambio</h2>
                         </div>
 
-                        <div tabIndex={0} className={`${styles.paginas}
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
                         ${paginaActiva === "intercambios" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("intercambios")}>
+                            onClick={() => setPaginaActiva("intercambios")}>
                             <h1>23</h1>
                             <h2>Intercambios completados</h2>
                         </div>
 
-                        <div tabIndex={0} className={`${styles.paginas}
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
                         ${paginaActiva === "valoraciones" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("valoraciones")}>
+                            onClick={() => setPaginaActiva("valoraciones")}>
                             <h1>
                                 {valoracion} <Estrellas valoracion={valoracion} />
                             </h1>
@@ -80,6 +82,8 @@ export default function PerfilUsuarioPropio() {
                         {paginaActiva === "solicitudes" && <Solicitudes />}
                         {paginaActiva === "intercambios" && <Intercambios />}
                         {paginaActiva === "valoraciones" && <Valoraciones />}
+                        {/* Para prueba, para poder mostrarlo y verlo enalgun sitio */}
+                        <CardComentario />
                     </div>
                 </div>
             </main>

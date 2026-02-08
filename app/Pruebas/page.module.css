@@ -1,0 +1,84 @@
+/* Contenedor principal */
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fdfdfd;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+}
+
+/* Título */
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Inputs */
+.inputField {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.inputField:focus {
+    border-color: #0070f3;
+    outline: none;
+}
+
+/* Botón */
+.button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background-color: #005bb5;
+}
+
+/* Previsualización de imagen */
+.previewContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.previewImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+/* Mensajes */
+.message {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Link abrir imagen */
+.link {
+    color: #0070f3;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
