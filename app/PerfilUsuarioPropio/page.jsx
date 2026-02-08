@@ -1,5 +1,6 @@
 "use client";
-import { Header, Footer, Estrellas, Biblioteca, Solicitudes, Intercambios, Valoraciones, CardComentario } from "@/components";
+import { Header, Footer, Estrellas, Biblioteca, 
+    Solicitudes, Intercambios, Valoraciones, CardComentario } from "@/components";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,12 +25,15 @@ export default function PerfilUsuarioPropio() {
                         <div className={styles.foto}>
                             <img src="/perfilUsuario.svg" className={styles.fotoPerfil} alt="perfilUsuario" />
                         </div>
+                        
                         <div className={styles.datos}>
                             <h2>Nombre Apellidos (Nombre de usuario)</h2>
                             <h3>Ciudad, Provincia</h3>
                             <h3>Correo electrónico</h3>
                             <h3>Número de teléfono</h3>
+                            <h3>23 Intercambios completados</h3>
                         </div>
+
                         <div className={styles.editarDatos}>
                             <button className={styles.botonEditar} onClick={() => router.push("/EditarCuenta")}>
                                 Editar datos
@@ -59,15 +63,6 @@ export default function PerfilUsuarioPropio() {
                         <div
                             tabIndex={0}
                             className={`${styles.paginas}
-                        ${paginaActiva === "intercambios" ? styles.activo : ""}`}
-                            onClick={() => setPaginaActiva("intercambios")}>
-                            <h1>23</h1>
-                            <h2>Intercambios completados</h2>
-                        </div>
-
-                        <div
-                            tabIndex={0}
-                            className={`${styles.paginas}
                         ${paginaActiva === "valoraciones" ? styles.activo : ""}`}
                             onClick={() => setPaginaActiva("valoraciones")}>
                             <h1>
@@ -80,10 +75,7 @@ export default function PerfilUsuarioPropio() {
                     <div className={styles.contenido}>
                         {paginaActiva === "biblioteca" && <Biblioteca />}
                         {paginaActiva === "solicitudes" && <Solicitudes />}
-                        {paginaActiva === "intercambios" && <Intercambios />}
                         {paginaActiva === "valoraciones" && <Valoraciones />}
-                        {/* Para prueba, para poder mostrarlo y verlo enalgun sitio */}
-                        <CardComentario />
                     </div>
                 </div>
             </main>
