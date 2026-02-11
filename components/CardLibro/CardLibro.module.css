@@ -40,3 +40,7 @@
     color: #666;
     text-transform: uppercase;
 }
+.seleccionado {
+    background-color: #5dd461;
+    border: #4caf50 solid 2px;
+}
