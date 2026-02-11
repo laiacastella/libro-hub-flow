@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
 import styles from "./CardLibro.module.css";
 
-export default function Biblioteca(userId) {
+export default function Biblioteca(userId, todos=true) {
   // Estado para almacenar los libros
   const [libros, setLibros] = useState([]);
+  const [libroSeleccionadoId, setLibroSeleccionadoId] = useState(null);
 
-  // todos los libros
+  // todos los libros y por usuario
   useEffect(() => {
-    fetch("/api/libros")
+
+    const endpoint =
+      todos === false ? `/api/libros/usuario/${userId}` : "/api/libros";
+
+    fetch(endpoint)
       .then((res) => res.json())
       .then((data) => setLibros(data));
-  }, []);
-
-  // libros del usuario
-  useEffect(() => {
-    fetch(`/api/libros/usuario/${userId}`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
+  }, [todos, userId]);
 
   return libros.map((libro) => (
-    <div key={libro.id_libro} className={styles.libroCard}>
+    <div key={libro.id_libro} className={`${styles.libroCard} ${
+            libro.id_libro === libroSeleccionadoId ? styles.seleccionado : ""
+          }`}
+          onClick={() => setLibroSeleccionadoId(libro.id_libro)}>
       <img
         src={libro.foto_portada}
         alt={libro.titulo}
