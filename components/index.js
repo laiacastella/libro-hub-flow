@@ -4,6 +4,7 @@ export { default as Estrellas } from "./Estrellas/Estrellas";
 export { default as Intercambios } from "./Intercambios/Intercambios";
 export { default as Solicitudes } from "./Solicitudes/Solicitudes";
 export { default as Valoraciones } from "./Valoraciones/Valoraciones";
+export { default as Paginacion } from "./Paginacion/Paginacion";
 
 // Cards
 export { default as CardComentario } from "./CardComentario/CardComentario";
