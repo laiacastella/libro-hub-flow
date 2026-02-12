@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const IntercambioContext = createContext();
 
@@ -7,7 +7,15 @@ export function IntercambioProvider({ children }) {
   const [intercambios, setIntercambios] = useState([]);
   const [intercambioActivo, setIntercambioActivo] = useState(null);
 
-  // Avanzar estado
+  // Cargar todos los intercambios desde la API
+  useEffect(() => {
+    fetch("/api/intercambios")
+      .then((res) => res.json())
+      .then((data) => setIntercambios(data))
+      .catch((err) => console.error("Error cargando intercambios:", err));
+  }, []);
+
+  // Avanzar estado de un intercambio
   async function avanzarEstado(id, estadoActual) {
     const flujoEstados = {
       solicitado: "seleccionado",
@@ -70,16 +78,27 @@ export function IntercambioProvider({ children }) {
     setIntercambios((prev) => prev.filter((i) => i.id_intercambio !== id));
   }
 
+  // Abrir popup para un intercambio
+  function abrirIntercambio(intercambio) {
+    setIntercambioActivo(intercambio);
+  }
+
+  // Cerrar popup
+  function cerrarIntercambio() {
+    setIntercambioActivo(null);
+  }
+
   return (
     <IntercambioContext.Provider
       value={{
         intercambios,
-        setIntercambios,
         intercambioActivo,
-        setIntercambioActivo,
+        setIntercambios,
         avanzarEstado,
         seleccionarLibroOfrecido,
         eliminarIntercambio,
+        abrirIntercambio,
+        cerrarIntercambio,
       }}
     >
       {children}

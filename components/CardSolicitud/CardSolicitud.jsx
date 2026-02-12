@@ -8,7 +8,7 @@ export default function CardSolicitud() {
   const [open, setOpen] = useState(false);
   const [intercambioActivo, setIntercambioActivo] = useState(null);
 
-  const [intercambios, setIntercambios] = useState([]);
+  const [intercambios, setIntercambios] = useState([]); // todos intercambios
   // Definimos el flujo de estados para cada acción
   const flujoEstados = {
     solicitado: "seleccionado",
@@ -35,7 +35,7 @@ export default function CardSolicitud() {
     fetch("/api/intercambios")
       .then((res) => res.json())
       .then((data) => setIntercambios(data));
-  }, []);
+  }, [open]); // recarga al cerrar el popup para reflejar cambios
 
   // Avanzar al siguiente estado
   async function avanzarEstado(id, estadoActual) {
@@ -43,7 +43,7 @@ export default function CardSolicitud() {
     if (!siguienteEstado) return;
 
     // Actualizar en la api
-    await fetch("/api/intercambios", {
+    await fetch("/api/intercambios/estado", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_intercambio: id, estado: siguienteEstado }),
@@ -78,7 +78,6 @@ export default function CardSolicitud() {
   // Función para cerrar el popup
   function cerrarPopup() {
     setOpen(false);
-    setIntercambioActivo(null);
   }
 
   return (
