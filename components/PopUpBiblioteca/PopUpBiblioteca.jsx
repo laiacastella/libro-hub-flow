@@ -64,7 +64,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
             <button
               className={styles.botonAceptar}
               onClick={() => {
-                avanzarEstado(intercambio.id_intercambio, "seleccionado");
+                // avanzarEstado(intercambio.id_intercambio, "seleccionado");
                 handleCerrarPopup();
                 setLibroSeleccionado(null);
                 // setIdIntercambio(intercambio.id_intercambio);
@@ -76,8 +76,8 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
             <button
               className={styles.botonAceptar}
               onClick={() => {
-                avanzarEstado(intercambio.id_intercambio, "aceptado");
-                setIdIntercambio(intercambio.id_intercambio);
+                avanzarEstado(intercambio.id_intercambio, "seleccionado");
+                // setIdIntercambio(intercambio.id_intercambio);
                 onClose();
               }}
             >
