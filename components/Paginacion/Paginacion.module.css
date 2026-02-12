@@ -10,10 +10,11 @@
 .boton {
     padding: 6px 10px;
     cursor: pointer;
+    border-radius: 12px;
 }
     
 .activa {
     font-weight: bold;
-    background-color: #333;
+    background-color: #63a26c;
     color: #fff;
 }
