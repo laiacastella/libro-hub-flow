@@ -50,8 +50,10 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
         <button
           title="Cerrar ventana"
           className={styles.cerrar}
-          onClick={onClose}
-          // onClick={handleCerrarPopup}
+          onClick={() => {
+            onClose();
+            setLibroSeleccionado(null);
+          }}
         >
           ✖
         </button>
@@ -64,6 +66,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
               onClick={() => {
                 avanzarEstado(intercambio.id_intercambio, "seleccionado");
                 handleCerrarPopup();
+                setLibroSeleccionado(null);
                 // setIdIntercambio(intercambio.id_intercambio);
                 onClose();
               }}
