@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-.popup{
+.popup {
   border: none;
   border-radius: 8px;
   padding: 0;
@@ -16,7 +16,7 @@
   height: 90%;
   width: 90%;
   overflow: hidden;
-  display: flex;  
+  display: flex;
   flex-direction: column;
 }
 
@@ -28,13 +28,13 @@
   background: none;
   cursor: pointer;
   transition:
-        transform 0.25s ease,
-        filter 0.25s ease;
+    transform 0.25s ease,
+    filter 0.25s ease;
 }
 .cerrar:hover {
-    color: #ed4f4c;
-    transform: scale(1.15);
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
+  color: #ed4f4c;
+  transform: scale(1.15);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
 }
 .header {
   background-color: rgb(255, 255, 255);
@@ -44,102 +44,131 @@
   padding: 0 20px;
 }
 .botonesSeleccion {
-    display: flex;
-    gap: 10px;
-    width: 55%;
-    height: 60%;
+  display: flex;
+  gap: 10px;
+  width: 55%;
+  height: 60%;
 }
 .botonAceptar {
-    background-color: #43a047;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 60%;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #43a047;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 60%;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 .botonAceptar:hover {
-    background-color: #4caf50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: #4caf50;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .botonRechazar {
-    background-color: #e53935;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 40%;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #e53935;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 40%;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 .botonAceptar:hover {
-    background-color: #4caf50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: #4caf50;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 .botonRechazar:hover {
-    background-color: #f44336;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: #f44336;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 .infoIntercambio {
-  background-color: #F8FAFC;
-  border: #E5E7EB 1px solid;
+  background-color: #f8fafc;
+  border: #e5e7eb 1px solid;
   padding: 10px 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 .infoIntercambio div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .infoIntercambio p {
-    font-size: 0.9rem;
-    color: #555;
+  font-size: 0.9rem;
+  color: #555;
 }
 .bodyPopup {
   display: flex;
-  gap: 20px;
 
-  flex: 1 1 auto;   /* ocupa espacio restante */
-  min-height: 0;     /* clave para que los hijos con overflow funcionen */
+  flex: 1 1 auto; /* ocupa espacio restante */
+  min-height: 0; /* clave para que los hijos con overflow funcionen */
   overflow: hidden;
 }
 .infoLibro {
-  background-color: #F8FAFC;
-
-   width: 35%;
+  background-color: #f8fafc;
+  box-shadow: -8px 0 12px -4px rgba(0, 0, 0, 0.1);
+  width: 35%;
   overflow-y: auto; /* scroll si el contenido crece */
   min-height: 0;
 }
-.biblioteca{
-
+.bibliotecaContainer {
+  background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   flex: 1;
   padding: 20px;
   overflow-y: auto; /* scroll solo aquí */
   min-height: 0;
+  width: auto;
 }
-
+.inputBusqueda {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 0;
+  border: none;
+  font-size: 1rem;
+  background: none;
+}
+.inputBusqueda:focus {
+  outline: none; /* quita el borde de enfoque predeterminado */
+  box-shadow: none; /* quita cualquier sombra que pueda aparecer */
+  border: none; /* si quieres quitar el borde del input */
+}
+.buscador {
+  background-color: rgb(255, 255, 255);
+  padding: 0 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.buscador:focus-within {
+  border: 1px solid #43a047; /* ejemplo: verde */
+  box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.2); /* opcional */
+}
 
 /* CONTENEDOR GENERAL */
 .detailContainer {
@@ -284,18 +313,18 @@
   font-weight: 500;
 }
 .libroIcono {
-    width: 60px;
-    height: 60px;
-    color: #555;
-    margin-top: 50%;
-    cursor: pointer;
+  width: 60px;
+  height: 60px;
+  color: #555;
+  margin-top: 50%;
+  cursor: pointer;
 
-    transition:
-        transform 0.25s ease,
-        filter 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease;
 }
 
 .libroIcono:hover {
-    transform: scale(1.15);
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.1));
+  transform: scale(1.15);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.1));
 }
