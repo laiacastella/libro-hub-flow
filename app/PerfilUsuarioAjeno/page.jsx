@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.css";
 
-export default function PerfilUsuarioPropio() {
+export default function PerfilUsuarioAjeno() {
     const router = useRouter();
     const valoracion = 4.5;
     const [paginaActiva, setPaginaActiva] = useState("biblioteca");
