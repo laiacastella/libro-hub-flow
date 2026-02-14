@@ -24,11 +24,3 @@ export async function GET() {
         return Response.json({ error: "Error BBDD" }, { status: 500 });
     }
 }
-
-export async function PATCH(req) {
-    const { id_intercambio, estado } = await req.json();
-
-    await db.query("UPDATE intercambios SET estado_solicitud = ? WHERE id_intercambio = ?", [estado, id_intercambio]);
-
-    return Response.json({ ok: true });
-}
