@@ -45,7 +45,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 100%; 
+    width: 100%;
 }
 
 .libros {
@@ -58,4 +58,14 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+.seleccionado {
+    background-color: #5dd461;
+    border: #4caf50 solid 2px;
+}
+.seleccionado .libroTitulo {
+    color: #fff;
+}
+.seleccionado .libroAutor {
+    color: #fff;
 }
