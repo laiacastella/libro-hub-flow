@@ -3,7 +3,7 @@ import FormEditarCuenta from "@/components/FormEditarCuenta/FormEditarCuenta.jsx
 import Header from "@/components/Header/Header.jsx";
 import Footer from "@/components/Footer/Footer.jsx";
 import { useRouter } from "next/navigation";
-import styles from "./page.module.css";
+import styles from "../page.module.css"; 
 
 export default function EditarCuenta() {
     const router = useRouter();

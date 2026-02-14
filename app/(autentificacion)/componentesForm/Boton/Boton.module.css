@@ -1,0 +1,33 @@
+.botonApp {
+    /* --- ESTÉTICA --- */
+    background: #63A26C;     
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;        
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(99, 162, 108, 0.4); 
+    
+    /* --- COMPORTAMIENTO --- */
+    width: 100%;             /* mismo ancho de los campos */
+    height: 3rem;            /* Más alto */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* --- ESPACIADO --- */
+    margin-top: 0.3rem;        
+}
+
+.botonApp:hover {
+  background-color: #528a5a; /* al pasar el ratón */
+  transform: translateY(-2px); /* Pequeño salto hacia arriba al pasar el ratón */
+  box-shadow: 0 6px 20px rgba(99, 162, 108, 0.6);
+}
+
+.botonApp:active {
+    transform: translateY(0);   /* Baja cuando haces clic */
+}
+
