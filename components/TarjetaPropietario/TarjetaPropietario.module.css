@@ -1,0 +1,62 @@
+.tarjetaContenedor {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.infoUsuario {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.etiqueta {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+}
+
+.nombre {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.estrellas {
+    color: #ffc107;
+    /* Color dorado para las estrellas */
+    font-size: 1.1rem;
+}
+
+.estrellaVacia {
+    color: #e0e0e0;
+}
+
+.botonIntercambio {
+    background-color: #6fb98f;
+    /* El verde de tu diseño */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.botonIntercambio:hover {
+    background-color: #5a9b76;
+}

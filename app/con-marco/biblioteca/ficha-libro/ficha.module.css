@@ -1,0 +1,18 @@
+/* ficha.module.css */
+.containerFicha {
+    background-image: url('/public/inicioSesion-formulario.jpg');
+    background-size: cover;
+    min-height: 100vh;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.cardBlanca {
+    background: rgba(255, 255, 255, 0.9);
+    /* Blanco con transparencia */
+    border-radius: 15px;
+    max-width: 900px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
