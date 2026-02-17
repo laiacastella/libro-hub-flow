@@ -9,24 +9,26 @@ export default function PaginaPrincipal() {
     const [filtro, setFiltro] = useState("");
 
     useEffect(() => {
-        fetch("/api/libros")
-            .then(async (res) => {
-                if (!res.ok) {
-                    const texto = await res.text(); // Leemos el HTML del error
-                    console.error("Servidor devolvió HTML en lugar de JSON. El inicio del texto es:", texto.substring(0, 50));
-                    throw new Error("El servidor no respondió con datos.");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                console.log("Datos recibidos:", data);
-                if (Array.isArray(data)) setLibros(data);
-            })
-            .catch((err) => console.error("Error final:", err));
-    }, []);
+    fetch("/api/libros")
+        .then(async (res) => {
+            if (!res.ok) {
+                const texto = await res.text();
+                console.error("Error servidor:", texto.substring(0, 50));
+                throw new Error("El servidor no respondió con datos.");
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log("Datos recibidos:", data);
+            if (data && data.data) {
+                setLibros(data.data); 
+            }
+        })
+        .catch((err) => console.error("Error final:", err));
+}, []);
 
     const librosFiltrados = libros.filter((libro) => {
-        const terminoBusqueda = filtro.toLowerCase().trim();
+    const terminoBusqueda = filtro.toLowerCase().trim();
 
         if (!terminoBusqueda) return true;
 
@@ -44,7 +46,7 @@ export default function PaginaPrincipal() {
 
                 <section className={estilos.cuadriculaLibros}>
                     {librosFiltrados.map((libro) => (
-                        <LibroCard key={libro.id_libro} titulo={libro.titulo} autor={libro.autor} imagen={libro.foto_portada} />
+                        <LibroCard key={libro.id_libro} id={libro.id_libro} titulo={libro.titulo} autor={libro.autor} imagen={libro.foto_portada} />
                     ))}
                 </section>
 
