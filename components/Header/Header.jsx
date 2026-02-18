@@ -1,9 +1,9 @@
-import { useRouter } from "next/navigation";
+
+import Link from "next/link";
+import { Enlaces } from "@/components";
 import styles from "./Header.module.css";
 
 export default function Header() {
-    const router = useRouter();
-
     return (
         <main>
             <div className={styles.cabecera}>
@@ -12,21 +12,26 @@ export default function Header() {
                 </div>
 
                 <div className={styles.menu}>
-                    <div className={styles.elemento} onClick={() => router.push("/PerfilUsuarioPropio?tab=solicitudes")}>
-                        Solicitudes
-                    </div>
+                    <Enlaces 
+                        nomEnlace="Solicitudes" 
+                        ruta="/PerfilUsuarioPropio?tab=solicitudes"
+                    />
 
-                    <div className={styles.elemento} onClick={() => router.push("")}>
-                        Biblioteca
-                    </div>
+                    <Enlaces 
+                        nomEnlace="Biblioteca" 
+                        ruta="/con-marco/biblioteca"
+                    />
 
-                    <div className={styles.elemento} onClick={() => router.push("/PerfilUsuarioPropio")}>
-                        Perfil
-                    </div>
+                    <Enlaces 
+                        nomEnlace="Perfil" 
+                        ruta="/PerfilUsuarioPropio"
+                    />
 
-                    <button className={styles.boton} onClick={() => router.push("")}>
-                        Sube tu libro
-                    </button>
+                    <Link href="">
+                        <button className={styles.boton}>
+                            Sube tu libro
+                        </button>
+                    </Link>
                 </div>
             </div>
         </main>

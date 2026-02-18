@@ -2,9 +2,8 @@
 import { Header, Footer, Estrellas, Biblioteca, 
     Solicitudes, Valoraciones } from "@/components";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 
 export default function PerfilUsuarioPropio() {

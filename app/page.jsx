@@ -2,6 +2,7 @@
 
 import HeaderHome from "@/components/HeaderHome/HeaderHome.jsx";
 import Footer from "@/components/Footer/Footer.jsx";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -16,9 +17,11 @@ export default function Home() {
                             <strong>LibroFlowHub</strong> es la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites. Descubre nuevas historias, dale una segunda vida a tus libros y comienza tu próximo capítulo con un solo clic.
                             <b>Un proceso simple para descubrir tu proxima lectura.</b>
                         </div>
-                        <button className={styles.boton} onClick={() => router.push("")}>
-                            Encuentra tu libro
-                        </button>
+                        <Link href="/inicioSesion">
+                            <button className={styles.boton}>
+                                Encuentra tu libro
+                            </button>
+                        </Link>
                     </div>
                 </div>
 

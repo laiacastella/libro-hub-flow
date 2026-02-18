@@ -2,16 +2,19 @@ import Campo from '../Campo/Campo.jsx'
 import Boton from '../Boton/Boton.jsx'
 import styles from './FormRegistro.module.css'
 import stylesGlobal from  '../disenoForm.module.css'
-import Enlaces from '../Enlaces/Enlaces.jsx'
-
+import { Enlaces } from "@/components";
+import Link from "next/link";
 
 const FormRegistro = () => {
     return (
         <div className={stylesGlobal.estiloForm}> 
         <form > 
             <div className={stylesGlobal.contenedorLogo}>
-                <img src='/logo-h1Negro.svg' alt='logo App' />
+                <Link href="/">
+                    <img src='/logo-h1Negro.svg' alt='logo App' />
+                </Link>
             </div>
+
             <div className={stylesGlobal.contenedorCampos}>
             <Campo
                 nombre = 'nombre'
@@ -87,7 +90,7 @@ const FormRegistro = () => {
               ¿Ya tienes una cuenta? 
 
         <Enlaces
-            ruta = ''
+            ruta = '/inicioSesion'
             nomEnlace = 'Iniciar Sesion'
         />
         </p>

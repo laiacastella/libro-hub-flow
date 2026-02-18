@@ -1,15 +1,18 @@
 import Campo from "../Campo/Campo.jsx"
 import Boton from "../Boton/Boton.jsx"
-import Enlaces from "../Enlaces/Enlaces.jsx"
+import { Enlaces } from "@/components";
 import styles from '../disenoForm.module.css'
 import stylesTexto from './FormLogin.module.css'
+import Link from "next/link";
 
 const FormLogin = () => {
     return (
         <div>
             <form className={styles.estiloForm}>
-                 <div className={styles.contenedorLogo}>
-                <img src='/logo-h1Negro.svg' alt='logo App' />
+                <div className={styles.contenedorLogo}>
+                    <Link href="/">
+                        <img src='/logo-h1Negro.svg' alt='logo App' />
+                    </Link>
                 </div>
                 <div className={styles.contenedorLogo}>
                     <img src="icono-inicioSesion.svg" alt="logo inicio sesion" />
@@ -34,20 +37,19 @@ const FormLogin = () => {
                         nomBoton = 'INICIAR SESION'
                     />
                         
-                <div className ={stylesTexto.textoLogin}>
-                    <Enlaces 
-                        ruta = ''
-                        nomEnlace = '¿Olvidaste tu contraseña?'
-                    />
-                    <p> ¿No tienes una cuenta? 
-                    <Enlaces
-                        ruta = ''
-                        nomEnlace = 'Registrarse'
-                    />
+                    <div className ={stylesTexto.textoLogin}>
+                        <Enlaces 
+                            nomEnlace="¿Olvidaste tu contraseña?"
+                            ruta=""
+                        />
+                        <p> ¿No tienes una cuenta? 
+                        <Enlaces 
+                            nomEnlace="Registrarse" 
+                            ruta="/Registro"
+                        />
+                        </p>
 
-                    </p>
-
-                </div>
+                    </div>
                 </div>
             </form>
         </div>

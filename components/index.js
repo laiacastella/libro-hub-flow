@@ -5,6 +5,7 @@ export { default as Intercambios } from "./Intercambios/Intercambios";
 export { default as Solicitudes } from "./Solicitudes/Solicitudes";
 export { default as Valoraciones } from "./Valoraciones/Valoraciones";
 export { default as Paginacion } from "./Paginacion/Paginacion";
+export { default as Enlaces } from "./Enlaces/Enlaces";
 
 // Cards
 export { default as CardComentario } from "./CardComentario/CardComentario";

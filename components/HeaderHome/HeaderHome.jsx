@@ -1,11 +1,8 @@
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import styles from "./HeaderHome.module.css";
 
-export default function HeaderHome(){
-  
-  const router = useRouter();  
-  
+export default function HeaderHome(){  
   return (
       <main>
         <div className={styles.cabecera}>
@@ -14,15 +11,18 @@ export default function HeaderHome(){
           </div>
 
           <div className={styles.menu}>
-            <button className={styles.boton}
-              onClick={() => router.push("")}>
-              Iniciar sesión
-            </button>
+            <Link href="/inicioSesion">
+              <button className={styles.boton}>
+                Iniciar sesión
+              </button>
+            </Link>
 
-            <button className={styles.boton}
-              onClick={() => router.push("")}>
-              Registrarse
-            </button>
+            <Link href="/Registro">
+              <button className={styles.boton}>
+                Registrarse
+              </button>
+            </Link>
+            
           </div>          
         </div>
       </main>
