@@ -17,15 +17,6 @@
     gap: 30px;
 }
 
-.elemento {
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.elemento:hover {
-    text-decoration: underline;
-}
-
 .boton {
     background: #63A26C;
     color: white;
