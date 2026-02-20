@@ -6,6 +6,7 @@ export { default as Solicitudes } from "./Solicitudes/Solicitudes";
 export { default as Valoraciones } from "./Valoraciones/Valoraciones";
 export { default as Paginacion } from "./Paginacion/Paginacion";
 export { default as Enlaces } from "./Enlaces/Enlaces";
+export { default as BarraBusqueda } from "./BarraBusqueda/BarraBusqueda";
 
 // Cards
 export { default as CardComentario } from "./CardComentario/CardComentario";
