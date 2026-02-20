@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import estilos from "./ficha.module.css";
@@ -6,30 +6,30 @@ import estilos from "./ficha.module.css";
 export default function FichaLibro() {
     const { id } = useParams();
     const [libro, setLibro] = useState(null);
-    const [comentarios, setComentarios] = useState([]); 
+    const [comentarios, setComentarios] = useState([]);
 
     useEffect(() => {
         if (id) {
             // 1. Cargar datos del libro
             fetch(`/api/libros/${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    const resultado = Array.isArray(data) ? data[0] : (data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data);
+                .then((res) => res.json())
+                .then((data) => {
+                    const resultado = Array.isArray(data) ? data[0] : data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data;
                     setLibro(resultado);
                 });
 
-            // 2. Cargar COMENTARIOS 
-            fetch(`/api/comentarios?id_libro=${id}`) 
-                .then(res => {
+            // 2. Cargar COMENTARIOS
+            fetch(`/api/comentarios?id_libro=${id}`)
+                .then((res) => {
                     if (!res.ok) throw new Error("Error en API Comentarios");
                     return res.json();
                 })
-                .then(data => {
-                    setComentarios(data.data || data); 
+                .then((data) => {
+                    setComentarios(data.data || data);
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error("Fallo al cargar comentarios:", err);
-                    setComentarios([]); 
+                    setComentarios([]);
                 });
         }
     }, [id]);
