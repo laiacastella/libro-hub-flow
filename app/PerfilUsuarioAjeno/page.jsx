@@ -1,7 +1,6 @@
 "use client";
 
-import { Header, Footer, Estrellas, Biblioteca, 
-    Valoraciones } from "@/components";
+import { Header, Footer, Estrellas, ComponenteBiblioteca, Valoraciones } from "@/components";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,16 +29,20 @@ export default function PerfilUsuarioAjeno() {
                     </div>
 
                     <div className={styles.navegacion}>
-                        <div tabIndex={0} className={`${styles.paginas}
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
                         ${paginaActiva === "biblioteca" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("biblioteca")}>
+                            onClick={() => setPaginaActiva("biblioteca")}>
                             <h1>15</h1>
                             <h2>Libros disponibles</h2>
                         </div>
 
-                        <div tabIndex={0} className={`${styles.paginas}
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
                         ${paginaActiva === "valoraciones" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("valoraciones")}>
+                            onClick={() => setPaginaActiva("valoraciones")}>
                             <h1>
                                 {valoracion} <Estrellas valoracion={valoracion} />
                             </h1>
@@ -48,7 +51,7 @@ export default function PerfilUsuarioAjeno() {
                     </div>
 
                     <div className={styles.contenido}>
-                        {paginaActiva === "biblioteca" && <Biblioteca />}
+                        {paginaActiva === "biblioteca" && <ComponenteBiblioteca />}
                         {paginaActiva === "valoraciones" && <Valoraciones />}
                     </div>
                 </div>

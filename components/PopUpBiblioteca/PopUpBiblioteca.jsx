@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./PopUpBiblioteca.module.css";
-import { Biblioteca } from "@/components/index";
+import { ComponenteBiblioteca } from "@/components/index";
 
 const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     const [libroSeleccionado, setLibroSeleccionado] = useState(null);
@@ -117,7 +117,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                             </svg>
                             <input type="text" className={styles.inputBusqueda} placeholder="Buscar libro..." />
                         </div>
-                        <Biblioteca todos={false} userId={intercambio.id_usuario} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} />
+                        <ComponenteBiblioteca todos={false} userId={intercambio.id_usuario} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} />
                     </div>
                     <div className={styles.infoLibro}>
                         {/* book details */}

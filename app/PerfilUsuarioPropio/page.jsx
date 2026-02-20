@@ -1,6 +1,5 @@
 "use client";
-import { Header, Footer, Estrellas, Biblioteca, 
-    Solicitudes, Valoraciones } from "@/components";
+import { Header, Footer, Estrellas, ComponenteBiblioteca, Solicitudes, Valoraciones } from "@/components";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -24,7 +23,7 @@ export default function PerfilUsuarioPropio() {
                         <div className={styles.foto}>
                             <img src="/perfilUsuario.svg" className={styles.fotoPerfil} alt="perfilUsuario" />
                         </div>
-                        
+
                         <div className={styles.datos}>
                             <h2>Nombre Apellidos (Nombre de usuario)</h2>
                             <h3>Ciudad, Provincia</h3>
@@ -72,7 +71,7 @@ export default function PerfilUsuarioPropio() {
                     </div>
 
                     <div className={styles.contenido}>
-                        {paginaActiva === "biblioteca" && <Biblioteca />}
+                        {paginaActiva === "biblioteca" && <ComponenteBiblioteca />}
                         {paginaActiva === "solicitudes" && <Solicitudes />}
                         {paginaActiva === "valoraciones" && <Valoraciones />}
                     </div>

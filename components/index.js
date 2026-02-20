@@ -1,5 +1,5 @@
 // Components
-export { default as Biblioteca } from "./Biblioteca/Biblioteca";
+export { default as ComponenteBiblioteca } from "./ComponenteBiblioteca/ComponenteBiblioteca";
 export { default as Estrellas } from "./Estrellas/Estrellas";
 export { default as Intercambios } from "./Intercambios/Intercambios";
 export { default as Solicitudes } from "./Solicitudes/Solicitudes";
