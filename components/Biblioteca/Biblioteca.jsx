@@ -1,13 +1,10 @@
 import styles from "./Biblioteca.module.css";
-import { CardLibro } from "../index.js";
+import { CardLibro } from "@/components";
 
-export default function Biblioteca({setLibroSeleccionado, libroSeleccionado}) {
+export default function Biblioteca({ setLibroSeleccionado, libroSeleccionado }) {
     return (
-            <div className={styles.biblioteca}>
-                <CardLibro 
-                setLibroSeleccionado={setLibroSeleccionado}
-                libroSeleccionado={libroSeleccionado}
-                />
-            </div>
+        <div className={styles.biblioteca}>
+            <CardLibro setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} />
+        </div>
     );
 }
