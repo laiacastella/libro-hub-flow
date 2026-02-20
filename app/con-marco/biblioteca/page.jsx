@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { BarraBusqueda } from "@/components/BarraBusqueda/BarraBusqueda.jsx";
-import { LibroCard } from "@/components/LibroCard/LibroCard.jsx";
+import { CardLibro, BarraBusqueda } from "@/components/index.js";
 import estilos from "./biblioteca.module.css";
 
 export default function PaginaPrincipal() {
@@ -9,26 +8,26 @@ export default function PaginaPrincipal() {
     const [filtro, setFiltro] = useState("");
 
     useEffect(() => {
-    fetch("/api/libros")
-        .then(async (res) => {
-            if (!res.ok) {
-                const texto = await res.text();
-                console.error("Error servidor:", texto.substring(0, 50));
-                throw new Error("El servidor no respondió con datos.");
-            }
-            return res.json();
-        })
-        .then((data) => {
-            console.log("Datos recibidos:", data);
-            if (data && data.data) {
-                setLibros(data.data); 
-            }
-        })
-        .catch((err) => console.error("Error final:", err));
-}, []);
+        fetch("/api/libros")
+            .then(async (res) => {
+                if (!res.ok) {
+                    const texto = await res.text();
+                    console.error("Error servidor:", texto.substring(0, 50));
+                    throw new Error("El servidor no respondió con datos.");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log("Datos recibidos:", data);
+                if (data && data.data) {
+                    setLibros(data.data);
+                }
+            })
+            .catch((err) => console.error("Error final:", err));
+    }, []);
 
     const librosFiltrados = libros.filter((libro) => {
-    const terminoBusqueda = filtro.toLowerCase().trim();
+        const terminoBusqueda = filtro.toLowerCase().trim();
 
         if (!terminoBusqueda) return true;
 
@@ -45,9 +44,7 @@ export default function PaginaPrincipal() {
                 </div>
 
                 <section className={estilos.cuadriculaLibros}>
-                    {librosFiltrados.map((libro) => (
-                        <LibroCard key={libro.id_libro} id={libro.id_libro} titulo={libro.titulo} autor={libro.autor} imagen={libro.foto_portada} />
-                    ))}
+                    <CardLibro />
                 </section>
 
                 {filtro && filtro.trim().length > 0 && (
