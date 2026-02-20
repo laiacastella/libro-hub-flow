@@ -14,7 +14,7 @@ export default function BarraBusqueda({ alBuscar }) {
     return (
         <div className={styles.contenedor}>
             <div className={styles.busquedaCaja}>
-                <input type="text" className={styles.input} placeholder="Ej: titulo o autor" value={texto} onChange={(e) => setTexto(e.target.value)} onKeyDown={(e) => e.key === "Enter" && manejarBusqueda()} />
+                <input type="text" className={styles.input} placeholder="Ej: titulo o autor" value={texto} onFocus={() => setTexto("")} onChange={(e) => setTexto(e.target.value)} onKeyDown={(e) => e.key === "Enter" && manejarBusqueda()} />
 
                 <button className={styles.boton} onClick={manejarBusqueda}>
                     <span className={styles.icono}>

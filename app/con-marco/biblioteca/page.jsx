@@ -1,52 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
-import { CardLibro, BarraBusqueda } from "@/components/index.js";
+import { ComponenteBiblioteca } from "@/components/index.js";
 import estilos from "./biblioteca.module.css";
 
 export default function PaginaPrincipal() {
-    const [libros, setLibros] = useState([]);
-    const [filtro, setFiltro] = useState("");
-
-    useEffect(() => {
-        fetch("/api/libros")
-            .then(async (res) => {
-                if (!res.ok) {
-                    const texto = await res.text();
-                    console.error("Error servidor:", texto.substring(0, 50));
-                    throw new Error("El servidor no respondió con datos.");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                console.log("Datos recibidos:", data);
-                if (data && data.data) {
-                    setLibros(data.data);
-                }
-            })
-            .catch((err) => console.error("Error final:", err));
-    }, []);
-
-    const librosFiltrados = libros.filter((libro) => {
-        const terminoBusqueda = filtro.toLowerCase().trim();
-
-        if (!terminoBusqueda) return true;
-
-        const titulo = (libro.titulo || "").toLowerCase();
-        const autor = (libro.autor || "").toLowerCase();
-        return titulo.includes(terminoBusqueda) || autor.includes(terminoBusqueda);
-    });
-
     return (
         <div className={estilos.envoltorio}>
             <main className={estilos.contenedorBiblioteca}>
-                <div className={estilos.seccionBusqueda}>
-                    <BarraBusqueda alBuscar={(texto) => setFiltro(texto)} />
-                </div>
-
-                <section className={estilos.cuadriculaLibros}>
-                    <CardLibro />
-                </section>
-
+                <ComponenteBiblioteca />
+                {/* 
                 {filtro && filtro.trim().length > 0 && (
                     <div className={estilos.contenedorBotonFinal}>
                         <button
@@ -58,9 +19,9 @@ export default function PaginaPrincipal() {
                             MOSTRAR TODOS LOS LIBROS
                         </button>
                     </div>
-                )}
+                )} */}
 
-                {librosFiltrados.length === 0 && <p className={estilos.mensaje}>No hay libros disponibles que coincidan con la búsqueda.</p>}
+                {/* {librosFiltrados.length === 0 && <p className={estilos.mensaje}>No hay libros disponibles que coincidan con la búsqueda.</p>} */}
             </main>
         </div>
     );

@@ -1,6 +1,6 @@
 .envoltorio {
     min-height: 100vh;
-    background-image: url('/imagen-fondo.jpg');
+    background-image: url("/imagen-fondo.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -31,37 +31,4 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 25px;
-}
-
-.contenedorBotonFinal {
-    display: flex;
-    justify-content: center;
-    padding: 50px 0;
-    /* Un poco más de espacio arriba y abajo */
-    width: 100%;
-}
-
-.botonVolverFinal {
-    background-color: #63A26C;
-    /* El verde original de los botones */
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-transform: uppercase;
-}
-
-.botonVolverFinal:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.botonVolverFinal:active {
-    transform: translateY(0);
 }

@@ -40,24 +40,16 @@
     color: #666;
     text-transform: uppercase;
 }
-
 .biblioteca {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
 }
-
 .libros {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-}
-
-.paginacion {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
 }
 .seleccionado {
     background-color: #5dd461;
