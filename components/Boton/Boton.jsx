@@ -1,8 +1,18 @@
 import styles from "./Boton.module.css";
 
-export default function Boton({ ruta, nomEnlace, onClick, title }) {
+export default function Boton({
+    nomEnlace,
+    onClick,
+    title,
+    type = "button",
+    className = "",
+    variant = "default", // default, red o disabled
+    disabled = false,
+}) {
+    const variantClass = variant === "red" ? styles.red : variant === "disabled" ? styles.disabled : styles.default;
+
     return (
-        <button href={ruta} onClick={onClick} className={styles.boton} title={title}>
+        <button onClick={onClick} className={`${styles.boton} ${variantClass} ${className}`} title={title} type={type} disabled={disabled || variant === "disabled"}>
             {nomEnlace}
         </button>
     );
