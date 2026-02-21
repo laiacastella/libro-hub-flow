@@ -1,14 +1,13 @@
 .container {
     min-height: 100vh;
-    background-color: #f0efea;
-    font-family: sans-serif;
     color: #111827;
 }
 .main {
     max-width: 56rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem;
-    background-color: #f0efea;
+    margin: 40px auto;
+    padding: 2.5rem 2rem;
+    background-color: #f0efeaeb;
+    border-radius: 12px;
 }
 
 .breadcrumbs {

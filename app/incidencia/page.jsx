@@ -20,7 +20,7 @@ export default function Incidencia() {
                 </div>
                 <FormIncidencia />
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }
