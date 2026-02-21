@@ -7,6 +7,7 @@ export { default as Valoraciones } from "./Valoraciones/Valoraciones";
 export { default as Paginacion } from "./Paginacion/Paginacion";
 export { default as Enlaces } from "./Enlaces/Enlaces";
 export { default as BarraBusqueda } from "./BarraBusqueda/BarraBusqueda";
+export { default as Boton } from "./Boton/Boton";
 
 // Cards
 export { default as CardComentario } from "./CardComentario/CardComentario";
@@ -21,6 +22,7 @@ export { default as Footer } from "./Footer/Footer";
 
 // Forms
 export { default as FormEditarCuenta } from "./FormEditarCuenta/FormEditarCuenta";
+export { default as FormIncidencia } from "./Formularios/FormIncidencia/FormIncidencia";
 
 // Para hacer los imports donde queramos se hace de la siguiente manera:
 // import { Header } from "@/components";
