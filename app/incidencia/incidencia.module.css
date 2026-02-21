@@ -1,0 +1,38 @@
+.container {
+    min-height: 100vh;
+    background-color: #f0efea;
+    font-family: sans-serif;
+    color: #111827;
+}
+.main {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    background-color: #f0efea;
+}
+
+.breadcrumbs {
+    font-size: 0.75rem;
+    color: #284070;
+    margin-bottom: 1rem;
+}
+
+.currentPath {
+    color: #111827;
+}
+
+.titleSection {
+    margin-bottom: 2.5rem;
+}
+
+.title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+}
+
+.subtitle {
+    color: #4b5563;
+    font-size: 1.125rem;
+}
