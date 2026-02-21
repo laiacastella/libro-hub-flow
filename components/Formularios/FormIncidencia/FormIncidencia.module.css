@@ -1,0 +1,117 @@
+.formCard {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .formGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 3px #0001;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    ring: 2px solid #63a26c;
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #63a26c;
+}
+
+.textarea {
+    resize: none;
+    font-family: Arial;
+}
+
+/* adjuntar */
+.adjuntarContainer {
+    border: 2px dashed #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f9fafb;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.adjuntarContainer:hover {
+    background-color: #f3f4f6;
+}
+
+.adjuntarIcon {
+    height: 2.5rem;
+    width: 2.5rem;
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
+}
+
+.adjuntarText {
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.adjuntarLink {
+    color: #63a26c;
+    font-weight: 600;
+}
+
+.adjuntarSubtext {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 640px) {
+    .actions {
+        width: 100%;
+    }
+    .actions button {
+        font-size: 0.9rem;
+    }
+}
+
+.marginBottom {
+    margin-bottom: 1.5rem;
+}
