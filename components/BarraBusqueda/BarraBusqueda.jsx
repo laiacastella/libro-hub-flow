@@ -1,22 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./BarraBusqueda.module.css";
 
-export default function BarraBusqueda({ alBuscar }) {
+export default function BarraBusqueda({ alBuscar, setFiltro }) {
     const [texto, setTexto] = useState("");
 
-    const manejarBusqueda = () => {
+    // const manejarBusqueda = () => {
+    //     if (alBuscar) {
+    //         alBuscar(texto);
+    //     }
+    // };
+
+    useEffect(() => {
         if (alBuscar) {
             alBuscar(texto);
         }
-    };
+    }, [texto, alBuscar]);
 
     return (
         <div className={styles.contenedor}>
             <div className={styles.busquedaCaja}>
-                <input type="text" className={styles.input} placeholder="Ej: titulo o autor" value={texto} onFocus={() => setTexto("")} onChange={(e) => setTexto(e.target.value)} onKeyDown={(e) => e.key === "Enter" && manejarBusqueda()} />
+                <input type="text" className={styles.input} placeholder="Ej: titulo o autor" value={texto} onFocus={() => (setFiltro(""), setTexto(""))} onChange={(e) => setTexto(e.target.value)} />
 
-                <button className={styles.boton} onClick={manejarBusqueda}>
+                <button className={styles.boton}>
                     <span className={styles.icono}>
                         <img src="/icono-busqueda.svg" alt="Buscar" />
                     </span>

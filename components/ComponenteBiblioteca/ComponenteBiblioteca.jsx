@@ -33,7 +33,7 @@ export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSelecc
     console.log("texto búsqueda", filtro);
     return (
         <div className={styles.biblioteca}>
-            <BarraBusqueda alBuscar={(texto) => setFiltro(texto)} />
+            <BarraBusqueda alBuscar={(texto) => setFiltro(texto)} setFiltro={setFiltro} />
             <CardLibro librosFiltrados={librosFiltrados} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} />
             <div className={styles.paginacion}>
                 <Paginacion paginaActual={paginaActual} totalPaginas={totalPaginas} onPageChange={setPaginaActual} />

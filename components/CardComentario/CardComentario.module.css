@@ -83,3 +83,6 @@
     color: #63a26c; /* color al pasar el cursor */
     transform: scale(1.2); /* aumenta un 20% su tamaño */
 }
+.trash {
+    color: red;
+}
