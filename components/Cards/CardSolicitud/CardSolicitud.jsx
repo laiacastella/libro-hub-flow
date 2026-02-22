@@ -140,7 +140,6 @@ export default function CardSolicitud() {
             <Boton 
             nomEnlace="Ver Biblioteca"
             variant="default"
-            className={styles.boton}
             onClick={() => abrirPopup(intercambio)}
             />
           ) : ["finalizado", "rechazado"].includes(
@@ -149,13 +148,11 @@ export default function CardSolicitud() {
             <Boton 
             nomEnlace="Intercambio finalizado"
             variant="disabled"
-            className={styles.botonBloqueado}
             />
           ) : flujoEstados[intercambio.estado_solicitud] ? (
             <Boton 
             nomEnlace={etiquetasBoton[intercambio.estado_solicitud]}
             variant="default"
-            className={styles.boton}
             onClick={() =>
               avanzarEstado(
                 intercambio.id_intercambio,
