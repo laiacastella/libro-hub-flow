@@ -1,6 +1,7 @@
 import styles from "./FormEditarCuenta.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Boton } from "@/components";
 
 export default function FormEditarCuenta() {
     const router = useRouter();
@@ -76,13 +77,8 @@ export default function FormEditarCuenta() {
             </div>
 
             <div className={styles.botones}>
-                <button type="submit" className={styles.guardar}>
-                    Guardar cambios
-                </button>
-                
-                <button type="button" className={styles.cancelar} onClick={() => router.push("/PerfilUsuarioPropio")}>
-                    Cancelar
-                </button>
+                <Boton type="submit" texto="Guardar cambios" />
+                <Boton type="button" texto="Cancelar" variant="red" onClick={() => router.push("/PerfilUsuarioPropio")} />
             </div>
         </form>
     );
