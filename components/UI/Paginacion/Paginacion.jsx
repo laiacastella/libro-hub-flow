@@ -1,5 +1,6 @@
 
 import styles from "./Paginacion.module.css";
+import { ChevronFirst, ChevronLeft, ChevronRight, ChevronLast, Ellipsis } from "lucide-react";
 
 export default function Paginacion({
     paginaActual,
@@ -26,7 +27,7 @@ export default function Paginacion({
                 onClick={() => onPageChange(1)}
                 disabled={paginaActual === 1}
             >
-                ⏮
+                <ChevronFirst />
             </button>
 
             {/* Anterior */}
@@ -35,7 +36,7 @@ export default function Paginacion({
                 onClick={() => onPageChange(paginaActual - 1)}
                 disabled={paginaActual === 1}
             >
-                ⬅
+                <ChevronLeft />
             </button>
 
             {/* Primera página + ... */}
@@ -43,7 +44,7 @@ export default function Paginacion({
                 <>
                     <button className={styles.boton}
                     onClick={() => onPageChange(1)}>1</button>
-                    {inicio > 2 && <span>...</span>}
+                    {inicio > 2 && <span><Ellipsis /></span>}
                 </>
             )}
 
@@ -64,7 +65,7 @@ export default function Paginacion({
             {/* ... + última página */}
             {fin < totalPaginas && (
                 <>
-                    {fin < totalPaginas - 1 && <span>...</span>}
+                    {fin < totalPaginas - 1 && <span><Ellipsis /></span>}
                     <button
                         className={styles.boton}
                         onClick={() => onPageChange(totalPaginas)}>
@@ -79,7 +80,7 @@ export default function Paginacion({
                 onClick={() => onPageChange(paginaActual + 1)}
                 disabled={paginaActual === totalPaginas}
             >
-                ➡
+                <ChevronRight />
             </button>
 
             {/* Última */}
@@ -88,7 +89,7 @@ export default function Paginacion({
                 onClick={() => onPageChange(totalPaginas)}
                 disabled={paginaActual === totalPaginas}
             >
-                ⏭
+                <ChevronLast />
             </button>
         </div>
     );

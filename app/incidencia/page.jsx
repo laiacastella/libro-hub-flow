@@ -16,7 +16,7 @@ export default function Incidencia() {
 
                 <div className={styles.titleSection}>
                     <h1 className={styles.title}>Reportar una Incidencia</h1>
-                    <p className={styles.subtitle}>Describe el problema que estás experimentando. Nuestro equipo técnico revisará tu reporte y te contactará a la brevedad.</p>
+                    <p className={styles.subtitle}>Describe el problema que estás experimentando. Nuestro equipo técnico revisará tu reporte y te contactará a la mayor brevedad.</p>
                 </div>
                 <FormIncidencia />
             </main>
