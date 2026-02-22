@@ -1,7 +1,5 @@
 "use client";
-import FormEditarCuenta from "@/components/FormEditarCuenta/FormEditarCuenta.jsx"; // componente de prueba
-import Header from "@/components/Header/Header.jsx";
-import Footer from "@/components/Footer/Footer.jsx";
+import { FormEditarCuenta, Header, Footer } from "@/components/index";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css"; 
 

@@ -1,5 +1,5 @@
 import styles from "./CardSolicitud.module.css";
-import PopUpBiblioteca from "../PopUpBiblioteca/PopUpBiblioteca";
+import { PopUpBiblioteca } from "@/components/index";
 
 import { useEffect, useState } from "react";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import HeaderHome from "@/components/HeaderHome/HeaderHome.jsx";
-import Footer from "@/components/Footer/Footer.jsx";
+import HeaderHome from "@/components/Layout/HeaderHome/HeaderHome.jsx";
+import Footer from "@/components/Layout/Footer/Footer.jsx";
 import Link from "next/link";
 import styles from "./page.module.css";
 

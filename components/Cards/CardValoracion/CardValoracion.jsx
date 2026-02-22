@@ -1,6 +1,6 @@
 import data from "@/data/valoraciones.json";
 import styles from "./CardValoracion.module.css";
-import Estrellas from "../Estrellas/Estrellas.jsx";
+import { Estrellas } from "@/components/index";
 
 const valoraciones = data.comentarios;
 

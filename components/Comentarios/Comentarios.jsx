@@ -1,4 +1,4 @@
-import CardComentario from "../CardComentario/CardComentario";
+import { CardComentario } from "@/components/index";
 import styles from "./Comentarios.module.css";
 
 export default function Comentarios() {
