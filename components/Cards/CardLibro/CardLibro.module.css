@@ -33,6 +33,10 @@
     margin: 5px 0;
     color: #333;
     text-transform: uppercase;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .libroAutor {
