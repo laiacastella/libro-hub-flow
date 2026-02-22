@@ -20,85 +20,21 @@
     flex-direction: column;
 }
 
-.cerrar {
-    color: rgb(121, 121, 121);
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition:
-        transform 0.25s ease,
-        filter 0.25s ease;
-}
-.cerrar:hover {
-    color: #ed4f4c;
-    transform: scale(1.15);
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
-}
 .header {
     background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 20px;
+    height: fit-content;
 }
 .botonesSeleccion {
     display: flex;
+    justify-content: space-between;
     gap: 10px;
     width: 55%;
     height: 60%;
-}
-.botonAceptar {
-    background-color: #43a047;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 60%;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
-}
-.botonAceptar:hover {
-    background-color: #4caf50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.botonRechazar {
-    background-color: #e53935;
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 40%;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
-}
-.botonAceptar:hover {
-    background-color: #4caf50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-.botonRechazar:hover {
-    background-color: #cc3328;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    align-items: center;
 }
 .infoIntercambio {
     background-color: #f8fafc;
@@ -117,6 +53,7 @@
 .infoIntercambio p {
     font-size: 0.9rem;
     color: #555;
+    margin: 0;
 }
 .bodyPopup {
     display: flex;
@@ -131,6 +68,18 @@
     width: 35%;
     overflow-y: auto; /* scroll si el contenido crece */
     min-height: 0;
+    transition: all 0.3s ease;
+}
+
+.isOpen {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+.isClosed {
+    display: none;
+    opacity: 0;
 }
 .bibliotecaContainer {
     background-color: #f8fafc;

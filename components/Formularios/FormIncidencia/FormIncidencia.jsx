@@ -77,8 +77,8 @@ export default function FormIncidencia() {
                     </div>
                 </div>
                 <div className={styles.actions}>
-                    <Boton type="button" nomEnlace="Enviar Reporte" />
-                    <Boton type="button" nomEnlace="Cancelar" variant="red" />
+                    <Boton type="button" texto="Enviar Reporte" />
+                    <Boton type="button" texto="Cancelar" variant="red" />
                 </div>
             </form>
         </div>

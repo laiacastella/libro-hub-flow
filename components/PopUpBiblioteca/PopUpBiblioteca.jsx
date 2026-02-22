@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./PopUpBiblioteca.module.css";
-import { ComponenteBiblioteca } from "@/components/index";
+import { Boton, ComponenteBiblioteca } from "@/components/index";
+import { X } from "lucide-react";
 
 const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     const [libroSeleccionado, setLibroSeleccionado] = useState(null);
@@ -57,47 +58,44 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                 <div className={styles.header}>
                     <h2>Biblioteca del usuario</h2>
                     <div className={styles.botonesSeleccion}>
-                        <button
-                            className={styles.botonAceptar}
-                            onClick={() => {
+                        <Boton
+                        texto="Seleccionar libro"
+                        variant="default"
+                        onClick={() => {
                                 // avanzarEstado(intercambio.id_intercambio, "seleccionado");
                                 handleCerrarPopup();
                                 setLibroSeleccionado(null);
                                 // setIdIntercambio(intercambio.id_intercambio);
                                 onClose();
-                            }}>
-                            Seleccionar libro
-                        </button>
-                        <button
-                            className={styles.botonAceptar}
-                            onClick={() => {
+                            }}
+                        />
+                        <Boton
+                        texto="Aceptar intercambio"
+                        variant="default"
+                        onClick={() => {
                                 avanzarEstado(intercambio.id_intercambio, "seleccionado");
                                 // setIdIntercambio(intercambio.id_intercambio);
                                 onClose();
-                            }}>
-                            Aceptar Intercambio
-                        </button>
-                        <button
-                            className={styles.botonRechazar}
-                            onClick={() => {
+                            }}
+                        />
+                        <Boton
+                        texto="Rechazar"
+                        variant="red"
+                        onClick={() => {
                                 avanzarEstado(intercambio.id_intercambio, "rechazado");
                                 onClose();
-                            }}>
-                            Rechazar
-                        </button>
-                        <button
-                            title="Cerrar ventana"
-                            className={styles.cerrar}
-                            onClick={() => {
+                            }}
+                        />
+                        <Boton
+                        texto={<X />}
+                        variant="cerrar"
+                        title="Cerrar ventana"
+                        onClick={() => {
                                 onClose();
                                 setLibroSeleccionado(null);
-                            }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width={26} height={26} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={styles.cerrar}>
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M18 6l-12 12" />
-                                <path d="M6 6l12 12" />
-                            </svg>
-                        </button>
+                            }}
+                        />
+                        
                     </div>
                 </div>
                 <section className={styles.infoIntercambio}>
@@ -111,7 +109,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                     <div className={styles.bibliotecaContainer}>
                         <ComponenteBiblioteca todos={false} userId={intercambio.id_usuario} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} />
                     </div>
-                    <div className={styles.infoLibro}>
+                    <div className={`${styles.infoLibro} ${libroSeleccionado ? styles.isOpen : styles.isClosed}`}>
                         {/* book details */}
                         {infoLibro && (
                             <div className={styles.detailContainer}>

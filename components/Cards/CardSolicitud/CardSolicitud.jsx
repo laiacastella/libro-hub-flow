@@ -138,7 +138,7 @@ export default function CardSolicitud() {
           {intercambio.estado_solicitud === "solicitado" ||
           intercambio.estado_solicitud === "seleccionado" ? (
             <Boton 
-            nomEnlace="Ver Biblioteca"
+            texto="Ver Biblioteca"
             variant="default"
             onClick={() => abrirPopup(intercambio)}
             />
@@ -146,12 +146,12 @@ export default function CardSolicitud() {
             intercambio.estado_solicitud,
           ) ? (
             <Boton 
-            nomEnlace="Intercambio finalizado"
+            texto="Intercambio finalizado"
             variant="disabled"
             />
           ) : flujoEstados[intercambio.estado_solicitud] ? (
             <Boton 
-            nomEnlace={etiquetasBoton[intercambio.estado_solicitud]}
+            texto={etiquetasBoton[intercambio.estado_solicitud]}
             variant="default"
             onClick={() =>
               avanzarEstado(

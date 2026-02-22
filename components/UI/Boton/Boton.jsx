@@ -1,7 +1,7 @@
 import styles from "./Boton.module.css";
 
 export default function Boton({
-    nomEnlace,
+    texto,
     onClick,
     title,
     type = "button",
@@ -9,11 +9,13 @@ export default function Boton({
     variant = "default", // default, red o disabled
     disabled = false,
 }) {
-    const variantClass = variant === "red" ? styles.red : variant === "disabled" ? styles.disabled : styles.default;
+    const variantClass = variant === "red" ? styles.red : variant === "disabled" ? styles.disabled : variant === "cerrar" ? styles.cerrar : styles.default;
+    const isCerrar = variant === "cerrar";
+    const buttonClass = isCerrar ? `${variantClass} ${className}` : `${styles.boton} ${variantClass} ${className}`;
 
     return (
-        <button onClick={onClick} className={`${styles.boton} ${variantClass} ${className}`} title={title} type={type} disabled={disabled || variant === "disabled"}>
-            {nomEnlace}
+        <button onClick={onClick} className={buttonClass} title={title} type={type} disabled={disabled || variant === "disabled"}>
+            {texto}
         </button>
     );
 }
