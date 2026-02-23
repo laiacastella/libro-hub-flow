@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { Enlaces } from "@/components";
+import { Enlaces, Boton } from "@/components";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -28,9 +28,7 @@ export default function Header() {
                     />
 
                     <Link href="">
-                        <button className={styles.boton}>
-                            Sube tu libro
-                        </button>
+                        <Boton type="button" texto="Subir libro" className="{styles.boton}" />
                     </Link>
                 </div>
             </div>

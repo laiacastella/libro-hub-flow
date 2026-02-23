@@ -1,12 +1,13 @@
 "use client";
-import { Header, Footer, Estrellas, ComponenteBiblioteca, Solicitudes, Valoraciones } from "@/components";
+import { Header, Footer, Estrellas, ComponenteBiblioteca, Solicitudes, Valoraciones, Boton } from "@/components";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import styles from "./page.module.css";
 
 export default function PerfilUsuarioPropio() {
-    const router = useRouter();
+    
     const valoracion = 3.0;
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab");
@@ -33,9 +34,9 @@ export default function PerfilUsuarioPropio() {
                         </div>
 
                         <div className={styles.editarDatos}>
-                            <button className={styles.botonEditar} onClick={() => router.push("/EditarCuenta")}>
-                                Editar datos
-                            </button>
+                            <Link href="/EditarCuenta">
+                                <Boton type="button" texto="Editar datos de la cuenta" />
+                            </Link>
                         </div>
                     </div>
 

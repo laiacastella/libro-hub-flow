@@ -1,5 +1,5 @@
 "use client";
-import { FormEditarCuenta, Header, Footer } from "@/components/index";
+import { FormEditarCuenta, Header, Footer, Boton } from "@/components/index";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css"; 
 
@@ -18,14 +18,7 @@ export default function EditarCuenta() {
                         <img src="/perfilUsuario.svg" alt="perfilUsuario" />
                         <br />
                         <br />
-                        <button
-                            type="button"
-                            className={styles.boton}
-                            /*onClick={}*/
-                        >
-                            Cambiar foto <br />
-                            de perfil
-                        </button>
+                        <Boton type="button" texto="Cambiar foto de perfil" />
                     </div>
                     <div className={styles.datos}>
                         <h2>Nombre Apellidos (Nombre de usuario)</h2>
