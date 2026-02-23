@@ -1,3 +1,4 @@
+"use client";
 import styles from "./CardSolicitud.module.css";
 import { PopUpBiblioteca, Boton } from "@/components/index";
 import { SquarePlus, Trash2, ArrowLeftRight } from "lucide-react"

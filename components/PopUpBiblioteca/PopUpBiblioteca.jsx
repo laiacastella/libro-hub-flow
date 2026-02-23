@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import styles from "./PopUpBiblioteca.module.css";
 import { Boton, ComponenteBiblioteca } from "@/components/index";

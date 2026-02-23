@@ -14,17 +14,17 @@ export default function Header() {
                 <div className={styles.menu}>
                     <Enlaces 
                         nomEnlace="Solicitudes" 
-                        ruta="/PerfilUsuarioPropio?tab=solicitudes"
+                        ruta="/perfilUsuarioPropio?tab=solicitudes"
                     />
 
                     <Enlaces 
                         nomEnlace="Biblioteca" 
-                        ruta="/con-marco/biblioteca"
+                        ruta="/biblioteca"
                     />
 
                     <Enlaces 
                         nomEnlace="Perfil" 
-                        ruta="/PerfilUsuarioPropio"
+                        ruta="/perfilUsuarioPropio"
                     />
 
                     <Link href="">

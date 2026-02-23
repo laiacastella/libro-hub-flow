@@ -1,6 +1,6 @@
 "use client";
 import styles from "./incidencia.module.css";
-import { Header, Footer, FormIncidencia, Enlaces } from "@/components";
+import { Header, FormIncidencia, Enlaces } from "@/components";
 import { ChevronRight } from "lucide-react";
 
 export default function Incidencia() {
@@ -20,7 +20,6 @@ export default function Incidencia() {
                 </div>
                 <FormIncidencia />
             </main>
-            <Footer />
         </div>
     );
 }

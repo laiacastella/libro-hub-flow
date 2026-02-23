@@ -1,7 +1,7 @@
 .bienvenida {
     background-image: linear-gradient(rgba(42, 42, 42, 0.5), rgba(42, 42, 42, 0.5), rgba(42, 42, 42, 1)), url("/imagen-home.jpg");
     background-size: cover;
-    background-position: center;
+    background-position: top;
     min-height: 60vh;
     width: 100%;
     justify-self: center;

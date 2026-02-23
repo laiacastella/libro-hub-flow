@@ -1,3 +1,4 @@
+"use client";
 import styles from "./ComponenteBiblioteca.module.css";
 import { CardLibro, BarraBusqueda, Paginacion } from "@/components";
 import { useState, useEffect } from "react";

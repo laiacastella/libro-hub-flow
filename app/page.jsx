@@ -1,7 +1,6 @@
 "use client";
 
-import HeaderHome from "@/components/Layout/HeaderHome/HeaderHome.jsx";
-import Footer from "@/components/Layout/Footer/Footer.jsx";
+import { HeaderHome, Boton } from "@/components";
 import Link from "next/link";
 import styles from "./page.module.css";
 
@@ -18,9 +17,7 @@ export default function Home() {
                             <b>Un proceso simple para descubrir tu proxima lectura.</b>
                         </div>
                         <Link href="/inicioSesion">
-                            <button className={styles.boton}>
-                                Encuentra tu libro
-                            </button>
+                            <Boton type="button" texto="Encuentra tu libro" />
                         </Link>
                     </div>
                 </div>
@@ -48,7 +45,6 @@ export default function Home() {
                     </div>
                 </div>
             </main>
-            <Footer />
         </>
     );
 }

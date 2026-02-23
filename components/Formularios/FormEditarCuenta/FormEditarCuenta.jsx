@@ -1,10 +1,11 @@
+"use client";
 import styles from "./FormEditarCuenta.module.css";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Boton } from "@/components";
 
 export default function FormEditarCuenta() {
-    const router = useRouter();
+    
     // Estado para almacenar las provincias
     const [provincias, setProvincias] = useState([]);
     // Prueba de conexión a la API
@@ -78,7 +79,9 @@ export default function FormEditarCuenta() {
 
             <div className={styles.botones}>
                 <Boton type="submit" texto="Guardar cambios" />
-                <Boton type="button" texto="Cancelar" variant="red" onClick={() => router.push("/PerfilUsuarioPropio")} />
+                <Link href="/perfilUsuarioPropio">
+                    <Boton type="button" texto="Cancelar" variant="red" />
+                </Link>
             </div>
         </form>
     );

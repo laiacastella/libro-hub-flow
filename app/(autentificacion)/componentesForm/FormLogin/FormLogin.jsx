@@ -45,7 +45,7 @@ const FormLogin = () => {
                         <p> ¿No tienes una cuenta? 
                         <Enlaces 
                             nomEnlace="Registrarse" 
-                            ruta="/Registro"
+                            ruta="/registro"
                         />
                         </p>
 

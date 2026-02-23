@@ -1,5 +1,5 @@
 "use client";
-import { FormEditarCuenta, Header, Footer, Boton } from "@/components/index";
+import { FormEditarCuenta, Boton } from "@/components/index";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css"; 
 
@@ -8,8 +8,6 @@ export default function EditarCuenta() {
 
     return (
         <main>
-            <Header />
-
             <div className={styles.fondo}>
                 <h2 className={styles.titulo}>Mi información personal</h2>
 
@@ -32,8 +30,6 @@ export default function EditarCuenta() {
                     <FormEditarCuenta />
                 </div>
             </div>
-
-            <Footer />
         </main>
     );
 }

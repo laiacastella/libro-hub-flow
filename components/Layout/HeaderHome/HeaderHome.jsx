@@ -1,4 +1,5 @@
 
+import { Boton } from "@/components";
 import Link from "next/link";
 import styles from "./HeaderHome.module.css";
 
@@ -12,17 +13,12 @@ export default function HeaderHome(){
 
           <div className={styles.menu}>
             <Link href="/inicioSesion">
-              <button className={styles.boton}>
-                Iniciar sesión
-              </button>
+              <Boton type="button" texto="Iniciar sesión" />
             </Link>
 
-            <Link href="/Registro">
-              <button className={styles.boton}>
-                Registrarse
-              </button>
+            <Link href="/registro">
+              <Boton type="button" texto="Registrarse" />
             </Link>
-            
           </div>          
         </div>
       </main>
