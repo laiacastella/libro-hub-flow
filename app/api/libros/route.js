@@ -7,8 +7,9 @@ export async function GET(request) {
 
         const page = parseInt(searchParams.get("page")) || 1;
         const limit = parseInt(searchParams.get("limit")) || 6;
+        const search = searchParams.get("search") || "";
 
-        const result = await paginate(db, "libros", page, limit);
+        const result = await paginate(db, "libros", page, limit, search);
 
         return Response.json(result);
     } catch (error) {

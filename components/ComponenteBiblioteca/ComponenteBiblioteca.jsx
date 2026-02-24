@@ -12,32 +12,34 @@ export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSelecc
     const librosPorPagina = 6;
 
     useEffect(() => {
-        fetch(`/api/libros?page=${paginaActual}&limit=${librosPorPagina}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setLibros(data.data);
-                setTotalPaginas(data.totalPaginas);
-            })
-            .catch((err) => console.error("Error final:", err));
-    }, [paginaActual]);
+    fetch(`/api/libros?page=${paginaActual}&limit=${librosPorPagina}&search=${filtro}`)
+        .then((res) => res.json())
+        .then((data) => {
+            setLibros(data.data);
+            setTotalPaginas(data.totalPaginas);
+        })
+        .catch((err) => console.error("Error final:", err));
+    }, [paginaActual, filtro]);
 
-    const librosFiltrados = libros.filter((libro) => {
-        const terminoBusqueda = filtro.toLowerCase().trim();
+    useEffect(() => {
+        setPaginaActual(1);
+    }, [filtro]);
 
-        if (!terminoBusqueda) return true;
-
-        const titulo = (libro.titulo || "").toLowerCase();
-        const autor = (libro.autor || "").toLowerCase();
-        return titulo.includes(terminoBusqueda) || autor.includes(terminoBusqueda);
-    });
-
+    
     console.log("texto búsqueda", filtro);
     return (
         <div className={styles.biblioteca}>
             <BarraBusqueda alBuscar={(texto) => setFiltro(texto)} setFiltro={setFiltro} />
-            <CardLibro librosFiltrados={librosFiltrados} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} />
+            <CardLibro librosFiltrados={libros} />
+
             <div className={styles.paginacion}>
-                <Paginacion paginaActual={paginaActual} totalPaginas={totalPaginas} onPageChange={setPaginaActual} />
+                {totalPaginas > 1 && (
+                    <Paginacion
+                        paginaActual={paginaActual}
+                        totalPaginas={totalPaginas}
+                        onPageChange={setPaginaActual}
+                    />
+                )}
             </div>
 
             {filtro && filtro.trim().length > 0 && (
@@ -53,7 +55,11 @@ export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSelecc
                 </div>
             )}
 
-            {librosFiltrados.length === 0 && <p className={styles.mensaje}>No hay libros disponibles que coincidan con la búsqueda.</p>}
+            {libros.length === 0 && (
+                <p className={styles.mensaje}>
+                    No hay libros disponibles que coincidan con la búsqueda.
+                </p>
+            )}
         </div>
     );
 }
