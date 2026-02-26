@@ -5,15 +5,35 @@ import Link from "next/link";
 import { Boton } from "@/components";
 
 export default function FormEditarCuenta() {
-    
-    // Estado para almacenar las provincias
+
     const [provincias, setProvincias] = useState([]);
-    // Prueba de conexión a la API
+    const [poblaciones, setPoblaciones] = useState([]);
+
+    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
+
+    // Cargar provincias al iniciar
     useEffect(() => {
         fetch("/api/provincias")
             .then((res) => res.json())
             .then((data) => setProvincias(data));
     }, []);
+
+    // Cargar poblaciones cuando cambia la provincia
+    useEffect(() => {
+        if (provinciaSeleccionada) {
+            fetch(`/api/poblaciones?id_provincia=${provinciaSeleccionada}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (Array.isArray(data)) {
+                        setPoblaciones(data);
+                    } else {
+                        setPoblaciones([]);
+                    }
+                });
+        } else {
+            setPoblaciones([]);
+        }
+    }, [provinciaSeleccionada]);
 
     return (
         <form className={styles.form}>
@@ -59,8 +79,15 @@ export default function FormEditarCuenta() {
 
             <div className={styles.formField}>
                 <label htmlFor="provincia">Provincia:</label>
-                <select name="provincia" id="provincia" className={styles.input}>
+                <select
+                    name="provincia"
+                    id="provincia"
+                    className={styles.input}
+                    value={provinciaSeleccionada}
+                    onChange={(e) => setProvinciaSeleccionada(e.target.value)}
+                >
                     <option value="">Selecciona tu provincia</option>
+
                     {provincias.map((p) => (
                         <option key={p.id_provincia} value={p.id_provincia}>
                             {p.provincia}
@@ -73,7 +100,12 @@ export default function FormEditarCuenta() {
                 <label htmlFor="poblacion">Población:</label>
                 <select name="poblacion" id="poblacion" className={styles.input}>
                     <option value="">Selecciona tu población</option>
-                    {/* Aquí se cargan las poblaciones dependiendo de la provincia seleccionada */}
+
+                    {Array.isArray(poblaciones) && poblaciones.map((p) => (
+                        <option key={p.id_poblacion} value={p.id_poblacion}>
+                            {p.poblacion}
+                        </option>
+                    ))}
                 </select>
             </div>
 
