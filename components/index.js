@@ -4,12 +4,15 @@ export { default as Intercambios } from "./Intercambios/Intercambios";
 export { default as Solicitudes } from "./Solicitudes/Solicitudes";
 export { default as Valoraciones } from "./Valoraciones/Valoraciones";
 export { default as PopUpBiblioteca } from "./PopUpBiblioteca/PopUpBiblioteca";
+export { default as Comentarios } from "./Comentarios/Comentarios";
 
 // UI
 export { default as Estrellas } from "./UI/Estrellas/Estrellas";
 export { default as Paginacion } from "./UI/Paginacion/Paginacion";
 export { default as Enlaces } from "./UI/Enlaces/Enlaces";
 export { default as Boton } from "./UI/Boton/Boton";
+export { default as Input } from "./UI/Input/Input";
+export { default as Select } from "./UI/Select/Select";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
