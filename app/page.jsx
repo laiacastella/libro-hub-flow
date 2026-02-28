@@ -1,9 +1,8 @@
 "use client";
 
-import { HeaderHome, Boton } from "@/components";
+import { HeaderHome, Boton, CardIcono } from "@/components";
 import Link from "next/link";
 import styles from "./page.module.css";
-import CardIcono from '../components/Cards/CardIcono/CardIcono';
 
 export default function Home() {
 

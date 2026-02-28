@@ -19,6 +19,7 @@ export { default as CardComentario } from "./Cards/CardComentario/CardComentario
 export { default as CardSolicitud } from "./Cards/CardSolicitud/CardSolicitud";
 export { default as CardValoracion } from "./Cards/CardValoracion/CardValoracion";
 export { default as CardLibro } from "./Cards/CardLibro/CardLibro";
+export { default as CardIcono } from "./Cards/CardIcono/CardIcono";
 
 // Layout
 export { default as Header } from "./Layout/Header/Header";
