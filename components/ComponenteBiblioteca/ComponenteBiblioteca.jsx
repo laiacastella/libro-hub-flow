@@ -30,7 +30,10 @@ export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSelecc
     return (
         <div className={styles.biblioteca}>
             <BarraBusqueda alBuscar={(texto) => setFiltro(texto)} setFiltro={setFiltro} />
-            <CardLibro librosFiltrados={libros} />
+            <CardLibro 
+            librosFiltrados={libros} 
+            setLibroSeleccionado={setLibroSeleccionado} 
+            libroSeleccionado={libroSeleccionado} />
 
             <div className={styles.paginacion}>
                 {totalPaginas > 1 && (

@@ -9,7 +9,7 @@ export default function Incidencia() {
             <Header />
             <main className={styles.main}>
                 <nav className={styles.breadcrumbs}>
-                    <Enlaces nomEnlace="Perfil" ruta="/PerfilUsuarioPropio" />
+                    <Enlaces nomEnlace="Perfil" ruta="/perfilUsuarioPropio" />
                     <ChevronRight size={15} color="#333" />
                     <span className={styles.currentPath}>Reportar una Incidencia</span>
                 </nav>
