@@ -2,79 +2,107 @@
 import styles from "./FormEditarCuenta.module.css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Boton } from "@/components";
+import { Boton, Input, Select } from "@/components";
 
 export default function FormEditarCuenta() {
-    
-    // Estado para almacenar las provincias
+
     const [provincias, setProvincias] = useState([]);
-    // Prueba de conexión a la API
+    const [poblaciones, setPoblaciones] = useState([]);
+
+    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
+    const [poblacionSeleccionada, setPoblacionSeleccionada] = useState("");
+
+    // Cargar provincias al iniciar
     useEffect(() => {
         fetch("/api/provincias")
             .then((res) => res.json())
             .then((data) => setProvincias(data));
     }, []);
 
+    // Cargar poblaciones cuando cambia la provincia
+    useEffect(() => {
+        if (provinciaSeleccionada) {
+            fetch(`/api/poblaciones?id_provincia=${provinciaSeleccionada}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (Array.isArray(data)) {
+                        setPoblaciones(data);
+                    } else {
+                        setPoblaciones([]);
+                    }
+                });
+        } else {
+            setPoblaciones([]);
+        }
+    }, [provinciaSeleccionada]);
+
+    const provinciasOptions = provincias.map(p => ({
+        value: p.id_provincia,
+        label: p.provincia
+    }));
+
+    const poblacionesOptions = poblaciones.map(p => ({
+        value: p.id_poblacion,
+        label: p.poblacion
+    }));
+
     return (
         <form className={styles.form}>
             <div className={styles.formField}>
-                <label htmlFor="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" className={styles.input} />
+                <Input label="Nombre:" tipo="text" id="nombre" nombre="nombre" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" className={styles.input} />
+                <Input label="Apellidos:" tipo="text" id="apellidos" nombre="apellidos" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="nickUsuario">Nombre de usuario:</label>
-                <input type="text" id="nickUsuario" name="nickUsuario" className={styles.input} />
+                <Input label="Nombre de usuario:" tipo="text" id="nickUsuario" nombre="nickUsuario" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="password">Contraseña:</label>
-                <input type="password" id="password" name="password" className={styles.input} />
+                <Input label="Contraseña:" tipo="password" id="password" nombre="password" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="password">Repetir Contraseña:</label>
-                <input type="password" id="password" name="password" className={styles.input} />
+                <Input label="Repetir Contraseña:" tipo="password" id="repPassword" nombre="repPassword" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" className={styles.input} />
+                <Input label="Correo Electrónico:" tipo="email" id="email" nombre="email" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" className={styles.input} />
+                <Input label="Teléfono:" tipo="tel" id="telefono" nombre="telefono" />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="codigoPostal">Código Postal:</label>
-                <input type="text" id="codigoPostal" name="codigoPostal" className={styles.input} />
+                <Input label="Código Postal:" tipo="text" id="codigoPostal" nombre="codigoPostal" maxLength={5} soloNumeros={true} />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="provincia">Provincia:</label>
-                <select name="provincia" id="provincia" className={styles.input}>
-                    <option value="">Selecciona tu provincia</option>
-                    {provincias.map((p) => (
-                        <option key={p.id_provincia} value={p.id_provincia}>
-                            {p.provincia}
-                        </option>
-                    ))}
-                </select>
+                <Select
+                    id="provincia"
+                    nombre="provincia"
+                    label="Provincia:"
+                    value={provinciaSeleccionada}
+                    onChange={(e) => setProvinciaSeleccionada(e.target.value)}
+                    opciones={provinciasOptions}
+                    placeholder="Selecciona tu provincia"
+                />
             </div>
 
             <div className={styles.formField}>
-                <label htmlFor="poblacion">Población:</label>
-                <select name="poblacion" id="poblacion" className={styles.input}>
-                    <option value="">Selecciona tu población</option>
-                    {/* Aquí se cargan las poblaciones dependiendo de la provincia seleccionada */}
-                </select>
+                <Select
+                    id="poblacion"
+                    nombre="poblacion"
+                    label="Población:"
+                    value={poblacionSeleccionada}
+                    onChange={(e) => setPoblacionSeleccionada(e.target.value)}
+                    opciones={poblacionesOptions}
+                    placeholder="Selecciona tu población"
+                    disabled={!provinciaSeleccionada}
+                />
             </div>
 
             <div className={styles.botones}>
