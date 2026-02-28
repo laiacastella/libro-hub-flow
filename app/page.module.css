@@ -1,30 +1,92 @@
-.bienvenida {
-    background-image: linear-gradient(rgba(42, 42, 42, 0.5), rgba(42, 42, 42, 0.5), rgba(42, 42, 42, 1)), url("/imagen-home.jpg");
-    background-size: cover;
-    background-position: top;
-    min-height: 60vh;
+.contenedorPrincipal {
     width: 100%;
-    justify-self: center;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15vh;
-    margin-top: -100px;
+    min-height: 100vh;
+   overflow-x: auto;
 }
 
-.explicacionMasBoton {
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    width: 80%;
+.contenedorFijo{
+position: sticky;
+top: 0;
+width: 100%;
+z-index: 100;
 }
 
-.explicacion {
-    font-size: 30px;
-    color: white;
+
+.fondo {
+position: fixed;   /*anclada a la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40vh; /* para movil */
+  z-index: -1;
+  background-image: 
+  linear-gradient(to bottom, transparent 90%, white 100%), 
+url('/imagen-home.jpg');
+  
+  background-size: cover;
+  background-position: center;
+}
+
+.contenedorInfo {
+    position: relative;
+    z-index: 1;
+    margin-top: 40vh; 
+    min-height: 100vh; 
+    width: 100%;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px) brightness(1.2);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.descripConBoton {
+    display: flex;
+    flex-direction: column; /* apila los elementos uno debajo del otro */
+    gap: 2rem;              
+    width: 100%;            
+    padding: 2rem 0;
+}
+
+.titulo {
+    color: #4A4A4A;
+    font-size: 3.2rem;    
+    font-weight: 900;      
+    width: 100%;           
+    margin: 0;             
+    line-height: 1.1; 
+         
+    text-align: center;
+        }
+
+.descripcion {
+    color: #4A4A4A;         
+    font-size: 1.1rem;      
+    line-height: 1.6;       
+    width: 100%;
+    text-align: center;
+}
+
+.descripcion b {
+    display: block;         
+    margin-top: 1rem;       
+    font-size: 1.2rem;
+    color: #4A4A4A;
+}
+
+.Boton {
+    width: 100%;            
+    display: flex;
+    justify-content: center; 
+}
+
+.contenedorCards {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* movil: lista vertical */
+    gap: 2rem;
+    width: 100%;
+    padding: 1.5rem 0;
+
 }
 
 .boton {
@@ -67,3 +129,43 @@
     display: flex;
     justify-content: flex-start;
 }
+
+/* pantallas medianas */
+@media (min-width: 768px) {
+  .fondo, .contenedorFijo {
+    height: 60vh;
+  }
+  .contenido {
+    margin-top: 40vh; 
+    min-height: 40vh;
+  }
+  .contenedorCards {
+        flex-direction: row;      /* en escritor fila horizontal */
+        justify-content: space-between;
+        align-items: flex-start;  /* alineadas por arriba */
+        gap: 3rem; /* mas espacio entre elementos */
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+/* pantallas ordenador */
+
+@media (min-width: 1024px) {
+.fondo, .contenedorFijo{
+    height: 100vh; 
+  }
+  .contenedorInfo {
+    margin-top: 100vh; /*contenido debajo de pantalla */
+    min-height: 100vh;
+    padding: 4rem 2rem; 
+  }
+  .descripcion {
+        font-size: 1.25rem; /* tamaño mas grande */
+        max-width: 800px;   
+    }
+    .descripConBoton {
+        gap: 2.5rem;     
+    }
+}
+ 

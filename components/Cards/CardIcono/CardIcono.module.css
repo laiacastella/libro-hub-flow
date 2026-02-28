@@ -1,0 +1,64 @@
+/* movil */
+.cardContenedor {
+    display: flex;
+    flex-direction: row;    /* uno al lado del otro */
+    align-items: center;    /* centrados verticalmente */
+    gap: 1.5rem;            
+    padding: 1.5rem;
+    color: white;           
+    border-radius: 15px;
+    border: 3px solid #63A26C;
+    box-shadow: 0 0 15px 2px rgba(99, 162, 108, 0.5);
+}
+
+.contenedorIcono {
+    flex-shrink: 0;         /* evitar que el icono se aplaste */
+    width: 80px;            
+    height: 80px;
+    background-color: #4a5d4e; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.icono {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+.texto {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    text-align: left;  
+    color: #4A4A4A;    
+}
+
+/* pantallas medianas */
+@media (min-width: 768px) {
+    .cardContenedor {
+        flex-direction: column; /* uno debajo del otro */
+        text-align: center;    
+        gap: 1.5rem;
+        flex: 1;                /* que todas las cards midan lo mismo */
+        
+    }
+
+    .contenedorIcono {
+        width: 120px;           /* mas grande para ordenador*/
+        height: 120px;
+        margin-bottom: 0.5rem;
+    }
+
+    .icono {
+        width: 50px;
+        height: 50px;
+    }
+
+    .texto {
+        text-align: center;
+        font-size: 1.25rem;
+    }
+}

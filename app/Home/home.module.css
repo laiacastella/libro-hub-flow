@@ -1,0 +1,49 @@
+.contenedorPrincipal {
+    width: 100%;
+  margin: 0 auto;
+  padding: 0 20px; /* Margen de seguridad en móvil */
+}
+
+@media (min-width: 1024px) {
+  .mainContainer {
+    max-width: 1200px; /* Evita que la web se estire demasiado en monitores gigantes */
+    margin: 0 auto; /* Aquí centramos el contenedor cuando la pantalla mide más de 1200px */
+}
+}
+
+.contenedorImg {
+    background-image: url('/imagen-home.jpg');
+    
+}
+
+/* TABLET (768px) */
+@media (min-width: 768px) {
+  .contenedorImg {
+    background-position: center center; /* En pantallas más grandes la centramos */
+  }
+}
+
+/* ESCRITORIO (1024px) */
+@media (min-width: 1024px) {
+  .contenedorImg {
+    background-position: center center;
+  }
+}
+
+.contenedorCabecera {
+    position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  /* El display flex aquí solo afectaría al HeaderHome como un todo */
+  display: flex;
+}
+
+.contendorInfo{
+    margin-top: 30vh;  /* MUY IMPORTANTE: empuja el contenido hacia abajo 
+                        para que no lo tape la imagen fija */
+  width: 100%;
+  min-height: 70vh;  /* El resto de la pantalla */
+  background-color: white; 
+  padding: 20px;
+}

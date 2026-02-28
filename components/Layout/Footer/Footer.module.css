@@ -1,16 +1,67 @@
-.pie {
-    background-color: #F0EFEAcc;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    height: 80px;
+/* movil */
+.contenedorFooter {
+    background-color:  #63a26c; 
+    color: white;
+    padding: 1.5rem 1.5rem;
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+.pie {
+  display: flex;
+  flex-direction: column; /* apila los contenedores verticalmente */
+  gap: 1rem;          
+  padding: 1.5rem 2rem;
+  
+}
+
+.incidencia a {
+    color: #ffffff !important;
+    font-weight: 1000 !important;
+}
+
+.incidencia a::after {
+    background-color: #ffffff !important; 
+}
+
+.incidencia a:hover {
+    color: #f0f0f0 !important; 
+}
+
+.informacion p, .incidencia p {
+  margin-bottom: 0.5rem; 
+}
+
+.incidencia .enlaces:hover::after {
+    background-color: #f0f0f0 !important;
+}
+
+
+.equipo ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* dos columnas */
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.equipo li {
+  font-size: 0.9rem;
+}
+
+/* pantallas medianas */
+@media (min-width: 768px) {
+  .pie {
+    flex-direction: row;    /* cambiar a horizontal */
+    justify-content: space-between; /* separar los bloques a los extremos */
+    align-items: flex-start;
+    padding: 40px 80px;
+  }
+
+  .informacion, .incidencia {
+    flex: 1;                /* ambos ocupen el mismo espacio */
+    max-width: 45%;         /* evitar que se peguen al centro */
+  }
 }
 
 .elemento {

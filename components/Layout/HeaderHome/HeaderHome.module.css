@@ -1,42 +1,54 @@
+/* --- ESTILOS BASE (Móvil) --- */
+
 .cabecera {
-    background-color: #00000000;
+    background-color: transparent;
+    width: 100%;
+    /* 1. Cambio: usamos 'rem' para el padding. 
+       1rem suele ser 16px. Esto escala si el usuario cambia el tamaño de fuente de su navegador. */
+    padding: 1rem 1.25rem; 
+}
+
+.contenedorInterno {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
-    height: 80px;
+    /* 2. Cambio: usamos ancho porcentual para que sea fluido */
+    width: 100%;
 }
 
 .logo img {
-    height: 45px;
+    /* 3. Cambio: usamos 'rem' para que el logo guarde proporción con el texto */
+    height: 2.2rem; 
+    display: block;
 }
 
 .menu {
     display: flex;
     align-items: center;
-    gap: 30px;
+    /* 4. Cambio: el espacio entre botones ahora es relativo */
+    gap: 1rem; 
 }
 
-.elemento {
-    cursor: pointer;
-    font-weight: 500;
-}
+/* --- DISEÑO ESCRITORIO (A partir de 1024px) --- */
 
-.elemento:hover {
-    text-decoration: underline;
-}
+@media (min-width: 1024px) {
+    .cabecera {
+        /* 5. Ajustamos el padding en pantallas grandes */
+        padding: 1.5rem 2.5rem;
+    }
 
-.boton {
-    background: #63A26C;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
+    .contenedorInterno {
+        /* 6. Mantenemos px para el "freno" máximo. 
+           Es una de las pocas excepciones donde el px es útil para que la web no se rompa en monitores Ultra-Wide. */
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-.boton:hover {
-    background-color: #4caf50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    .logo img {
+        height: 2.8rem;
+    }
+
+    .menu {
+        gap: 2rem;
+    }
 }

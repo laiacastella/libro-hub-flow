@@ -3,21 +3,29 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
     return (
-        <main>
+        <footer className = {styles.contenedorFooter}>
             <div className={styles.pie}>
                 <div className={styles.informacion}>
-                    <p>Aplicacion web realizada por el grupo 3 de alumnos de DAW de IFP 2024/2026</p>
-                    <p>Formado por: Laia Castellà, Luis Miguel Rojo, Michael Alexander Medina y Thalía Joannely Navarrete</p>
+            
+                    <p>Aplicacion web DAW de IFP 2024/2026</p>
+                    <p>Conformado por:</p>
+                        <ul>
+                            <li>Laia Castellà</li>
+                            <li>Luis Miguel Rojo</li>
+                            <li>Michael Alexander Medina</li>
+                            <li>Thalía Joannely Navarrete</li>
+                        </ul>
+                    
                 </div>
 
                 <div className={styles.incidencia}>
                     <p>
                         Si tiene alguna
-                        <Enlaces nomEnlace="Incidencia " ruta="/incidencia" /> relacionada con el funcionamiento de la web pongase en contacto con nosotros pulsando
+                        <Enlaces nomEnlace="Incidencia " ruta="/incidencia" /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
                         <Enlaces nomEnlace="aqui." ruta="/incidencia" />
                     </p>
                 </div>
             </div>
-        </main>
+        </footer>
     );
 }
