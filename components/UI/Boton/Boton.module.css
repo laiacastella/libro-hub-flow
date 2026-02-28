@@ -3,14 +3,15 @@
 .boton {
     color: white;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
 
-    min-width: 140px; 
+    min-width: 140px;
     width: auto;
-    
+    height: 50px;
+
     text-align: center;
     display: inline-flex;
     align-items: center;
@@ -22,17 +23,28 @@
     border: 1px solid #000;
 }
 
-/* pantallas medianas */
-@media (min-width: 768px) {
-    .boton {
-        width: 200px;    
-        height: 50px;
-        font-size: 1.2rem;
-        padding: 10px 20px;
-        min-width: 180px; 
-    }
+/* Variantes de tamaño */
+.small {
+    min-width: 100px;
+    padding: 6px 12px;
+    font-size: 1rem;
 }
 
+.small:not(.cerrar) {
+    height: 35px;
+}
+
+.medium {
+    min-width: 140px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.large {
+    min-width: 180px;
+    padding: 12px 24px;
+    font-size: 1rem;
+}
 
 /* Variantes */
 .default {
@@ -88,13 +100,4 @@
     color: #ed4f4c;
     transform: scale(1.15);
     filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
-}
-
-@media (max-width: 640px) {
-    .boton {
-        width: 100%;
-        font-size: 1.1rem;
-        padding: 8px 16px;
-        height: 45px;
-    }
 }
