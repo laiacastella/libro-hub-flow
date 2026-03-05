@@ -1,7 +1,6 @@
 "use client";
 import { Estrellas, ComponenteBiblioteca, Solicitudes, Valoraciones, Boton } from "@/components";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { useState } from "react";
 import styles from "./page.module.css";
 
@@ -31,9 +30,7 @@ export default function PerfilUsuarioPropio() {
                         </div>
 
                         <div className={styles.editarDatos}>
-                            <Link href="/editarCuenta">
-                                <Boton type="button" texto="Editar datos de la cuenta" />
-                            </Link>
+                            <Boton type="button" texto="Editar datos de la cuenta" enlace="editarCuenta" />
                         </div>
                     </div>
 

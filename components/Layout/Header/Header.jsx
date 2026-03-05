@@ -27,9 +27,7 @@ export default function Header() {
                         ruta="/perfilUsuarioPropio"
                     />
 
-                    <Link href="">
-                        <Boton type="button" texto="Subir libro" className="{styles.boton}" />
-                    </Link>
+                    <Boton type="button" texto="Subir libro" enlace="subirLibro" />
                 </div>
             </div>
         </main>

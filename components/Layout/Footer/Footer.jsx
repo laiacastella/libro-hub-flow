@@ -1,5 +1,5 @@
 import styles from "./Footer.module.css";
-import { Users, AlertTriangle } from "lucide-react";
+import { Users, AlertTriangle, Copyright } from "lucide-react";
 import Enlaces from "@/components/UI/Enlaces/Enlaces";
 
 export default function Footer() {
@@ -26,13 +26,12 @@ export default function Footer() {
             <footer className={styles.footer}>
                 <div className={styles.footerBottom}>
                     <p>
-                        <AlertTriangle size={20} color="#63a26c" />
-                        &nbsp;Si tiene alguna
-                        <Enlaces nomEnlace="Incidencia " ruta="/incidencia" /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
+                        <AlertTriangle size={20} color="#63a26c" /> Si tiene alguna
+                        <Enlaces nomEnlace="incidencia " ruta="/incidencia" /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
                         <Enlaces nomEnlace="aqui." ruta="/incidencia" />
                     </p>
                     <p>Desarrollo de Aplicaciones Web — IFP 2026</p>
-                    <span>© 2026 LibroHubFlow. Todos los derechos reservados.</span>
+                    <span><Copyright size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.</span>
                 </div>
             </footer>
         </div>
