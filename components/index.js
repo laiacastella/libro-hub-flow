@@ -3,7 +3,6 @@ export { default as ComponenteBiblioteca } from "./ComponenteBiblioteca/Componen
 export { default as Intercambios } from "./Intercambios/Intercambios";
 export { default as Solicitudes } from "./Solicitudes/Solicitudes";
 export { default as Valoraciones } from "./Valoraciones/Valoraciones";
-export { default as PopUpBiblioteca } from "./PopUpBiblioteca/PopUpBiblioteca";
 export { default as Comentarios } from "./Comentarios/Comentarios";
 
 // UI
@@ -30,6 +29,12 @@ export { default as Footer } from "./Layout/Footer/Footer";
 export { default as FormEditarCuenta } from "./Formularios/FormEditarCuenta/FormEditarCuenta";
 export { default as FormIncidencia } from "./Formularios/FormIncidencia/FormIncidencia";
 export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqueda";
+
+// PopUps
+export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
+export { default as PopUpPassReset } from "./PopUps/PopUpPassReset/PopUpPassReset";
+
+
 
 // Para hacer los imports donde queramos se hace de la siguiente manera:
 // import { Header } from "@/components";

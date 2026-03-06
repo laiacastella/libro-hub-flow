@@ -1,11 +1,24 @@
+"use client"
+import { useState } from "react"
 import Campo from "../Campo/Campo.jsx"
 import Boton from "../Boton/Boton.jsx"
-import { Enlaces } from "@/components";
+import { Enlaces, PopUpPassReset } from "@/components";
 import styles from '../disenoForm.module.css'
 import stylesTexto from './FormLogin.module.css'
 import Link from "next/link";
 
 const FormLogin = () => {
+    
+    const [mostrarPopup, setMostrarPopup] = useState(false)
+
+    const abrirPopup = () => {
+        setMostrarPopup(true)
+    }
+
+    const cerrarPopup = () => {
+        setMostrarPopup(false)
+    }
+    
     return (
         <div>
             <form className={styles.estiloForm}>
@@ -40,7 +53,7 @@ const FormLogin = () => {
                     <div className ={stylesTexto.textoLogin}>
                         <Enlaces 
                             nomEnlace="¿Olvidaste tu contraseña?"
-                            ruta=""
+                            onClick={abrirPopup}
                         />
                         <p> ¿No tienes una cuenta? 
                         <Enlaces 
@@ -52,6 +65,8 @@ const FormLogin = () => {
                     </div>
                 </div>
             </form>
+            
+            {mostrarPopup && <PopUpPassReset cerrar={cerrarPopup} />}
         </div>
     )
 }
