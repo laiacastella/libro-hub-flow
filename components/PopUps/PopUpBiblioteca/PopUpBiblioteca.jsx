@@ -11,6 +11,14 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     console.log("libro seleccionado: ", libroSeleccionado);
 
     useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add("no-scroll");
+        } else {
+            document.body.classList.remove("no-scroll");
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
         const fetchLibro = async () => {
             if (libroSeleccionado !== null) {
                 try {
