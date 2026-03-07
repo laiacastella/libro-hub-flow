@@ -1,5 +1,4 @@
 
-import Link from "next/link";
 import { Enlaces, Boton } from "@/components";
 import styles from "./Header.module.css";
 
@@ -27,9 +26,7 @@ export default function Header() {
                         ruta="/perfilUsuarioPropio"
                     />
 
-                    <Link href="">
-                        <Boton type="button" texto="Subir libro" className="{styles.boton}" />
-                    </Link>
+                    <Boton type="button" texto="Subir libro" enlace="subirLibro" />
                 </div>
             </div>
         </main>

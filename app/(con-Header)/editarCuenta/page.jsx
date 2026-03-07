@@ -1,15 +1,19 @@
 "use client";
 import { FormEditarCuenta, Boton } from "@/components/index";
-import { useRouter } from "next/navigation";
+import { Undo2 } from "lucide-react";
+import Link from "next/link";
 import styles from "./page.module.css"; 
 
 export default function EditarCuenta() {
-    const router = useRouter();
-
     return (
         <main>
             <div className={styles.fondo}>
-                <h2 className={styles.titulo}>Mi información personal</h2>
+                <h2 className={styles.titulo}>
+                    <Link href="perfilUsuarioPropio" >
+                        <Undo2 size="30" color="#000000"/> 
+                    </Link>
+                    {" "}Mi información personal
+                </h2>
 
                 <div className={styles.perfil}>
                     <div className={styles.foto}>

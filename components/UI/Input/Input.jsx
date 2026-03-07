@@ -10,16 +10,17 @@ export default function Input({
     nombre,
     maxLength,
     soloNumeros = false,
-    className = styles.input,
+    className,
+    placeholder,
+    fullWidth = false,
 }) {
     
     const [visible, setVisible] = useState(false);
 
-    const tipoFinal =
-        tipo === "password" && visible ? "text" : tipo;
+    const tipoFinal = tipo === "password" && visible ? "text" : tipo;
 
     return (
-         <div className={styles.field}>
+         <div className={styles.field} style={fullWidth ? { flex: 1, minWidth: 0 } : {}}>
             
             {label && (
                 <label htmlFor={id} className={styles.label}>
@@ -27,12 +28,13 @@ export default function Input({
                 </label>
             )}
 
-            <div className={styles.wrapper}>
+            <div className={styles.wrapper} style={fullWidth ? { flex: 1, minWidth: 0 } : {}}>
                 <input
                     type={tipoFinal}
                     id={id}
                     name={nombre}
-                    className={className}
+                    placeholder={placeholder}
+                    className={`${styles.input} ${className || ""}`}
                     maxLength={maxLength}
                     inputMode={soloNumeros ? "numeric" : undefined}
                     pattern={soloNumeros ? "[0-9]*" : undefined}

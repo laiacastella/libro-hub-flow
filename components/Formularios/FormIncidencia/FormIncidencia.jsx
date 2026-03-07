@@ -1,9 +1,10 @@
 "use client";
 import styles from "./FormIncidencia.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Boton } from "@/components";
 
 export default function FormIncidencia() {
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [formData, setFormData] = useState({
         nombreCompleto: "",
         correoElectronico: "",
@@ -11,6 +12,16 @@ export default function FormIncidencia() {
         asunto: "",
         descripcion: "",
     });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 768);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -77,8 +88,8 @@ export default function FormIncidencia() {
                     </div>
                 </div>
                 <div className={styles.actions}>
-                    <Boton type="button" texto="Enviar Reporte" />
-                    <Boton type="button" texto="Cancelar" variant="red" />
+                    <Boton size={isSmallScreen ? "small" : "medium"} type="button" texto="Enviar Reporte" />
+                    <Boton size={isSmallScreen ? "small" : "medium"} type="button" texto="Cancelar" variant="red" />
                 </div>
             </form>
         </div>

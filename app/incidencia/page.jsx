@@ -1,15 +1,14 @@
 "use client";
 import styles from "./incidencia.module.css";
-import { Header, FormIncidencia, Enlaces } from "@/components";
+import { FormIncidencia, Enlaces } from "@/components";
 import { ChevronRight } from "lucide-react";
 
 export default function Incidencia() {
     return (
         <div className={styles.container}>
-            <Header />
             <main className={styles.main}>
                 <nav className={styles.breadcrumbs}>
-                    <Enlaces nomEnlace="Perfil" ruta="/PerfilUsuarioPropio" />
+                    <Enlaces nomEnlace="Perfil" ruta="/perfilUsuarioPropio" />
                     <ChevronRight size={15} color="#333" />
                     <span className={styles.currentPath}>Reportar una Incidencia</span>
                 </nav>

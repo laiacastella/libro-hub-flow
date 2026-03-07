@@ -1,7 +1,6 @@
 "use client";
 import styles from "./FormEditarCuenta.module.css";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Boton, Input, Select } from "@/components";
 
 export default function FormEditarCuenta() {
@@ -107,9 +106,7 @@ export default function FormEditarCuenta() {
 
             <div className={styles.botones}>
                 <Boton type="submit" texto="Guardar cambios" />
-                <Link href="/perfilUsuarioPropio">
-                    <Boton type="button" texto="Cancelar" variant="red" />
-                </Link>
+                <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio"/>
             </div>
         </form>
     );

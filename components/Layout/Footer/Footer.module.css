@@ -1,89 +1,234 @@
-/* movil */
-.contenedorFooter {
-    background-color:  #63a26c; 
-    color: white;
-    padding: 1.5rem 1.5rem;
-    width: 100%;
-    border-top: 1px solid rgba(255,255,255,0.1);
+.main {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-between;
+}
+.wrapper {
+    padding: 40px 20px;
+    background: #f0efeaeb;
+    font-family: sans-serif;
 }
 
-.pie {
-  display: flex;
-  flex-direction: column; /* apila los contenedores verticalmente */
-  gap: 1rem;          
-  padding: 1.5rem 2rem;
-  
+/* ---------- INCIDENT PANEL ---------- */
+
+.incidentPanel {
+    margin-bottom: 40px;
 }
 
-.incidencia a {
-    color: #ffffff !important;
-    font-weight: 1000 !important;
-}
-
-.incidencia a::after {
-    background-color: #ffffff !important; 
-}
-
-.incidencia a:hover {
-    color: #f0f0f0 !important; 
-}
-
-.informacion p, .incidencia p {
-  margin-bottom: 0.5rem; 
-}
-
-.incidencia .enlaces:hover::after {
-    background-color: #f0f0f0 !important;
-}
-
-
-.equipo ul {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* dos columnas */
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-}
-
-.equipo li {
-  font-size: 0.9rem;
-}
-
-/* pantallas medianas */
-@media (min-width: 768px) {
-  .pie {
-    flex-direction: row;    /* cambiar a horizontal */
-    justify-content: space-between; /* separar los bloques a los extremos */
-    align-items: flex-start;
-    padding: 40px 80px;
-  }
-
-  .informacion, .incidencia {
-    flex: 1;                /* ambos ocupen el mismo espacio */
-    max-width: 45%;         /* evitar que se peguen al centro */
-  }
-}
-
-.elemento {
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.elemento:hover {
-    text-decoration: underline;
-}
-
-.boton {
-    background: #63A26C;
-    color: white;
-    border: none;
+.incidentContent {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 24px;
+    border: 1px solid #63a26c;
+    background: white;
     border-radius: 12px;
-    padding: 10px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 40px;
+}
+.incidentTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #63a26c;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.incidentTitle h5 {
+    margin: 0;
+}
+
+.incidentContent p {
+    color: #555;
+}
+
+.incidentContent a {
+    color: #63a26c;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.primaryButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #63a26c;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.primaryButton:hover {
+    opacity: 0.9;
+}
+
+/* ---------- TEAM ---------- */
+
+.teamSection {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.teamTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.teamTitle h5 {
+    margin: 0;
+}
+
+.teamGrid {
+    display: grid;
+    gap: 16px;
+}
+
+.teamCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.teamCard:hover {
+    border-color: rgba(99, 162, 108, 0.4);
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(99, 162, 108, 0.1);
+    color: #63a26c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teamCard h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.teamCard p {
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer {
+    border-top: 1px solid #ddd;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.footerTop {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.socialIcon {
+    width: 40px;
+    height: 40px;
+    background: #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
     cursor: pointer;
 }
 
-.boton:hover {
-    background-color: #4caf50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+.footerBottom p {
+    font-weight: 600;
+}
+
+.footerBottom span {
+    font-size: 12px;
+    color: #777;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (min-width: 768px) {
+    .incidentContent {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .teamGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .footerTop {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .incidentContent {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .incidentPanel {
+        width: 100%;
+    }
+
+    .teamSection {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .teamGrid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .footerTop {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
