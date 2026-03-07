@@ -10,19 +10,14 @@ export default function Home() {
     return (
     
         <div className={styles.contenedorPrincipal}>
-
-        <div className={styles.contenedorFijo}>
-        
-        <div className={styles.fondo}> 
+        <div> 
              <HeaderHome/>
         </div>
 
-        </div>
-        
         <div className = {styles.contenedorInfo}> 
 
-            <h1 className= {styles.titulo}> LibroHubFlow </h1>
-             
+            <div className = {styles.contenedorImg}></div>
+           
                     <div className={styles.descripConBoton}>
                         <div className={styles.descripcion}>
                          La plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites. <br /> 
