@@ -1,8 +1,8 @@
 .solicitudCard {
     background-color: white;
     border-radius: 8px;
-    width: 300px;
-    height: 350px;
+    width: 350px;
+    height: 400px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -19,7 +19,6 @@
     width: 100%;
 }
 .libro {
-    height: 100%;
     width: 44%;
 }
 .libroImagen {
@@ -83,16 +82,9 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.botonesSeleccion {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    height: 20%;
-}
-
 .trashIcono {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     color: #e53935;
     cursor: pointer;
 
@@ -100,7 +92,28 @@
         transform 0.25s ease,
         filter 0.25s ease;
 }
+.botonVerBiblioteca {
+    width: 100%;
+    background-color: #52925c;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
 
+    height: 50px;
+
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 1px solid #000;
+}
 .trashIcono:hover {
     color: #ed4f4c;
     transform: scale(1.15);
@@ -112,5 +125,32 @@
     align-items: center;
     gap: 10px;
     width: 100%;
-    height: 20%;
+}
+.divBotones {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.disabled {
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+
+    height: 50px;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    display: inline-flex;
+    box-shadow: none;
+    transform: none;
 }
