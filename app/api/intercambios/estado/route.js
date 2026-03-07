@@ -8,6 +8,20 @@ export async function PATCH(req) {
       return new Response(JSON.stringify({ error: "Faltan datos" }), { status: 400 });
     }
 
+    if (estado === "aceptado") {
+      const [rows] = await db.query(
+        "SELECT id_libro_ofrecido FROM intercambios WHERE id_intercambio = ? LIMIT 1",
+        [id_intercambio]
+      );
+
+      if (!rows.length || !rows[0].id_libro_ofrecido) {
+        return new Response(
+          JSON.stringify({ error: "Debes seleccionar un libro ofrecido antes de aceptar el intercambio" }),
+          { status: 400 }
+        );
+      }
+    }
+
     await db.query(
       "UPDATE intercambios SET estado_solicitud = ? WHERE id_intercambio = ?",
       [estado, id_intercambio]
