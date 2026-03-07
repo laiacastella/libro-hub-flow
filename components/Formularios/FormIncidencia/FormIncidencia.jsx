@@ -9,6 +9,7 @@ export default function FormIncidencia({ compact = false }) {
         nombreCompleto: "",
         correoElectronico: "",
         tipoIncidencia: "Error Técnico (Bug)",
+        telefono: "",
         asunto: "",
         descripcion: "",
     });
@@ -28,9 +29,36 @@ export default function FormIncidencia({ compact = false }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Datos enviados:", formData);
+        
+        try {
+            const response = await fetch("/api/incidencia", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(result.error || "Error al enviar el reporte");
+                return;
+            }
+
+            alert("Incidencia registrada correctamente. Nos pondremos en contacto pronto.");
+            setFormData({
+                nombreCompleto: "",
+                correoElectronico: "",
+                tipoIncidencia: "Error Técnico (Bug)",
+                telefono: "",
+                asunto: "",
+                descripcion: "",
+            });
+        } catch (error) {
+            console.error("Error al enviar el reporte:", error);
+            alert("Error al enviar el reporte. Intenta de nuevo.");
+        }
     };
 
     return (
@@ -39,18 +67,18 @@ export default function FormIncidencia({ compact = false }) {
                 <div className={`${styles.formGrid} ${compact ? styles.formGridCompact : ""}`}>
                     <div>
                         <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Nombre Completo *</label>
-                        <input type="text" name="nombreCompleto" placeholder="Ej. Juan Pérez" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
+                        <input type="text" name="nombreCompleto" value={formData.nombreCompleto} placeholder="Ej. Juan Pérez" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
                     </div>
                     <div>
                         <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Correo Electrónico *</label>
-                        <input type="email" name="correoElectronico" placeholder="juan.perez@empresa.com" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
+                        <input type="email" name="correoElectronico" value={formData.correoElectronico} placeholder="juan.perez@empresa.com" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
                     </div>
                 </div>
 
                 <div className={`${styles.formGrid} ${compact ? styles.formGridCompact : ""}`}>
                     <div>
                         <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Tipo de Incidencia *</label>
-                        <select name="tipoIncidencia" className={`${styles.select} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required>
+                        <select name="tipoIncidencia" value={formData.tipoIncidencia} className={`${styles.select} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required>
                             <option>Error Técnico (Bug)</option>
                             <option>Problema de Acceso</option>
                             <option>Sugerencia de Mejora</option>
@@ -61,18 +89,18 @@ export default function FormIncidencia({ compact = false }) {
                         <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`} htmlFor="telefono">
                             Teléfono
                         </label>
-                        <input type="tel" id="telefono" name="telefono" placeholder="123 456 789" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} pattern="[0-9\s]{9,15}" />
+                        <input type="tel" id="telefono" name="telefono" value={formData.telefono} placeholder="123 456 789" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} pattern="[0-9\s]{9,15}" />
                     </div>
                 </div>
 
                 <div className={`${styles.marginBottom} ${compact ? styles.marginBottomCompact : ""}`}>
                     <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Asunto *</label>
-                    <input type="text" name="asunto" placeholder="Breve resumen del problema" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
+                    <input type="text" name="asunto" value={formData.asunto} placeholder="Breve resumen del problema" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
                 </div>
 
                 <div className={`${styles.marginBottom} ${compact ? styles.marginBottomCompact : ""}`}>
                     <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Descripción Detallada*</label>
-                    <textarea rows={compact ? 3 : 5} name="descripcion" placeholder="¿Qué incidencia ocurre?..." className={`${styles.textarea} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required></textarea>
+                    <textarea rows={compact ? 3 : 5} name="descripcion" value={formData.descripcion} placeholder="¿Qué incidencia ocurre?..." className={`${styles.textarea} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required></textarea>
                 </div>
 
                 <div className={`${styles.marginBottom} ${compact ? styles.marginBottomCompact : ""}`}>
@@ -88,7 +116,7 @@ export default function FormIncidencia({ compact = false }) {
                     </div>
                 </div>
                 <div className={`${styles.actions} ${compact ? styles.actionsCompact : ""}`}>
-                    <Boton size={compact || isSmallScreen ? "small" : "medium"} type="button" texto="Enviar Reporte" />
+                    <Boton size={compact || isSmallScreen ? "small" : "medium"} type="submit" texto="Enviar Reporte" />
                     <Boton size={compact || isSmallScreen ? "small" : "medium"} type="button" texto="Cancelar" variant="red" />
                 </div>
             </form>
