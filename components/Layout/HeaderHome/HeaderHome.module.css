@@ -8,7 +8,7 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .cabecera {
-    background-color: transparent;
+    background-color: #f0efeaeb;
     width: 100%;
     /* 1. Cambio: usamos 'rem' para el padding. 
        1rem suele ser 16px. Esto escala si el usuario cambia el tamaño de fuente de su navegador. */

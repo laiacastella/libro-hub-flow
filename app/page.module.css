@@ -5,7 +5,6 @@
 }
 
 .contenedorImg {
-
   background-image: 
   linear-gradient(to bottom, transparent 90%, white 100%), 
    url('/imagen-home.jpg');
