@@ -33,8 +33,7 @@ export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqu
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
 export { default as PopUpPassReset } from "./PopUps/PopUpPassReset/PopUpPassReset";
-
-
+export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncidencia";
 
 // Para hacer los imports donde queramos se hace de la siguiente manera:
 // import { Header } from "@/components";
