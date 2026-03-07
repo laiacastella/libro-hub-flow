@@ -1,8 +1,21 @@
+"use client";
 import styles from "./Footer.module.css";
 import { Users, AlertTriangle, Copyright } from "lucide-react";
+import { useState } from "react";
 import Enlaces from "@/components/UI/Enlaces/Enlaces";
+import PopUpIncidencia from "@/components/PopUps/PopUpIncidencia/PopUpIncidencia";
 
 export default function Footer() {
+    const [isPopupIncidenciaOpen, setIsPopupIncidenciaOpen] = useState(false);
+
+    const abrirPopupIncidencia = () => {
+        setIsPopupIncidenciaOpen(true);
+    };
+
+    const cerrarPopupIncidencia = () => {
+        setIsPopupIncidenciaOpen(false);
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.main}>
@@ -27,13 +40,17 @@ export default function Footer() {
                 <div className={styles.footerBottom}>
                     <p>
                         <AlertTriangle size={20} color="#63a26c" /> Si tiene alguna
-                        <Enlaces nomEnlace="incidencia " ruta="/incidencia" /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
-                        <Enlaces nomEnlace="aqui." ruta="/incidencia" />
+                        <Enlaces nomEnlace="incidencia " onClick={abrirPopupIncidencia} /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
+                        <Enlaces nomEnlace="aqui." onClick={abrirPopupIncidencia} />
                     </p>
                     <p>Desarrollo de Aplicaciones Web — IFP 2026</p>
-                    <span><Copyright size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.</span>
+                    <span>
+                        <Copyright size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.
+                    </span>
                 </div>
             </footer>
+
+            <PopUpIncidencia isOpen={isPopupIncidenciaOpen} onClose={cerrarPopupIncidencia} />
         </div>
     );
 }
