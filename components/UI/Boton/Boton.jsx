@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import styles from "./Boton.module.css";
 import { useRouter } from "next/navigation";
 
@@ -12,9 +12,24 @@ export default function Boton({
     size = "medium", // small, medium o large
     disabled = false,
     enlace,
+    customClassName = false, // Si es true, usa solo el className personalizado
 }) {
     const router = useRouter();
-    
+
+    // Si customClassName es true, usa solo el className proporcionado
+    if (customClassName) {
+        const handleClick = (e) => {
+            if (onClick) onClick(e);
+            if (enlace) router.push(enlace);
+        };
+
+        return (
+            <button onClick={handleClick} className={className} title={title} type={type} disabled={disabled}>
+                {texto}
+            </button>
+        );
+    }
+
     const variantClass = variant === "red" ? styles.red : variant === "disabled" ? styles.disabled : variant === "cerrar" ? styles.cerrar : styles.default;
     const sizeClass = size === "small" ? styles.small : size === "large" ? styles.large : styles.medium;
     const isCerrar = variant === "cerrar";
