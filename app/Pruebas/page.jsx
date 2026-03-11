@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./page.module.css";
 import Comentarios from "../../components/Comentarios/Comentarios.jsx";
+import { BookHeadphones, Angry, Apple } from "lucide-react";
 
 export default function RegistroPage() {
     const [form, setForm] = useState({
@@ -133,6 +134,67 @@ export default function RegistroPage() {
             <div className={styles.pruebaCometarioContenedor}>
                 <Comentarios />
             </div>
+
+
+        {/*Codigo carrusel Inicio*/}
+            <div id="carouselExample" className="carousel slide pointer-event">
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                        <svg aria-label="Placeholder: First slide" 
+                            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" 
+                            height="400" 
+                            preserveAspectRatio="xMidYMid slice" 
+                            role="img" 
+                            width="800" 
+                            xmlns="http://www.w3.org/2000/svg">
+                                <title>BookHeadphones</title>
+                                <rect width="100%" height="100%" fill="#666"></rect>
+                                <BookHeadphones x="50%" y="50%" fill="#ffffff" />
+                        </svg>
+                    </div>
+
+                    <div className="carousel-item">
+                        <svg aria-label="Placeholder: Second slide" 
+                            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" 
+                            height="400" 
+                            preserveAspectRatio="xMidYMid slice" 
+                            role="img" 
+                            width="800" 
+                            xmlns="http://www.w3.org/2000/svg">
+                                <title>Angry</title>
+                                <rect width="100%" height="100%" fill="#666"></rect>
+                                <Angry x="50%" y="50%" fill="#ffffff" />
+                        </svg>
+                    </div>
+
+                    <div className="carousel-item">
+                        <svg aria-label="Placeholder: Third slide" 
+                            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" 
+                            height="400" 
+                            preserveAspectRatio="xMidYMid slice" 
+                            role="img" 
+                            width="800" 
+                            xmlns="http://www.w3.org/2000/svg">
+                                <title>Apple</title>
+                                <rect width="100%" height="100%" fill="#555"></rect>
+                                <Apple x="50%" y="50%" fill="#ffffff" />
+                        </svg>
+                    </div>
+                </div>
+
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
+
+            </div>
+        {/*Codigo carrusel Final*/}
+        
         </>
     );
 }
