@@ -11,6 +11,14 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     console.log("libro seleccionado: ", libroSeleccionado);
 
     useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add("no-scroll");
+        } else {
+            document.body.classList.remove("no-scroll");
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
         const fetchLibro = async () => {
             if (libroSeleccionado !== null) {
                 try {
@@ -25,30 +33,64 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
         fetchLibro();
     }, [libroSeleccionado]);
 
-    const handleCerrarPopup = async () => {
-        if (libroSeleccionado && intercambio) {
-            try {
-                console.log("Enviando PATCH /libro con:", {
-                    id_intercambio: intercambio?.id_intercambio,
-                    id_libro_ofrecido: libroSeleccionado?.id_libro,
-                });
-
-                await fetch("/api/intercambios/libro", {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        id_intercambio: intercambio.id_intercambio,
-                        id_libro_ofrecido: libroSeleccionado,
-                    }),
-                });
-
-                // Actualiza localmente
-                avanzarEstado(intercambio.id_intercambio, "solicitado"); // para cambiar estado a "seleccionado" en UI
-            } catch (error) {
-                console.error(error);
-                alert("No se pudo seleccionar el libro");
-            }
+    useEffect(() => {
+        if (!isOpen) {
+            setLibroSeleccionado(null);
+            setInfoLibro(null);
+            return;
         }
+
+        if (intercambio?.id_libro_ofrecido) {
+            setLibroSeleccionado(intercambio.id_libro_ofrecido);
+        }
+    }, [isOpen, intercambio]);
+
+    const guardarLibroSeleccionado = async () => {
+        if (!intercambio) return false;
+
+        const idLibroSeleccionado = libroSeleccionado || intercambio.id_libro_ofrecido;
+        if (!idLibroSeleccionado) {
+            alert("Selecciona un libro antes de continuar");
+            return false;
+        }
+
+        try {
+            const response = await fetch("/api/intercambios/libro", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id_intercambio: intercambio.id_intercambio,
+                    id_libro_ofrecido: idLibroSeleccionado,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("No se pudo guardar el libro seleccionado");
+            }
+
+            await avanzarEstado(intercambio.id_intercambio, "solicitado");
+            return true;
+        } catch (error) {
+            console.error(error);
+            alert("No se pudo seleccionar el libro");
+            return false;
+        }
+    };
+
+    const handleAceptarIntercambio = async () => {
+        const hayLibroGuardado = Boolean(intercambio?.id_libro_ofrecido || intercambio?.libro_ofrecido_titulo);
+
+        if (!hayLibroGuardado && !libroSeleccionado) {
+            alert("Selecciona un libro antes de aceptar el intercambio");
+            return;
+        }
+
+        if (!hayLibroGuardado && libroSeleccionado) {
+            const guardado = await guardarLibroSeleccionado();
+            if (!guardado) return;
+        }
+
+        await avanzarEstado(intercambio.id_intercambio, "seleccionado");
         onClose();
     };
 
@@ -60,43 +102,31 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                     <h2>Biblioteca del usuario</h2>
                     <div className={styles.botonesSeleccion}>
                         <Boton
-                        texto="Seleccionar libro"
-                        variant="default"
-                        onClick={() => {
-                                // avanzarEstado(intercambio.id_intercambio, "seleccionado");
-                                handleCerrarPopup();
-                                setLibroSeleccionado(null);
-                                // setIdIntercambio(intercambio.id_intercambio);
-                                onClose();
+                            texto="Seleccionar libro"
+                            variant="default"
+                            onClick={async () => {
+                                const guardado = await guardarLibroSeleccionado();
+                                if (guardado) onClose();
                             }}
                         />
+                        <Boton texto="Aceptar intercambio" variant="default" onClick={handleAceptarIntercambio} />
                         <Boton
-                        texto="Aceptar intercambio"
-                        variant="default"
-                        onClick={() => {
-                                avanzarEstado(intercambio.id_intercambio, "seleccionado");
-                                // setIdIntercambio(intercambio.id_intercambio);
-                                onClose();
-                            }}
-                        />
-                        <Boton
-                        texto="Rechazar"
-                        variant="red"
-                        onClick={() => {
+                            texto="Rechazar"
+                            variant="red"
+                            onClick={() => {
                                 avanzarEstado(intercambio.id_intercambio, "rechazado");
                                 onClose();
                             }}
                         />
                         <Boton
-                        texto={<X />}
-                        variant="cerrar"
-                        title="Cerrar ventana"
-                        onClick={() => {
+                            texto={<X />}
+                            variant="cerrar"
+                            title="Cerrar ventana"
+                            onClick={() => {
                                 onClose();
                                 setLibroSeleccionado(null);
                             }}
                         />
-                        
                     </div>
                 </div>
                 <section className={styles.infoIntercambio}>

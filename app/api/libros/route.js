@@ -14,7 +14,7 @@ export async function GET(request) {
         return Response.json(result);
     } catch (error) {
         return Response.json(
-            { error: "Error BBDD" },
+            { error: error.message },
             { status: 500 }
         );
     }
