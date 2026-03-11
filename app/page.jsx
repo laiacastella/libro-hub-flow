@@ -9,27 +9,19 @@ export default function Home() {
     
         <div className={styles.contenedorPrincipal}>
 
-        <div className={styles.contenedorFijo}>
         <div className={styles.fondo}> 
              <HeaderHome/>
         </div>
-        </div>
-
+     
+    
         <div className = {styles.contenedorInfo}>
 
-        <div className = {styles.contenedorImg}>
-        </div>
-        
                     <div className={styles.descripConBoton}>
                         <div className={styles.descripcion}>
                          La plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites. <br /> 
                         <br />
                         Descubre nuevas historias, dale una segunda vida a tus libros y comienza tu próximo capítulo con un solo clic.      
                     </div>
-
-                    <div className={styles.Boton}>
-                        <Boton type="button" texto="Encuentra tu libro" enlace="inicioSesion"/>
-                    </div> 
 
                     <h1 className={styles.titulo}>
                         ¿Por qué LibroHubFlow?
@@ -65,6 +57,12 @@ export default function Home() {
 
                     <h1 className = {styles.titulo}> Miles de historias... <br />
                     Un solo punto de partida</h1>
+
+                    <div className = {styles.contenedorImg}>
+                    </div>
+                     <div className={styles.Boton}>
+                        <Boton type="button" texto="Encuentra tu libro ahora" enlace="inicioSesion"/>
+                    </div> 
                 </div>
             </div>
         </div>
