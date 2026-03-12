@@ -1,0 +1,21 @@
+.contador {
+
+background: linear-gradient(10deg, #A8D191 0%, #63A26C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  font-size: 1.5em; /* Un poco más grande que el texto base */
+display: inline-block;
+  font-variant-numeric: tabular-nums;
+
+filter: drop-shadow(0px 2px 4px rgba(99, 162, 108, 0.2));
+opacity: 0;
+  transform: translateY(10px);
+}
+
+.visible {
+    opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
