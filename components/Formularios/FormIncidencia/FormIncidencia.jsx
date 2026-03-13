@@ -1,10 +1,14 @@
 "use client";
+import Image from "next/image";
 import styles from "./FormIncidencia.module.css";
 import { useState, useRef } from "react";
 import { Boton } from "@/components";
 
-export default function FormIncidencia({ compact = false }) {
+export default function FormIncidencia({ onClose }) {
+    // Referencia al input file oculto para abrirlo desde el contenedor clicable.
     const fileInputRef = useRef(null);
+
+    // Estados del formulario y de la imagen adjunta.
     const [archivo, setArchivo] = useState(null);
     const [preview, setPreview] = useState("");
     const [formData, setFormData] = useState({
@@ -16,11 +20,13 @@ export default function FormIncidencia({ compact = false }) {
         descripcion: "",
     });
 
+    // Actualiza cualquier campo de texto/select/textarea usando su atributo name.
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    // Guarda el archivo seleccionado y genera una URL temporal para mostrar vista previa.
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -28,12 +34,14 @@ export default function FormIncidencia({ compact = false }) {
         setPreview(URL.createObjectURL(file));
     };
 
+    // Envía la incidencia: primero sube la imagen (si existe) y luego manda el formulario.
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             let capturaUrl = "";
 
+            // Si hay archivo, se sube y se obtiene la URL pública de la captura.
             if (archivo) {
                 const formDataUpload = new FormData();
                 formDataUpload.append("archivo", archivo);
@@ -50,6 +58,7 @@ export default function FormIncidencia({ compact = false }) {
                 }
             }
 
+            // Envío final de la incidencia al endpoint del backend.
             const response = await fetch("/api/incidencia", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -63,6 +72,7 @@ export default function FormIncidencia({ compact = false }) {
                 return;
             }
 
+            // Si todo fue bien, muestra mensaje y limpia formulario + adjunto.
             alert("Incidencia registrada correctamente. Nos pondremos en contacto pronto.");
             setFormData({
                 nombreCompleto: "",
@@ -77,29 +87,33 @@ export default function FormIncidencia({ compact = false }) {
         } catch (error) {
             console.error("Error al enviar el reporte:", error);
             alert("Error al enviar el reporte. Intenta de nuevo.");
+        } finally {
+            onClose();
         }
     };
 
     return (
-        <div className={`${styles.formCard} ${compact ? styles.formCardCompact : ""}`}>
+        <div className={styles.formCard}>
             <form onSubmit={handleSubmit}>
-                <div className={`row ${compact ? "g-2" : "g-4"} mb-2 mb-md-4`}>
+                {/* Bloque: datos personales básicos */}
+                <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-6">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Nombre Completo *</label>
-                        <input type="text" name="nombreCompleto" value={formData.nombreCompleto} placeholder="Ej. Juan Pérez" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
+                        <label className={styles.label}>Nombre Completo *</label>
+                        <input type="text" name="nombreCompleto" value={formData.nombreCompleto} placeholder="Ej. Juan Pérez" className={styles.input} onChange={handleChange} required />
                     </div>
                     <div className="col-6">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`} htmlFor="telefono">
+                        <label className={styles.label} htmlFor="telefono">
                             Teléfono
                         </label>
-                        <input type="tel" id="telefono" name="telefono" value={formData.telefono} placeholder="123 456 789" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} pattern="[0-9\s]{9,15}" />
+                        <input type="tel" id="telefono" name="telefono" value={formData.telefono} placeholder="123 456 789" className={styles.input} onChange={handleChange} pattern="[0-9\s]{9,15}" />
                     </div>
                 </div>
 
-                <div className={`row ${compact ? "g-2" : "g-4"} mb-2 mb-md-4`}>
+                {/* Bloque: tipo de incidencia y correo de contacto */}
+                <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 col-md-6">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Tipo de Incidencia *</label>
-                        <select name="tipoIncidencia" value={formData.tipoIncidencia} className={`${styles.select} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required>
+                        <label className={styles.label}>Tipo de Incidencia *</label>
+                        <select name="tipoIncidencia" value={formData.tipoIncidencia} className={styles.select} onChange={handleChange} required>
                             <option>Error Técnico (Bug)</option>
                             <option>Problema de Acceso</option>
                             <option>Sugerencia de Mejora</option>
@@ -107,41 +121,45 @@ export default function FormIncidencia({ compact = false }) {
                         </select>
                     </div>
                     <div className="col-12 col-md-6">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Correo Electrónico *</label>
-                        <input type="email" name="correoElectronico" value={formData.correoElectronico} placeholder="juan.perez@example.com" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
+                        <label className={styles.label}>Correo Electrónico *</label>
+                        <input type="email" name="correoElectronico" value={formData.correoElectronico} placeholder="juan.perez@example.com" className={styles.input} onChange={handleChange} required />
                     </div>
                 </div>
 
-                <div className={`row ${compact ? "g-2" : "g-4"} mb-2 mb-md-4`}>
+                {/* Bloque: asunto */}
+                <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Asunto *</label>
-                        <input type="text" name="asunto" value={formData.asunto} placeholder="Breve resumen del problema" className={`${styles.input} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required />
+                        <label className={styles.label}>Asunto *</label>
+                        <input type="text" name="asunto" value={formData.asunto} placeholder="Breve resumen del problema" className={styles.input} onChange={handleChange} required />
                     </div>
                 </div>
 
-                <div className={`row ${compact ? "g-2" : "g-4"} mb-2 mb-md-4`}>
+                {/* Bloque: descripción detallada del problema */}
+                <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Descripción Detallada*</label>
-                        <textarea rows={compact ? 2 : 5} name="descripcion" value={formData.descripcion} placeholder="¿Qué incidencia ocurre?..." className={`${styles.textarea} ${compact ? styles.inputCompact : ""}`} onChange={handleChange} required></textarea>
+                        <label className={styles.label}>Descripción Detallada*</label>
+                        <textarea rows={2} name="descripcion" value={formData.descripcion} placeholder="¿Qué incidencia ocurre?..." className={styles.textarea} onChange={handleChange} required></textarea>
                     </div>
                 </div>
 
-                <div className={`row ${compact ? "g-2" : "g-4"} mb-2 mb-md-4`}>
+                {/* Bloque: carga opcional de captura de pantalla */}
+                <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 mt-0">
-                        <label className={`${styles.label} ${compact ? styles.labelCompact : ""}`}>Adjuntar Capturas de Pantalla</label>
+                        <label className={styles.label}>Adjuntar Capturas de Pantalla</label>
                         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-                        <div className={`${styles.adjuntarContainer} ${compact ? styles.adjuntarContainerCompact : ""}`} onClick={() => fileInputRef.current.click()}>
+                        <div className={styles.adjuntarContainer} onClick={() => fileInputRef.current.click()}>
                             {preview ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img src={preview} alt="Preview" className={styles.previewImage} />
+                                // Si hay una imagen seleccionada, muestra su vista previa.
+                                <Image src={preview} alt="Preview" className={styles.previewImage} width={400} height={180} unoptimized />
                             ) : (
+                                // Si no hay imagen, muestra el contenedor para subir una captura.
                                 <>
                                     <svg xmlns="http://www.w3.org/2000/svg" className={styles.adjuntarIcon} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                     </svg>
                                     <div className={styles.adjuntarContent}>
                                         <p className={styles.adjuntarText}>
-                                            <span className={styles.adjuntarLink}>Sube un archivo</span> o arrastra y suelta aquí
+                                            <span className={styles.adjuntarLink}>Sube una captura</span> o arrastra y suelta aquí
                                         </p>
                                         <p className={styles.adjuntarSubtext}>PNG, JPG, GIF hasta 10MB</p>
                                     </div>
@@ -151,9 +169,10 @@ export default function FormIncidencia({ compact = false }) {
                     </div>
                 </div>
 
-                <div className={`d-flex flex-row justify-content-end ${compact ? "gap-2 pt-2" : "gap-3 pt-3"}`}>
-                    <Boton className={styles.formButton} size={compact ? "small" : "medium"} type="submit" texto="Enviar Reporte" />
-                    <Boton className={styles.formButton} size={compact ? "small" : "medium"} type="button" texto="Cancelar" variant="red" />
+                {/* Botones del formulario */}
+                <div className={styles.acciones}>
+                    <Boton className={styles.formButton} size="small" type="submit" texto="Enviar Reporte" />
+                    <Boton className={styles.formButton} size="small" type="button" texto="Cancelar" variant="red" onClick={onClose} />
                 </div>
             </form>
         </div>
