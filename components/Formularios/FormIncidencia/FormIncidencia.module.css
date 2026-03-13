@@ -86,6 +86,11 @@
     background-color: #f3f4f6;
 }
 
+.adjuntarContainerDragActive {
+    background-color: #eef8f0;
+    border-color: #63a26c;
+}
+
 .adjuntarContent {
     display: flex;
     flex-direction: column;

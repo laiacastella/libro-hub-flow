@@ -13,6 +13,7 @@ export default function FormIncidencia({ onClose }) {
     // Estados del formulario y de la imagen adjunta.
     const [archivo, setArchivo] = useState(null);
     const [preview, setPreview] = useState("");
+    const [arrastrando, setArrastrando] = useState(false);
     const [formData, setFormData] = useState({
         nombreCompleto: "",
         correoElectronico: "",
@@ -28,25 +29,47 @@ export default function FormIncidencia({ onClose }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Guarda el archivo seleccionado y genera una URL temporal para la vista previa.
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        // Si no se seleccionó ningún archivo, retorna sin hacer nada.
+    const processSelectedFile = (file, inputElement) => {
         if (!file) return;
 
         if (file.size > maxPhotoSize) {
             alert("La imagen debe ser menor de 10MB.");
-            e.target.value = "";
+            if (inputElement) inputElement.value = "";
             return;
         }
 
-        // Si ya hay una imagen previa, revoca su URL para liberar memoria.
         if (preview) {
             URL.revokeObjectURL(preview);
         }
 
         setArchivo(file);
-        setPreview(URL.createObjectURL(file)); // Genera una URL temporal para mostrar la vista previa de la imagen seleccionada.
+        setPreview(URL.createObjectURL(file));
+    };
+
+    // Guarda el archivo seleccionado y genera una URL temporal para la vista previa.
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        processSelectedFile(file, e.target);
+    };
+
+    // Cuando se arrastra encima
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setArrastrando(true);
+    };
+
+    // Cuando se arrastra fuera del área
+    const handleDragLeave = () => {
+        setArrastrando(false);
+    };
+
+    // Cuando se suelta el archivo
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setArrastrando(false);
+
+        const file = e.dataTransfer.files?.[0]; // Solo se procesa el primer archivo si se sueltan varios.
+        processSelectedFile(file, fileInputRef.current); // Pasa la referencia del input.
     };
 
     // Envía la incidencia: primero sube la imagen (si existe) y luego manda el formulario.
@@ -162,7 +185,7 @@ export default function FormIncidencia({ onClose }) {
                     <div className="col-12 mt-0">
                         <label className={styles.label}>Adjuntar Capturas de Pantalla</label>
                         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-                        <div className={styles.adjuntarContainer} onClick={() => fileInputRef.current.click()}>
+                        <div className={`${styles.adjuntarContainer} ${arrastrando ? styles.adjuntarContainerDragActive : ""}`} onClick={() => fileInputRef.current.click()} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
                             {preview ? (
                                 // Si hay una imagen seleccionada, muestra su vista previa.
                                 <Image src={preview} alt="Preview" className={styles.previewImage} width={400} height={180} unoptimized />
