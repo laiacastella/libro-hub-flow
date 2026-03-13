@@ -5,6 +5,8 @@ import { useState, useRef } from "react";
 import { Boton } from "@/components";
 
 export default function FormIncidencia({ onClose }) {
+    const maxPhotoSize = 10 * 1024 * 1024; // 10MB en bytes
+
     // Referencia al input file oculto para abrirlo desde el contenedor clicable.
     const fileInputRef = useRef(null);
 
@@ -26,12 +28,25 @@ export default function FormIncidencia({ onClose }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Guarda el archivo seleccionado y genera una URL temporal para mostrar vista previa.
+    // Guarda el archivo seleccionado y genera una URL temporal para la vista previa.
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        // Si no se seleccionó ningún archivo, retorna sin hacer nada.
         if (!file) return;
+
+        if (file.size > maxPhotoSize) {
+            alert("La imagen debe ser menor de 10MB.");
+            e.target.value = "";
+            return;
+        }
+
+        // Si ya hay una imagen previa, revoca su URL para liberar memoria.
+        if (preview) {
+            URL.revokeObjectURL(preview);
+        }
+
         setArchivo(file);
-        setPreview(URL.createObjectURL(file));
+        setPreview(URL.createObjectURL(file)); // Genera una URL temporal para mostrar la vista previa de la imagen seleccionada.
     };
 
     // Envía la incidencia: primero sube la imagen (si existe) y luego manda el formulario.
