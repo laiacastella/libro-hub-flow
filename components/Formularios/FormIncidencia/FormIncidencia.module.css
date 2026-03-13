@@ -3,26 +3,17 @@
     border-radius: 0.75rem;
     border: 1px solid #e5e7eb;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.formCardCompact {
-    padding: 1rem;
-}
-
 .label {
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #374151;
-    margin-bottom: 0.5rem;
-}
-
-.labelCompact {
-    font-size: 0.8rem;
     margin-bottom: 0.25rem;
 }
 
@@ -38,31 +29,21 @@
     box-sizing: border-box;
     box-shadow: inset 0 1px 3px #0001;
     font-size: 16px;
+    color: #374151;
 }
 
 .select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     background-color: #ffffff;
     color: #374151;
     font-family: inherit;
     line-height: 1.5;
-    padding-right: 2.5rem;
-    background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%), linear-gradient(135deg, #6b7280 50%, transparent 50%);
-    background-position:
-        calc(100% - 1.1rem) calc(50% - 0.1rem),
-        calc(100% - 0.8rem) calc(50% - 0.1rem);
-    background-size:
-        0.35rem 0.35rem,
-        0.35rem 0.35rem;
-    background-repeat: no-repeat;
     cursor: pointer;
 }
 
-.inputCompact {
+.input,
+.select,
+.textarea {
     padding: 0.5rem 0.75rem;
-    font-size: 16px;
 }
 
 .input:focus,
@@ -77,11 +58,16 @@
     font-family: Arial;
 }
 
+.input::placeholder,
+.textarea::placeholder {
+    color: #9ca3af;
+}
+
 /* adjuntar */
 .adjuntarContainer {
     border: 2px dashed #e5e7eb;
     border-radius: 0.75rem;
-    padding: 2rem;
+    padding: 0.9rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,10 +75,6 @@
     background-color: #f9fafb;
     cursor: pointer;
     transition: background-color 0.2s;
-}
-
-.adjuntarContainerCompact {
-    padding: 0.9rem;
 }
 
 .adjuntarContainer:hover {
@@ -137,29 +119,27 @@
 
 /* Para pantallas pequeñas */
 @media (max-width: 640px) {
-    .formCardCompact {
+    .formCard {
         padding: 0.65rem;
     }
 
-    .labelCompact {
+    .label {
         font-size: 0.75rem;
         margin-bottom: 0.15rem;
     }
 
-    .inputCompact {
+    .input,
+    .select,
+    .textarea {
         padding: 0.4rem 0.6rem;
         font-size: 0.85rem;
-    }
-
-    .adjuntarContainerCompact {
-        padding: 0.6rem;
     }
 
     .adjuntarContainer {
         flex-direction: row;
         align-items: center;
         gap: 1rem;
-        padding: 0.9rem;
+        padding: 0.6rem;
     }
 
     .adjuntarContent {
@@ -187,6 +167,14 @@
         margin-top: 0.1rem;
         margin-bottom: 0;
     }
+}
+
+.acciones {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
 }
 
 .formButton {
