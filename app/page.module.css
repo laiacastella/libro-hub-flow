@@ -3,14 +3,8 @@
     min-height: 100vh;
 }
 
-.fondoWeb {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/imagen-home.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
-    margin: 0;
+body {
+    padding: 80px;
 }
 
 .contenedorInfo {
@@ -40,26 +34,15 @@
     /* Asegura que el scroll ocurra de forma natural */
     overflow-y: auto;
     gap: 4rem;
+    padding-top: 10rem;
+    padding-bottom: 4rem;
 }
-/* 
 .contenedorImg {
-background-image: 
-  linear-gradient(to bottom, transparent 90%, white 100%), 
-   url('/imagen-home.jpg');
-    background-position: 30%;
-    background-size: cover;
-    background-repeat: no-repeat;
-  width: 90%;
-  height: 30vh;
-  margin: 0.5rem auto;
-  display: block;
-  border-radius: 12px;
-  transition: all 0.3s ease-in-out;
-} */
+    display: none;
+}
 
 .contenedorImg2 {
-    background-image: linear-gradient(to bottom, transparent 90%, white 100%), url("/genteLeyendo.jpg");
-    background-position: 20%;
+    background-image: url("/genteLeyendo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     width: 90%;
@@ -68,6 +51,8 @@ background-image:
     display: block;
     border-radius: 12px;
     transition: all 0.3s ease-in-out;
+    border: 3px solid #63a26c;
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 1);
 }
 
 .texto {
@@ -128,12 +113,16 @@ background-image:
 
 /* pantallas ordenador */
 @media (min-width: 1024px) {
-    .contenedorImg {
+    /* .contenedorImg {
         width: 60vw;
         height: 60vh;
         max-width: 1200px;
-    }
+    } */
 
+    .contenedorInfo {
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
     .contenedorImg2 {
         width: 60vw;
         height: 60vh;
