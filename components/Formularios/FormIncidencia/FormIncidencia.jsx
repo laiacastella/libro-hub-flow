@@ -23,7 +23,7 @@ export default function FormIncidencia({ onClose }) {
         descripcion: "",
     });
 
-    // Actualiza cualquier campo de texto/select/textarea usando su atributo name.
+    // Actualiza cualquier campo usando su name.
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -79,7 +79,7 @@ export default function FormIncidencia({ onClose }) {
         try {
             let capturaUrl = "";
 
-            // Si hay archivo, se sube y se obtiene la URL pública de la captura.
+            // Si hay archivo, se sube y se obtiene la URL de la captura.
             if (archivo) {
                 const formDataUpload = new FormData();
                 formDataUpload.append("archivo", archivo);
@@ -133,7 +133,7 @@ export default function FormIncidencia({ onClose }) {
     return (
         <div className={styles.formCard}>
             <form onSubmit={handleSubmit}>
-                {/* Bloque: datos personales básicos */}
+                {/* datos personales */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-6">
                         <label className={styles.label}>Nombre Completo *</label>
@@ -147,7 +147,7 @@ export default function FormIncidencia({ onClose }) {
                     </div>
                 </div>
 
-                {/* Bloque: tipo de incidencia y correo de contacto */}
+                {/* tipo de incidencia y correo de contacto */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 col-md-6">
                         <label className={styles.label}>Tipo de Incidencia *</label>
@@ -164,7 +164,7 @@ export default function FormIncidencia({ onClose }) {
                     </div>
                 </div>
 
-                {/* Bloque: asunto */}
+                {/* asunto */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
                         <label className={styles.label}>Asunto *</label>
@@ -172,7 +172,7 @@ export default function FormIncidencia({ onClose }) {
                     </div>
                 </div>
 
-                {/* Bloque: descripción detallada del problema */}
+                {/* descripción detallada del problema */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
                         <label className={styles.label}>Descripción Detallada*</label>
@@ -180,7 +180,7 @@ export default function FormIncidencia({ onClose }) {
                     </div>
                 </div>
 
-                {/* Bloque: carga opcional de captura de pantalla */}
+                {/* carga opcional de captura de pantalla */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 mt-0">
                         <label className={styles.label}>Adjuntar Capturas de Pantalla</label>

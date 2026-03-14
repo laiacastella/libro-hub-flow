@@ -1,13 +1,3 @@
-.contenedor {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 400px; 
-    margin: 0 auto;
-    position: relative;
-}
-
 .visor {
     width: 100%;
     overflow: hidden; /* Ocultar libros */
@@ -19,26 +9,9 @@
 }
 
 .slide {
-    min-width: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-width: calc(100% / var(--slides-to-show, 1));
 }
 
-.imagen {
-    width: 180px;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.flecha {
-    background: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 2;
+.slide > * {
+    height: 100%;
 }

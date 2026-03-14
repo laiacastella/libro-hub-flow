@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="es">
             <head>
                 <title>LibroHubFlow</title>
                 <meta name="description" content="Una plataforma para intercambiar libros de manera fácil y segura." />
