@@ -22,7 +22,7 @@ export default function Footer() {
                 {/* Equipo */}
                 <div className={styles.teamSection}>
                     <div className={styles.teamTitle}>
-                        <Users size={20} />
+                        <Users size={20} aria-hidden="true" />
                         <h3>Nuestro Equipo de Desarrollo</h3>
                     </div>
 
@@ -39,13 +39,13 @@ export default function Footer() {
             <footer className={styles.footer}>
                 <div className={styles.footerBottom}>
                     <p>
-                        <AlertTriangle size={20} color="#63a26c" /> Si tiene alguna
+                        <AlertTriangle size={20} color="#63a26c" aria-hidden="true" /> Si tiene alguna
                         <Enlaces nomEnlace="incidencia " onClick={abrirPopupIncidencia} /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
                         <Enlaces nomEnlace="aqui." onClick={abrirPopupIncidencia} />
                     </p>
                     <p>Desarrollo de Aplicaciones Web — IFP 2026</p>
                     <span>
-                        <Copyright size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.
+                        <Copyright aria-hidden="true" size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.
                     </span>
                 </div>
             </footer>
@@ -59,7 +59,7 @@ function TeamCard({ name, role }) {
     return (
         <div className={styles.teamCard}>
             <div className={styles.avatar}>
-                <Users size={18} />
+                <Users size={18} aria-hidden="true" />
             </div>
             <div>
                 <h4>{name}</h4>
