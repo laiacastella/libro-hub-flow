@@ -64,8 +64,6 @@ export default function Home() {
                     Miles de historias... <br />
                     Un solo punto de partida
                 </p>
-                {/* <Boton type="button" texto="Registrarse" enlace="registro" /> */}
-                <Boton type="button" texto="Registrarse" enlace="registro" />
             </div>
         </main>
     );

@@ -14,7 +14,7 @@ export default function HeaderHome() {
 
                     <div className={styles.menu}>
                         <Boton type="button" texto="Iniciar sesión" enlace="inicioSesion" />
-                        {/* <Boton type="button" texto="Registrarse" enlace="registro" /> */}
+                        <Boton type="button" texto="Registrarse" enlace="registro" />
                     </div>
                 </div>
             </div>
