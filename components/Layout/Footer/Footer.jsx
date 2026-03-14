@@ -36,7 +36,7 @@ export default function Footer() {
             </div>
 
             {/* Footer */}
-            <footer className={styles.footer}>
+            <div className={styles.footer}>
                 <div className={styles.footerBottom}>
                     <p>
                         <AlertTriangle size={20} color="#63a26c" aria-hidden="true" /> Si tiene alguna
@@ -48,7 +48,7 @@ export default function Footer() {
                         <Copyright aria-hidden="true" size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.
                     </span>
                 </div>
-            </footer>
+            </div>
 
             <PopUpIncidencia isOpen={isPopupIncidenciaOpen} onClose={cerrarPopupIncidencia} />
         </div>

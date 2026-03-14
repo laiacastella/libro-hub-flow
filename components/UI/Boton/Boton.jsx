@@ -42,7 +42,7 @@ export default function Boton({
     };
 
     return (
-        <button onClick={handleClick} className={buttonClass} title={title} type={type} disabled={disabled || variant === "disabled"}>
+        <button aria-label={ariaLabel} onClick={handleClick} className={buttonClass} title={title} type={type} disabled={disabled || variant === "disabled"}>
             {texto}
         </button>
     );
