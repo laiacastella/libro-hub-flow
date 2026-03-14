@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 export default function Boton({
     texto,
     onClick,
+    ariaLabel,
     title,
     type = "button",
     className = "",
@@ -24,7 +25,7 @@ export default function Boton({
         };
 
         return (
-            <button onClick={handleClick} className={className} title={title} type={type} disabled={disabled}>
+            <button aria-label={ariaLabel} onClick={handleClick} className={className} title={title} type={type} disabled={disabled}>
                 {texto}
             </button>
         );

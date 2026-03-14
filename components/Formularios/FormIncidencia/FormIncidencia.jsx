@@ -156,10 +156,11 @@ export default function FormIncidencia({ onClose }) {
                             Tipo de Incidencia *
                         </label>
                         <select id="tipoIncidencia" name="tipoIncidencia" value={formData.tipoIncidencia} className={styles.select} onChange={handleChange} required>
-                            <option>Error Técnico (Bug)</option>
-                            <option>Problema de Acceso</option>
-                            <option>Sugerencia de Mejora</option>
-                            <option>Otro</option>
+                            <option value="">Selecciona un tipo</option>
+                            <option value="Error Técnico (Bug)">Error Técnico (Bug)</option>
+                            <option value="Problema de Acceso">Problema de Acceso</option>
+                            <option value="Sugerencia de Mejora">Sugerencia de Mejora</option>
+                            <option value="Otro">Otro</option>
                         </select>
                     </div>
                     <div className="col-12 col-md-6">
