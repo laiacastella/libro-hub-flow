@@ -25,9 +25,7 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
                             setLibroSeleccionado?.(libro.id_libro);
                         }}>
                         <Image src={libro.foto_portada || "https://via.placeholder.com/150x200?text=Sin+Portada"} alt={libro.titulo || "Sin Portada"} className={styles.libroImage} width={150} height={200} onError={manejarErrorImagen} unoptimized={libro.foto_portada?.startsWith("http") ? true : false} />
-                        <h2 className={styles.libroTitulo} title={libro.titulo}>
-                            {libro.titulo}
-                        </h2>
+                        <h2 className={styles.libroTitulo}>{libro.titulo}</h2>
                         <p className={styles.libroAutor}>{libro.autor}</p>
                     </div>
                 ))}
