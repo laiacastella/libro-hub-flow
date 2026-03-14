@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
             <head>
                 <title>LibroHubFlow</title>
                 <meta name="description" content="Una plataforma para intercambiar libros de manera fácil y segura." />
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
                 <meta charSet="utf-8" />
                 <link rel="icon" href="/logo.svg" />
             </head>
