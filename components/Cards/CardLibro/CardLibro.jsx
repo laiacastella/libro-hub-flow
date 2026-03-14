@@ -1,7 +1,5 @@
-"use client";
-import { useState, useEffect } from "react";
+
 import Image from "next/image";
-import { Paginacion } from "@/components";
 import styles from "./CardLibro.module.css";
 
 export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, librosFiltrados }) {
