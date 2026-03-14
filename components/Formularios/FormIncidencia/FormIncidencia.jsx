@@ -136,13 +136,13 @@ export default function FormIncidencia({ onClose }) {
                 {/* datos personales */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-6">
-                        <label for="nombreCompleto" className={styles.label}>
+                        <label htmlFor="nombreCompleto" className={styles.label}>
                             Nombre Completo *
                         </label>
                         <input type="text" id="nombreCompleto" name="nombreCompleto" value={formData.nombreCompleto} placeholder="Ej. Juan Pérez" className={styles.input} onChange={handleChange} required />
                     </div>
                     <div className="col-6">
-                        <label for="telefono" className={styles.label}>
+                        <label htmlFor="telefono" className={styles.label}>
                             Teléfono
                         </label>
                         <input type="tel" id="telefono" name="telefono" value={formData.telefono} placeholder="123 456 789" className={styles.input} onChange={handleChange} pattern="[0-9\s]{9,15}" />
@@ -152,7 +152,7 @@ export default function FormIncidencia({ onClose }) {
                 {/* tipo de incidencia y correo de contacto */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 col-md-6">
-                        <label for="tipoIncidencia" className={styles.label}>
+                        <label htmlFor="tipoIncidencia" className={styles.label}>
                             Tipo de Incidencia *
                         </label>
                         <select id="tipoIncidencia" name="tipoIncidencia" value={formData.tipoIncidencia} className={styles.select} onChange={handleChange} required>
@@ -163,7 +163,7 @@ export default function FormIncidencia({ onClose }) {
                         </select>
                     </div>
                     <div className="col-12 col-md-6">
-                        <label for="correoElectronico" className={styles.label}>
+                        <label htmlFor="correoElectronico" className={styles.label}>
                             Correo Electrónico *
                         </label>
                         <input type="email" id="correoElectronico" name="correoElectronico" value={formData.correoElectronico} placeholder="juan.perez@example.com" className={styles.input} onChange={handleChange} required />
@@ -173,7 +173,7 @@ export default function FormIncidencia({ onClose }) {
                 {/* asunto */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
-                        <label for="asunto" className={styles.label}>
+                        <label htmlFor="asunto" className={styles.label}>
                             Asunto *
                         </label>
                         <input type="text" id="asunto" name="asunto" value={formData.asunto} placeholder="Breve resumen del problema" className={styles.input} onChange={handleChange} required />
@@ -183,7 +183,7 @@ export default function FormIncidencia({ onClose }) {
                 {/* descripción detallada del problema */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
-                        <label for="descripcion" className={styles.label}>
+                        <label htmlFor="descripcion" className={styles.label}>
                             Descripción Detallada*
                         </label>
                         <textarea rows={2} id="descripcion" name="descripcion" value={formData.descripcion} placeholder="¿Qué incidencia ocurre?..." className={styles.textarea} onChange={handleChange} required></textarea>
@@ -193,7 +193,7 @@ export default function FormIncidencia({ onClose }) {
                 {/* carga opcional de captura de pantalla */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 mt-0">
-                        <label for="capturaPantalla" className={styles.label}>
+                        <label htmlFor="capturaPantalla" className={styles.label}>
                             Adjuntar Capturas de Pantalla
                         </label>
                         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
