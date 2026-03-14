@@ -55,7 +55,7 @@
 .select:focus,
 .textarea:focus {
     border-color: transparent;
-    box-shadow: 0 0 0 2px #63a26c;
+    box-shadow: 0 0 0 2px #407c42;
 }
 
 .textarea {
@@ -88,7 +88,7 @@
 
 .adjuntarContainerDragActive {
     background-color: #eef8f0;
-    border-color: #63a26c;
+    border-color: #407c42;
 }
 
 .adjuntarContent {
@@ -110,7 +110,7 @@
 }
 
 .adjuntarLink {
-    color: #63a26c;
+    color: #407c42;
     font-weight: 600;
 }
 

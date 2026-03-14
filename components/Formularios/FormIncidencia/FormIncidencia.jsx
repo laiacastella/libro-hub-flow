@@ -196,7 +196,7 @@ export default function FormIncidencia({ onClose }) {
                         <label htmlFor="capturaPantalla" className={styles.label}>
                             Adjuntar Capturas de Pantalla
                         </label>
-                        <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+                        <input id="capturaPantalla" ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
                         <div className={`${styles.adjuntarContainer} ${arrastrando ? styles.adjuntarContainerDragActive : ""}`} onClick={() => fileInputRef.current.click()} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
                             {preview ? (
                                 // Si hay una imagen seleccionada, muestra su vista previa.
