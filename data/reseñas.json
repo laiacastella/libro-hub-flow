@@ -1,0 +1,28 @@
+{
+  "testimonios": [
+    {
+      "id": 1,
+      "nombre": "Valeria Espinoza",
+      "foto": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+      "reseña": "¡Increíble! Llevaba meses buscando una edición descatalogada de 'Rayuela' y aquí la encontré en una semana. El proceso de intercambio fue superfluido y seguro. ¡Me encanta la comunidad!"
+    },
+    {
+      "id": 2,
+      "nombre": "Julián Martínez",
+      "foto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+      "reseña": "Lo que más me gusta es lo fácil que es contactar con otros lectores. Ya he intercambiado tres libros de mi estantería que solo acumulaban polvo por joyas nuevas que quería leer. Muy recomendado."
+    },
+    {
+      "id": 3,
+      "nombre": "Elena Rodríguez",
+      "foto": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+      "reseña": "Una plataforma intuitiva y muy necesaria. Encontré el libro que buscaba para mi tesis y el intercambio se hizo en un par de días. Es genial darle una segunda vida a los libros físicos."
+    },
+    {
+      "id": 4,
+      "nombre": "Marcos Herrera",
+      "foto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+      "reseña": "Mi experiencia ha sido de 10. La interfaz es limpia y encontrar gente con gustos similares es sencillo. Ya soy usuario habitual, ¡el intercambio de libros nunca fue tan fácil!"
+    }
+  ]
+}
