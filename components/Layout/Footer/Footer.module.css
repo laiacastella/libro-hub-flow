@@ -87,8 +87,9 @@
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
-.teamTitle h5 {
+.teamTitle h3 {
     margin: 0;
+    font-size: 1.5rem;
 }
 
 .teamGrid {

@@ -23,7 +23,7 @@ export default function Footer() {
                 <div className={styles.teamSection}>
                     <div className={styles.teamTitle}>
                         <Users size={20} />
-                        <h5>Nuestro Equipo de Desarrollo</h5>
+                        <h3>Nuestro Equipo de Desarrollo</h3>
                     </div>
 
                     <div className={styles.teamGrid}>
