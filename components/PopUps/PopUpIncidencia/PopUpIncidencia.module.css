@@ -9,7 +9,7 @@
     width: min(1100px, 96vw);
     max-height: 96vh;
     border-radius: 12px;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .main {
@@ -40,7 +40,6 @@
 @media (max-width: 768px) {
     .popup {
         max-height: 85vh;
-        overflow-y: auto;
     }
 
     .main {
