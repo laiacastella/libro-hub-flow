@@ -57,7 +57,7 @@ export default function Home() {
                 <div className={styles.contenedorCards}>
                     <CardIcono alt="icono mundo con flecha" rutaIcono="/world-share.svg" titulo="Comparte y Descubre" texto="Tu próxima lectura te está esperando gratis. Conecta estanterías de todo el país y accede a miles de títulos sin barreras." />
                     <CardIcono alt="icono mensajes" rutaIcono="/messages.svg" titulo="Conecta y Debate" texto="Mucho más que un intercambio. Entra en el foro, comparte tus teorías y encuentra a lectores que vibran con tus mismos autores." />
-                    <CardIcono alt="icono reciclar" rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
+                    <CardIcono rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
                 </div>
 
                 <div className={styles.titulo}>
