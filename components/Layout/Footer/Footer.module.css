@@ -87,7 +87,8 @@
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
-.teamTitle h3 {
+.teamTitleText {
+    font-weight: 100;
     margin: 0;
     font-size: 1.5rem;
 }
@@ -123,12 +124,12 @@
     justify-content: center;
 }
 
-.teamCard h4 {
+.teamName {
     margin: 0;
     font-size: 18px;
 }
 
-.teamCard p {
+.teamRole {
     margin: 0;
     font-size: 13px;
     color: #313131;

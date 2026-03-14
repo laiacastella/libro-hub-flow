@@ -23,7 +23,7 @@ export default function Footer() {
                 <div className={styles.teamSection}>
                     <div className={styles.teamTitle}>
                         <Users size={20} aria-hidden="true" />
-                        <h3>Nuestro Equipo de Desarrollo</h3>
+                        <p className={styles.teamTitleText}>Nuestro Equipo de Desarrollo</p>
                     </div>
 
                     <div className={styles.teamGrid}>
@@ -62,8 +62,8 @@ function TeamCard({ name, role }) {
                 <Users size={18} aria-hidden="true" />
             </div>
             <div>
-                <h4>{name}</h4>
-                <p>{role}</p>
+                <p className={styles.teamName}>{name}</p>
+                <p className={styles.teamRole}>{role}</p>
             </div>
         </div>
     );

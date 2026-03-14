@@ -19,9 +19,9 @@ export default function Home() {
             <div className={styles.contenedorInfo}>
                 <div className={styles.contenedorImg}></div>
 
-                <h1 className={styles.texto}>
+                <p className={styles.texto}>
                     Somos <b>LibroHubFlow</b>, la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites.
-                </h1>
+                </p>
                 <Boton type="button" texto="Encuentra tu libro" enlace="inicioSesion" />
 
                 <div className={styles.titulo}>Un proceso simple para descubrir tu proxima lectura</div>
@@ -60,10 +60,10 @@ export default function Home() {
                     <CardIcono rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
                 </div>
 
-                <h2 className={styles.titulo}>
+                <p>
                     Miles de historias... <br />
                     Un solo punto de partida
-                </h2>
+                </p>
                 {/* <Boton type="button" texto="Registrarse" enlace="registro" /> */}
                 <Boton type="button" texto="Registrarse" enlace="registro" />
             </div>
