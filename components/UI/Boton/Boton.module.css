@@ -48,11 +48,11 @@
 
 /* Variantes */
 .default {
-    background-color: #63a26c;
+    background-color: #468b50;
 }
 
 .default:hover:not(:disabled) {
-    background-color: #52925c;
+    background-color: #3d7945;
     transform: translateY(3px);
     box-shadow:
         0 8px 18px rgba(0, 0, 0, 0.2),
