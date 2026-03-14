@@ -3,18 +3,33 @@
   min-height: 100vh;
 }
 
+.fondoWeb{
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url('/imagen-home.jpg'); 
+    background-size: cover;                
+    background-position: center;          
+    background-repeat: no-repeat;          
+    background-attachment: fixed;  
+    min-height: 100vh;
+    margin: 0;        
+}
+
 .contenedorInfo {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url('/imagen-home.jpg'); 
+     background-size: cover;                
+    background-position: center;          
+    background-repeat: no-repeat;          
+    background-attachment: fixed; 
 display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  z-index: 1; /* Por debajo del z-index 100 del header */
+  z-index: -1; /* Por debajo del z-index 100 del header */
   width: 100%;
   min-height: 100vh;
   
-  /* IMPORTANTE: El padding-top debe ser igual o mayor 
-     a la altura del header para que el Hero no empiece tapado */
-  padding-top: 5rem; 
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
   padding-bottom: 3%;
   
   /* Tus propiedades originales de diseño */
@@ -24,9 +39,9 @@ display: flex;
   
   /* Asegura que el scroll ocurra de forma natural */
   overflow-y: auto;
-  gap: 2rem;
+  gap: 4rem;
 }
-
+/* 
 .contenedorImg {
 background-image: 
   linear-gradient(to bottom, transparent 90%, white 100%), 
@@ -40,7 +55,7 @@ background-image:
   display: block;
   border-radius: 12px;
   transition: all 0.3s ease-in-out;
-}
+} */
 
 .contenedorImg2 {
 background-image: 
@@ -63,10 +78,15 @@ background-image:
     padding: 0 1.5rem;
     width: 100%;
     font-size: 1.2rem;
+    color: white;
 }
 
 .titulo {
-    color: #4A4A4A;
+    /* color: #4A4A4A; */
+    color: white; background-size: cover;                
+    background-position: center;          
+    background-repeat: no-repeat;          
+    background-attachment: fixed; 
     font-size: 1.8rem;    
     font-weight: 980;      
     width: 100%;                  

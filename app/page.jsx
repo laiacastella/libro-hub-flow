@@ -16,12 +16,13 @@ export default function Home() {
 
     return (
 
+
         <main className={styles.main}>
             
                 <HeaderHome/>
            
             <div className = {styles.contenedorInfo}>
-
+                <div className = {styles.fondoWeb}> </div>
                 <div className = {styles.contenedorImg}></div>
                
                <div className = {styles.texto}>
