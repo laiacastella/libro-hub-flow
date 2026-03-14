@@ -1,9 +1,9 @@
 /* movil */
 
 .boton {
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
@@ -27,7 +27,7 @@
 .small {
     min-width: 100px;
     padding: 6px 12px;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .small:not(.cerrar) {
@@ -37,22 +37,22 @@
 .medium {
     min-width: 140px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .large {
     min-width: 180px;
     padding: 12px 24px;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 /* Variantes */
 .default {
-    background-color: #468b50;
+    background-color: #63a26c;
 }
 
 .default:hover:not(:disabled) {
-    background-color: #3d7945;
+    background-color: #52925c;
     transform: translateY(3px);
     box-shadow:
         0 8px 18px rgba(0, 0, 0, 0.2),
