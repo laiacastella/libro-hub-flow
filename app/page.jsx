@@ -19,9 +19,9 @@ export default function Home() {
             <div className={styles.contenedorInfo}>
                 <div className={styles.contenedorImg}></div>
 
-                <div className={styles.texto}>
+                <h1 className={styles.texto}>
                     Somos <b>LibroHubFlow</b>, la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites.
-                </div>
+                </h1>
                 <Boton type="button" texto="Encuentra tu libro" enlace="inicioSesion" />
 
                 <div className={styles.titulo}>Un proceso simple para descubrir tu proxima lectura</div>
