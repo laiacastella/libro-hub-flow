@@ -135,49 +135,30 @@ export default function RegistroPage() {
                 <Comentarios />
             </div>
 
-
-        {/*Codigo carrusel Inicio*/}
+            {/*Codigo carrusel Inicio*/}
             <div id="carouselExample" className="carousel slide pointer-event">
                 <div className="carousel-inner">
                     <div className="carousel-item active">
-                        <svg aria-label="Placeholder: First slide" 
-                            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" 
-                            height="400" 
-                            preserveAspectRatio="xMidYMid slice" 
-                            role="img" 
-                            width="800" 
-                            xmlns="http://www.w3.org/2000/svg">
-                                <title>BookHeadphones</title>
-                                <rect width="100%" height="100%" fill="#666"></rect>
-                                <BookHeadphones x="50%" y="50%" fill="#ffffff" />
+                        <svg aria-label="Placeholder: First slide" className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" height="400" preserveAspectRatio="xMidYMid slice" role="img" width="800" xmlns="http://www.w3.org/2000/svg">
+                            <title>BookHeadphones</title>
+                            <rect width="100%" height="100%" fill="#666"></rect>
+                            <BookHeadphones x="50%" y="50%" fill="#ffffff" />
                         </svg>
                     </div>
 
                     <div className="carousel-item">
-                        <svg aria-label="Placeholder: Second slide" 
-                            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" 
-                            height="400" 
-                            preserveAspectRatio="xMidYMid slice" 
-                            role="img" 
-                            width="800" 
-                            xmlns="http://www.w3.org/2000/svg">
-                                <title>Angry</title>
-                                <rect width="100%" height="100%" fill="#666"></rect>
-                                <Angry x="50%" y="50%" fill="#ffffff" />
+                        <svg aria-label="Placeholder: Second slide" className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" height="400" preserveAspectRatio="xMidYMid slice" role="img" width="800" xmlns="http://www.w3.org/2000/svg">
+                            <title>Angry</title>
+                            <rect width="100%" height="100%" fill="#666"></rect>
+                            <Angry x="50%" y="50%" fill="#ffffff" />
                         </svg>
                     </div>
 
                     <div className="carousel-item">
-                        <svg aria-label="Placeholder: Third slide" 
-                            className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" 
-                            height="400" 
-                            preserveAspectRatio="xMidYMid slice" 
-                            role="img" 
-                            width="800" 
-                            xmlns="http://www.w3.org/2000/svg">
-                                <title>Apple</title>
-                                <rect width="100%" height="100%" fill="#555"></rect>
-                                <Apple x="50%" y="50%" fill="#ffffff" />
+                        <svg aria-label="Placeholder: Third slide" className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" height="400" preserveAspectRatio="xMidYMid slice" role="img" width="800" xmlns="http://www.w3.org/2000/svg">
+                            <title>Apple</title>
+                            <rect width="100%" height="100%" fill="#555"></rect>
+                            <Apple x="50%" y="50%" fill="#ffffff" />
                         </svg>
                     </div>
                 </div>
@@ -191,10 +172,8 @@ export default function RegistroPage() {
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
-
             </div>
-        {/*Codigo carrusel Final*/}
-        
+            {/*Codigo carrusel Final*/}
         </>
     );
 }
