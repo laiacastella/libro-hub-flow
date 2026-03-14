@@ -61,7 +61,7 @@
 
 /* Si es rojo */
 .red {
-    background-color: #e53935;
+    background-color: #9f1e1b;
 }
 
 .red:hover:not(:disabled) {
