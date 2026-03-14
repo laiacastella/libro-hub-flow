@@ -47,8 +47,8 @@ export default function Carrusel({ items = [], renderItem, slidesToShow = 1, mob
     if (items.length === 0) return null;
 
     return (
-        <div className="d-flex align-items-center justify-content-center w-100 mx-auto position-relative" style={{ maxWidth: "1200px" }}>
-            <button type="button" className="btn btn-light rounded-circle border-0 shadow-sm d-inline-flex align-items-center justify-content-center p-1 position-relative z-2" onClick={anterior}>
+        <div className={styles.contenedor}>
+            <button type="button" className={styles.boton} onClick={anterior}>
                 <ChevronLeft />
             </button>
 
@@ -60,14 +60,14 @@ export default function Carrusel({ items = [], renderItem, slidesToShow = 1, mob
                         "--slides-to-show": visibleSlides,
                     }}>
                     {items.map((item, index) => (
-                        <div key={item.id || item.id_libro || index} className={`${styles.slide} d-flex justify-content-center align-items-stretch p-1`}>
+                        <div key={item.id || item.id_libro || index} className={styles.slide}>
                             {renderItem(item)}
                         </div>
                     ))}
                 </div>
             </div>
 
-            <button type="button" className="btn btn-light rounded-circle border-0 shadow-sm d-inline-flex align-items-center justify-content-center p-1 position-relative z-2" onClick={siguiente}>
+            <button type="button" className={styles.boton} onClick={siguiente}>
                 <ChevronRight />
             </button>
         </div>

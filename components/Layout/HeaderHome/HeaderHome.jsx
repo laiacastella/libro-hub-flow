@@ -8,12 +8,12 @@ export default function HeaderHome() {
             <div className={styles.cabecera}>
                 <div className={styles.contenedorInterno}>
                     <div className={styles.logo}>
-                        <img src="/logo-h1Negro.svg" alt="logo" />
+                        <img src="/logo-h1Blanco.svg" alt="logo" />
                     </div>
 
                     <div className={styles.menu}>
                         <Boton type="button" texto="Iniciar sesión" enlace="inicioSesion" />
-                        <Boton type="button" texto="Registrarse" enlace="registro" />
+                        {/* <Boton type="button" texto="Registrarse" enlace="registro" /> */}
                     </div>
                 </div>
             </div>
