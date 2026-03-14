@@ -23,7 +23,7 @@ export default function Footer() {
                 <div className={styles.teamSection}>
                     <div className={styles.teamTitle}>
                         <Users size={20} aria-hidden="true" />
-                        <p className={styles.teamTitleText}>Nuestro Equipo de Desarrollo</p>
+                        <h2 className={styles.teamTitleText}>Nuestro Equipo de Desarrollo</h2>
                     </div>
 
                     <div className={styles.teamGrid}>
@@ -41,8 +41,8 @@ export default function Footer() {
                     <p>
                         <AlertTriangle size={20} color="#63a26c" aria-hidden="true" /> Si tiene alguna
                         <button className={styles.enlaces} onClick={abrirPopupIncidencia}>
-                            incidencia{" "}
-                        </button>{" "}
+                            incidencia
+                        </button>
                         relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
                         <button className={styles.enlaces} onClick={abrirPopupIncidencia}>
                             aquí.

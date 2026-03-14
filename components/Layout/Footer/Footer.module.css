@@ -237,18 +237,17 @@
 
 .enlaces {
     /* --- ESTÉTICA --- */
-    color: #63a26c; /* El mismo verde para dar coherencia */
+    color: #407c42; /* El mismo verde para dar coherencia */
     text-decoration: none; /* Quitamos el subrayado */
     font-weight: bold;
     display: inline-block;
     position: relative; /* Necesario para la animación */
-    /* --- EL TRUCO DEL ESPACIO --- */
-    margin-left: 8px; /* Esto empuja el enlace hacia la derecha */
 
     /* --- ANIMACIÓN (Opción 1) --- */
     transition: color 0.3s ease;
     cursor: pointer;
     border: none;
+    background-color: transparent;
 }
 
 .enlaces::after {
@@ -258,7 +257,7 @@
     height: 2px;
     bottom: -2px;
     left: 0;
-    background-color: #63a26c;
+    background-color: #407c42;
     transform: scaleX(0); /* Empieza con tamaño cero */
     transition: transform 0.3s ease;
 }
