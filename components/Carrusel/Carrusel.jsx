@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Carrusel.module.css";
 
 export default function Carrusel({ items = [], renderItem, slidesToShow = 1 }) {
-    const [indice, setIndice] = useState(0);
+    const [pagina, setPagina] = useState(0);
     const [visibleSlides, setVisibleSlides] = useState(1);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function Carrusel({ items = [], renderItem, slidesToShow = 1 }) {
                 return;
             }
 
-            if (window.innerWidth < 900) {
+            if (window.innerWidth < 1300) {
                 setVisibleSlides(Math.max(1, Math.min(2, items.length || 1)));
                 return;
             }
@@ -29,25 +29,27 @@ export default function Carrusel({ items = [], renderItem, slidesToShow = 1 }) {
         };
     }, [items.length, slidesToShow]);
 
+    const totalPaginas = Math.ceil(items.length / visibleSlides);
+    const paginaVisible = Math.min(pagina, Math.max(0, totalPaginas - 1));
     const maxIndex = Math.max(0, items.length - visibleSlides);
-    const indiceVisible = Math.min(indice, maxIndex);
+    const indiceVisible = Math.min(paginaVisible * visibleSlides, maxIndex);
 
     // Funciones de navegación
     const siguiente = () => {
-        setIndice((prev) => (prev >= maxIndex ? 0 : prev + 1));
+        setPagina((prev) => (prev >= totalPaginas - 1 ? 0 : prev + 1));
     };
 
     const anterior = () => {
-        setIndice((prev) => (prev <= 0 ? maxIndex : prev - 1));
+        setPagina((prev) => (prev <= 0 ? totalPaginas - 1 : prev - 1));
     };
 
     useEffect(() => {
-        if (maxIndex === 0) return;
+        if (totalPaginas <= 1) return;
         const timer = setInterval(() => {
-            setIndice((prev) => (prev >= maxIndex ? 0 : prev + 1));
+            setPagina((prev) => (prev >= totalPaginas - 1 ? 0 : prev + 1));
         }, 3000);
         return () => clearInterval(timer);
-    }, [maxIndex]);
+    }, [totalPaginas]);
 
     if (items.length === 0) return null;
 
