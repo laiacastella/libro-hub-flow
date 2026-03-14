@@ -22,7 +22,7 @@ export default function PopUpIncidencia({ isOpen, onClose }) {
         <div className={styles.overlay} onClick={onClose}>
             <dialog className={`${styles.popup} border-0 p-0 bg-transparent`} open onClick={(e) => e.stopPropagation()}>
                 {/* Evita que el clic en el contenido cierre el pop-up */}
-                <main className={styles.main}>
+                <div className={styles.main}>
                     <div className={`${styles.titleSection} mb-3`}>
                         <div className="d-flex align-items-start justify-content-between gap-3">
                             <h1 className={styles.title}>Reportar una Incidencia</h1>
@@ -32,7 +32,7 @@ export default function PopUpIncidencia({ isOpen, onClose }) {
                     </div>
 
                     <FormIncidencia onClose={onClose} />
-                </main>
+                </div>
             </dialog>
         </div>
     );
