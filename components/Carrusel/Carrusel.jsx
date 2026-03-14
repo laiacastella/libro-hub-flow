@@ -48,7 +48,7 @@ export default function Carrusel({ items = [], renderItem, slidesToShow = 1, mob
 
     return (
         <div className={styles.contenedor}>
-            <button type="button" className={styles.boton} onClick={anterior}>
+            <button type="button" className={styles.boton} onClick={anterior} aria-label="Ver elementos anteriores">
                 <ChevronLeft />
             </button>
 
@@ -67,7 +67,7 @@ export default function Carrusel({ items = [], renderItem, slidesToShow = 1, mob
                 </div>
             </div>
 
-            <button type="button" className={styles.boton} onClick={siguiente}>
+            <button type="button" className={styles.boton} onClick={siguiente} aria-label="Ver elementos siguientes">
                 <ChevronRight />
             </button>
         </div>
