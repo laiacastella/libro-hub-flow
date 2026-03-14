@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Contador.module.css'
 const Contador = ({ valorFinal, duracion = 2000 }) => {
