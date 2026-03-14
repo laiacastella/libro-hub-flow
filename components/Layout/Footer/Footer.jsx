@@ -40,8 +40,13 @@ export default function Footer() {
                 <div className={styles.footerBottom}>
                     <p>
                         <AlertTriangle size={20} color="#63a26c" aria-hidden="true" /> Si tiene alguna
-                        <Enlaces nomEnlace="incidencia " onClick={abrirPopupIncidencia} /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
-                        <Enlaces nomEnlace="aqui." onClick={abrirPopupIncidencia} />
+                        <button className={styles.enlaces} onClick={abrirPopupIncidencia}>
+                            incidencia{" "}
+                        </button>{" "}
+                        relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
+                        <button className={styles.enlaces} onClick={abrirPopupIncidencia}>
+                            aquí.
+                        </button>
                     </p>
                     <p>Desarrollo de Aplicaciones Web — IFP 2026</p>
                     <span>

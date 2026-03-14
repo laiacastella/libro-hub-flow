@@ -60,7 +60,7 @@ export default function Home() {
                     <CardIcono rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
                 </div>
 
-                <p>
+                <p className={styles.titulo}>
                     Miles de historias... <br />
                     Un solo punto de partida
                 </p>
