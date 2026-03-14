@@ -27,13 +27,13 @@ export default function Home() {
                 <div className={styles.titulo}>Un proceso simple para descubrir tu proxima lectura</div>
 
                 <div className={styles.contenedorCards}>
-                    <CardIcono alt="Añadir libro" rutaIcono="/square-plus.svg" texto="Añade facilmente los libros que quieres intercambiar" />
+                    <CardIcono alt="icono añadir" rutaIcono="/square-plus.svg" texto="Añade facilmente los libros que quieres intercambiar" />
 
-                    <CardIcono alt="Explorar libros" rutaIcono="/books.svg" texto="Explora miles de ejemplares de otros usuarios y solicita los que te interesen con un solo clic" />
+                    <CardIcono alt="icono libros" rutaIcono="/books.svg" texto="Explora miles de ejemplares de otros usuarios y solicita los que te interesen con un solo clic" />
 
-                    <CardIcono alt="Entrega" rutaIcono="/truck-delivery.svg" texto="Una vez aceptado el intercambio , coordina el envio con el otro usuario" />
+                    <CardIcono alt="icono camion entrega" rutaIcono="/truck-delivery.svg" texto="Una vez aceptado el intercambio , coordina el envio con el otro usuario" />
 
-                    <CardIcono alt="Evaluar libro" rutaIcono="/mood-check.svg" texto="Intercambiaste, leíste... ¡Ahora inspira! ¿Lo prestas o lo recomiendas?" />
+                    <CardIcono alt="icono cara feliz con check" rutaIcono="/mood-check.svg" texto="Intercambiaste, leíste... ¡Ahora inspira! ¿Lo prestas o lo recomiendas?" />
                 </div>
 
                 <div className={styles.titulo}>Libros recién publicados</div>
@@ -55,9 +55,9 @@ export default function Home() {
                 <div className={styles.texto}>En LibroHubFlow creemos que un libro olvidado es una historia pausada. Nuestra misión es simple: que los libros circulen, las ideas se compartan y el planeta respire.</div>
 
                 <div className={styles.contenedorCards}>
-                    <CardIcono alt="Comparte y Descubre" rutaIcono="/world-share.svg" titulo="Comparte y Descubre" texto="Tu próxima lectura te está esperando gratis. Conecta estanterías de todo el país y accede a miles de títulos sin barreras." />
-                    <CardIcono alt="Conecta y Debate" rutaIcono="/messages.svg" titulo="Conecta y Debate" texto="Mucho más que un intercambio. Entra en el foro, comparte tus teorías y encuentra a lectores que vibran con tus mismos autores." />
-                    <CardIcono alt="Dale un respiro al Planeta" rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
+                    <CardIcono alt="icono mundo con flecha" rutaIcono="/world-share.svg" titulo="Comparte y Descubre" texto="Tu próxima lectura te está esperando gratis. Conecta estanterías de todo el país y accede a miles de títulos sin barreras." />
+                    <CardIcono alt="icono mensajes" rutaIcono="/messages.svg" titulo="Conecta y Debate" texto="Mucho más que un intercambio. Entra en el foro, comparte tus teorías y encuentra a lectores que vibran con tus mismos autores." />
+                    <CardIcono alt="icono reciclar" rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
                 </div>
 
                 <div className={styles.titulo}>
