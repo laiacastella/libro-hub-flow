@@ -136,11 +136,13 @@ export default function FormIncidencia({ onClose }) {
                 {/* datos personales */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-6">
-                        <label className={styles.label}>Nombre Completo *</label>
-                        <input type="text" name="nombreCompleto" value={formData.nombreCompleto} placeholder="Ej. Juan Pérez" className={styles.input} onChange={handleChange} required />
+                        <label for="nombreCompleto" className={styles.label}>
+                            Nombre Completo *
+                        </label>
+                        <input type="text" id="nombreCompleto" name="nombreCompleto" value={formData.nombreCompleto} placeholder="Ej. Juan Pérez" className={styles.input} onChange={handleChange} required />
                     </div>
                     <div className="col-6">
-                        <label className={styles.label} htmlFor="telefono">
+                        <label for="telefono" className={styles.label}>
                             Teléfono
                         </label>
                         <input type="tel" id="telefono" name="telefono" value={formData.telefono} placeholder="123 456 789" className={styles.input} onChange={handleChange} pattern="[0-9\s]{9,15}" />
@@ -150,8 +152,10 @@ export default function FormIncidencia({ onClose }) {
                 {/* tipo de incidencia y correo de contacto */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 col-md-6">
-                        <label className={styles.label}>Tipo de Incidencia *</label>
-                        <select name="tipoIncidencia" value={formData.tipoIncidencia} className={styles.select} onChange={handleChange} required>
+                        <label for="tipoIncidencia" className={styles.label}>
+                            Tipo de Incidencia *
+                        </label>
+                        <select id="tipoIncidencia" name="tipoIncidencia" value={formData.tipoIncidencia} className={styles.select} onChange={handleChange} required>
                             <option>Error Técnico (Bug)</option>
                             <option>Problema de Acceso</option>
                             <option>Sugerencia de Mejora</option>
@@ -159,31 +163,39 @@ export default function FormIncidencia({ onClose }) {
                         </select>
                     </div>
                     <div className="col-12 col-md-6">
-                        <label className={styles.label}>Correo Electrónico *</label>
-                        <input type="email" name="correoElectronico" value={formData.correoElectronico} placeholder="juan.perez@example.com" className={styles.input} onChange={handleChange} required />
+                        <label for="correoElectronico" className={styles.label}>
+                            Correo Electrónico *
+                        </label>
+                        <input type="email" id="correoElectronico" name="correoElectronico" value={formData.correoElectronico} placeholder="juan.perez@example.com" className={styles.input} onChange={handleChange} required />
                     </div>
                 </div>
 
                 {/* asunto */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
-                        <label className={styles.label}>Asunto *</label>
-                        <input type="text" name="asunto" value={formData.asunto} placeholder="Breve resumen del problema" className={styles.input} onChange={handleChange} required />
+                        <label for="asunto" className={styles.label}>
+                            Asunto *
+                        </label>
+                        <input type="text" id="asunto" name="asunto" value={formData.asunto} placeholder="Breve resumen del problema" className={styles.input} onChange={handleChange} required />
                     </div>
                 </div>
 
                 {/* descripción detallada del problema */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12">
-                        <label className={styles.label}>Descripción Detallada*</label>
-                        <textarea rows={2} name="descripcion" value={formData.descripcion} placeholder="¿Qué incidencia ocurre?..." className={styles.textarea} onChange={handleChange} required></textarea>
+                        <label for="descripcion" className={styles.label}>
+                            Descripción Detallada*
+                        </label>
+                        <textarea rows={2} id="descripcion" name="descripcion" value={formData.descripcion} placeholder="¿Qué incidencia ocurre?..." className={styles.textarea} onChange={handleChange} required></textarea>
                     </div>
                 </div>
 
                 {/* carga opcional de captura de pantalla */}
                 <div className="row g-2 mb-2 mb-md-4">
                     <div className="col-12 mt-0">
-                        <label className={styles.label}>Adjuntar Capturas de Pantalla</label>
+                        <label for="capturaPantalla" className={styles.label}>
+                            Adjuntar Capturas de Pantalla
+                        </label>
                         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
                         <div className={`${styles.adjuntarContainer} ${arrastrando ? styles.adjuntarContainerDragActive : ""}`} onClick={() => fileInputRef.current.click()} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
                             {preview ? (
