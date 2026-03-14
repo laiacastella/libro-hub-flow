@@ -12,6 +12,7 @@
     "bootstrap": "^5.3.8",
     "dotenv": "^17.2.4",
     "firebase": "^12.8.0",
+    "html-minifier-terser": "^7.2.0",
     "lucide-react": "^0.575.0",
     "mysql2": "^3.16.2",
     "next": "16.1.4",
