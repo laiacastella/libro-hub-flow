@@ -2,8 +2,8 @@
 
 import { HeaderHome, Boton, CardIcono, Contador, Carrusel, LibroCarrusel, CardReseña } from "@/components";
 import styles from "./page.module.css";
-import datos from "./data/libros.json";
-import dataReseñas from "./data/reseñas.json";
+import datos from "@/data/libros.json";
+import dataReseñas from "@/data/reseñas.json";
 
 export default function Home() {
     const listaLibros = datos.libros;
