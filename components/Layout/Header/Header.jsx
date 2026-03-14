@@ -1,6 +1,7 @@
 
 import { Enlaces, Boton } from "@/components";
 import styles from "./Header.module.css";
+import Image from "next/image";
 
 export default function Header() {
     
@@ -10,7 +11,7 @@ export default function Header() {
         <main>
             <div className={styles.cabecera}>
                 <div className={styles.logo}>
-                    <img src="/logo-h1Negro.svg" alt="logo" />
+                    <Image src="/logo-h1Negro.svg" alt="logo" width={120} height={40} />
                 </div>
                 
                 <div className={styles.bienvenida}>

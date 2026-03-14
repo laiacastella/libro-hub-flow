@@ -1,5 +1,6 @@
 import { Boton } from "@/components";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./HeaderHome.module.css";
 
 export default function HeaderHome() {
@@ -8,7 +9,7 @@ export default function HeaderHome() {
             <div className={styles.cabecera}>
                 <div className={styles.contenedorInterno}>
                     <div className={styles.logo}>
-                        <img src="/logo-h1Blanco.svg" alt="logo" />
+                        <Image src="/logo-h1Blanco.svg" alt="logo" width={120} height={40} />
                     </div>
 
                     <div className={styles.menu}>
