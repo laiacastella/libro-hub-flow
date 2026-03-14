@@ -9,7 +9,7 @@ export default function HeaderHome() {
             <div className={styles.cabecera}>
                 <div className={styles.contenedorInterno}>
                     <div className={styles.logo}>
-                        <Image src="/logo-h1Blanco.svg" alt="logo" width={120} height={40} />
+                        <Image src="/logo-h1Blanco.svg" alt="" width={120} height={40} />
                     </div>
 
                     <div className={styles.menu}>

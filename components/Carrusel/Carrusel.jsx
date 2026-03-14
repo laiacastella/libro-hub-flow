@@ -1,29 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Carrusel.module.css";
 
-export default function Carrusel({ items = [], renderItem, slidesToShow = 1, mobileSlidesToShow = 1, mobileBreakpoint = 600 }) {
+export default function Carrusel({ items = [], renderItem, slidesToShow = 1 }) {
     const [indice, setIndice] = useState(0);
-    const [isMobile, setIsMobile] = useState(() => {
-        if (typeof window === "undefined") return false;
-        return window.matchMedia(`(max-width: ${mobileBreakpoint - 1}px)`).matches;
-    });
+    const [visibleSlides, setVisibleSlides] = useState(1);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia(`(max-width: ${mobileBreakpoint - 1}px)`);
-        const actualizarEsMovil = (e) => {
-            setIsMobile(e.matches);
+        const actualizarSlidesVisibles = () => {
+            if (window.innerWidth < 600) {
+                setVisibleSlides(1);
+                return;
+            }
+
+            if (window.innerWidth < 900) {
+                setVisibleSlides(Math.max(1, Math.min(2, items.length || 1)));
+                return;
+            }
+
+            setVisibleSlides(Math.max(1, Math.min(slidesToShow, items.length || 1)));
         };
 
-        mediaQuery.addEventListener("change", actualizarEsMovil);
+        actualizarSlidesVisibles();
+        window.addEventListener("resize", actualizarSlidesVisibles);
 
         return () => {
-            mediaQuery.removeEventListener("change", actualizarEsMovil);
+            window.removeEventListener("resize", actualizarSlidesVisibles);
         };
-    }, [mobileBreakpoint]);
+    }, [items.length, slidesToShow]);
 
-    const slidesVisiblesDeseados = isMobile ? mobileSlidesToShow : slidesToShow;
-    const visibleSlides = Math.max(1, Math.min(slidesVisiblesDeseados, items.length || 1));
     const maxIndex = Math.max(0, items.length - visibleSlides);
     const indiceVisible = Math.min(indice, maxIndex);
 
