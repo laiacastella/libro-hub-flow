@@ -110,11 +110,11 @@ export default function FormEditarCuenta() {
             <div className={`col-12 col-md-6`}>
                 <div className="row g-2">
                     <div className={`col-12 col-md-6 ${styles.botones}`}>
-                        <Boton type="submit" texto="Guardar cambios" />
+                        <Boton type="submit" texto="Guardar cambios" size="small" />
                     </div>
 
                     <div className={`col-12 col-md-6 ${styles.botones}`}>
-                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio"/>
+                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio" size="small" />
                     </div>
                 </div>
             </div>
