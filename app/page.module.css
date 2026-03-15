@@ -16,22 +16,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: -1; /* Por debajo del z-index 100 del header */
+    z-index: 0;
     width: 100%;
     min-height: 100vh;
-
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding-bottom: 3%;
-
-    /* Tus propiedades originales de diseño */
-    background-color: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px) brightness(1.2);
-    -webkit-backdrop-filter: blur(12px);
-
-    /* Asegura que el scroll ocurra de forma natural */
-    overflow-y: auto;
     gap: 4rem;
     padding-top: 25rem;
     padding-bottom: 4rem;

@@ -22,7 +22,7 @@ export default function HeaderHome() {
     }, []);
 
     return (
-        <header className={` ${styles.Header} ${isScrolled ? styles.cabeceraScrolled : ""}`}>
+        <header className={`${styles.Header} ${isScrolled ? styles.headerScrolled : ""}`}>
             <div className={styles.cabecera}>
                 <div className={styles.contenedorInterno}>
                     <div className={styles.logo}>
