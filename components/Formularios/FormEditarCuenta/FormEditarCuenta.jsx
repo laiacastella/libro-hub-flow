@@ -46,40 +46,40 @@ export default function FormEditarCuenta() {
     }));
 
     return (
-        <form className={styles.form}>
-            <div className={styles.formField}>
+        <form className={`row g-3 my-4 ${styles.form}`}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Nombre:" tipo="text" id="nombre" nombre="nombre" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Apellidos:" tipo="text" id="apellidos" nombre="apellidos" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Nombre de usuario:" tipo="text" id="nickUsuario" nombre="nickUsuario" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Contraseña:" tipo="password" id="password" nombre="password" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Repetir Contraseña:" tipo="password" id="repPassword" nombre="repPassword" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Correo Electrónico:" tipo="email" id="email" nombre="email" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Teléfono:" tipo="tel" id="telefono" nombre="telefono" />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Input label="Código Postal:" tipo="text" id="codigoPostal" nombre="codigoPostal" maxLength={5} soloNumeros={true} />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Select
                     id="provincia"
                     nombre="provincia"
@@ -91,7 +91,7 @@ export default function FormEditarCuenta() {
                 />
             </div>
 
-            <div className={styles.formField}>
+            <div className={`col-12 col-md-6`}>
                 <Select
                     id="poblacion"
                     nombre="poblacion"
@@ -104,9 +104,19 @@ export default function FormEditarCuenta() {
                 />
             </div>
 
-            <div className={styles.botones}>
-                <Boton type="submit" texto="Guardar cambios" />
-                <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio"/>
+            <div className={`col-12 col-md-6`}>
+            </div>
+
+            <div className={`col-12 col-md-6`}>
+                <div className="row g-2">
+                    <div className={`col-12 col-md-6 ${styles.botones}`}>
+                        <Boton type="submit" texto="Guardar cambios" />
+                    </div>
+
+                    <div className={`col-12 col-md-6 ${styles.botones}`}>
+                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio"/>
+                    </div>
+                </div>
             </div>
         </form>
     );
