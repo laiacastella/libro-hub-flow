@@ -39,7 +39,7 @@ export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncide
 
 // Carrusel
 export { default as Carrusel } from "./Carrusel/Carrusel";
-export { default as  LibroCarrusel } from "./Carrusel/LibroCarrusel";
+export { default as LibroCarrusel } from "./Carrusel/LibroCarrusel";
 
 // Para hacer los imports donde queramos se hace de la siguiente manera:
 // import { Header } from "@/components";

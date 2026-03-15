@@ -1,13 +1,9 @@
 "use client";
 
-import { HeaderHome, Boton, CardIcono } from "@/components";
+import { HeaderHome, Boton, CardIcono, Contador, Carrusel, LibroCarrusel, CardReseña } from "@/components";
 import styles from "./page.module.css";
-import Contador from "../components/UI/Contador/Contador";
-import datos from "../data/libros.json";
-import Carrusel from "../components/Carrusel/Carrusel";
-import LibroCarrusel from "@/components/Carrusel/LibroCarrusel";
-import dataReseñas from "../data/reseñas.json";
-import CardReseña from "../components/Cards/CardReseña/CardReseña";
+import datos from "@/data/libros.json";
+import dataReseñas from "@/data/reseñas.json";
 
 export default function Home() {
     const listaLibros = datos.libros;
@@ -22,7 +18,7 @@ export default function Home() {
                 <h1 className={styles.texto}>
                     Somos <b>LibroHubFlow</b>, la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites.
                 </h1>
-                <Boton type="button" texto="Encuentra tu libro" enlace="inicioSesion" />
+                    <Boton type="button" texto="Encuentra tu libro" enlace="inicioSesion" />
 
                 <div className={styles.titulo}>Un proceso simple para descubrir tu proxima lectura</div>
 
@@ -38,11 +34,11 @@ export default function Home() {
 
                 <div className={styles.titulo}>Libros recién publicados</div>
 
-                <Carrusel items={listaLibros} slidesToShow={4} renderItem={(libro) => <LibroCarrusel libro={libro} />} />
+                    <Carrusel items={listaLibros} slidesToShow={4} renderItem={(libro) => <LibroCarrusel libro={libro} />} />
 
                 <div className={styles.titulo}>Forma parte de nuestra comunidad</div>
 
-                <Carrusel items={dataReseñas.testimonios} slidesToShow={3} renderItem={(reseña) => <CardReseña testimonio={reseña} />} />
+                    <Carrusel items={dataReseñas.testimonios} slidesToShow={3} renderItem={(reseña) => <CardReseña testimonio={reseña} />} />
 
                 <div className={styles.titulo}>
                     Más de <Contador valorFinal={1000} /> lectores que ya están haciendo fluir sus historias.
