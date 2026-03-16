@@ -1,6 +1,5 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Paginacion } from "@/components";
+
+import Image from "next/image";
 import styles from "./CardLibro.module.css";
 
 export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, librosFiltrados }) {
@@ -23,8 +22,8 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
                         onClick={() => {
                             setLibroSeleccionado?.(libro.id_libro);
                         }}>
-                        <img src={libro.foto_portada || "https://via.placeholder.com/150x200?text=Sin+Portada"} alt={libro.titulo} className={styles.libroImage} onError={manejarErrorImagen} />
-                        <h2 className={styles.libroTitulo} title={libro.titulo} >{libro.titulo}</h2>
+                        <Image src={libro.foto_portada || "https://via.placeholder.com/150x200?text=Sin+Portada"} alt={libro.titulo || "Sin Portada"} className={styles.libroImage} width={150} height={200} onError={manejarErrorImagen} unoptimized={libro.foto_portada?.startsWith("http") ? true : false} />
+                        <p className={styles.libroTitulo}>{libro.titulo}</p>
                         <p className={styles.libroAutor}>{libro.autor}</p>
                     </div>
                 ))}

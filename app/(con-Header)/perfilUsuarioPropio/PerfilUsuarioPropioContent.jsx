@@ -1,6 +1,6 @@
 "use client";
 
-import { Estrellas, ComponenteBiblioteca, Solicitudes, Valoraciones, Boton } from "@/components";
+import { Estrellas, ComponenteBiblioteca, Solicitudes, Valoraciones, Boton, Contador } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.css";
@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function PerfilUsuarioPropio() {
     
+    const id_usuario = 5;
+    const numLibros = 17;
     const valoracion = 3.0;
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab");
@@ -49,7 +51,7 @@ export default function PerfilUsuarioPropio() {
                         className={`${styles.paginas}
                         ${paginaActiva === "biblioteca" ? styles.activo : ""}`}
                         onClick={() => setPaginaActiva("biblioteca")}>
-                            <h1>15</h1>
+                            <h1><Contador valorFinal={numLibros} /></h1>
                             <h2>Libros disponibles</h2>
                     </div>
                 </div>
@@ -81,7 +83,7 @@ export default function PerfilUsuarioPropio() {
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
-                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca />}
+                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca /*id_usuario={id_usuario}*//>}
                     {paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones />}
                 </div>

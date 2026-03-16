@@ -12,6 +12,7 @@ export { default as Enlaces } from "./UI/Enlaces/Enlaces";
 export { default as Boton } from "./UI/Boton/Boton";
 export { default as Input } from "./UI/Input/Input";
 export { default as Select } from "./UI/Select/Select";
+export { default as Contador } from "./UI/Contador/Contador";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
@@ -19,6 +20,7 @@ export { default as CardSolicitud } from "./Cards/CardSolicitud/CardSolicitud";
 export { default as CardValoracion } from "./Cards/CardValoracion/CardValoracion";
 export { default as CardLibro } from "./Cards/CardLibro/CardLibro";
 export { default as CardIcono } from "./Cards/CardIcono/CardIcono";
+export { default as CardReseña } from "./Cards/CardReseña/CardReseña";
 
 // Layout
 export { default as Header } from "./Layout/Header/Header";
@@ -34,6 +36,10 @@ export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqu
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
 export { default as PopUpPassReset } from "./PopUps/PopUpPassReset/PopUpPassReset";
 export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncidencia";
+
+// Carrusel
+export { default as Carrusel } from "./Carrusel/Carrusel";
+export { default as LibroCarrusel } from "./Carrusel/LibroCarrusel";
 
 // Para hacer los imports donde queramos se hace de la siguiente manera:
 // import { Header } from "@/components";

@@ -6,23 +6,28 @@ import styles from "./page.module.css";
 
 export default function EditarCuenta() {
     return (
-        <main>
+        <div className={`container my-4 ${styles.fondo}`}>
             <div className={styles.fondo}>
-                <h2 className={styles.titulo}>
-                    <Link href="perfilUsuarioPropio" >
-                        <Undo2 size="30" color="#000000"/> 
-                    </Link>
-                    {" "}Mi información personal
-                </h2>
+                <div>
+                    <h2 className={styles.titulo}>
+                        <Link href="perfilUsuarioPropio" >
+                            <Undo2 size="30" color="#000000"/> 
+                        </Link>
+                        {" "}Mi información personal
+                    </h2>
+                </div>
 
-                <div className={styles.perfil}>
-                    <div className={styles.foto}>
-                        <img src="/perfilUsuario.svg" alt="perfilUsuario" />
-                        <br />
-                        <br />
-                        <Boton type="button" texto="Cambiar foto de perfil" />
+                <div className={`row ${styles.perfil}`}>
+                    <div className={`col-12 col-md-4 text-center ${styles.foto}`}>
+                        <img
+                        src="/perfilUsuario.svg"
+                        className={`img-fluid ${styles.fotoPerfil}`}
+                        alt="perfilUsuario"
+                        />
+                        <Boton type="button" texto="Cambiar foto de perfil" size="small"/>
                     </div>
-                    <div className={styles.datos}>
+
+                    <div className={`col-12 col-md-8 ${styles.datos}`}>
                         <h2>Nombre Apellidos (Nombre de usuario)</h2>
                         <h3>Ciudad, Provincia</h3>
                         <h3>Correo electrónico</h3>
@@ -30,10 +35,12 @@ export default function EditarCuenta() {
                     </div>
                 </div>
 
-                <div>
-                    <FormEditarCuenta />
+                <div className={`row ${styles.form}`}>
+                    <div>
+                        <FormEditarCuenta />
+                    </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

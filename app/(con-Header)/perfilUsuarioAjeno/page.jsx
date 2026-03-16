@@ -11,7 +11,7 @@ export default function PerfilUsuarioAjeno() {
     const [paginaActiva, setPaginaActiva] = useState("biblioteca");
 
     return (
-        <main className={`container my-4 ${styles.fondo}`}>
+        <div className={`container my-4 ${styles.fondo}`}>
 
             <div className={`row align-items-center ${styles.perfil}`}>
 
@@ -68,6 +68,6 @@ export default function PerfilUsuarioAjeno() {
                 </div>
             </div>
 
-        </main>
+        </div>
     );
 }

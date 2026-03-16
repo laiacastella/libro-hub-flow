@@ -1,5 +1,5 @@
 .cabecera {
-    background-color: #F0EFEAcc;
+    background-color: #f0efeacc;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,8 +22,8 @@
     width: 100px;
 }
 
-.bienvenida{
-    color: #63A26C;
+.bienvenida {
+    color: #63a26c;
     font-weight: bold;
     font-size: 28px;
 }
