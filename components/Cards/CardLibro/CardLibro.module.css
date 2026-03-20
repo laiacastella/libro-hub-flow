@@ -1,8 +1,9 @@
 .libroCard {
     background-color: #ffffff;
     border-radius: 8px;
-    width: 200px;
-    padding: 20px;
+    width: 100%;
+    max-width: 240px;
+    padding: clamp(12px, 2vw, 20px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition:
@@ -13,6 +14,7 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    justify-self: center;
 }
 
 .libroCard:hover {
@@ -21,8 +23,10 @@
 }
 
 .libroImage {
-    width: 180px;
-    height: 250px;
+    width: 100%;
+    max-width: 180px;
+    aspect-ratio: 3 / 4;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -35,6 +39,7 @@
     text-transform: uppercase;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -52,7 +57,7 @@
 }
 .libros {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 20px;
 }
 .seleccionado {
@@ -64,4 +69,20 @@
 }
 .seleccionado .libroAutor {
     color: #fff;
+}
+
+@media (max-width: 480px) {
+    .libros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .libroCard {
+        max-width: none;
+        border-radius: 6px;
+    }
+
+    .libroTitulo {
+        font-size: 1rem;
+    }
 }
