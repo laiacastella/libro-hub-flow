@@ -13,6 +13,7 @@ export { default as Boton } from "./UI/Boton/Boton";
 export { default as Input } from "./UI/Input/Input";
 export { default as Select } from "./UI/Select/Select";
 export { default as Contador } from "./UI/Contador/Contador";
+export { default as EscribirTexto } from "./UI/EscribirTexto/EscribirTexto";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
