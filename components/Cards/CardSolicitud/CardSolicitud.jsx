@@ -100,12 +100,13 @@ export default function CardSolicitud() {
                                     <p className={styles.libroTitulo}>{intercambio.libro_ofrecido_titulo}</p>
                                 </>
                             ) : (
-                                <div className={styles.libroNull} onClick={() => abrirPopup(intercambio)}>
-                                    <div>
+                                <>
+                                    <div className={styles.libroNull} onClick={() => abrirPopup(intercambio)}>
                                         <SquarePlus className={styles.masIcono} />
+                                        <p className={styles.libroTitulo}>Selecciona un libro</p>
                                     </div>
-                                    <p className={styles.libroTitulo}>Selecciona un libro</p>
-                                </div>
+                                    <p className={`${styles.libroTitulo} ${styles.libroTituloSpacer}`}>Selecciona un libro</p>
+                                </>
                             )}
                         </div>
                     </div>
