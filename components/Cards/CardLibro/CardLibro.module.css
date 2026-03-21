@@ -1,3 +1,7 @@
+.libroCardWrapper {
+    display: contents;
+}
+
 .libroCard {
     background-color: #ffffff;
     border-radius: 8px;
@@ -49,6 +53,35 @@
     color: #666;
     text-transform: uppercase;
 }
+
+.botonSeleccionar {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #2f8f34;
+    background-color: #ffffff;
+    color: #2f8f34;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botonSeleccionar:hover {
+    background-color: #2f8f34;
+    color: #ffffff;
+}
+
+.seleccionado .botonSeleccionar {
+    background-color: #2f8f34;
+    color: #ffffff;
+    border-color: #2f8f34;
+}
+.seleccionado .botonSeleccionar:hover {
+    background-color: #25822a;
+    border-color: #2f8f34;
+}
 .biblioteca {
     display: flex;
     flex-direction: column;
@@ -59,6 +92,18 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 20px;
+}
+
+.detalleInlineRow {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+@media (max-width: 550px) {
+    .librosPopup {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
 }
 .seleccionado {
     background-color: #5dd461;

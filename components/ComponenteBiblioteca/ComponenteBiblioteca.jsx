@@ -3,7 +3,7 @@ import styles from "./ComponenteBiblioteca.module.css";
 import { CardLibro, BarraBusqueda, Paginacion } from "@/components";
 import { useState, useEffect } from "react";
 
-export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSeleccionado, modoPopup = false, mostrarDetalleInline = false, detalleInline = null }) {
+export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSeleccionado, modoPopup = false, mostrarDetalleInline = false, detalleInline = null, onSeleccionarLibro = null }) {
     const [libros, setLibros] = useState([]);
     const [filtro, setFiltro] = useState("");
     const [paginaActual, setPaginaActual] = useState(1);
@@ -30,7 +30,16 @@ export default function ComponenteBiblioteca({ setLibroSeleccionado, libroSelecc
     return (
         <div className={styles.biblioteca}>
             <BarraBusqueda alBuscar={actualizarFiltro} setFiltro={actualizarFiltro} />
-            <CardLibro librosFiltrados={libros} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} dosColumnasMovil={modoPopup} mostrarDetalleInline={mostrarDetalleInline} detalleInline={detalleInline} />
+            <CardLibro
+                librosFiltrados={libros}
+                setLibroSeleccionado={setLibroSeleccionado}
+                libroSeleccionado={libroSeleccionado}
+                dosColumnasMovil={modoPopup}
+                mostrarDetalleInline={mostrarDetalleInline}
+                detalleInline={detalleInline}
+                mostrarBotonSeleccion={modoPopup}
+                onSeleccionarLibro={onSeleccionarLibro}
+            />
 
             <div className={styles.paginacion}>{totalPaginas > 1 && <Paginacion paginaActual={paginaActual} totalPaginas={totalPaginas} onPageChange={setPaginaActual} />}</div>
 
