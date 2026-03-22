@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 import Comentarios from "../../components/Comentarios/Comentarios.jsx";
 import { BookHeadphones, Angry, Apple } from "lucide-react";
@@ -17,7 +19,6 @@ export default function RegistroPage() {
         id_poblacion: "",
     });
     const [mensaje, setMensaje] = useState("");
-    const [idUsuario, setIdUsuario] = useState(null);
 
     const [archivo, setArchivo] = useState(null);
     const [preview, setPreview] = useState("");
@@ -51,7 +52,6 @@ export default function RegistroPage() {
             }
 
             const usuarioId = data.id_usuario;
-            setIdUsuario(usuarioId);
             setMensaje("Usuario creado con ID: " + usuarioId);
 
             if (archivo) {
@@ -92,6 +92,104 @@ export default function RegistroPage() {
 
     return (
         <>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="#">
+                        MiWeb
+                    </a>
+
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div className="collapse navbar-collapse" id="menu">
+                        <ul className="navbar-nav ms-auto">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Inicio
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Productos
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Contacto
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <header className="p-3 mb-3 border-bottom">
+                <div className="container">
+                    <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                        <Link href="/" className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                            <svg className="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                                <use xlinkHref="#bootstrap"></use>
+                            </svg>{" "}
+                        </Link>
+                        <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            <li>
+                                <a href="#" className="nav-link px-2 link-secondary">
+                                    Overview
+                                </a>
+                            </li>{" "}
+                            <li>
+                                <a href="#" className="nav-link px-2 link-body-emphasis">
+                                    Inventory
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" className="nav-link px-2 link-body-emphasis">
+                                    Customers
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" className="nav-link px-2 link-body-emphasis">
+                                    Products
+                                </a>
+                            </li>{" "}
+                        </ul>
+                        <div className="dropdown text-end">
+                            <a href="#" className="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                {" "}
+                                <Image src="https://github.com/mdo.png" alt="mdo" width={32} height={32} className="rounded-circle" unoptimized />{" "}
+                            </a>{" "}
+                            <ul className="dropdown-menu text-small">
+                                {" "}
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        New project...
+                                    </a>
+                                </li>{" "}
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Settings
+                                    </a>
+                                </li>{" "}
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Profile
+                                    </a>
+                                </li>{" "}
+                                <li>
+                                    <hr className="dropdown-divider" />
+                                </li>{" "}
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Sign out
+                                    </a>
+                                </li>{" "}
+                            </ul>{" "}
+                        </div>{" "}
+                        <p className="align-center px-2 mb-0 text-emerald-600 font-bold text-lg md:text-2xl leading-none">Hola, Nombre Apellido</p>
+                    </div>{" "}
+                </div>{" "}
+            </header>
+            <button className="btn btn-success">Guardar</button>
             <div className={styles.container}>
                 <h1 className={styles.title}>Registro de Usuario</h1>
 
@@ -108,7 +206,7 @@ export default function RegistroPage() {
                     <input className={styles.inputField} type="file" accept="image/*" onChange={handleFileChange} />
                     {preview && (
                         <div className={styles.previewContainer}>
-                            <img src={preview} alt="Preview" className={styles.previewImage} />
+                            <Image src={preview} alt="Preview" width={300} height={300} className={styles.previewImage} unoptimized />
                         </div>
                     )}
 
@@ -122,7 +220,7 @@ export default function RegistroPage() {
                 {urlImagen && (
                     <div className={styles.previewContainer}>
                         <h4>Imagen subida:</h4>
-                        <img src={urlImagen} alt="Foto subida" className={styles.previewImage} />
+                        <Image src={urlImagen} alt="Foto subida" width={300} height={300} className={styles.previewImage} unoptimized />
                         <p>
                             <a className={styles.link} href={urlImagen} target="_blank" rel="noopener noreferrer">
                                 Abrir en otra pestaña
