@@ -1,0 +1,22 @@
+.form {
+    margin: 40px auto;           
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    justify-self: center;
+}
+
+.previewContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.previewImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}

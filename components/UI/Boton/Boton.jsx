@@ -13,6 +13,7 @@ export default function Boton({
     size = "medium", // small, medium o large
     disabled = false,
     enlace,
+    icono : Icon,
     customClassName = false, // Si es true, usa solo el className personalizado
 }) {
     const router = useRouter();
@@ -20,13 +21,16 @@ export default function Boton({
     // Si customClassName es true, usa solo el className proporcionado
     if (customClassName) {
         const handleClick = (e) => {
+            if (type === "submit") return;
+
             if (onClick) onClick(e);
             if (enlace) router.push(enlace);
         };
 
         return (
             <button aria-label={ariaLabel} onClick={handleClick} className={className} title={title} type={type} disabled={disabled}>
-                {texto}
+                {Icon && <Icon />}
+                <span>{texto}</span>
             </button>
         );
     }
@@ -37,13 +41,16 @@ export default function Boton({
     const buttonClass = isCerrar ? `${variantClass} ${className}` : `${styles.boton} ${sizeClass} ${variantClass} ${className}`;
 
     const handleClick = (e) => {
+        if (type === "submit") return;
+        
         if (onClick) onClick(e);
         if (enlace) router.push(enlace);
     };
 
     return (
         <button aria-label={ariaLabel} onClick={handleClick} className={buttonClass} title={title} type={type} disabled={disabled || variant === "disabled"}>
-            {texto}
+            {Icon && <Icon />}
+            <span>{texto}</span>
         </button>
     );
 }

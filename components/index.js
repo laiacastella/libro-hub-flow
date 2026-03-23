@@ -32,6 +32,7 @@ export { default as Footer } from "./Layout/Footer/Footer";
 export { default as FormEditarCuenta } from "./Formularios/FormEditarCuenta/FormEditarCuenta";
 export { default as FormIncidencia } from "./Formularios/FormIncidencia/FormIncidencia";
 export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqueda";
+export { default as FormRegistro } from "./Formularios/FormRegistro/FormRegistro";
 
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";

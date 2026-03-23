@@ -1,15 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Input, Boton } from "@/components";
 import styles from "./BarraBusqueda.module.css";
+import { Search } from "lucide-react";
 
 export default function BarraBusqueda({ alBuscar, setFiltro }) {
     const [texto, setTexto] = useState("");
-
-    // const manejarBusqueda = () => {
-    //     if (alBuscar) {
-    //         alBuscar(texto);
-    //     }
-    // };
 
     useEffect(() => {
         if (alBuscar) {
@@ -18,16 +14,22 @@ export default function BarraBusqueda({ alBuscar, setFiltro }) {
     }, [texto, alBuscar]);
 
     return (
-        <div className={styles.contenedor}>
-            <div className={styles.busquedaCaja}>
-                <input type="text" className={styles.input} placeholder="Ej: titulo o autor" value={texto} onFocus={() => (setFiltro(""), setTexto(""))} onChange={(e) => setTexto(e.target.value)} />
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-8">
+                    <Input 
+                        tipo="text" 
+                        className={styles.input} 
+                        placeholder="Ej: titulo o autor" 
+                        value={texto} 
+                        onFocus={() => (setFiltro(""), setTexto(""))} 
+                        onChange={(e) => setTexto(e.target.value)} 
+                    />
+                </div>
 
-                <button className={styles.boton}>
-                    <span className={styles.icono}>
-                        <img src="/icono-busqueda.svg" alt="Buscar" />
-                    </span>
-                    <span className={styles.texto}>BUSCAR</span>
-                </button>
+                <div className="col-12 col-md-3 text-center">
+                    <Boton icono={Search} texto=" Buscar" />
+                </div>
             </div>
         </div>
     );

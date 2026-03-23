@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import bcrypt from "bcryptjs";
 
 export async function POST(req) {
     try {
@@ -28,7 +29,8 @@ export async function POST(req) {
         const usuario = rows[0];
 
         // Aquí se compara la contraseña proporcionada con el hash almacenado en la base de datos.
-        if (usuario.password_hash !== plainPassword) {
+        const passwordValido = await bcrypt.compare(plainPassword, usuario.password_hash);
+        if (!passwordValido) {
             return new Response(JSON.stringify({ error: "Credenciales incorrectas" }), { status: 401 });
         }
 
