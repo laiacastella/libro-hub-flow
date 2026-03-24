@@ -14,8 +14,32 @@ export async function POST(req) {
     try {
         const { nick_usuario, email, password, nombre, apellidos, telefono, id_provincia, id_poblacion } = await req.json();
 
-        if (!nick_usuario || !email || !password || !nombre || !id_provincia || !id_poblacion || !telefono || !apellidos) {
-            return new Response(JSON.stringify({ error: "Faltan datos obligatorios" }), { status: 400 });
+        if (!nick_usuario || !email || !password || !nombre || !id_provincia || !id_poblacion || !apellidos) {
+            return new Response(JSON.stringify({ success: false, error: "Faltan datos obligatorios" }), { status: 400 });
+        }
+
+        const [existeNick] = await db.query(
+            "SELECT id_usuario FROM usuarios WHERE nick_usuario = ?",
+            [nick_usuario]
+        );
+
+        if (existeNick.length > 0) {
+            return new Response(
+                JSON.stringify({ success: false, error: "El nombre de usuario ya está en uso" }),
+                { status: 400 }
+            );
+        }
+
+        const [existeEmail] = await db.query(
+            "SELECT id_usuario FROM usuarios WHERE email = ?",
+            [email]
+        );
+
+        if (existeEmail.length > 0) {
+            return new Response(
+                JSON.stringify({ success: false, error: "El correo electrónico ya está registrado" }),
+                { status: 400 }
+            );
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -28,9 +52,38 @@ export async function POST(req) {
             [nick_usuario, email, hashedPassword, nombre, apellidos, telefono, id_provincia, id_poblacion],
         );
 
-        return new Response(JSON.stringify({ success: true, id_usuario: resultado.insertId }), { status: 200 });
+        return new Response(
+            JSON.stringify({ success: true, id_usuario: resultado.insertId }),
+            { status: 200 }
+        );
 
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+        console.error(error);
+
+        if (error.code === "ER_DUP_ENTRY") {
+            if (error.message.includes("nick_usuario")) {
+                return new Response(
+                    JSON.stringify({ success: false, error: "El nombre de usuario ya existe" }),
+                    { status: 400 }
+                );
+            }
+
+            if (error.message.includes("email")) {
+                return new Response(
+                    JSON.stringify({ success: false, error: "El correo ya está registrado" }),
+                    { status: 400 }
+                );
+            }
+
+            return new Response(
+                JSON.stringify({ success: false, error: "Usuario duplicado" }),
+                { status: 400 }
+            );
+        }
+
+        return new Response(
+            JSON.stringify({ success: false, error: "Error en el servidor" }),
+            { status: 500 }
+        );
     }
 }

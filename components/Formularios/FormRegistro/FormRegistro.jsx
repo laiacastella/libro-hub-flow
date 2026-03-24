@@ -3,14 +3,17 @@
 import { Boton, Input, Select } from "@/components";
 import styles from './FormRegistro.module.css';
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { UserPlus } from "lucide-react";
 import Image from "next/image";
 
 const FormRegistro = () => {
 
+    const router = useRouter();
     const [provincias, setProvincias] = useState([]);
     const [poblaciones, setPoblaciones] = useState([]);
     const [nickDisponible, setNickDisponible] = useState(null);
+    const [emailDisponible, setEmailDisponible] = useState(null);
     const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
     const [poblacionSeleccionada, setPoblacionSeleccionada] = useState("");
 
@@ -45,6 +48,19 @@ const FormRegistro = () => {
             const data = await res.json();
 
             setNickDisponible(data.disponible);
+        }, 500);
+    };
+
+    const comprobarEmail = (email) => {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(async () => {
+            if (!email) return;
+
+            const res = await fetch(`/api/check-email?email=${email}`);
+            const data = await res.json();
+
+            setEmailDisponible(data.disponible);
         }, 500);
     };
 
@@ -171,7 +187,7 @@ const FormRegistro = () => {
             const data = await res.json();
 
             if (!data.success) {
-                setMensaje("Error: " + data.error);
+                setMensaje(data.error);
                 return;
             }
 
@@ -200,12 +216,12 @@ const FormRegistro = () => {
                         }),
                     });
 
-                    setMensaje("Usuario creado y foto subida correctamente");
+                    router.push("/inicioSesion");
                 } else {
-                    setMensaje("Usuario creado, pero error al subir imagen");
+                    router.push("/inicioSesion");
                 }
             } else {
-                setMensaje("Usuario creado con imagen por defecto");
+                router.push("/inicioSesion");
             }
 
         } catch (err) {
@@ -239,7 +255,15 @@ const FormRegistro = () => {
                 </div>
 
                 <div className="col-12 col-md-6">
-                    <Input label="Correo Electrónico: *" tipo="email" nombre="email" value={form.email} onChange={handleChange} required />
+                    <Input label="Correo Electrónico: *" tipo="email" nombre="email" value={form.email}
+                        onChange={(e) => { handleChange(e); comprobarEmail(e.target.value); }} required />
+                    {emailDisponible === false && (
+                        <p style={{ color: "red" }}>Este correo ya esta registrado</p>
+                    )}
+
+                    {emailDisponible === true && (
+                        <p style={{ color: "green" }}>Correo disponible</p>
+                    )}
                 </div>
 
                 <div className="col-12 col-md-6">
