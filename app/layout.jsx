@@ -1,9 +1,14 @@
+"use client"
+
 import BootstrapProvider from "@/components/BootstrapProvider";
 import { Footer } from "@/components/index";
+import useAuthRedirect from "@/hooks/useAuthRedirect";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function RootLayout({ children }) {
+    useAuthRedirect();
+    
     return (
         <html lang="es">
             <head>
