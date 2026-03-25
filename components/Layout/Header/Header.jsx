@@ -46,9 +46,9 @@ export default function Header() {
                         <li>
                             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                 <div className="dropdown text-end">
-                                    <a className="d-inline-flex align-items-center gap-2 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                                    <button className="d-inline-flex align-items-center gap-2 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
                                         <Image 
-                                            src={usuario?.foto_perfil || "/perfilUsuario.svg"} 
+                                            src={usuario?.foto_perfil || "/perfilUsuario.svg"}
                                             alt="perfil" 
                                             width={40} 
                                             height={40} 
@@ -57,7 +57,7 @@ export default function Header() {
                                         />
                                         {" "}
                                         <Enlaces nomEnlace={`Hola, ${usuario?.nombre}`} ruta="" />
-                                    </a>
+                                    </button>
 
                                     <ul className="dropdown-menu text-small">
                                         <li>

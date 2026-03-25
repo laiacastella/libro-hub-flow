@@ -8,14 +8,16 @@ import {
     Boton, 
     Contador, 
     EscribirTexto } from "@/components";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.css";
+import useUsuario from "@/hooks/useUsuario";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function PerfilUsuarioPropio() {
     
-    const id_usuario = 5;
+    const usuario = useUsuario();
     const numLibros = 17;
     const numSolicitudes = 7;
     const numIntercambios = 23;
@@ -42,29 +44,32 @@ export default function PerfilUsuarioPropio() {
             <div className={`row align-items-center ${styles.perfil}`}>
 
                 <div className={`col-12 col-md-3 text-center ${styles.foto}`}>
-                    <img
-                        src="/perfilUsuario.svg"
-                        className={`img-fluid ${styles.fotoPerfil}`}
-                        alt="perfilUsuario"
+                    <Image 
+                        src={usuario?.foto_perfil || "/perfilUsuario.svg"}
+                        alt="perfil" 
+                        width={200} 
+                        height={200} 
+                        className="rounded-circle" 
+                        unoptimized 
                     />
                 </div>
 
                 <div className={`col-12 col-md-7 ${styles.datos}`}>
-                    <EscribirTexto texto="Nombre Apellidos (Nombre de usuario)" Tipo="h2" velocidad="100" />
-                    <EscribirTexto texto="Ciudad, Provincia" Tipo="h3" velocidad="100" />
-                    <EscribirTexto texto="Correo electrónico" Tipo="h3" velocidad="100" />
-                    <EscribirTexto texto="Número de teléfono" Tipo="h3" velocidad="100" />
+                    <EscribirTexto texto={`${usuario?.nombre} ${usuario?.apellidos} (${usuario?.nick_usuario})`} Tipo="h2" velocidad="50" />
+                    <EscribirTexto texto={`${usuario?.poblacion}, ${usuario?.provincia}`} Tipo="h3" velocidad="50" />
+                    <EscribirTexto texto={`${usuario?.email}`} Tipo="h3" velocidad="50" />
+                    <EscribirTexto texto={`${usuario?.telefono}`} Tipo="h3" velocidad="50" />
                     <div className="d-flex align-items-baseline gap-2">
                         <Contador 
                             valorFinal={numIntercambios}
                             colorInicio="#407c42"
                             colorFin="#000000"
-                            duracion="1000"
+                            duracion="500"
                         />
                         <EscribirTexto 
                             texto="Intercambios completados" 
                             Tipo="h3" 
-                            velocidad="100"
+                            velocidad="50"
                         />
                     </div>
                 </div>
@@ -88,7 +93,7 @@ export default function PerfilUsuarioPropio() {
                                 valorFinal={numLibros}
                                 colorInicio={colorLibros.inicio}
                                 colorFin={colorLibros.fin}
-                                duracion="1000"
+                                duracion="500"
                             /></h1>
                             <h2>Libros disponibles</h2>
                     </div>
@@ -105,7 +110,7 @@ export default function PerfilUsuarioPropio() {
                                 valorFinal={numSolicitudes}
                                 colorInicio={colorSolicitud.inicio}
                                 colorFin={colorSolicitud.fin}
-                                duracion="1000"
+                                duracion="500"
                             /></h1>
                             <h2>Solicitudes de intercambio</h2>
                     </div>
@@ -123,7 +128,7 @@ export default function PerfilUsuarioPropio() {
                                     valorFinal={valoracion}
                                     colorInicio={colorValoracion.inicio}
                                     colorFin={colorValoracion.fin}
-                                    duracion="1000"
+                                    duracion="500"
                                 />
                                 <Estrellas valoracion={valoracion} />
                             </h1>

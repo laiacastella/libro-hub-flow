@@ -14,10 +14,23 @@ export async function POST(req) {
 
         // Consulta para encontrar al usuario por email o nick_usuario
         const [rows] = await db.query(
-            `SELECT id_usuario, nick_usuario, email, nombre, apellidos, foto_perfil, password_hash
-             FROM usuarios
-             WHERE email = ? OR nick_usuario = ?
-             LIMIT 1`,
+            `SELECT 
+                u.id_usuario,
+                u.nick_usuario,
+                u.email,
+                u.nombre,
+                u.apellidos,
+                u.foto_perfil,
+                u.password_hash,
+                u.telefono,
+                u.codigo_postal,
+                p.provincia AS provincia,
+                po.poblacion AS poblacion
+            FROM usuarios u
+            LEFT JOIN provincias p ON u.id_provincia = p.id_provincia
+            LEFT JOIN poblaciones po ON u.id_poblacion = po.id_poblacion
+            WHERE u.email = ? OR u.nick_usuario = ?
+            LIMIT 1`,
             [loginValue, loginValue],
         );
 
@@ -44,7 +57,11 @@ export async function POST(req) {
                     email: usuario.email,
                     nombre: usuario.nombre,
                     apellidos: usuario.apellidos,
+                    telefono: usuario.telefono || null,
+                    codigo_postal: usuario.codigo_postal || null,
                     foto_perfil: usuario.foto_perfil || null,
+                    provincia: usuario.provincia,
+                    poblacion: usuario.poblacion,
                 },
             }),
             { status: 200 },
