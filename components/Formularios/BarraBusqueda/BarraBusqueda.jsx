@@ -16,7 +16,7 @@ export default function BarraBusqueda({ alBuscar, setFiltro }) {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-12 col-md-8">
+                <div className="col-12 col-md-10">
                     <Input 
                         tipo="text" 
                         className={styles.input} 
@@ -27,10 +27,10 @@ export default function BarraBusqueda({ alBuscar, setFiltro }) {
                     />
                 </div>
 
-                <div className="col-12 col-md-3 text-center">
+            {/*<div className="col-12 col-md-3 text-center">
                     <Boton icono={Search} texto=" Buscar" />
-                </div>
-            </div>
+                </div>*/}  
+            </div>  
         </div>
     );
 }
