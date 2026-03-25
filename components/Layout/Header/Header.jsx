@@ -2,10 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Enlaces, Boton } from "@/components";
+import { Enlaces } from "@/components";
+import { useRouter } from "next/navigation";
+import useUsuario from "@/hooks/useUsuario";
 import styles from "./Header.module.css";
 
 export default function Header() {
+
+    const usuario = useUsuario();
+    const router = useRouter();
+
+    const logout = () => {
+        if (confirm("¿Seguro que quieres cerrar sesión?")) {
+            localStorage.removeItem("usuarioLogueado");
+            router.refresh();
+            router.push("/");
+        }
+    };
+
     return (
         <header className={`navbar navbar-expand-lg ${styles.cabecera}`}>
             <div className={`container-fluid ${styles.contenedorPrincipal}`}>
@@ -15,7 +29,7 @@ export default function Header() {
                     </div>
                 </Link>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
@@ -24,50 +38,49 @@ export default function Header() {
                         <li className="nav-item">
                             <Enlaces nomEnlace="Solicitudes" ruta="/perfilUsuarioPropio?tab=solicitudes" />
                         </li>
+
                         <li className="nav-item">
                             <Enlaces nomEnlace="Biblioteca" ruta="/biblioteca" />
                         </li>
-                        <li className="nav-item">
-                            <Enlaces nomEnlace="Perfil" ruta="/perfilUsuarioPropio" />
-                        </li>
-                        <li className="nav-item">
-                            <Boton type="button" texto="Subir libro" enlace="subirLibro" />
-                        </li>
+
                         <li>
                             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                 <div className="dropdown text-end">
-                                    <a href="#" className="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a className="d-inline-flex align-items-center gap-2 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                                        <Image 
+                                            src={usuario?.foto_perfil || "/perfilUsuario.svg"} 
+                                            alt="perfil" 
+                                            width={40} 
+                                            height={40} 
+                                            className="rounded-circle" 
+                                            unoptimized 
+                                        />
                                         {" "}
-                                        <Image src="https://github.com/mdo.png" alt="mdo" width={32} height={32} className="rounded-circle" unoptimized />{" "}
-                                    </a>{" "}
+                                        <Enlaces nomEnlace={`Hola, ${usuario?.nombre}`} ruta="" />
+                                    </a>
+
                                     <ul className="dropdown-menu text-small">
-                                        {" "}
                                         <li>
-                                            <a className="dropdown-item" href="#">
-                                                New project...
-                                            </a>
-                                        </li>{" "}
+                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta="/perfilUsuarioPropio" />
+                                        </li>
+
                                         <li>
-                                            <a className="dropdown-item" href="#">
-                                                Settings
-                                            </a>
-                                        </li>{" "}
+                                            <Enlaces className="dropdown-item" nomEnlace="Editar datos" ruta="/editarCuenta" />
+                                        </li>
+
                                         <li>
-                                            <a className="dropdown-item" href="#">
-                                                Profile
-                                            </a>
-                                        </li>{" "}
+                                            <Enlaces className="dropdown-item" nomEnlace="Subir libro" ruta="/subirLibro" />
+                                        </li>
+
                                         <li>
                                             <hr className="dropdown-divider" />
-                                        </li>{" "}
+                                        </li>
+
                                         <li>
-                                            <a className="dropdown-item" href="#">
-                                                Sign out
-                                            </a>
-                                        </li>{" "}
-                                    </ul>{" "}
-                                </div>{" "}
-                                <p className="align-center px-2 mb-0 text-emerald-600 font-bold text-lg md:text-2xl leading-none">Hola, Nombre Apellido</p>
+                                            <Enlaces className="dropdown-item" nomEnlace="Cerrar sesión" onClick={logout} />
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </li>
                     </ul>
