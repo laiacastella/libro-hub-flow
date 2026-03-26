@@ -13,6 +13,7 @@ export { default as Boton } from "./UI/Boton/Boton";
 export { default as Input } from "./UI/Input/Input";
 export { default as Select } from "./UI/Select/Select";
 export { default as Contador } from "./UI/Contador/Contador";
+export { default as EscribirTexto } from "./UI/EscribirTexto/EscribirTexto";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
@@ -31,6 +32,7 @@ export { default as Footer } from "./Layout/Footer/Footer";
 export { default as FormEditarCuenta } from "./Formularios/FormEditarCuenta/FormEditarCuenta";
 export { default as FormIncidencia } from "./Formularios/FormIncidencia/FormIncidencia";
 export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqueda";
+export { default as FormRegistro } from "./Formularios/FormRegistro/FormRegistro";
 
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";

@@ -12,6 +12,7 @@ body {
     background-color: #E8DFD8cc;
     border-radius: 12px;
     padding: 40px;
+    width: 90%;
 }
 
 .perfil {
@@ -74,7 +75,7 @@ body {
 
 .activo,
 .paginas:focus-visible {
-    background-color: #63a26c;
+    background-color: #407c42;
     border-color: #000;
     transform: translateY(-3px);
     box-shadow:

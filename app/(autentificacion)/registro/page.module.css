@@ -1,0 +1,46 @@
+.contenedorPagina {
+    background-image: url("/inicioSesion-formulario.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 0;
+}
+
+.estiloForm {
+    background-color: #E8DFD8cc;
+    border-radius: 40px;
+    padding: 40px;
+}
+
+.contenedorLogo {
+    /* --- ESTÉTICA --- */
+    height: 4rem;           
+    width: 100%;            
+    
+    /* --- COMPORTAMIENTO --- */
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    
+    /* --- ESPACIADO --- */
+    margin-top: 0;
+    margin-bottom: 1.5rem;   
+}
+
+.contenedorLogo img {
+    height: 100%;           
+    width: auto;            /* Mantiene la proporción original */
+    object-fit: contain;    /* Evita que la imagen se deforme */
+}
+
+.textoLogin {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;      
+}

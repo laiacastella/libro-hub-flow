@@ -1,14 +1,17 @@
 .cabecera {
     background-color: #f0efeacc;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    height: 80px;
+    min-height: 80px;
+    padding: 0 1.5rem;
 }
 
-.logo img {
-    height: 45px;
+.contenedorPrincipal {
+    min-height: 80px;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
 }
 
 .menu {

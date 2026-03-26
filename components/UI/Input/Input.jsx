@@ -13,6 +13,10 @@ export default function Input({
     className,
     placeholder,
     fullWidth = false,
+    accept,
+    value,
+    onChange,
+    onFocus,
 }) {
     
     const [visible, setVisible] = useState(false);
@@ -36,8 +40,12 @@ export default function Input({
                     placeholder={placeholder}
                     className={`${styles.input} ${className || ""}`}
                     maxLength={maxLength}
+                    accept={accept}
                     inputMode={soloNumeros ? "numeric" : undefined}
                     pattern={soloNumeros ? "[0-9]*" : undefined}
+                    {...(value !== undefined ? { value } : {})}
+                    {...(onChange ? { onChange } : {})}
+                    {...(onFocus ? { onFocus } : {})}
                     onInput={soloNumeros ? (e) => {
                         e.target.value = e.target.value.replace(/\D/g, "");
                     } : undefined}
