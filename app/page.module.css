@@ -3,7 +3,7 @@
     min-height: 100vh;
 }
 
-body {
+.body {
     padding: 80px;
 }
 
@@ -83,9 +83,7 @@ body {
         font-size: 3.2rem;
         font-weight: 900;
     }
-    .contenedorImg {
-        height: 50vh;
-    }
+
 
     .contenedorImg2 {
         height: 50vh;
