@@ -4,17 +4,43 @@ import FormComentario from "../Formularios/FormComentario/FormComentario.jsx";
 import styles from "./Comentarios.module.css";
 import { useState } from "react";
 
-export default function Comentarios() {
-    const [añadirComentario, setAñadirComentario] = useState(false);
+export default function Comentarios({ idLibro, listaComentarios, setComentarios }) {
+    
+    const [mostrarForm, setMostrarForm] = useState(false);
+    
     return (
-        <>
-            <div className={styles.comentariosContainer}>
-                <button type="button" className={styles.boton} onClick={() => (añadirComentario === true ? setAñadirComentario(false) : setAñadirComentario(true))}>
-                    Añadir comentario
-                </button>
-                {añadirComentario && <FormComentario />}
-                <CardComentario />
+        <div className={styles.comentariosContainer}>
+            {/*botón*/}
+            <button 
+                className={styles.boton} 
+                onClick={() => setMostrarForm(!mostrarForm)}
+            >
+                {mostrarForm ? "Cerrar" : "Añadir comentario"}
+            </button>
+
+            {/*condición */}
+            {mostrarForm && (
+                <FormComentario 
+                    idLibro={idLibro} 
+                    //Cerramos el formulario automaticamente despues de enviar
+                    onEnviarComentario={(n) => {
+                        setComentarios([n, ...listaComentarios]);
+                        setMostrarForm(false);
+                    }} 
+                />
+            )}
+
+            {/* Mapeo */}
+            <div className={styles.lista}>
+                {/* si listaComentarios es igual a Null */}
+                {listaComentarios && listaComentarios.length > 0 ? (
+                    listaComentarios.map((comentario) => (
+                        <CardComentario key={comentario.id_comentario} dato={comentario} />
+                    ))
+                ) : (
+                    <p className={styles.sinComentarios}>No hay reseñas aún. ¡Sé el primero!</p>
+                )}
             </div>
-        </>
+        </div>
     );
 }

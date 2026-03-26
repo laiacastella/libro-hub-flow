@@ -19,13 +19,11 @@ export default function FichaLibro() {
     useEffect(() => {
         if (id) {
             setCargando(true);
-            // 1. Cargar datos del libro
+            // Cargar datos del libro
             fetch(`/api/libros/${id}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    // Verificación de seguridad para la estructura de tu API
                     const resultado = Array.isArray(data) ? data[0] : (data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data);
-                    
                     if (resultado) {
                         setLibro(resultado);
                         guardarLibroActivo(resultado);
@@ -34,7 +32,7 @@ export default function FichaLibro() {
                 .catch(err => console.error("Error cargando libro:", err))
                 .finally(() => setCargando(false));
 
-            // 2. Cargar comentarios
+            // Cargar comentarios
             fetch(`/api/comentarios?id_libro=${id}`)
                 .then((res) => res.json())
                 .then((data) => setComentarios(data.data || data))
@@ -42,7 +40,6 @@ export default function FichaLibro() {
         }
     }, [id, guardarLibroActivo]);
 
-    // Comparación: Aseguramos que ambos sean números
     const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
 
     if (cargando) return <p className={styles.cargando}>Cargando ficha del libro...</p>;
@@ -93,23 +90,15 @@ export default function FichaLibro() {
 
                 <div className={styles.seccionResenas}>
                     <h3 className={styles.tituloResenas}>Reseñas sobre este ejemplar</h3>
-                    <Comentarios idLibro={id} />
                     
-                    <div className={styles.listaComentarios}>
-                        {comentarios.length > 0 ? (
-                            comentarios.map((c) => (
-                                <div key={c.id_comentario} className={styles.cajaResena}>
-                                    <div className={styles.userCircle}></div>
-                                    <div className={styles.textoResena}>
-                                        <span className={styles.idUsuario}>Usuario #{c.id_usuario}</span>
-                                        <p>{c.comentario}</p>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            <p className={styles.sinComentarios}>Aún no hay reseñas para este libro. ¡Sé el primero!</p>
-                        )}
-                    </div>
+                    {/* Cogo los datos del componente para que él haga el mapeo 
+                        usando las CardComentario con estilo. */}
+                    <Comentarios 
+                        idLibro={id} 
+                        listaComentarios={comentarios} 
+                        setComentarios={setComentarios} 
+                    />
+                    
                 </div>
             </div>
         </div>
