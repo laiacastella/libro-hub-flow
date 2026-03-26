@@ -38,6 +38,7 @@ export { default as FormRegistro } from "./Formularios/FormRegistro/FormRegistro
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
 export { default as PopUpPassReset } from "./PopUps/PopUpPassReset/PopUpPassReset";
 export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncidencia";
+export { default as PopUpCambiarFoto } from "./PopUps/PopUpCambiarFoto/PopUpCambiarFoto";
 
 // Carrusel
 export { default as Carrusel } from "./Carrusel/Carrusel";
