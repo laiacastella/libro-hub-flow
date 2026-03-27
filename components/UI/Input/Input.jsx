@@ -43,7 +43,7 @@ export default function Input({
                     accept={accept}
                     inputMode={soloNumeros ? "numeric" : undefined}
                     pattern={soloNumeros ? "[0-9]*" : undefined}
-                    {...(value !== undefined ? { value } : {})}
+                    value={value ?? ""}
                     {...(onChange ? { onChange } : {})}
                     {...(onFocus ? { onFocus } : {})}
                     onInput={soloNumeros ? (e) => {
