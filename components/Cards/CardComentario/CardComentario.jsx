@@ -21,8 +21,7 @@ export default function CardComentario({ dato }) {
             fetch(`/api/usuarios/${dato.id_usuario}`)
                 .then((res) => res.json())
                 .then((resJson) => {
-                    // Ajusta 'resJson.nombre' según como devuelva los datos tu API
-                    if (resJson.nombre_usuario) setNombreAutor(resJson.nombre_usuario);
+                    if (resJson.nick_usuario) setNombreAutor(resJson.nick_usuario);
                     if (resJson.foto_perfil) setFotoAutor(resJson.foto_perfil);
                 })
                 .catch(() => console.log("Error al obtener datos del autor"));
@@ -30,25 +29,33 @@ export default function CardComentario({ dato }) {
     }, [dato.id_usuario, esMiComentario, usuarioLogueado]);
 
     return (
-        <div className={styles.comentarioCard}>
-            <div className={styles.header}>
-                <div className={styles.usuarioInfo}>
-                    <img src={fotoAutor} alt="avatar" className={styles.perfilUsuario} />
-                    <div className={styles.usuarioDatos}>
-                        <h2 className={styles.usuario}>{nombreAutor}</h2>
-                        <p className={styles.tiempo}>
-                            {new Date(dato.fecha_comentario).toLocaleDateString()}
-                        </p>
+        <div className="container-fluid mb-4 p-0">
+            {/* Cabecera: Avatar y Nombre */}
+            <div className="row g-0 align-items-center mb-2">
+                <div className="col-auto me-2">
+                    <div className={styles.avatarWrapper}>
+                        <img src={fotoAutor} alt="avatar" className={styles.perfilUsuario} />
                     </div>
                 </div>
+                <div className="col">
+                    <span className={styles.nombreUsuario}>{nombreAutor}</span>
+                </div>
                 {esMiComentario && (
-                    <div className={styles.contenedorSvg}>
-                        <Pencil size={18} />
-                        <Trash2 size={18} />
+                    <div className="col-auto d-flex gap-2">
+                        <Pencil size={16} className="text-secondary cursor-pointer" />
+                        <Trash2 size={16} className="text-danger cursor-pointer" />
                     </div>
                 )}
             </div>
-            <p className={styles.comentarioText}>{dato.comentario}</p>
+
+            {/* Cuerpo: El globo del comentario */}
+            <div className="row g-0">
+                <div className="col-12">
+                    <div className={styles.cajaComentario}>
+                        <p className="mb-0">{dato.comentario}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

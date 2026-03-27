@@ -35,7 +35,9 @@ export default function Comentarios({ idLibro, listaComentarios, setComentarios 
                 {/* si listaComentarios es igual a Null */}
                 {listaComentarios && listaComentarios.length > 0 ? (
                     listaComentarios.map((comentario) => (
-                        <CardComentario key={comentario.id_comentario} dato={comentario} />
+                        <div key={comentario.id_comentario} className="mb-3"> 
+                            <CardComentario dato={comentario} />
+                        </div>
                     ))
                 ) : (
                     <p className={styles.sinComentarios}>No hay reseñas aún. ¡Sé el primero!</p>

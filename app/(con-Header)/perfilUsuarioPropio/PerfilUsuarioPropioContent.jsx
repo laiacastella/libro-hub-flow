@@ -55,21 +55,21 @@ export default function PerfilUsuarioPropio() {
                 </div>
 
                 <div className={`col-12 col-md-7 ${styles.datos}`}>
-                    <EscribirTexto texto={`${usuario?.nombre} ${usuario?.apellidos} (${usuario?.nick_usuario})`} Tipo="h2" velocidad="50" />
-                    <EscribirTexto texto={`${usuario?.poblacion}, ${usuario?.provincia}`} Tipo="h3" velocidad="50" />
-                    <EscribirTexto texto={`${usuario?.email}`} Tipo="h3" velocidad="50" />
-                    <EscribirTexto texto={`${usuario?.telefono}`} Tipo="h3" velocidad="50" />
+                    <EscribirTexto texto={`${usuario?.nombre} ${usuario?.apellidos} (${usuario?.nick_usuario})`} Tipo="h2" velocidad="30" />
+                    <EscribirTexto texto={`${usuario?.poblacion}, ${usuario?.provincia}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuario?.email}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuario?.telefono}`} Tipo="h3" velocidad="30" />
                     <div className="d-flex align-items-baseline gap-2">
                         <Contador 
                             valorFinal={numIntercambios}
                             colorInicio="#407c42"
                             colorFin="#000000"
-                            duracion="500"
+                            duracion="300"
                         />
                         <EscribirTexto 
                             texto="Intercambios completados" 
                             Tipo="h3" 
-                            velocidad="50"
+                            velocidad="30"
                         />
                     </div>
                 </div>
