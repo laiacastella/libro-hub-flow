@@ -33,6 +33,7 @@ export { default as FormEditarCuenta } from "./Formularios/FormEditarCuenta/Form
 export { default as FormIncidencia } from "./Formularios/FormIncidencia/FormIncidencia";
 export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqueda";
 export { default as FormRegistro } from "./Formularios/FormRegistro/FormRegistro";
+export { default as FormLogin } from "./Formularios/FormLogin/FormLogin";
 
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
