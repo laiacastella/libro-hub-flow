@@ -1,27 +1,17 @@
-import data from "@/data/valoraciones.json";
 import styles from "./CardValoracion.module.css";
 import { Estrellas } from "@/components/index";
 
-const valoraciones = data.comentarios;
+const calcularMedia = (lista) => {
+    if (!lista || lista.length === 0) return 0; // Por ahora devolvemos 0 por defecto
+    const suma = lista.reduce((acc, curr) => acc + curr.puntos, 0);
+    return suma / lista.length;
+};
 
-export default function Valoraciones() {
+export default function Valoraciones({ notaReal = 5 }) { //mientras no tenemos reseñas
+    
     return (
         <div className={styles.valoracionesContainer}>
-            {valoraciones.map((valoracion) => (
-                <div key={valoracion.id} className={styles.comentarioCard}>
-                    <div className={styles.header}>
-                        <div className={styles.usuarioInfo}>
-                            <img src={valoracion.perfil} alt={valoracion.usuario} className={styles.perfilUsuario} />
-                            <div className={styles.usuarioDatos}>
-                                <h2 className={styles.usuario}>{valoracion.usuario}</h2>
-                                <p className={styles.tiempo}>Hace {valoracion.tiempo}</p>
-                            </div>
-                        </div>
-                        <Estrellas valoracion={valoracion.valoracion} />
-                    </div>
-                    <p className={styles.comentario}>{valoracion.comentario}</p>
-                </div>
-            ))}
+            <Estrellas valoracion={notaReal} /> 
         </div>
     );
 }
