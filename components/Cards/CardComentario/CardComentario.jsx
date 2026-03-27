@@ -29,7 +29,7 @@ export default function CardComentario({ dato }) {
     }, [dato.id_usuario, esMiComentario, usuarioLogueado]);
 
     return (
-        <div className="container-fluid mb-4 p-0">
+        <div className= {`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
             {/* Cabecera: Avatar y Nombre */}
             <div className="row g-0 align-items-center mb-2">
                 <div className="col-auto me-2">

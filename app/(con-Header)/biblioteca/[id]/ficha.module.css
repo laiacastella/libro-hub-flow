@@ -2,7 +2,7 @@
     min-height: 100vh;
     padding: 40px 15px;
     /* Imagen de fondo normal sin filtros raros */
-    background-image: url('/img/fondo-libros.jpg');
+    background-image: url("/imagen-fondo.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

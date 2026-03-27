@@ -27,9 +27,16 @@
     border: 1px solid #e2e2e2;
     border-radius: 12px;
     padding: 12px 18px;
-    /* Efecto de relieve suave */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     color: #333;
     font-size: 0.95rem;
     line-height: 1.4;
+}
+
+.comentarioCard{
+    background-color: rgb(227, 227, 227);
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
