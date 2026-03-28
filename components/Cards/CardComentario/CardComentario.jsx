@@ -10,15 +10,15 @@ export default function CardComentario({ dato }) {
     const [nombreAutor, setNombreAutor] = useState(`Usuario #${dato.id_usuario}`);
     const [fotoAutor, setFotoAutor] = useState("/perfilUsuario.svg");
 
+    const tiempoTranscurrido = useTiempo(dato.fecha_comentario);
+
     const esMiComentario = usuarioLogueado && Number(dato.id_usuario) === Number(usuarioLogueado.id_usuario);
 
     useEffect(() => {
-        // Si es comentario, ya tengo los datos en el hook, no hace falta fetch
         if (esMiComentario) {
             setNombreAutor(usuarioLogueado.nombre_usuario || "Tú");
             setFotoAutor(usuarioLogueado.foto_perfil || "/perfilUsuario.svg");
-        } else {
-            // Si es de otro, pedimos sus datos a la API de usuarios
+        } else { 
             fetch(`/api/usuarios/${dato.id_usuario}`)
                 .then((res) => res.json())
                 .then((resJson) => {
@@ -28,30 +28,32 @@ export default function CardComentario({ dato }) {
                 .catch(() => console.log("Error al obtener datos del autor"));
         }
     }, [dato.id_usuario, esMiComentario, usuarioLogueado]);
-    const fechaComentario = useTiempo(dato.fecha_comentario);
 
     return (
         <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
-            {/* Cabecera: Avatar y Nombre */}
             <div className="row g-0 align-items-center mb-2">
                 <div className="col-auto me-2">
                     <div className={styles.avatarWrapper}>
                         <img src={fotoAutor} alt="avatar" className={styles.perfilUsuario} />
                     </div>
                 </div>
-                <div className="col">
+
+                {/* Nombre y Tiempo */}
+                <div className="col d-flex flex-column">
                     <span className={styles.nombreUsuario}>{nombreAutor}</span>
-                    <span className={styles.horaComentario}>{fechaComentario}</span>
+                    <span className={styles.tiempoPublicacion}>{tiempoTranscurrido}</span>
                 </div>
+
+                {/* Acciones si es mi libro */}
                 {esMiComentario && (
-                    <div className="col-auto d-flex gap-2">
-                        <Pencil size={16} className="text-secondary cursor-pointer" />
-                        <Trash2 size={16} className="text-danger cursor-pointer" />
+                    <div className="col-auto d-flex gap-3">
+                        <Pencil size={18} className="text-secondary cursor-pointer hover-effect" />
+                        <Trash2 size={18} className="text-danger cursor-pointer hover-effect" />
                     </div>
                 )}
             </div>
 
-            {/* Cuerpo: El globo del comentario */}
+            {/*texto*/}
             <div className="row g-0">
                 <div className="col-12">
                     <div className={styles.cajaComentario}>
