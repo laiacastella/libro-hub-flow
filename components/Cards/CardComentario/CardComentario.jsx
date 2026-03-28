@@ -7,27 +7,40 @@ import useTiempo from "@/hooks/useTiempo";
 
 export default function CardComentario({ dato }) {
     const usuarioLogueado = useUsuario();
-    const [nombreAutor, setNombreAutor] = useState(`Usuario #${dato.id_usuario}`);
-    const [fotoAutor, setFotoAutor] = useState("/perfilUsuario.svg");
+    const [autorAjeno, setAutorAjeno] = useState({
+        nombre: `Usuario #${dato.id_usuario}`,
+        foto: "/perfilUsuario.svg",
+    });
 
     const tiempoTranscurrido = useTiempo(dato.fecha_comentario);
 
     const esMiComentario = usuarioLogueado && Number(dato.id_usuario) === Number(usuarioLogueado.id_usuario);
 
     useEffect(() => {
-        if (esMiComentario) {
-            setNombreAutor(usuarioLogueado.nombre_usuario || "Tú");
-            setFotoAutor(usuarioLogueado.foto_perfil || "/perfilUsuario.svg");
-        } else { 
-            fetch(`/api/usuarios/${dato.id_usuario}`)
-                .then((res) => res.json())
-                .then((resJson) => {
-                    if (resJson.nick_usuario) setNombreAutor(resJson.nick_usuario);
-                    if (resJson.foto_perfil) setFotoAutor(resJson.foto_perfil);
-                })
-                .catch(() => console.log("Error al obtener datos del autor"));
-        }
-    }, [dato.id_usuario, esMiComentario, usuarioLogueado]);
+        if (esMiComentario) return;
+
+        let cancelado = false;
+
+        fetch(`/api/usuarios/${dato.id_usuario}`)
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (cancelado) return;
+
+                setAutorAjeno((prev) => ({
+                    nombre: resJson.nick_usuario || prev.nombre,
+                    foto: resJson.foto_perfil || prev.foto,
+                }));
+            })
+            .catch(() => console.log("Error al obtener datos del autor"));
+
+        return () => {
+            cancelado = true;
+        };
+    }, [dato.id_usuario, esMiComentario]);
+
+    const nombreAutor = esMiComentario ? usuarioLogueado?.nick_usuario : autorAjeno.nombre;
+    const fotoAutor = esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : autorAjeno.foto;
+    console.log("comentario:", dato);
 
     return (
         <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
