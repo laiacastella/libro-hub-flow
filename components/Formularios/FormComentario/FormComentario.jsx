@@ -24,7 +24,7 @@ export default function FormComentario({ onEnviarComentario, idLibro = null }) {
             const usuarioGuardado = typeof window !== "undefined" ? localStorage.getItem("usuarioLogueado") : null;
             const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
             const idUsuario = usuario?.id_usuario;
-            const idLibroFinal = 29; // libro la naranja mecánica, de prueba, hasta que tengamos la parte de ficha libro
+            const idLibroFinal = idLibro; // ahora funciona con todos los libros
 
             const response = await fetch("/api/comentarios", {
                 method: "POST",

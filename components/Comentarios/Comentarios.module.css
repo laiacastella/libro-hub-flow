@@ -1,5 +1,4 @@
 .comentariosContainer {
-    background-color: rgb(227, 227, 227);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -28,4 +27,11 @@
     background-color: #4caf50;
     transform: translateY(-2px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
 }

@@ -1,101 +1,109 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import estilos from "./ficha.module.css";
+import useUsuario from "@/hooks/useUsuario";
+import useLibroActivo from "@/hooks/useLibroActivo"; 
+import Comentarios from "@/components/Comentarios/Comentarios";
+import Valoraciones from "@/components/Valoraciones/Valoraciones";
+import styles from "./ficha.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FichaLibro() {
     const { id } = useParams();
     const [libro, setLibro] = useState(null);
     const [comentarios, setComentarios] = useState([]);
-    const [idUsuarioLogueado, setIdUsuarioLogueado] = useState(null);
+    const [cargando, setCargando] = useState(true);
+    
+    const usuario = useUsuario(); 
+    const { guardarLibroActivo } = useLibroActivo();
 
     useEffect(() => {
-        // 1. Obtener el ID del usuario logueado
-        const sesion = localStorage.getItem("usuarioLogueado");
-        if (sesion) {
-            const usuario = JSON.parse(sesion);
-            setIdUsuarioLogueado(usuario.id_usuario);
-        }
-
         if (id) {
-            // 2. Cargar datos del libro
+            setCargando(true);
             fetch(`/api/libros/${id}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    const resultado = Array.isArray(data) ? data[0] : (data.data || data);
-                    setLibro(resultado);
-                });
+                    const resultado = Array.isArray(data) ? data[0] : (data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data);
+                    if (resultado) {
+                        setLibro(resultado);
+                        guardarLibroActivo(resultado);
+                    }
+                })
+                .catch(err => console.error("Error cargando libro:", err))
+                .finally(() => setCargando(false));
 
-            // 3. Cargar comentarios
             fetch(`/api/comentarios?id_libro=${id}`)
-                .then((res) => {
-                    if (!res.ok) throw new Error("Error en API Comentarios");
-                    return res.json();
-                })
-                .then((data) => {
-                    setComentarios(data.data || data);
-                })
-                .catch((err) => {
-                    console.error("Fallo al cargar comentarios:", err);
-                    setComentarios([]);
-                });
+                .then((res) => res.json())
+                .then((data) => setComentarios(data.data || data))
+                .catch(() => setComentarios([]));
         }
-    }, [id]);
+    }, [id, guardarLibroActivo]);
 
-    // LÓGICA DE COMPARACIÓN (Siempre antes del return)
-    const esMiLibro = libro && idUsuarioLogueado && Number(libro.id_usuario) === Number(idUsuarioLogueado);
+    const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
 
-    if (!libro) return <p className={estilos.cargando}>Cargando...</p>;
+    if (cargando) return <div className="text-center mt-5">Cargando ficha...</div>;
+    if (!libro) return <div className="text-center mt-5">Libro no encontrado</div>;
 
     return (
-        <div className={estilos.fondoContenedor}>
-            <div className={estilos.tarjetaPrincipal}>
-                <div className={estilos.seccionSuperior}>
-                    <img src={libro.foto_portada} alt={libro.titulo} className={estilos.portada} />
-                    <div className={estilos.infoBasica}>
-                        <h1 className={estilos.titulo}>{libro.titulo}</h1>
-                        <p className={estilos.autor}>de {libro.autor}</p>
-                        <p className={estilos.descripcion}>{libro.descripcion}</p>
-                        
-                        {/* --- RENDERIZADO CONDICIONAL --- */}
-                        {esMiLibro ? (
-                            <div className={estilos.cuadroGestion}>
-                                <p className={estilos.propietarioTxt}>Gestionar mi libro:</p>
-                                <div className={estilos.botonesDuenio}>
-                                    <button className={estilos.btnEditar}>Editar</button>
-                                    <button className={estilos.btnEliminar}>Eliminar</button>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className={estilos.cuadroPropietario}>
-                                <div className={estilos.perfilPropietario}>
-                                    <div className={estilos.avatar}></div>
-                                    <div>
-                                        <p className={estilos.propietarioTxt}>Propietario:</p>
-                                        <p className={estilos.nombrePropietario}>Ana García</p>
+        <div className={styles.fondoContenedor}>
+            {/* Tarjeta principal*/}
+            <div className={`container shadow-sm bg-white rounded-4 p-4 p-md-5 ${styles.tarjetaPrincipal}`}>
+                
+                <div className="row g-4 align-items-start">
+                    {/* Portada */}
+                    <div className="col-12 col-md-4 text-center">
+                        <img 
+                            src={libro.foto_portada} 
+                            alt={libro.titulo} 
+                            className={`img-fluid rounded-3 shadow ${styles.portada}`} 
+                        />
+                    </div>
+                    
+                    {/* Info del Libro */}
+                    <div className="col-12 col-md-8">
+                        <div className="ps-md-3">
+                            <h1 className="fw-bold h2">{libro.titulo}</h1>
+                            <p className="text-muted mb-4">de {libro.autor}</p>
+                            
+                            <p className="small mb-1 text-secondary">Género: {libro.genero || "No especificado"}</p>
+                            <p className="text-dark mb-4" style={{ textAlign: 'justify', fontSize: '0.95rem' }}>
+                                {libro.descripcion}
+                            </p>
+
+                            {/* Condicional de botones según diseño */}
+                            <div className="mt-4">
+                                {esMiLibro ? (
+                                    <button className={`btn btn-success px-4 py-2 ${styles.btnPrincipal}`}>
+                                        Editar Datos Libro
+                                    </button>
+                                ) : (
+                                    <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
+                                        <div className="d-flex align-items-center gap-2">
+                                            <div className={styles.avatarMini}></div>
+                                            <div>
+                                                <p className="mb-0 x-small text-muted" style={{fontSize: '0.7rem'}}>Propietario:</p>
+                                                <p className="mb-0 fw-bold small">{libro.nombre_usuario || "Ana García"}</p>
+                                                <Valoraciones idUsuario={libro.id_usuario} />
+                                            </div>
+                                        </div>
+                                        <button className={`btn btn-success px-3 ${styles.btnPrincipal}`}>
+                                            Solicitar intercambio
+                                        </button>
                                     </div>
-                                </div>
-                                <button className={estilos.btnSolicitar}>Solicitar intercambio</button>
+                                )}
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
 
-                <div className={estilos.seccionResenas}>
-                    <h3 className={estilos.tituloResenas}>Comentarios de la comunidad</h3>
-                    {comentarios && comentarios.length > 0 ? (
-                        comentarios.map((c) => (
-                            <div key={c.id_comentario} className={estilos.cajaResena}>
-                                <div className={estilos.userCircle}></div>
-                                <div className={estilos.textoResena}>
-                                    <span className={estilos.idUsuario}>Usuario #{c.id_usuario}</span>
-                                    <p>{c.comentario}</p>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className={estilos.sinComentarios}>No hay comentarios todavía</p>
-                    )}
+                {/* Sección Reseñas*/}
+                <div className={`mt-5 p-4 rounded-4 ${styles.seccionResenas}`}>
+                    <h4 className="fw-bold mb-4" style={{fontSize: '1.1rem'}}>Reseñas de la comunidad</h4>
+                    <Comentarios 
+                        idLibro={id} 
+                        listaComentarios={comentarios} 
+                        setComentarios={setComentarios} 
+                    />
                 </div>
             </div>
         </div>

@@ -1,91 +1,276 @@
 "use client";
 import styles from "./FormEditarCuenta.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Boton, Input, Select } from "@/components";
+import useUsuario from "@/hooks/useUsuario";
 
 export default function FormEditarCuenta() {
 
-    const [provincias, setProvincias] = useState([]);
-    const [poblaciones, setPoblaciones] = useState([]);
-
-    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
-    const [poblacionSeleccionada, setPoblacionSeleccionada] = useState("");
-
-    // Cargar provincias al iniciar
-    useEffect(() => {
-        fetch("/api/provincias")
-            .then((res) => res.json())
-            .then((data) => setProvincias(data));
-    }, []);
-
-    // Cargar poblaciones cuando cambia la provincia
-    useEffect(() => {
-        if (provinciaSeleccionada) {
-            fetch(`/api/poblaciones?id_provincia=${provinciaSeleccionada}`)
+        const router = useRouter();
+        const usuario = useUsuario();
+        const [provincias, setProvincias] = useState([]);
+        const [poblaciones, setPoblaciones] = useState([]);
+        const [nickDisponible, setNickDisponible] = useState(null);
+        const [emailDisponible, setEmailDisponible] = useState(null);
+        const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
+        const [poblacionSeleccionada, setPoblacionSeleccionada] = useState("");
+    
+        useEffect(() => {
+            fetch("/api/provincias")
                 .then((res) => res.json())
-                .then((data) => {
-                    if (Array.isArray(data)) {
-                        setPoblaciones(data);
-                    } else {
-                        setPoblaciones([]);
+                .then((data) => setProvincias(data));
+        }, []);
+    
+        useEffect(() => {
+            if (provinciaSeleccionada) {
+                fetch(`/api/poblaciones?id_provincia=${provinciaSeleccionada}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (Array.isArray(data)) setPoblaciones(data);
+                        else setPoblaciones([]);
+                    });
+            } else {
+                setPoblaciones([]);
+            }
+        }, [provinciaSeleccionada]);
+
+        const [form, setForm] = useState({
+            nick_usuario: "",
+            email: "",
+            password: "",
+            repPassword: "",
+            nombre: "",
+            apellidos: "",
+            telefono: "",
+            codigo_postal: "",
+            id_provincia: "",
+            id_poblacion: "",
+        });
+    
+        const timeoutRef = useRef(null);
+
+        const comprobarNick = (nick) => {
+            clearTimeout(timeoutRef.current);
+
+            timeoutRef.current = setTimeout(async () => {
+                if (!nick) return;
+
+                const res = await fetch(`/api/check-nick?nick=${nick}`);
+                const data = await res.json();
+
+                setNickDisponible(data.disponible);
+            }, 500);
+        };
+    
+        const comprobarEmail = (email) => {
+            clearTimeout(timeoutRef.current);
+
+            timeoutRef.current = setTimeout(async () => {
+                if (!email) return;
+
+                const res = await fetch(`/api/check-email?email=${email}`);
+                const data = await res.json();
+
+                setEmailDisponible(data.disponible);
+            }, 500);
+        };
+    
+        const provinciasOptions = provincias.map(p => ({
+            value: p.id_provincia,
+            label: p.provincia
+        }));
+    
+        const poblacionesOptions = poblaciones.map(p => ({
+            value: p.id_poblacion,
+            label: p.poblacion
+        }));
+    
+        const [mensaje, setMensaje] = useState("");
+    
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+
+            setForm(prev => ({
+                ...prev,
+                [name]: value,
+                ...(name === "id_provincia" && { id_poblacion: "" })
+            }));
+
+            if (name === "id_provincia") {
+                setProvinciaSeleccionada(value);
+            }
+        };
+    
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+    
+            if (form.password && !form.repPassword) {
+                setMensaje("Tienes que introducir la misma Contraseña en Repetir contraseña");
+                return;
+            }
+    
+            if (form.password !== form.repPassword) {
+                setMensaje("Las contraseñas no coinciden");
+                return;
+            }
+    
+            try {
+                const body = {
+                    id_usuario: usuario.id_usuario,
+                };
+
+                Object.keys(form).forEach((key) => {
+                    if (form[key] !== "") {
+                        body[key] = form[key];
                     }
                 });
-        } else {
-            setPoblaciones([]);
-        }
-    }, [provinciaSeleccionada]);
+    
+                const res = await fetch("/api/usuarios/actualizar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body),
+                });
+    
+                const data = await res.json();
+    
+                if (!data.success) {
+                    setMensaje(data.error);
+                    return;
+                }
+    
+                if (data.success) {
+                    const usuarioActualizado = {
+                        ...usuario,
+                        ...body,
+                        provincia: provincias.find(p => p.id_provincia === Number(body.id_provincia))?.provincia || usuario.provincia,
+                        poblacion: poblaciones.find(p => p.id_poblacion === Number(body.id_poblacion))?.poblacion || usuario.poblacion,
+                    };
 
-    const provinciasOptions = provincias.map(p => ({
-        value: p.id_provincia,
-        label: p.provincia
-    }));
+                    localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioActualizado));
+                    window.dispatchEvent(new Event("usuarioActualizado"));
 
-    const poblacionesOptions = poblaciones.map(p => ({
-        value: p.id_poblacion,
-        label: p.poblacion
-    }));
+                    router.push("/perfilUsuarioPropio");
+                    router.refresh();
+                }
+    
+            } catch (err) {
+                console.error(err);
+                setMensaje("Error al crear usuario");
+            }
+        };
 
     return (
-        <form className={`row g-3 my-4 ${styles.form}`}>
+        <form onSubmit={handleSubmit} className={`row g-3 my-4 ${styles.form}`}>
             <div className={`col-12 col-md-6`}>
-                <Input label="Nombre:" tipo="text" id="nombre" nombre="nombre" />
+                <Input
+                    label="Nombre:"
+                    tipo="text"
+                    nombre="nombre"
+                    value={form.nombre}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Apellidos:" tipo="text" id="apellidos" nombre="apellidos" />
+                <Input
+                    label="Apellidos:"
+                    tipo="text"
+                    nombre="apellidos"
+                    value={form.apellidos}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Nombre de usuario:" tipo="text" id="nickUsuario" nombre="nickUsuario" />
+                <Input
+                    label="Nombre de usuario:"
+                    tipo="text"
+                    nombre="nick_usuario"
+                    value={form.nick_usuario}
+                    onChange={(e) => {
+                        handleChange(e);
+                        comprobarNick(e.target.value);
+                    }}
+                />
+                {nickDisponible === false && (
+                    <p style={{ color: "red" }}>Este usuario ya existe</p>
+                )}
+
+                {nickDisponible === true && (
+                    <p style={{ color: "green" }}>Usuario disponible</p>
+                )}
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Contraseña:" tipo="password" id="password" nombre="password" />
+                <Input
+                    label="Contraseña:"
+                    tipo="password"
+                    nombre="password"
+                    value={form.password}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Repetir Contraseña:" tipo="password" id="repPassword" nombre="repPassword" />
+                <Input
+                    label="Repetir Contraseña:"
+                    tipo="password"
+                    nombre="repPassword"
+                    value={form.repPassword}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Correo Electrónico:" tipo="email" id="email" nombre="email" />
+                <Input
+                    label="Correo Electrónico:"
+                    tipo="email"
+                    nombre="email"
+                    value={form.email}
+                    onChange={(e) => {
+                        handleChange(e);
+                        comprobarEmail(e.target.value);
+                    }}
+                />
+                {emailDisponible === false && (
+                    <p style={{ color: "red" }}>Este correo ya esta registrado</p>
+                )}
+
+                {emailDisponible === true && (
+                    <p style={{ color: "green" }}>Correo disponible</p>
+                )}
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Teléfono:" tipo="tel" id="telefono" nombre="telefono" />
+                <Input
+                    label="Teléfono:"
+                    tipo="tel"
+                    nombre="telefono"
+                    value={form.telefono}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
-                <Input label="Código Postal:" tipo="text" id="codigoPostal" nombre="codigoPostal" maxLength={5} soloNumeros={true} />
+                <Input
+                    label="Código Postal:"
+                    tipo="text"
+                    nombre="codigo_postal"
+                    maxLength={5}
+                    soloNumeros={true} 
+                    value={form.codigo_postal}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
                 <Select
                     id="provincia"
-                    nombre="provincia"
+                    nombre="id_provincia"
                     label="Provincia:"
-                    value={provinciaSeleccionada}
-                    onChange={(e) => setProvinciaSeleccionada(e.target.value)}
+                    value={form.id_provincia}
+                    onChange={handleChange}
                     opciones={provinciasOptions}
                     placeholder="Selecciona tu provincia"
                 />
@@ -94,17 +279,18 @@ export default function FormEditarCuenta() {
             <div className={`col-12 col-md-6`}>
                 <Select
                     id="poblacion"
-                    nombre="poblacion"
+                    nombre="id_poblacion"
                     label="Población:"
-                    value={poblacionSeleccionada}
-                    onChange={(e) => setPoblacionSeleccionada(e.target.value)}
+                    value={form.id_poblacion}
+                    onChange={handleChange}
                     opciones={poblacionesOptions}
                     placeholder="Selecciona tu población"
-                    disabled={!provinciaSeleccionada}
+                    disabled={!form.id_provincia}
                 />
             </div>
 
             <div className={`col-12 col-md-6`}>
+                {mensaje && <p>{mensaje}</p>}
             </div>
 
             <div className={`col-12 col-md-6`}>
