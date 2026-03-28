@@ -5,7 +5,7 @@ export async function GET(request) {
         const { searchParams } = new URL(request.url);
         const idLibro = Number(searchParams.get("id_libro"));
 
-        let query = "SELECT id_comentario, id_usuario, id_libro, comentario, fecha_comentario FROM comentarios";
+        let query = "SELECT id_comentario, id_usuario, id_libro, comentario, DATE_FORMAT(fecha_comentario, '%Y-%m-%d %H:%i:%s') AS fecha_comentario FROM comentarios";
         const params = [];
 
         if (!Number.isNaN(idLibro) && idLibro > 0) {
@@ -25,7 +25,7 @@ export async function GET(request) {
 
 export async function POST(req) {
     try {
-        const { id_libro, id_usuario, comentario } = await req.json();
+        const { id_libro, id_usuario, comentario, fecha_comentario } = await req.json();
 
         const idLibroNum = Number(id_libro);
         const idUsuarioNum = Number(id_usuario);
@@ -39,9 +39,15 @@ export async function POST(req) {
             return Response.json({ error: "Faltan id_libro o id_usuario válidos" }, { status: 400 });
         }
 
-        const [resultado] = await db.query("INSERT INTO comentarios (id_libro, id_usuario, comentario, fecha_comentario) VALUES (?, ?, ?, NOW())", [idLibroNum, idUsuarioNum, comentarioLimpio]);
+        const fechaComentarioTexto = typeof fecha_comentario === "string" ? fecha_comentario.trim() : "";
+        const fechaValida = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(fechaComentarioTexto);
 
-        const [rows] = await db.query("SELECT id_comentario, id_usuario, id_libro, comentario, fecha_comentario FROM comentarios WHERE id_comentario = ? LIMIT 1", [resultado.insertId]);
+        const queryInsert = fechaValida ? "INSERT INTO comentarios (id_libro, id_usuario, comentario, fecha_comentario) VALUES (?, ?, ?, ?)" : "INSERT INTO comentarios (id_libro, id_usuario, comentario, fecha_comentario) VALUES (?, ?, ?, NOW())";
+        const paramsInsert = fechaValida ? [idLibroNum, idUsuarioNum, comentarioLimpio, fechaComentarioTexto] : [idLibroNum, idUsuarioNum, comentarioLimpio];
+
+        const [resultado] = await db.query(queryInsert, paramsInsert);
+
+        const [rows] = await db.query("SELECT id_comentario, id_usuario, id_libro, comentario, DATE_FORMAT(fecha_comentario, '%Y-%m-%d %H:%i:%s') AS fecha_comentario FROM comentarios WHERE id_comentario = ? LIMIT 1", [resultado.insertId]);
 
         return Response.json({ success: true, comentario: rows[0] || null }, { status: 201 });
     } catch (error) {

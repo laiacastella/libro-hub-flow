@@ -4,29 +4,24 @@ import FormComentario from "../Formularios/FormComentario/FormComentario.jsx";
 import styles from "./Comentarios.module.css";
 import { useState } from "react";
 
-export default function Comentarios({ idLibro, listaComentarios, setComentarios }) {
-    
+export default function Comentarios({ listaComentarios, setComentarios }) {
     const [mostrarForm, setMostrarForm] = useState(false);
-    
+
     return (
         <div className={styles.comentariosContainer}>
             {/*botón*/}
-            <button 
-                className={styles.boton} 
-                onClick={() => setMostrarForm(!mostrarForm)}
-            >
+            <button className={styles.boton} onClick={() => setMostrarForm(!mostrarForm)}>
                 {mostrarForm ? "Cerrar" : "Añadir comentario"}
             </button>
 
             {/*condición */}
             {mostrarForm && (
-                <FormComentario 
-                    idLibro={idLibro} 
+                <FormComentario
                     //Cerramos el formulario automaticamente despues de enviar
                     onEnviarComentario={(n) => {
                         setComentarios([n, ...listaComentarios]);
                         setMostrarForm(false);
-                    }} 
+                    }}
                 />
             )}
 
@@ -35,7 +30,7 @@ export default function Comentarios({ idLibro, listaComentarios, setComentarios 
                 {/* si listaComentarios es igual a Null */}
                 {listaComentarios && listaComentarios.length > 0 ? (
                     listaComentarios.map((comentario) => (
-                        <div key={comentario.id_comentario} className="mb-3"> 
+                        <div key={comentario.id_comentario} className="mb-3">
                             <CardComentario dato={comentario} />
                         </div>
                     ))
