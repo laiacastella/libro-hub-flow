@@ -32,7 +32,7 @@ export default function CardComentario({ comentarios, setComentarios }) {
 
         return (
             <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
-                <div className="row g-0 align-items-center mb-2 ">
+                <div className="row g-0 align-items-center mb-2">
                     <div className="col-auto me-2">
                         <div className={styles.avatarWrapper}>
                             <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil} alt="avatar" className={styles.perfilUsuario} />
