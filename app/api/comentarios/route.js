@@ -5,15 +5,20 @@ export async function GET(request) {
         const { searchParams } = new URL(request.url);
         const idLibro = Number(searchParams.get("id_libro"));
 
-        let query = "SELECT id_comentario, id_usuario, id_libro, comentario, DATE_FORMAT(fecha_comentario, '%Y-%m-%d %H:%i:%s') AS fecha_comentario FROM comentarios";
-        const params = [];
+        let query = `SELECT 
+                c.id_comentario, 
+                c.id_usuario, 
+                c.id_libro, 
+                c.comentario, 
+                DATE_FORMAT(c.fecha_comentario, '%Y-%m-%d %H:%i:%s') AS fecha_comentario, 
+                u.nick_usuario, 
+                u.foto_perfil 
+            FROM comentarios c 
+            JOIN usuarios u ON c.id_usuario = u.id_usuario
+            WHERE id_libro = ?
+            ORDER BY fecha_comentario DESC`;
 
-        if (!Number.isNaN(idLibro) && idLibro > 0) {
-            query += " WHERE id_libro = ?";
-            params.push(idLibro);
-        }
-
-        query += " ORDER BY fecha_comentario DESC";
+        const params = [idLibro];
 
         const [rows] = await db.query(query, params);
         return Response.json({ data: rows }, { status: 200 });
