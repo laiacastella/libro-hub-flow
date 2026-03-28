@@ -11,18 +11,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function FichaLibro() {
     const { id } = useParams();
     const [libro, setLibro] = useState(null);
-    const [comentarios, setComentarios] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [solicitandoIntercambio, setSolicitandoIntercambio] = useState(false);
     const [errorIntercambio, setErrorIntercambio] = useState("");
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
-
+    console.log("ID del libro en FichaLibro:", id);
     useEffect(() => {
         if (id) {
             setCargando(true);
-            fetch(`/api/libros/${id}`)
+            fetch(`/api/libros/${id}`) // trae libro por id
                 .then((res) => res.json())
                 .then((data) => {
                     const resultado = Array.isArray(data) ? data[0] : data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data;
@@ -33,11 +32,6 @@ export default function FichaLibro() {
                 })
                 .catch((err) => console.error("Error cargando libro:", err))
                 .finally(() => setCargando(false));
-
-            fetch(`/api/comentarios?id_libro=${id}`)
-                .then((res) => res.json())
-                .then((data) => setComentarios(data.data || data))
-                .catch(() => setComentarios([]));
         }
     }, [id, guardarLibroActivo]);
 
@@ -134,7 +128,7 @@ export default function FichaLibro() {
                     <h4 className="fw-bold mb-4" style={{ fontSize: "1.1rem" }}>
                         Reseñas de la comunidad
                     </h4>
-                    <Comentarios idLibro={id} listaComentarios={comentarios} setComentarios={setComentarios} />
+                    <Comentarios />
                 </div>
             </div>
         </div>
