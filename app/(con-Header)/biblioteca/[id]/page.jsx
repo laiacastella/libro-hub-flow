@@ -82,8 +82,8 @@ export default function FichaLibro() {
                                             <div className={styles.avatarMini}></div>
                                             <div>
                                                 <p className="mb-0 x-small text-muted" style={{fontSize: '0.7rem'}}>Propietario:</p>
-                                                <p className="mb-0 fw-bold small">{libro.nombre_usuario || "Ana García"}</p>
-                                                <Estrellas valoracion={usuario.puntuacion_promedio} />
+                                                <p className="mb-0 fw-bold small">{libro.nick_usuario || "Usuario desconocido"}</p>
+                                                <Estrellas valoracion={libro.puntuacion_promedio} />
                                             </div>
                                         </div>
                                         <button className={`btn btn-success px-3 ${styles.btnPrincipal}`}>
