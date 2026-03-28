@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./CardComentario.module.css";
 import { Trash2, Pencil } from "lucide-react";
 import useUsuario from "@/hooks/useUsuario";
+import useTiempo from "@/hooks/useTiempo";
 
 export default function CardComentario({ dato }) {
     const usuarioLogueado = useUsuario();
@@ -27,9 +28,10 @@ export default function CardComentario({ dato }) {
                 .catch(() => console.log("Error al obtener datos del autor"));
         }
     }, [dato.id_usuario, esMiComentario, usuarioLogueado]);
+    const fechaComentario = useTiempo(dato.fecha_comentario);
 
     return (
-        <div className= {`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
+        <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
             {/* Cabecera: Avatar y Nombre */}
             <div className="row g-0 align-items-center mb-2">
                 <div className="col-auto me-2">
@@ -39,6 +41,7 @@ export default function CardComentario({ dato }) {
                 </div>
                 <div className="col">
                     <span className={styles.nombreUsuario}>{nombreAutor}</span>
+                    <span className={styles.horaComentario}>{fechaComentario}</span>
                 </div>
                 {esMiComentario && (
                     <div className="col-auto d-flex gap-2">
