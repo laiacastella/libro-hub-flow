@@ -1,10 +1,10 @@
 "use client";
+
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo"; 
-import Comentarios from "@/components/Comentarios/Comentarios";
-import Valoraciones from "@/components/Valoraciones/Valoraciones";
+import { Comentarios, Estrellas } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -83,7 +83,7 @@ export default function FichaLibro() {
                                             <div>
                                                 <p className="mb-0 x-small text-muted" style={{fontSize: '0.7rem'}}>Propietario:</p>
                                                 <p className="mb-0 fw-bold small">{libro.nombre_usuario || "Ana García"}</p>
-                                                <Valoraciones idUsuario={libro.id_usuario} />
+                                                <Estrellas valoracion={usuario.puntuacion_promedio} />
                                             </div>
                                         </div>
                                         <button className={`btn btn-success px-3 ${styles.btnPrincipal}`}>

@@ -24,6 +24,7 @@ export async function POST(req) {
                 u.password_hash,
                 u.telefono,
                 u.codigo_postal,
+                u.puntuacion_promedio,
                 p.provincia AS provincia,
                 po.poblacion AS poblacion
             FROM usuarios u
@@ -60,6 +61,7 @@ export async function POST(req) {
                     telefono: usuario.telefono || null,
                     codigo_postal: usuario.codigo_postal || null,
                     foto_perfil: usuario.foto_perfil || null,
+                    puntuacion_promedio: usuario.puntuacion_promedio,
                     provincia: usuario.provincia,
                     poblacion: usuario.poblacion,
                 },
