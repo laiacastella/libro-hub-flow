@@ -3,12 +3,14 @@ import { CardComentario } from "@/components/index";
 import FormComentario from "../Formularios/FormComentario/FormComentario.jsx";
 import styles from "./Comentarios.module.css";
 import { useState } from "react";
-import useUsuario from "@/hooks/useUsuario"
+import useLibroActivo from "@/hooks/useLibroActivo.js";
 
-export default function Comentarios({ listaComentarios, setComentarios }) {
+export default function Comentarios() {
     const [mostrarForm, setMostrarForm] = useState(false);
-    const usuarioLogueado = useUsuario();
+    const { libroActivo } = useLibroActivo();
+    const [comentarios, setComentarios] = useState([]);
 
+    console.log("ID del libro en Comentarios:", libroActivo?.id_libro);
     return (
         <div className={styles.comentariosContainer}>
             {/*botón*/}
@@ -21,31 +23,12 @@ export default function Comentarios({ listaComentarios, setComentarios }) {
                 <FormComentario
                     //Cerramos el formulario automaticamente despues de enviar
                     onEnviarComentario={(n) => {
-                        setComentarios([n, ...listaComentarios]);
+                        setComentarios([n, ...comentarios]);
                         setMostrarForm(false);
                     }}
                 />
             )}
-
-            {/* Mapeo */}
-            <div className={styles.lista}>
-                {/* si listaComentarios es igual a Null */}
-                {listaComentarios && listaComentarios.length > 0 ? (
-                    listaComentarios.map((comentario) => (
-                        <div key={comentario.id_comentario} className="mb-3">
-                            <CardComentario 
-                                key={comentario.id_comentario} 
-                                dato={comentario} 
-                                // se compara una sola vez IDs aquí una sola vez por elemento
-                                esMiComentario={usuarioLogueado?.id_usuario === comentario.id_usuario}
-                                onEliminar={() => manejarEliminar(comentario.id_comentario)}
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <p className={styles.sinComentarios}>No hay reseñas aún. ¡Sé el primero!</p>
-                )}
-            </div>
+            <CardComentario comentarios={comentarios} setComentarios={setComentarios} />
         </div>
     );
 }
