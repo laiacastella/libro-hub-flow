@@ -91,7 +91,7 @@ export default function FichaLibro() {
                             <h1 className="fw-bold h2">{libro.titulo}</h1>
                             <p className="text-muted mb-4">de {libro.autor}</p>
 
-                            <p className="small mb-1 text-secondary">Género: {libro.genero || "No especificado"}</p>
+                            <p className="small mb-1 text-secondary">Género: {libro.tipo_genero || "No especificado"}</p>
                             <p className="text-dark mb-4" style={{ textAlign: "justify", fontSize: "0.95rem" }}>
                                 {libro.descripcion}
                             </p>
