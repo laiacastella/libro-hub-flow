@@ -1,61 +1,67 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./CardComentario.module.css";
 import { Trash2, Pencil } from "lucide-react";
 import useUsuario from "@/hooks/useUsuario";
+import useTiempo from "@/hooks/useTiempo";
+import useLibroActivo from "@/hooks/useLibroActivo";
 
-export default function CardComentario({ dato }) {
+export default function CardComentario({ comentarios, setComentarios }) {
     const usuarioLogueado = useUsuario();
-    const [nombreAutor, setNombreAutor] = useState(`Usuario #${dato.id_usuario}`);
-    const [fotoAutor, setFotoAutor] = useState("/perfilUsuario.svg");
-
-    const esMiComentario = usuarioLogueado && Number(dato.id_usuario) === Number(usuarioLogueado.id_usuario);
+    const { libroActivo } = useLibroActivo();
+    const idLibro = libroActivo?.id_libro;
 
     useEffect(() => {
-        // Si es comentario, ya tengo los datos en el hook, no hace falta fetch
-        if (esMiComentario) {
-            setNombreAutor(usuarioLogueado.nombre_usuario || "Tú");
-            setFotoAutor(usuarioLogueado.foto_perfil || "/perfilUsuario.svg");
-        } else {
-            // Si es de otro, pedimos sus datos a la API de usuarios
-            fetch(`/api/usuarios/${dato.id_usuario}`)
-                .then((res) => res.json())
-                .then((resJson) => {
-                    if (resJson.nick_usuario) setNombreAutor(resJson.nick_usuario);
-                    if (resJson.foto_perfil) setFotoAutor(resJson.foto_perfil);
-                })
-                .catch(() => console.log("Error al obtener datos del autor"));
-        }
-    }, [dato.id_usuario, esMiComentario, usuarioLogueado]);
+        if (!idLibro) return;
+        fetch(`/api/comentarios?id_libro=${idLibro}`) // trae comentarios por id_libro
+            .then((res) => res.json())
+            .then((data) => {
+                const comentarios = data?.data ?? data ?? [];
+                setComentarios(Array.isArray(comentarios) ? comentarios : []);
+            })
+            .catch(() => setComentarios([]));
+    }, [idLibro]); // se agrega comentarios.length para recargar al eliminar o agregar
 
-    return (
-        <div className= {`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
-            {/* Cabecera: Avatar y Nombre */}
-            <div className="row g-0 align-items-center mb-2">
-                <div className="col-auto me-2">
-                    <div className={styles.avatarWrapper}>
-                        <img src={fotoAutor} alt="avatar" className={styles.perfilUsuario} />
-                    </div>
-                </div>
-                <div className="col">
-                    <span className={styles.nombreUsuario}>{nombreAutor}</span>
-                </div>
-                {esMiComentario && (
-                    <div className="col-auto d-flex gap-2">
-                        <Pencil size={16} className="text-secondary cursor-pointer" />
-                        <Trash2 size={16} className="text-danger cursor-pointer" />
-                    </div>
-                )}
-            </div>
+    console.log("comentarios:", comentarios);
+    console.log("ID LIBRO:", idLibro);
 
-            {/* Cuerpo: El globo del comentario */}
-            <div className="row g-0">
-                <div className="col-12">
-                    <div className={styles.cajaComentario}>
-                        <p className="mb-0">{dato.comentario}</p>
+    function ComentarioItem({ comentario }) {
+        const esMiComentario = usuarioLogueado && Number(comentario.id_usuario) === Number(usuarioLogueado.id_usuario);
+
+        const tiempoTranscurrido = useTiempo(comentario.fecha_comentario);
+
+        return (
+            <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
+                <div className="row g-0 align-items-center mb-2">
+                    <div className="col-auto me-2">
+                        <div className={styles.avatarWrapper}>
+                            <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil} alt="avatar" className={styles.perfilUsuario} />
+                        </div>
+                    </div>
+
+                    <div className="col d-flex flex-column">
+                        <span className={styles.nombreUsuario}>{esMiComentario ? usuarioLogueado?.nick_usuario : comentario.nick_usuario}</span>
+                        <span className={styles.tiempoPublicacion}>{tiempoTranscurrido}</span>
+                    </div>
+
+                    {esMiComentario && (
+                        <div className="col-auto d-flex gap-3">
+                            <Pencil size={18} className="text-secondary cursor-pointer hover-effect" />
+                            <Trash2 size={18} className="text-danger cursor-pointer hover-effect" />
+                        </div>
+                    )}
+                </div>
+
+                <div className="row g-0">
+                    <div className="col-12">
+                        <div className={styles.cajaComentario}>
+                            <p className="mb-0">{comentario.comentario}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+
+    return comentarios.map((comentario) => <ComentarioItem key={comentario.id_comentario} comentario={comentario} />);
 }

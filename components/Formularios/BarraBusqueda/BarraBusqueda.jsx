@@ -1,17 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Input, Boton } from "@/components";
+import { Input } from "@/components";
 import styles from "./BarraBusqueda.module.css";
-import { Search } from "lucide-react";
 
-export default function BarraBusqueda({ alBuscar, setFiltro }) {
+export default function BarraBusqueda({ alBuscar }) {
     const [texto, setTexto] = useState("");
 
     useEffect(() => {
-        if (alBuscar) {
-            alBuscar(texto);
-        }
-    }, [texto, alBuscar]);
+        const timeout = setTimeout(() => {
+            if (texto !== "") {
+                alBuscar(texto);
+            }
+        }, 300);
+
+        return () => clearTimeout(timeout);
+    }, [texto]);
 
     return (
         <div className="container">
@@ -20,14 +23,16 @@ export default function BarraBusqueda({ alBuscar, setFiltro }) {
                     <Input 
                         tipo="text" 
                         className={styles.input} 
-                        placeholder="Ej: titulo o autor" 
+                        placeholder="Ej: título o autor" 
                         value={texto} 
-                        onFocus={() => (setFiltro(""), setTexto(""))} 
+                        onFocus={() => {
+                            setTexto(""); // limpia input al enfocar
+                            alBuscar(""); // resetea filtro y página
+                        }}
                         onChange={(e) => setTexto(e.target.value)} 
                     />
                 </div>
-
-            {/*<div className="col-12 col-md-3 text-center">
+                {/*<div className="col-12 col-md-3 text-center">
                     <Boton icono={Search} texto=" Buscar" />
                 </div>*/}  
             </div>  

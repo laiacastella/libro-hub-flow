@@ -4,11 +4,12 @@ import { useState } from "react";
 import styles from "./FormComentario.module.css";
 import useLibroActivo from "@/hooks/useLibroActivo";
 
-export default function FormComentario({ onEnviarComentario, idLibro = null }) {
+export default function FormComentario({ onEnviarComentario }) {
     const [comentario, setComentario] = useState("");
     const [error, setError] = useState("");
     const [enviando, setEnviando] = useState(false);
     const { libroActivo } = useLibroActivo();
+    console.log("ID del libro para el comentario:", libroActivo?.id_libro);
 
     const manejarSubmit = async (e) => {
         e.preventDefault();
@@ -24,7 +25,10 @@ export default function FormComentario({ onEnviarComentario, idLibro = null }) {
             const usuarioGuardado = typeof window !== "undefined" ? localStorage.getItem("usuarioLogueado") : null;
             const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
             const idUsuario = usuario?.id_usuario;
-            const idLibroFinal = idLibro; // ahora funciona con todos los libros
+            const idLibroFinal = libroActivo?.id_libro; // ahora funciona con todos los libros
+            const ahora = new Date();
+            const fechaComentario = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}-${String(ahora.getDate()).padStart(2, "0")} ${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}:${String(ahora.getSeconds()).padStart(2, "0")}`;
+            console.log("Fecha y hora local:", fechaComentario);
 
             const response = await fetch("/api/comentarios", {
                 method: "POST",
@@ -33,6 +37,7 @@ export default function FormComentario({ onEnviarComentario, idLibro = null }) {
                     id_libro: idLibroFinal ?? null,
                     id_usuario: idUsuario,
                     comentario: comentarioLimpio,
+                    fecha_comentario: fechaComentario,
                 }),
             });
 
@@ -58,7 +63,7 @@ export default function FormComentario({ onEnviarComentario, idLibro = null }) {
     return (
         <form className={styles.comentarioCard} onSubmit={manejarSubmit}>
             <label htmlFor="comentario" className={styles.labelCampo}>
-                Comentario (de momento se usa el libro "La naranja mecánica" con id 29 para pruebas, hasta que tengamos la ficha libro):
+                Comentario :
             </label>
             <textarea id="comentario" value={comentario} onChange={(e) => setComentario(e.target.value)} className={styles.textareaComentario} placeholder="Escribe tu comentario..." rows={4} />
 
