@@ -21,7 +21,6 @@ export default function PerfilUsuarioPropio() {
     const numLibros = 17;
     const numSolicitudes = 7;
     const numIntercambios = 23;
-    const valoracion = 4.78;
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab");
 
@@ -126,12 +125,12 @@ export default function PerfilUsuarioPropio() {
                             <h1>
                                 <Contador
                                     key={`valoraciones-${paginaActiva}`}
-                                    valorFinal={valoracion}
+                                    valorFinal={`${usuario?.puntuacion_promedio}`} 
                                     colorInicio={colorValoracion.inicio}
                                     colorFin={colorValoracion.fin}
                                     duracion="500"
                                 />
-                                <Estrellas valoracion={valoracion} />
+                                <Estrellas valoracion={`${usuario?.puntuacion_promedio}`} />
                             </h1>
                             <h2>Valoración media</h2>
                     </div>
@@ -140,7 +139,7 @@ export default function PerfilUsuarioPropio() {
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
-                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca /*id_usuario={id_usuario}*//>}
+                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca id_usuario={`${usuario?.id_usuario}`} />}
                     {paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones />}
                 </div>

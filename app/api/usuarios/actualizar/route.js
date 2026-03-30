@@ -12,17 +12,14 @@ export async function POST(req) {
             );
         }
 
-        // 🚨 NO permitir actualizar repPassword ni cosas raras
         delete campos.repPassword;
 
-        // 🔐 Si viene password → hashear
         if (password && password.trim() !== "") {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
             campos.password_hash = hashedPassword;
         }
 
-        // 🚫 Validar si intentan cambiar nick
         if (campos.nick_usuario) {
             const [existeNick] = await db.query(
                 "SELECT id_usuario FROM usuarios WHERE nick_usuario = ? AND id_usuario != ?",
@@ -37,7 +34,6 @@ export async function POST(req) {
             }
         }
 
-        // 🚫 Validar email
         if (campos.email) {
             const [existeEmail] = await db.query(
                 "SELECT id_usuario FROM usuarios WHERE email = ? AND id_usuario != ?",
@@ -52,7 +48,6 @@ export async function POST(req) {
             }
         }
 
-        // 🧼 Quitar campos vacíos o null
         Object.keys(campos).forEach((key) => {
             if (campos[key] === "" || campos[key] === null) {
                 delete campos[key];
