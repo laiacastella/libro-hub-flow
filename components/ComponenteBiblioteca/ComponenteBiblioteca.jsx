@@ -17,7 +17,7 @@ export default function ComponenteBiblioteca({
     const [paginaActual, setPaginaActual] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
 
-    const [librosPorPagina, setLibrosPorPagina] = useState(10);
+    const [librosPorPagina, setLibrosPorPagina] = useState(14);
 
     const actualizarFiltro = useCallback((nuevoFiltro) => {
         setPaginaActual(1);
