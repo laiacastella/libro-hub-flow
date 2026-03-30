@@ -22,8 +22,8 @@ export default function Footer() {
                 {/* Equipo */}
                 <div className={styles.teamSection}>
                     <div className={styles.teamTitle}>
-                        <Users size={20} />
-                        <h5>Nuestro Equipo de Desarrollo</h5>
+                        <Users size={20} aria-hidden="true" />
+                        <h2 className={styles.teamTitleText}>Nuestro Equipo de Desarrollo</h2>
                     </div>
 
                     <div className={styles.teamGrid}>
@@ -36,19 +36,24 @@ export default function Footer() {
             </div>
 
             {/* Footer */}
-            <footer className={styles.footer}>
+            <div className={styles.footer}>
                 <div className={styles.footerBottom}>
                     <p>
-                        <AlertTriangle size={20} color="#63a26c" /> Si tiene alguna
-                        <Enlaces nomEnlace="incidencia " onClick={abrirPopupIncidencia} /> relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
-                        <Enlaces nomEnlace="aqui." onClick={abrirPopupIncidencia} />
+                        <AlertTriangle size={20} color="#63a26c" aria-hidden="true" /> Si tiene alguna
+                        <button className={styles.enlaces} onClick={abrirPopupIncidencia}>
+                            incidencia
+                        </button>
+                        relacionada con el funcionamiento del sitio web pongase en contacto con nosotros pulsando
+                        <button className={styles.enlaces} onClick={abrirPopupIncidencia}>
+                            aquí.
+                        </button>
                     </p>
                     <p>Desarrollo de Aplicaciones Web — IFP 2026</p>
                     <span>
-                        <Copyright size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.
+                        <Copyright aria-hidden="true" size="14" /> 2026 LibroHubFlow. Todos los derechos reservados.
                     </span>
                 </div>
-            </footer>
+            </div>
 
             <PopUpIncidencia isOpen={isPopupIncidenciaOpen} onClose={cerrarPopupIncidencia} />
         </div>
@@ -59,11 +64,11 @@ function TeamCard({ name, role }) {
     return (
         <div className={styles.teamCard}>
             <div className={styles.avatar}>
-                <Users size={18} />
+                <Users size={18} aria-hidden="true" />
             </div>
             <div>
-                <h4>{name}</h4>
-                <p>{role}</p>
+                <p className={styles.teamName}>{name}</p>
+                <p className={styles.teamRole}>{role}</p>
             </div>
         </div>
     );

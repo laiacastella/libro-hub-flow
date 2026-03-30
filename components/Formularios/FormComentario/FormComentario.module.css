@@ -1,0 +1,98 @@
+.comentarioCard {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.usuarioInfo {
+    display: flex;
+    width: 100%;
+}
+
+.perfilUsuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.usuarioDatos {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 16px;
+    width: 100%;
+}
+
+.labelCampo {
+    font-size: 0.85rem;
+    color: #4b5563;
+    margin-bottom: 6px;
+}
+
+.inputNombre,
+.textareaComentario {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+}
+
+.textareaComentario {
+    resize: vertical;
+    min-height: 92px;
+}
+
+.inputNombre:focus,
+.textareaComentario:focus {
+    outline: none;
+    border-color: #63a26c;
+    box-shadow: 0 0 0 2px rgba(99, 162, 108, 0.18);
+}
+
+.comentario {
+    background-color: #f0eded;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botonEnviar {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background-color: #63a26c;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.botonEnviar:hover {
+    background-color: #538a5a;
+}
+
+.error {
+    color: #b91c1c;
+    margin: 0;
+    font-size: 0.9rem;
+}

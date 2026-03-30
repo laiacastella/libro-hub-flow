@@ -3,50 +3,32 @@
     inset: 0;
     z-index: 1200;
     background: rgba(0, 0, 0, 0.45);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    display: grid;
+    place-items: center;
+    padding: 0.75rem;
+    overflow-y: auto;
 }
 
 .popup {
     width: min(1100px, 96vw);
     max-height: 96vh;
-    border: none;
     border-radius: 12px;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
+    overflow-y: auto;
 }
 
 .main {
     max-width: 56rem;
-    margin: 0 auto;
-    padding: 1.25rem;
     background-color: #f0efeaeb;
     border-radius: 12px;
     color: #111827;
-}
-
-.titleSection {
-    margin-bottom: 1rem;
-}
-
-.titleHeader {
+    padding: 1.5rem;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
+    flex-direction: column;
+    align-self: center;
 }
 
 .closeButton {
-    border: none;
-    background: transparent;
-    padding: 0;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     color: #111827;
 }
 
@@ -60,7 +42,6 @@
 .subtitle {
     color: #4b5563;
     font-size: 1rem;
-    margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -69,8 +50,7 @@
     }
 
     .popup {
-        max-height: 95vh;
-        overflow-y: auto;
+        max-height: 85vh;
     }
 
     .main {
@@ -84,16 +64,12 @@
         flex-shrink: 0;
     }
 
-    .titleHeader {
-        gap: 0.75rem;
-    }
-
     .title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         margin-bottom: 0.25rem;
     }
 
     .subtitle {
-        font-size: 0.9rem;
+        font-size: 0.875rem;
     }
 }

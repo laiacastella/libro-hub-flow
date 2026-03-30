@@ -24,3 +24,22 @@ export async function GET() {
         return Response.json({ error: "Error BBDD" }, { status: 500 });
     }
 }
+
+export async function POST(req) {
+    try {
+        const { id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado } = await req.json();
+
+        const [result] = await db.query(
+            `
+      INSERT INTO intercambios (id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, estado_solicitud)
+      VALUES (?, ?, ?, ?)
+    `,
+            [id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, "solicitado"],
+        );
+
+        return Response.json({ id: result.insertId, message: "Intercambio creado" }, { status: 201 });
+    } catch (error) {
+        console.error(error);
+        return Response.json({ error: "Error BBDD" }, { status: 500 });
+    }
+}

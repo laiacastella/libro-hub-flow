@@ -1,5 +1,8 @@
 body {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/imagen-fondo.jpg");
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+    ), url("/imagen-fondo.jpg");
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -8,60 +11,43 @@ body {
 .fondo {
     background-color: #E8DFD8cc;
     border-radius: 12px;
-    width: 80%;
-    justify-self: center;
-    padding: 50px;
-    margin: 50px;
+    padding: 40px;
+    width: 90%;
 }
 
 .perfil {
     border-radius: 12px;
-    height: 100px;
-    width: 80%;
-    justify-self: center;
-    padding: 60px;
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-start;
-    gap: 15px;
+    padding: 30px 10px;
+    margin-bottom: 20px;
 }
 
-.foto{
-    height: 100px;
-    width: 20%;
+.foto {
+    display: flex;
+    justify-content: center;
+}
+
+.fotoPerfil {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.datos {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-.fotoPerfil{
-    height: 200px;
-    width: 200px;
-}
-
-.datos{
-    height: 100px;
-    width: 60%;
+    justify-content: center;
 }
 
 .navegacion {
-    border-radius: 12px;
-    width: 95%;
-    justify-self: center;
-    padding: 10px;
-    margin-top: 200px;
-    display: flex;
-    justify-content: flex-start;
-    gap: 25px;
+    padding: 10px 0;
+    margin-bottom: 20px;
 }
 
 .contenido {
     border-radius: 12px;
-    width: 95%;
     display: flex;
     flex-direction: column;
-    justify-self: center;
     gap: 30px;
     padding-top: 20px;
 }
@@ -69,17 +55,14 @@ body {
 .paginas {
     background: #f9f9f9cc;
     border-radius: 14px;
-    width: 80%;
     padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     cursor: pointer;
     border: 1px solid #e0e0e0;
 
     box-shadow:
         0 4px 8px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
     transition: all 0.25s ease;
 }
 
@@ -92,7 +75,7 @@ body {
 
 .activo,
 .paginas:focus-visible {
-    background-color: #63a26c;
+    background-color: #407c42;
     border-color: #000;
     transform: translateY(-3px);
     box-shadow:

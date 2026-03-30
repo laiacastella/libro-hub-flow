@@ -1,16 +1,16 @@
 .libroCard {
     background-color: #ffffff;
     border-radius: 12px;
-    width: 180px; 
+    width: 180px;
+    height: 96%;
     padding: 15px;
 
-    border: 3px solid #63A26C;
+    border: 3px solid #63a26c;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .libroImage {
@@ -22,7 +22,7 @@
 }
 
 .libroTitulo {
-    font-size: 0.95rem; 
+    font-size: 0.95rem;
     margin: 5px 0;
     color: #333;
     text-transform: uppercase;
@@ -47,7 +47,7 @@
     }
 
     .libroImage {
-        width: 210px; 
+        width: 210px;
         height: 300px; /* medidas originales */
         margin-bottom: 15px;
     }

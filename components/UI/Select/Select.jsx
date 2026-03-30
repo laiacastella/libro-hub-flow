@@ -1,5 +1,4 @@
-import styles from "./Select.module.css"; 
-// puedes usar el mismo CSS si el estilo es igual
+import styles from "./Select.module.css";
 
 export default function Select({
     id,

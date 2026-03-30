@@ -1,9 +1,9 @@
 /* movil */
 
 .boton {
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.3rem;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
@@ -16,6 +16,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     transition: all 0.25s ease;
     box-shadow:
         0 4px 8px rgba(0, 0, 0, 0.5),
@@ -27,7 +28,7 @@
 .small {
     min-width: 100px;
     padding: 6px 12px;
-    font-size: 1rem;
+    font-size: 0.875rem;
 }
 
 .small:not(.cerrar) {
@@ -37,18 +38,18 @@
 .medium {
     min-width: 140px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .large {
     min-width: 180px;
     padding: 12px 24px;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 /* Variantes */
 .default {
-    background-color: #63a26c;
+    background-color: #407c42;
 }
 
 .default:hover:not(:disabled) {
@@ -61,7 +62,7 @@
 
 /* Si es rojo */
 .red {
-    background-color: #e53935;
+    background-color: #9f1e1b;
 }
 
 .red:hover:not(:disabled) {

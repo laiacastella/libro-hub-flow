@@ -83,6 +83,16 @@ async function enviarEmailIncidencia(datos) {
                                             </div>
                                         </td>
                                     </tr>
+
+                                    ${datos.capturaUrl ? `
+                                    <!-- Captura -->
+                                    <tr>
+                                        <td style="padding: 10px 30px 20px;">
+                                            <h3 style="color: #333333; margin: 0 0 10px 0; font-size: 16px; font-weight: 600;">Captura adjunta:</h3>
+                                            <img src="${datos.capturaUrl}" alt="Captura de pantalla" style="max-width: 100%; border-radius: 6px; border: 1px solid #e0e0e0;" />
+                                        </td>
+                                    </tr>
+                                    ` : ""}
                                     
                                     <!-- Footer -->
                                     <tr>
@@ -116,7 +126,7 @@ async function enviarEmailIncidencia(datos) {
 
 export async function POST(req) {
     try {
-        const { nombreCompleto, correoElectronico, telefono, tipoIncidencia, asunto, descripcion } = await req.json();
+        const { nombreCompleto, correoElectronico, telefono, tipoIncidencia, asunto, descripcion, capturaUrl } = await req.json();
 
         // Validar campos requeridos
         if (!nombreCompleto || !correoElectronico || !tipoIncidencia || !asunto || !descripcion) {
@@ -128,9 +138,9 @@ export async function POST(req) {
 
         // Guardar en la base de datos
         await db.query(
-            `INSERT INTO incidencias (nombre_completo, email, telefono, asunto, descripcion, fecha_creacion, estado, tipo) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [nombreCompleto, correoElectronico, telefono || null, asunto, descripcion, fechaCreacion, estado, tipoIncidencia],
+            `INSERT INTO incidencias (nombre_completo, email, telefono, asunto, descripcion, fecha_creacion, estado, tipo, imagenes_adjuntas) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [nombreCompleto, correoElectronico, telefono || null, asunto, descripcion, fechaCreacion, estado, tipoIncidencia, capturaUrl || null],
         );
 
         // Intentar enviar email
@@ -142,11 +152,15 @@ export async function POST(req) {
                 tipoIncidencia,
                 asunto,
                 descripcion,
+                capturaUrl,
             });
         } catch (emailError) {
             console.error("Error al enviar email (incidencia guardada en BD):", emailError);
         }
+
+        return new Response(JSON.stringify({ message: "Incidencia registrada correctamente" }), { status: 200 });
     } catch (error) {
         console.error("Error al registrar incidencia:", error);
+        return new Response(JSON.stringify({ error: "Error interno del servidor" }), { status: 500 });
     }
 }

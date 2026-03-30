@@ -14,4 +14,4 @@ const Campo = ({ type = "text", name, placeholder, value, onChange, required = f
   );
 };
 
-export default Campo
+export default Campo;
