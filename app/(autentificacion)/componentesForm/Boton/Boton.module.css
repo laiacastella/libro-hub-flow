@@ -31,3 +31,13 @@
     transform: translateY(0);   /* Baja cuando haces clic */
 }
 
+.botonApp:disabled {
+    background-color: #ccc; /* Color gris */
+    cursor: not-allowed;    /* Cursor de 'prohibido' */
+    opacity: 0.7;           /* Un poco más transparente */
+}
+
+.botonApp span img {
+    width: 20px;
+    margin-right: 10px;
+}
