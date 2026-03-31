@@ -9,15 +9,17 @@
     
     /* --- DIMENSIONES Y POSICIÓN --- */
     width: 90%;            
-    max-width: 420px;      
+    /* max-width: 420px;       */
     padding: 1.5rem 2.5rem 2.5rem 2.5rem;
-    margin: 10vh auto 5vh auto;  
+    margin: 10vh auto vh auto;  
     
     /* --- COMPORTAMIENTO --- */
     display: flex;
     flex-direction: column;
     align-items: center; 
   }  
+
+
 
   .contenedorLogo {
     /* --- ESTÉTICA --- */
