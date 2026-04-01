@@ -18,7 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function PerfilUsuarioPropio() {
     
     const usuario = useUsuario();
-    const numLibros = 17;
+    const [numLibros, setNumLibros] = useState(0);
     const numSolicitudes = 7;
     const numIntercambios = 23;
     const searchParams = useSearchParams();
@@ -139,7 +139,9 @@ export default function PerfilUsuarioPropio() {
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
-                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca id_usuario={`${usuario?.id_usuario}`} />}
+                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca 
+                        id_usuario={`${usuario?.id_usuario}`} 
+                        setNumLibros={setNumLibros}/>}
                     {paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones />}
                 </div>
