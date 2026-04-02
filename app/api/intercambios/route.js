@@ -31,8 +31,8 @@ export async function POST(req) {
 
         const [result] = await db.query(
             `
-      INSERT INTO intercambios (id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, estado_solicitud)
-      VALUES (?, ?, ?, ?)
+            INSERT INTO intercambios (id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, estado_solicitud, fecha_inicio)
+            VALUES (?, ?, ?, ?, NOW())
     `,
             [id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, "solicitado"],
         );
