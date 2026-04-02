@@ -37,7 +37,7 @@ export async function POST(req) {
 
         // Si no se encuentra el usuario se devuelve un error
         if (!rows.length) {
-            return new Response(JSON.stringify({ error: "Credenciales incorrectas" }), { status: 401 });
+            return new Response(JSON.stringify({ error: "Usuario o contraseña incorrectos" }), { status: 401 });
         }
 
         const usuario = rows[0];
@@ -45,7 +45,7 @@ export async function POST(req) {
         // Aquí se compara la contraseña proporcionada con el hash almacenado en la base de datos.
         const passwordValido = await bcrypt.compare(plainPassword, usuario.password_hash);
         if (!passwordValido) {
-            return new Response(JSON.stringify({ error: "Credenciales incorrectas" }), { status: 401 });
+            return new Response(JSON.stringify({ error: "Usuario o contraseña incorrectos" }), { status: 401 });
         }
 
         // Si la contraseña es correcta, devuelve la información del usuario
