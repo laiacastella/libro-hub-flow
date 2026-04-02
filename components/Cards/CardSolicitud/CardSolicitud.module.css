@@ -1,7 +1,9 @@
 .solicitudCard {
     background-color: white;
     border-radius: 8px;
-    width: 100%;
+    width: min(100%, 380px);
+    max-width: 380px;
+    justify-self: center;
     aspect-ratio: 7 / 8;
     min-height: 360px;
     padding: clamp(12px, 2vw, 20px);
