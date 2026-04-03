@@ -2,9 +2,11 @@
 import { useState } from "react";
 import styles from "./Solicitudes.module.css";
 import { CardSolicitud } from "@/components/index";
+import useUsuario from "@/hooks/useUsuario";
 
 export default function Solicitudes() {
     const [filtro, setFiltro] = useState("recibidas");
+    const usuario = useUsuario();
 
     return (
         <>
@@ -17,7 +19,7 @@ export default function Solicitudes() {
             </div>
 
             <div className={styles.contenedorSolicitudes}>
-                <CardSolicitud filtro={filtro} />
+                <CardSolicitud filtro={filtro} idUsuario={usuario?.id_usuario} />
             </div>
         </>
     );

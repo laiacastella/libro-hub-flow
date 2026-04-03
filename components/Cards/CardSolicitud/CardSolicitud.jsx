@@ -5,7 +5,7 @@ import { SquarePlus, Trash2, ArrowLeftRight } from "lucide-react";
 
 import { useEffect, useState } from "react";
 
-export default function CardSolicitud() {
+export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     // Estados para controlar el popup y el intercambio activo
     const [open, setOpen] = useState(false);
     const [intercambioActivo, setIntercambioActivo] = useState(null);
@@ -80,9 +80,23 @@ export default function CardSolicitud() {
         setOpen(false);
     }
 
+    const idUsuarioNumero = Number(idUsuario);
+    const intercambiosFiltrados = intercambios.filter((intercambio) => {
+        if (!idUsuarioNumero) return false;
+
+        const esPropietario = Number(intercambio.id_usuario_propietario) === idUsuarioNumero;
+        const esSolicitante = Number(intercambio.id_usuario_solicitante) === idUsuarioNumero;
+
+        if (filtro === "recibidas") return esPropietario;
+        if (filtro === "realizadas") return esSolicitante;
+        if (filtro === "historial") return esPropietario || esSolicitante;
+
+        return false;
+    });
+
     return (
         <>
-            {intercambios.map((intercambio) => (
+            {intercambiosFiltrados.map((intercambio) => (
                 <div key={intercambio.id_intercambio} className={styles.solicitudCard}>
                     <div className={styles.librosContainer}>
                         {/* Libro solicitado */}
