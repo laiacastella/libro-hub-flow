@@ -1,5 +1,6 @@
 "use client";
 import styles from "./Boton.module.css";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 export default function Boton({

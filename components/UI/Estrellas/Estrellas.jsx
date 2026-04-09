@@ -25,7 +25,7 @@ function Star({ fill = 0 }) {
     );
 }
 
-function calcularEstrellas(valoracion) {
+export function calcularEstrellas(valoracion) {
     return Array.from({ length: 5 }, (_, i) => {
         const diferencia = valoracion - i;
 
