@@ -1,5 +1,5 @@
 "use client";
-
+console.log("🔥 FormComentario renderizado");
 import { useState } from "react";
 import styles from "./FormComentario.module.css";
 import useLibroActivo from "@/hooks/useLibroActivo";
@@ -59,6 +59,11 @@ export default function FormComentario({ onEnviarComentario }) {
         }
     };
 
+    console.log("comentario:", JSON.stringify(comentario));
+    console.log(
+        "chars:",
+        [...comentario].map((c) => c.charCodeAt(0)),
+    );
     return (
         <form className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`} onSubmit={manejarSubmit}>
             <div className="row g-0 align-items-center mb-2">
