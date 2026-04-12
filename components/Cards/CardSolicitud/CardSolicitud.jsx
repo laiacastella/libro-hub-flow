@@ -1,6 +1,7 @@
 "use client";
 import styles from "./CardSolicitud.module.css";
 import { PopUpBiblioteca, Boton } from "@/components/index";
+import PopUpValoracion from "@/components/PopUps/PopUpValoracion/PopUpValoracion";
 import { SquarePlus, Trash2, ArrowLeftRight } from "lucide-react";
 
 import { useEffect, useState } from "react";
@@ -9,6 +10,8 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     // Estados para controlar el popup y el intercambio activo
     const [open, setOpen] = useState(false);
     const [intercambioActivo, setIntercambioActivo] = useState(null);
+    const [openValoracion, setOpenValoracion] = useState(false);
+    const [intercambioValoracion, setIntercambioValoracion] = useState(null);
 
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
     // Definimos el flujo de estados para cada acción
@@ -78,6 +81,21 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     // Función para cerrar el popup
     function cerrarPopup() {
         setOpen(false);
+    }
+
+    function abrirPopupValoracion(intercambio) {
+        setIntercambioValoracion(intercambio);
+        setOpenValoracion(true);
+    }
+
+    function cerrarPopupValoracion() {
+        setOpenValoracion(false);
+        setIntercambioValoracion(null);
+    }
+
+    async function manejarValoracionGuardada(idIntercambio) {
+        await avanzarEstado(idIntercambio, "valorar");
+        cerrarPopupValoracion();
     }
 
     const idUsuarioNumero = Number(idUsuario);
@@ -153,7 +171,15 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                             </>
                         )}
 
-                        {!["solicitado", "seleccionado", "finalizado", "rechazado"].includes(intercambio.estado_solicitud) && flujoEstados[intercambio.estado_solicitud] && (
+                        {/* si es valorar al hacer click se abre el popup de valoracion */}
+                        {intercambio.estado_solicitud === "valorar" && (
+                            <>
+                                <Boton texto="Valorar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => abrirPopupValoracion(intercambio)} />
+                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
+                            </>
+                        )}
+
+                        {!["solicitado", "seleccionado", "finalizado", "rechazado", "valorar"].includes(intercambio.estado_solicitud) && flujoEstados[intercambio.estado_solicitud] && (
                             <>
                                 <Boton texto={etiquetasBoton[intercambio.estado_solicitud]} className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)} />
                                 <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
@@ -163,6 +189,7 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                 </div>
             ))}
             <PopUpBiblioteca isOpen={open} onClose={cerrarPopup} intercambio={intercambioActivo} avanzarEstado={avanzarEstado} />
+            <PopUpValoracion isOpen={openValoracion} onClose={cerrarPopupValoracion} intercambio={intercambioValoracion} idUsuarioActual={idUsuarioNumero} onValoracionGuardada={manejarValoracionGuardada} />
         </>
     );
 }
