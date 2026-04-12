@@ -2,3 +2,23 @@
     display: inline-flex;
     margin-left: 6px;
 }
+
+.interactive {
+    margin-left: 0;
+    gap: 0.35rem;
+}
+
+.starButton {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+}
+
+.starButton:hover {
+    transform: scale(1.4);
+}
