@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Boton, Input, Select } from "@/components";
 import useUsuario from "@/hooks/useUsuario";
+import comprobarPassword from "@/hooks/comprobarPassword";
 
 export default function FormEditarCuenta() {
 
@@ -105,13 +106,10 @@ export default function FormEditarCuenta() {
         const handleSubmit = async (e) => {
             e.preventDefault();
     
-            if (form.password && !form.repPassword) {
-                setMensaje("Tienes que introducir la misma Contraseña en Repetir contraseña");
-                return;
-            }
-    
-            if (form.password !== form.repPassword) {
-                setMensaje("Las contraseñas no coinciden");
+            const errorPassword = comprobarPassword(form.password, form.repPassword);
+
+            if (errorPassword) {
+                setMensaje(errorPassword);
                 return;
             }
     

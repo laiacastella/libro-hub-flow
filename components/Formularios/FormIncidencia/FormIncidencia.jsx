@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./FormIncidencia.module.css";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Boton } from "@/components";
 
 export default function FormIncidencia({ onClose }) {
