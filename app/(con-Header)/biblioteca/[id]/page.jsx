@@ -125,9 +125,6 @@ export default function FichaLibro() {
 
                 {/* Sección Reseñas*/}
                 <div className={`mt-5 p-4 rounded-4 ${styles.seccionResenas}`}>
-                    <h4 className="fw-bold mb-4" style={{ fontSize: "1.1rem" }}>
-                        Reseñas de la comunidad
-                    </h4>
                     <Comentarios />
                 </div>
             </div>

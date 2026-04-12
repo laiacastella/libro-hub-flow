@@ -1,15 +1,17 @@
 "use client";
-
+console.log("🔥 FormComentario renderizado");
 import { useState } from "react";
 import styles from "./FormComentario.module.css";
 import useLibroActivo from "@/hooks/useLibroActivo";
+import useUsuario from "@/hooks/useUsuario";
+import Boton from "@/components/UI/Boton/Boton";
 
 export default function FormComentario({ onEnviarComentario }) {
     const [comentario, setComentario] = useState("");
     const [error, setError] = useState("");
     const [enviando, setEnviando] = useState(false);
     const { libroActivo } = useLibroActivo();
-    console.log("ID del libro para el comentario:", libroActivo?.id_libro);
+    const usuarioLogueado = useUsuario();
 
     const manejarSubmit = async (e) => {
         e.preventDefault();
@@ -22,13 +24,10 @@ export default function FormComentario({ onEnviarComentario }) {
         try {
             setEnviando(true);
 
-            const usuarioGuardado = typeof window !== "undefined" ? localStorage.getItem("usuarioLogueado") : null;
-            const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
-            const idUsuario = usuario?.id_usuario;
+            const idUsuario = usuarioLogueado?.id_usuario;
             const idLibroFinal = libroActivo?.id_libro; // ahora funciona con todos los libros
             const ahora = new Date();
             const fechaComentario = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}-${String(ahora.getDate()).padStart(2, "0")} ${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}:${String(ahora.getSeconds()).padStart(2, "0")}`;
-            console.log("Fecha y hora local:", fechaComentario);
 
             const response = await fetch("/api/comentarios", {
                 method: "POST",
@@ -60,19 +59,38 @@ export default function FormComentario({ onEnviarComentario }) {
         }
     };
 
+    console.log("comentario:", JSON.stringify(comentario));
+    console.log(
+        "chars:",
+        [...comentario].map((c) => c.charCodeAt(0)),
+    );
     return (
-        <form className={styles.comentarioCard} onSubmit={manejarSubmit}>
-            <label htmlFor="comentario" className={styles.labelCampo}>
-                Comentario :
-            </label>
-            <textarea id="comentario" value={comentario} onChange={(e) => setComentario(e.target.value)} className={styles.textareaComentario} placeholder="Escribe tu comentario..." rows={4} />
+        <form className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`} onSubmit={manejarSubmit}>
+            <div className="row g-0 align-items-center mb-2">
+                <div className="col-auto me-2">
+                    <div className={styles.avatarWrapper}>
+                        <img src={usuarioLogueado?.foto_perfil || "/perfilUsuario.svg"} alt="avatar" className={styles.perfilUsuario} />
+                    </div>
+                </div>
 
-            {error && <p className={styles.error}>{error}</p>}
+                <div className="col d-flex flex-column">
+                    <span className={styles.nombreUsuario}>{usuarioLogueado?.nick_usuario || "Usuario"}</span>
+                    <span className={styles.tiempoPublicacion}>Ahora</span>
+                </div>
+            </div>
 
-            <div className={styles.acciones}>
-                <button type="submit" className={styles.botonEnviar} disabled={enviando}>
-                    Publicar comentario
-                </button>
+            <div className="row g-0">
+                <div className="col-12">
+                    <div className="d-flex flex-column gap-3">
+                        <textarea id="comentario" value={comentario} onChange={(e) => setComentario(e.target.value)} className={styles.textareaComentario} placeholder="Escribe tu comentario..." rows={4} />
+
+                        {error && <p className={styles.error}>{error}</p>}
+
+                        <div className="d-flex justify-content-end">
+                            <Boton type="submit" variant={enviando || !comentario.trim() ? "disabled" : "default"} size="small" disabled={enviando || !comentario.trim()} texto={enviando ? "Publicando..." : "Publicar comentario"} />
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     );
