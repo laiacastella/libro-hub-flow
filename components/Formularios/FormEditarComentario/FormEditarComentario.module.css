@@ -1,0 +1,26 @@
+.contenedor {
+    width: 100%;
+}
+
+.acciones {
+    width: 100%;
+}
+
+.textareaEdicion {
+    border: 1px solid #cfd4da;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: normal;
+    unicode-bidi: normal;
+}
+
+.textareaEdicion:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+    outline: none;
+}
