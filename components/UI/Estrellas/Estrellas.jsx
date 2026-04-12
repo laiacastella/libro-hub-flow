@@ -35,7 +35,7 @@ function calcularEstrellas(valoracion) {
     });
 }
 
-export default function Estrellas({ valoracion }) {
+export default function Estrellas({ valoracion, interactivo = false, onChange }) {
     const valoracionNumerica = Number(valoracion) || 0;
     const estrellas = interactivo ? Array.from({ length: 5 }, (_, i) => (i < valoracionNumerica ? 100 : 0)) : calcularEstrellas(valoracionNumerica);
 
