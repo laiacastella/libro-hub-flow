@@ -36,13 +36,20 @@ function calcularEstrellas(valoracion) {
 }
 
 export default function Estrellas({ valoracion }) {
-    const estrellas = calcularEstrellas(valoracion);
+    const valoracionNumerica = Number(valoracion) || 0;
+    const estrellas = interactivo ? Array.from({ length: 5 }, (_, i) => (i < valoracionNumerica ? 100 : 0)) : calcularEstrellas(valoracionNumerica);
 
     return (
-        <div className={styles.estrellas}>
-            {estrellas.map((fill, i) => (
-                <Star key={i} fill={fill} />
-            ))}
+        <div className={`${styles.estrellas} ${interactivo ? styles.interactive : ""}`}>
+            {estrellas.map((fill, i) =>
+                interactivo ? (
+                    <button key={i} type="button" className={styles.starButton} onClick={() => onChange?.(i + 1)} aria-label={`Valorar con ${i + 1} estrellas`} title={`${i + 1} estrellas`}>
+                        <Star fill={fill} />
+                    </button>
+                ) : (
+                    <Star key={i} fill={fill} />
+                ),
+            )}
         </div>
     );
 }
