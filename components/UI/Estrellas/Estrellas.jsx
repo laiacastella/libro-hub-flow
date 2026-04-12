@@ -1,10 +1,10 @@
 import styles from "./Estrellas.module.css";
 
-function Star({ fill = 0 }) {
+function Star({ fill = 0, size = 24 }) {
     return (
         <svg
-            width="24"
-            height="24"
+            width={size}
+            height={size}
             viewBox="0 0 24 24"
         >
             {/* estrella vacía */}
@@ -35,8 +35,9 @@ function calcularEstrellas(valoracion) {
     });
 }
 
-export default function Estrellas({ valoracion, interactivo = false, onChange }) {
+export default function Estrellas({ valoracion, interactivo = false, onChange, size = 24 }) {
     const valoracionNumerica = Number(valoracion) || 0;
+    const sizeNumerico = Number(size) || 24;
     const estrellas = interactivo ? Array.from({ length: 5 }, (_, i) => (i < valoracionNumerica ? 100 : 0)) : calcularEstrellas(valoracionNumerica);
 
     return (
@@ -44,10 +45,10 @@ export default function Estrellas({ valoracion, interactivo = false, onChange })
             {estrellas.map((fill, i) =>
                 interactivo ? (
                     <button key={i} type="button" className={styles.starButton} onClick={() => onChange?.(i + 1)} aria-label={`Valorar con ${i + 1} estrellas`} title={`${i + 1} estrellas`}>
-                        <Star fill={fill} />
+                        <Star fill={fill} size={sizeNumerico} />
                     </button>
                 ) : (
-                    <Star key={i} fill={fill} />
+                    <Star key={i} fill={fill} size={sizeNumerico} />
                 ),
             )}
         </div>
