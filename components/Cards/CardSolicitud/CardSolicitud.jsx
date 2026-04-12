@@ -18,12 +18,12 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
     // Definimos el flujo de estados para cada acción
     const flujoEstados = {
-        solicitado: "seleccionado",
-        seleccionado: "aceptado",
-        aceptado: "valorar",
-        rechazado: "finalizado",
-        valorar: "finalizado",
-        finalizado: "eliminado",
+        solicitado: "seleccionado", // en las dos columnas
+        seleccionado: "aceptado", // en las dos columnas
+        aceptado: "valorar", // individual
+        rechazado: "rechazado", // en las dos columnas
+        valorar: "finalizado", // individual
+        finalizado: "eliminado", // individual
         eliminado: null,
     };
     // Etiquetas para cada estado del botón
@@ -45,8 +45,8 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     }, [open, obtenerIntercambios]); // recarga al cerrar el popup para reflejar cambios
 
     // Avanzar al siguiente estado
-    async function avanzarEstado(id, estadoActual) {
-        const siguienteEstado = flujoEstados[estadoActual];
+    async function avanzarEstado(id, estadoActual, estadoForzado = null) {
+        const siguienteEstado = estadoForzado ?? flujoEstados[estadoActual];
         if (!siguienteEstado) return;
 
         try {
@@ -106,9 +106,10 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
 
         const esPropietario = Number(intercambio.id_usuario_propietario) === idUsuarioNumero;
         const esSolicitante = Number(intercambio.id_usuario_solicitante) === idUsuarioNumero;
+        const esRechazado = intercambio.estado_solicitud === "rechazado";
 
-        if (filtro === "recibidas") return esPropietario;
-        if (filtro === "realizadas") return esSolicitante;
+        if (filtro === "recibidas") return esPropietario && !esRechazado;
+        if (filtro === "realizadas") return esSolicitante && !esRechazado;
         if (filtro === "historial") return esPropietario || esSolicitante;
 
         return false;
@@ -162,6 +163,7 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                                 <div className={styles.divBotones}>
                                     <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />
                                     <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)} />
+                                    <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud, "rechazado")} />
                                 </div>
                                 <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
@@ -169,6 +171,13 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                         {intercambio.estado_solicitud === "finalizado" && (
                             <>
                                 <Boton texto="Intercambio finalizado" className={styles.disabled} customClassName={true} disabled={true} />
+                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
+                            </>
+                        )}
+
+                        {intercambio.estado_solicitud === "rechazado" && (
+                            <>
+                                <Boton texto="Rechazado" className={styles.disabled} customClassName={true} disabled={true} />
                                 <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
                         )}
