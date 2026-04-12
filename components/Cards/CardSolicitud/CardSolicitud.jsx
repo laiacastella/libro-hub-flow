@@ -2,7 +2,7 @@
 import styles from "./CardSolicitud.module.css";
 import { PopUpBiblioteca, Boton } from "@/components/index";
 import PopUpValoracion from "@/components/PopUps/PopUpValoracion/PopUpValoracion";
-import { SquarePlus, Trash2, ArrowLeftRight } from "lucide-react";
+import { SquarePlus, ArrowLeftRight } from "lucide-react";
 import useIntercambio from "@/hooks/useIntercambio";
 
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     const [intercambioActivo, setIntercambioActivo] = useState(null);
     const [openValoracion, setOpenValoracion] = useState(false);
     const [intercambioValoracion, setIntercambioValoracion] = useState(null);
-    const { obtenerIntercambios, actualizarEstadoIntercambio, eliminarIntercambio: eliminarIntercambioApi } = useIntercambio();
+    const { obtenerIntercambios, actualizarEstadoIntercambio } = useIntercambio();
 
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
     // Definimos el flujo de estados para cada acción
@@ -58,21 +58,6 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
 
         // Actualizar visualmente
         setIntercambios((prev) => prev.map((i) => (i.id_intercambio === id ? { ...i, estado_solicitud: siguienteEstado } : i)));
-    }
-
-    // Eliminar visualmente (solo cuando sea finalizado)
-    async function eliminarIntercambio(id) {
-        console.log("Eliminando intercambio con id:", id);
-        const confirmacion = confirm("¿Estás seguro de eliminar este intercambio?");
-        if (!confirmacion) return;
-
-        try {
-            await eliminarIntercambioApi(id);
-        } catch {
-            return;
-        }
-
-        setIntercambios((prev) => prev.filter((i) => i.id_intercambio !== id));
     }
 
     // Función para abrir el popup con el intercambio activo
@@ -149,15 +134,14 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                     {/* Botones */}
 
                     <div className={styles.botonesFooter}>
-                        {/* Si es solicitado -> mostrar "Ver biblioteca" + icono eliminar */}
+                        {/* Si es solicitado -> mostrar "Ver biblioteca" */}
                         {intercambio.estado_solicitud === "solicitado" && (
                             <>
                                 <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />
-                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
                         )}
 
-                        {/* Si es seleccionado -> mostrar "Aceptar" + "Rechazar" + icono eliminar */}
+                        {/* Si es seleccionado -> mostrar "Aceptar" + "Rechazar" */}
                         {intercambio.estado_solicitud === "seleccionado" && (
                             <>
                                 <div className={styles.divBotones}>
@@ -165,20 +149,11 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                                     <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)} />
                                     <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud, "rechazado")} />
                                 </div>
-                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
                         )}
                         {intercambio.estado_solicitud === "finalizado" && (
                             <>
                                 <Boton texto="Intercambio finalizado" className={styles.disabled} customClassName={true} disabled={true} />
-                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
-                            </>
-                        )}
-
-                        {intercambio.estado_solicitud === "rechazado" && (
-                            <>
-                                <Boton texto="Rechazado" className={styles.disabled} customClassName={true} disabled={true} />
-                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
                         )}
 
@@ -186,14 +161,12 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                         {intercambio.estado_solicitud === "valorar" && (
                             <>
                                 <Boton texto="Valorar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => abrirPopupValoracion(intercambio)} />
-                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
                         )}
 
                         {!["solicitado", "seleccionado", "finalizado", "rechazado", "valorar"].includes(intercambio.estado_solicitud) && flujoEstados[intercambio.estado_solicitud] && (
                             <>
                                 <Boton texto={etiquetasBoton[intercambio.estado_solicitud]} className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)} />
-                                <Trash2 className={styles.trashIcono} onClick={() => eliminarIntercambio(intercambio.id_intercambio)} />
                             </>
                         )}
                     </div>
