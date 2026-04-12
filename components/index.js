@@ -41,6 +41,7 @@ export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblio
 export { default as PopUpPassReset } from "./PopUps/PopUpPassReset/PopUpPassReset";
 export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncidencia";
 export { default as PopUpCambiarFoto } from "./PopUps/PopUpCambiarFoto/PopUpCambiarFoto";
+export { default as PopUpValoracion } from "./PopUps/PopUpValoracion/PopUpValoracion";
 
 // Carrusel
 export { default as Carrusel } from "./Carrusel/Carrusel";
