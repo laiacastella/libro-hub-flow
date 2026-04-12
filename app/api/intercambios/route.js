@@ -9,12 +9,20 @@ export async function GET() {
                 solicitado.foto_portada AS libro_solicitado_foto,
                 ofrecido.titulo AS libro_ofrecido_titulo,
                 ofrecido.autor AS libro_ofrecido_autor,
-                ofrecido.foto_portada AS libro_ofrecido_foto
+                ofrecido.foto_portada AS libro_ofrecido_foto,
+                propietario.nick_usuario AS propietario_nick_usuario,
+                propietario.nombre AS propietario_nombre,
+                solicitante.nick_usuario AS solicitante_nick_usuario,
+                solicitante.nombre AS solicitante_nombre
             FROM intercambios
             LEFT JOIN libros solicitado
                 ON intercambios.id_libro_solicitado = solicitado.id_libro
             LEFT JOIN libros ofrecido
                 ON intercambios.id_libro_ofrecido = ofrecido.id_libro
+            LEFT JOIN usuarios propietario
+                ON intercambios.id_usuario_propietario = propietario.id_usuario
+            LEFT JOIN usuarios solicitante
+                ON intercambios.id_usuario_solicitante = solicitante.id_usuario
             WHERE intercambios.estado_solicitud != 'eliminado';
         `);
 
