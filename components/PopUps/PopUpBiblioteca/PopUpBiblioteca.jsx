@@ -80,15 +80,16 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     };
 
     const handleAceptarIntercambio = async () => {
-        const hayLibroGuardado = Boolean(intercambio?.id_libro_ofrecido || intercambio?.libro_ofrecido_titulo);
+        const idLibroGuardado = intercambio?.id_libro_ofrecido ? Number(intercambio.id_libro_ofrecido) : null;
+        const idLibroActual = libroSeleccionado ? Number(libroSeleccionado) : null;
 
-        if (!hayLibroGuardado && !libroSeleccionado) {
+        if (!idLibroGuardado && !idLibroActual) {
             alert("Selecciona un libro antes de aceptar el intercambio");
             return;
         }
 
-        if (!hayLibroGuardado && libroSeleccionado) {
-            const guardado = await guardarLibroSeleccionado();
+        if (idLibroActual && idLibroActual !== idLibroGuardado) {
+            const guardado = await guardarLibroSeleccionado(idLibroActual);
             if (!guardado) return;
         }
 
@@ -98,8 +99,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
 
     const handleSeleccionarLibroDesdeCard = async (idLibro) => {
         setLibroSeleccionado(idLibro);
-        const guardado = await guardarLibroSeleccionado(idLibro);
-        if (guardado) onClose();
+        await guardarLibroSeleccionado(idLibro);
     };
 
     if (!isOpen || !intercambio) return null;

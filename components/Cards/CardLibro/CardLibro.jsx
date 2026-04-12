@@ -16,9 +16,28 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
 
     console.log("libros filtrados: ", librosFiltrados);
 
-    const indiceSeleccionado = librosFiltrados.findIndex((libro) => libro.id_libro === libroSeleccionado);
+    const normalizarId = (id) => {
+        const idNumerico = Number(id);
+        return Number.isNaN(idNumerico) ? id : idNumerico;
+    };
+
+    const libroSeleccionadoId = normalizarId(libroSeleccionado);
+
+    const indiceSeleccionado = librosFiltrados.findIndex((libro) => normalizarId(libro.id_libro) === libroSeleccionadoId);
     const filaSeleccionada = indiceSeleccionado === -1 ? -1 : Math.floor(indiceSeleccionado / 2);
     const indiceInsercionDetalle = filaSeleccionada === -1 ? -1 : Math.min(filaSeleccionada * 2 + 1, librosFiltrados.length - 1);
+
+    const previsualizarLibro = (idLibro) => {
+        setLibroSeleccionado?.(normalizarId(idLibro));
+    };
+
+    const seleccionarLibro = async (idLibro) => {
+        previsualizarLibro(idLibro);
+
+        if (onSeleccionarLibro) {
+            await onSeleccionarLibro(idLibro);
+        }
+    };
 
    
 
@@ -28,9 +47,13 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
                 {librosFiltrados.map((libro, index) => (
                     <div key={libro.id_libro} className={styles.libroCardWrapper}>
                         <div
-                            className={`${styles.libroCard} ${libro.id_libro === libroSeleccionado ? styles.seleccionado : ""}`}
+                            className={`${styles.libroCard} ${normalizarId(libro.id_libro) === libroSeleccionadoId ? styles.seleccionado : ""}`}
                             onClick={() => {
-                                
+                                if (mostrarBotonSeleccion) {
+                                    previsualizarLibro(libro.id_libro);
+                                    return;
+                                }
+
                                 router.push(`/biblioteca/${libro.id_libro}`);
                             }}>
                             <Image src={libro.foto_portada || "https://via.placeholder.com/150x200?text=Sin+Portada"} alt={libro.titulo || "Sin Portada"} className={styles.libroImage} width={150} height={200} onError={manejarErrorImagen} unoptimized={libro.foto_portada?.startsWith("http") ? true : false} />
@@ -42,11 +65,7 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
                                     className={styles.botonSeleccionar}
                                     onClick={async (e) => {
                                         e.stopPropagation();
-                                        setLibroSeleccionado?.(libro.id_libro);
-
-                                        if (onSeleccionarLibro) {
-                                            await onSeleccionarLibro(libro.id_libro);
-                                        }
+                                        await seleccionarLibro(libro.id_libro);
                                     }}>
                                     Seleccionar libro
                                 </button>
