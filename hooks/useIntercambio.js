@@ -21,7 +21,7 @@ export default function useIntercambio() {
     }, []);
 
     const eliminarIntercambio = useCallback(async (idIntercambio) => {
-        const response = await fetch("/api/intercambios", {
+        const response = await fetch("/api/intercambios/estado", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id_intercambio: idIntercambio, estado: "eliminado" }),
