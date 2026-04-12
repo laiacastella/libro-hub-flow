@@ -3,6 +3,7 @@ import styles from "./CardSolicitud.module.css";
 import { PopUpBiblioteca, Boton } from "@/components/index";
 import PopUpValoracion from "@/components/PopUps/PopUpValoracion/PopUpValoracion";
 import { SquarePlus, Trash2, ArrowLeftRight } from "lucide-react";
+import useIntercambio from "@/hooks/useIntercambio";
 
 import { useEffect, useState } from "react";
 
@@ -12,6 +13,7 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
     const [intercambioActivo, setIntercambioActivo] = useState(null);
     const [openValoracion, setOpenValoracion] = useState(false);
     const [intercambioValoracion, setIntercambioValoracion] = useState(null);
+    const { obtenerIntercambios, actualizarEstadoIntercambio, eliminarIntercambio: eliminarIntercambioApi } = useIntercambio();
 
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
     // Definimos el flujo de estados para cada acción
@@ -37,22 +39,22 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
 
     // Cargar intercambios
     useEffect(() => {
-        fetch("/api/intercambios")
-            .then((res) => res.json())
-            .then((data) => setIntercambios(data));
-    }, [open]); // recarga al cerrar el popup para reflejar cambios
+        obtenerIntercambios()
+            .then((data) => setIntercambios(data))
+            .catch(() => setIntercambios([]));
+    }, [open, obtenerIntercambios]); // recarga al cerrar el popup para reflejar cambios
 
     // Avanzar al siguiente estado
     async function avanzarEstado(id, estadoActual) {
         const siguienteEstado = flujoEstados[estadoActual];
         if (!siguienteEstado) return;
 
-        // Actualizar en la api
-        await fetch("/api/intercambios/estado", {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_intercambio: id, estado: siguienteEstado }),
-        });
+        try {
+            // Actualizar en la api
+            await actualizarEstadoIntercambio(id, siguienteEstado);
+        } catch {
+            return;
+        }
 
         // Actualizar visualmente
         setIntercambios((prev) => prev.map((i) => (i.id_intercambio === id ? { ...i, estado_solicitud: siguienteEstado } : i)));
@@ -63,14 +65,14 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
         console.log("Eliminando intercambio con id:", id);
         const confirmacion = confirm("¿Estás seguro de eliminar este intercambio?");
         if (!confirmacion) return;
-        await fetch("/api/intercambios", {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_intercambio: id, estado: "eliminado" }),
-        });
+
+        try {
+            await eliminarIntercambioApi(id);
+        } catch {
+            return;
+        }
 
         setIntercambios((prev) => prev.filter((i) => i.id_intercambio !== id));
-        avanzarEstado(id, "finalizado"); // para eliminarlo de la UI
     }
 
     // Función para abrir el popup con el intercambio activo
