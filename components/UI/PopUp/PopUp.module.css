@@ -1,0 +1,61 @@
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+/* POPUP BASE */
+.popup {
+  background: white;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 90%;
+border: 4px solid #407c42;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  overflow: hidden;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.title {
+  font-weight: 600;
+  margin: 0;
+}
+
+/* BODY */
+.body {
+  padding: 15px;
+}
+
+/* FOOTER */
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 15px;
+  border-top: 1px solid #eee;
+}
+
+/* BOTÓN X */
+.cerrarX {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

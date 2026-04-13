@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import Comentarios from "../../components/Comentarios/Comentarios.jsx";
+import { PopUp, Comentarios } from "@/components/index.js";
 import { BookHeadphones, Angry, Apple } from "lucide-react";
 
 export default function RegistroPage() {
@@ -90,8 +90,26 @@ export default function RegistroPage() {
         }
     };
 
+    const [open, setOpen] = useState(false);
+
     return (
         <>
+
+            <button onClick={() => setOpen(true)}>Abrir PopUp</button>
+
+            <PopUp
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                popupClassName="mi-popup"
+            >
+                <h2>Eliminar libro</h2>
+                <p>¿Seguro que quieres eliminarlo?</p>
+
+                <button onClick={() => setOpen(false)}>Cancelar</button>
+                <button onClick={() => alert("Eliminado")}>Confirmar</button>
+            </PopUp>
+
+
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">
