@@ -41,15 +41,23 @@ export default function FichaLibro() {
     if (!libro) return <div className="text-center mt-5">Libro no encontrado</div>;
 
     async function handleSolicitarIntercambio() {
+        // Si el usuario no está logueado, o el libro no tiene propietario, o no hay id, no se puede solicitar intercambio
         if (!usuario?.id_usuario || !libro?.id_usuario || !id) {
             setErrorIntercambio("No se pudo enviar la solicitud. Intentalo de nuevo.");
             return;
         }
-
         try {
-            setSolicitandoIntercambio(true);
-            setErrorIntercambio("");
+            setSolicitandoIntercambio(true); // Estado cargando para el botón
+            setErrorIntercambio(""); // Limpiar errores previos
 
+            // datos que se envian a la api para crear el intercambio
+            console.log("Enviando solicitud de intercambio con datos:", {
+                id_usuario_solicitante: usuario.id_usuario,
+                id_usuario_propietario: libro.id_usuario,
+                id_libro_solicitado: Number(id),
+            });
+
+            // Llamada a la API para crear el intercambio, ruta POST /api/intercambios
             const res = await fetch("/api/intercambios", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -60,18 +68,22 @@ export default function FichaLibro() {
                 }),
             });
 
-            const data = await res.json();
+            const data = await res.json(); 
 
+            // Si la respuesta no es ok, mostrar error
             if (!res.ok) {
                 throw new Error(data?.error || "No se pudo solicitar el intercambio");
             }
 
-            alert("Solicitud de intercambio enviada");
+            // Si todo va bien, mostrar mensaje de éxito
+            alert("Solicitud de intercambio enviada"); 
+            // setAbrirPopupConfirmacion(true); // Abrir popup
+            
         } catch (error) {
             console.error("Error solicitando intercambio:", error);
             setErrorIntercambio(error?.message || "Error al solicitar intercambio");
         } finally {
-            setSolicitandoIntercambio(false);
+            setSolicitandoIntercambio(false); // Volver a habilitar el botón
         }
     }
 
