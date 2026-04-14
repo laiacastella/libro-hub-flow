@@ -13,7 +13,7 @@ export function cumpleFiltroIntercambio(filtro, { esPropietario, esSolicitante, 
         case "realizadas":
             return esSolicitante && !esRechazado;
         case "historial":
-            return esPropietario || esSolicitante;
+            return (esPropietario || esSolicitante) && estadoUsuario === "finalizado";
         default:
             return false;
     }
