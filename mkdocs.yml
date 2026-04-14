@@ -1,0 +1,9 @@
+site_name: Libro Hub Flow
+
+theme:
+  name: material
+
+nav:
+  - Inicio: index.md
+  - API:
+      - Intercambios: api/intercambios.md
