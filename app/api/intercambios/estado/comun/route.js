@@ -39,7 +39,7 @@ export async function PATCH(req) {
     const [result] = await db.query(
       `UPDATE intercambios
        SET estado_usuario_envia = ?,
-           estado_susuario_recibe = ?
+           estado_usuario_recibe = ?
        WHERE id_intercambio = ?`,
       [estado, estado, id_intercambio]
     );
@@ -52,7 +52,7 @@ export async function PATCH(req) {
     const intercambioActualizado = {
       id_intercambio,
       estado_usuario_envia: estado,
-      estado_susuario_recibe: estado,
+      estado_usuario_recibe: estado,
     };
 
     console.log("PATCH /estado/comun actualizado:", intercambioActualizado);
