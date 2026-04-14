@@ -53,7 +53,7 @@ export default function CardSolicitud({ filtro = "recibidas" }) {
 
         try {
             // Actualizar en la api
-            await actualizarEstadoIntercambio(id, siguienteEstado);
+            await actualizarEstadoIntercambio(id, siguienteEstado, idUsuarioActual);
         } catch {
             return;
         }
