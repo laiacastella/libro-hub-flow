@@ -4,14 +4,15 @@ import { useCallback } from "react";
 export function cumpleFiltroIntercambio(filtro, { esPropietario, esSolicitante, estadoUsuario }) {
     const esRechazado = estadoUsuario === "rechazado";
     const esEliminado = estadoUsuario === "eliminado";
+    const esFinalizado = estadoUsuario === "finalizado";
 
     switch (filtro) {
         case "todas":
-            return (esPropietario || esSolicitante) && !esEliminado;
+            return (esPropietario || esSolicitante) && !esEliminado && !esFinalizado;
         case "recibidas":
-            return esPropietario && !esRechazado;
+            return esPropietario && !esRechazado && !esEliminado && !esFinalizado;
         case "realizadas":
-            return esSolicitante && !esRechazado;
+            return esSolicitante && !esRechazado && !esEliminado && !esFinalizado;
         case "historial":
             return (esPropietario || esSolicitante) && estadoUsuario === "finalizado";
         default:
