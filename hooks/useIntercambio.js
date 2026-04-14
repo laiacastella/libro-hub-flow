@@ -1,6 +1,24 @@
 "use client";
 import { useCallback } from "react";
 
+export function cumpleFiltroIntercambio(filtro, { esPropietario, esSolicitante, estadoUsuario }) {
+    const esRechazado = estadoUsuario === "rechazado";
+    const esEliminado = estadoUsuario === "eliminado";
+
+    switch (filtro) {
+        case "todas":
+            return (esPropietario || esSolicitante) && !esEliminado;
+        case "recibidas":
+            return esPropietario && !esRechazado;
+        case "realizadas":
+            return esSolicitante && !esRechazado;
+        case "historial":
+            return esPropietario || esSolicitante;
+        default:
+            return false;
+    }
+}
+
 export default function useIntercambio() {
     const obtenerIntercambios = useCallback(async () => {
         const response = await fetch("/api/intercambios");
