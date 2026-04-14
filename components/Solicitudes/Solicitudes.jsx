@@ -5,13 +5,14 @@ import { CardSolicitud } from "@/components/index";
 import useUsuario from "@/hooks/useUsuario";
 
 export default function Solicitudes() {
-    const [filtro, setFiltro] = useState("recibidas");
+    const [filtro, setFiltro] = useState("todas");
     const usuario = useUsuario();
 
     return (
         <>
             <div className={styles.selectorContainer}>
                 <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.selector}>
+                    <option value="todas">Todas</option>
                     <option value="recibidas">Recibidas</option>
                     <option value="realizadas">Realizadas</option>
                     <option value="historial">Historial</option>
