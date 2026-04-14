@@ -1,19 +1,14 @@
 "use client";
 import styles from "./CardSolicitud.module.css";
-import { PopUpBiblioteca, Boton } from "@/components/index";
-import PopUpValoracion from "@/components/PopUps/PopUpValoracion/PopUpValoracion";
+import { PopUpBiblioteca, Boton, PopUpValoracion } from "@/components/index";
 import { SquarePlus, ArrowLeftRight } from "lucide-react";
-import useIntercambio from "@/hooks/useIntercambio";
+import useIntercambio, { cumpleFiltroIntercambio } from "@/hooks/useIntercambio";
 import useUsuarioIntercambio from "@/hooks/useUsuarioIntercambio";
-
 import { useEffect, useState } from "react";
 
-export default function CardSolicitud({ filtro = "recibidas" }) {
-    // Estados para controlar el popup y el intercambio activo
-    const [open, setOpen] = useState(false);
-    const [intercambioActivo, setIntercambioActivo] = useState(null);
-    const [openValoracion, setOpenValoracion] = useState(false);
-    const [intercambioValoracion, setIntercambioValoracion] = useState(null);
+export default function CardSolicitud({ filtro = "todas" }) {
+    const [popupActivo, setPopupActivo] = useState(null); // "biblioteca" | "valoracion" | null
+    const [intercambioActivo, setIntercambioActivo] = useState(null); // intercambio seleccionado para el popup activo
     const { obtenerIntercambios, actualizarEstadoIntercambio } = useIntercambio();
     const { idUsuarioActual, obtenerTipoUsuarioIntercambio } = useUsuarioIntercambio();
 
@@ -39,13 +34,20 @@ export default function CardSolicitud({ filtro = "recibidas" }) {
         eliminado: "Eliminado",
     };
 
+    function obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante) {
+        if (esPropietario) return intercambio.estado_usuario_recibe;
+        if (esSolicitante) return intercambio.estado_usuario_envia;
+        return null;
+    }
+
     // Cargar intercambios
     useEffect(() => {
         obtenerIntercambios()
             .then((data) => setIntercambios(data))
             .catch(() => setIntercambios([]));
-    }, [open, obtenerIntercambios]); // recarga al cerrar el popup para reflejar cambios
+    }, [popupActivo, obtenerIntercambios]); // recarga al abrir/cerrar popup para reflejar cambios
 
+    console.log("Intercambios cargados en CardSolicitud:", intercambios);
     // Avanzar al siguiente estado
     async function avanzarEstado(id, estadoActual, estadoForzado = null) {
         const siguienteEstado = estadoForzado ?? flujoEstados[estadoActual];
@@ -59,27 +61,39 @@ export default function CardSolicitud({ filtro = "recibidas" }) {
         }
 
         // Actualizar visualmente
-        setIntercambios((prev) => prev.map((i) => (i.id_intercambio === id ? { ...i, estado_solicitud: siguienteEstado } : i)));
+        setIntercambios((prev) =>
+            prev.map((i) => {
+                if (i.id_intercambio !== id) return i;
+
+                const idPropietario = Number(i.id_usuario_recibe);
+                const esPropietario = Number(idUsuarioActual) === idPropietario;
+
+                return esPropietario
+                    ? { ...i, estado_usuario_recibe: siguienteEstado }
+                    : { ...i, estado_usuario_envia: siguienteEstado };
+            })
+        );
     }
 
     // Función para abrir el popup con el intercambio activo
     function abrirPopup(intercambio) {
         setIntercambioActivo(intercambio);
-        setOpen(true);
+        setPopupActivo("biblioteca");
     }
     // Función para cerrar el popup
     function cerrarPopup() {
-        setOpen(false);
+        setPopupActivo(null);
+        setIntercambioActivo(null);
     }
 
     function abrirPopupValoracion(intercambio) {
-        setIntercambioValoracion(intercambio);
-        setOpenValoracion(true);
+        setIntercambioActivo(intercambio);
+        setPopupActivo("valoracion");
     }
 
     function cerrarPopupValoracion() {
-        setOpenValoracion(false);
-        setIntercambioValoracion(null);
+        setPopupActivo(null);
+        setIntercambioActivo(null);
     }
 
     async function manejarValoracionGuardada(idIntercambio) {
@@ -91,18 +105,25 @@ export default function CardSolicitud({ filtro = "recibidas" }) {
         if (!idUsuarioActual) return false;
 
         const { esPropietario, esSolicitante } = obtenerTipoUsuarioIntercambio(intercambio);
-        const esRechazado = intercambio.estado_solicitud === "rechazado";
+        const estadoUsuario = obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante);
 
-        if (filtro === "recibidas") return esPropietario && !esRechazado;
-        if (filtro === "realizadas") return esSolicitante && !esRechazado;
-        if (filtro === "historial") return esPropietario || esSolicitante;
-
-        return false;
+        return cumpleFiltroIntercambio(filtro, {
+            esPropietario,
+            esSolicitante,
+            estadoUsuario,
+        });
     });
+
+    const esPopupBibliotecaAbierto = popupActivo === "biblioteca" && Boolean(intercambioActivo);
+    const esPopupValoracionAbierto = popupActivo === "valoracion" && Boolean(intercambioActivo);
 
     return (
         <>
-            {intercambiosFiltrados.map((intercambio) => (
+            {intercambiosFiltrados.map((intercambio) => {
+                const { esPropietario, esSolicitante } = obtenerTipoUsuarioIntercambio(intercambio);
+                const estadoUsuario = obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante);
+
+                return (
                 <div key={intercambio.id_intercambio} className={styles.solicitudCard}>
                     <div className={styles.librosContainer}>
                         {/* Libro solicitado */}
@@ -135,45 +156,45 @@ export default function CardSolicitud({ filtro = "recibidas" }) {
 
                     <div className={styles.botonesFooter}>
                         {/* Si es solicitado -> mostrar "Ver biblioteca" */}
-                        {intercambio.estado_solicitud === "solicitado" && (
+                        {estadoUsuario === "solicitado" && (
                             <>
                                 <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />
                             </>
                         )}
 
                         {/* Si es seleccionado -> mostrar "Aceptar" + "Rechazar" */}
-                        {intercambio.estado_solicitud === "seleccionado" && (
+                        {estadoUsuario === "seleccionado" && (
                             <>
                                 <div className={styles.divBotones}>
                                     <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />
-                                    <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)} />
-                                    <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud, "rechazado")} />
+                                    <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
+                                    <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario, "rechazado")} />
                                 </div>
                             </>
                         )}
-                        {intercambio.estado_solicitud === "finalizado" && (
+                        {estadoUsuario === "finalizado" && (
                             <>
                                 <Boton texto="Intercambio finalizado" className={styles.disabled} customClassName={true} disabled={true} />
                             </>
                         )}
 
                         {/* si es valorar al hacer click se abre el popup de valoracion */}
-                        {intercambio.estado_solicitud === "valorar" && (
+                        {estadoUsuario === "valorar" && (
                             <>
                                 <Boton texto="Valorar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => abrirPopupValoracion(intercambio)} />
                             </>
                         )}
 
-                        {!["solicitado", "seleccionado", "finalizado", "rechazado", "valorar"].includes(intercambio.estado_solicitud) && flujoEstados[intercambio.estado_solicitud] && (
+                        {!["solicitado", "seleccionado", "finalizado", "rechazado", "valorar"].includes(estadoUsuario) && flujoEstados[estadoUsuario] && (
                             <>
-                                <Boton texto={etiquetasBoton[intercambio.estado_solicitud]} className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, intercambio.estado_solicitud)} />
+                                <Boton texto={etiquetasBoton[estadoUsuario]} className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
                             </>
                         )}
                     </div>
                 </div>
-            ))}
-            <PopUpBiblioteca isOpen={open} onClose={cerrarPopup} intercambio={intercambioActivo} avanzarEstado={avanzarEstado} />
-            <PopUpValoracion isOpen={openValoracion} onClose={cerrarPopupValoracion} intercambio={intercambioValoracion} idUsuarioActual={idUsuarioActual} onValoracionGuardada={manejarValoracionGuardada} />
+            )})}
+            <PopUpBiblioteca isOpen={esPopupBibliotecaAbierto} onClose={cerrarPopup} intercambio={intercambioActivo} avanzarEstado={avanzarEstado} />
+            <PopUpValoracion isOpen={esPopupValoracionAbierto} onClose={cerrarPopupValoracion} intercambio={intercambioActivo} idUsuarioActual={idUsuarioActual} onValoracionGuardada={manejarValoracionGuardada} />
         </>
     );
 }

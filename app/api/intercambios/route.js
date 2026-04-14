@@ -24,10 +24,10 @@ export async function GET() {
             FROM intercambios i
             LEFT JOIN libros s ON i.id_libro_solicitado = s.id_libro
             LEFT JOIN libros o ON i.id_libro_ofrecido = o.id_libro
-            LEFT JOIN usuarios p ON i.id_usuario_propietario = p.id_usuario
-            LEFT JOIN usuarios u ON i.id_usuario_solicitante = u.id_usuario
-            WHERE i.estado_solicitud_propietario != 'eliminado'
-              AND i.estado_solicitud_solicitante != 'eliminado'
+            LEFT JOIN usuarios p ON i.id_usuario_recibe = p.id_usuario
+            LEFT JOIN usuarios u ON i.id_usuario_envia = u.id_usuario
+                        WHERE (i.estado_usuario_recibe IS NULL OR i.estado_usuario_recibe != 'eliminado')
+                            AND (i.estado_usuario_envia IS NULL OR i.estado_usuario_envia != 'eliminado')
             ORDER BY i.fecha_inicio DESC
         `);
 
@@ -35,7 +35,8 @@ export async function GET() {
 
         return Response.json(rows);
     } catch (error) {
-        console.error(error);
+        console.error("DB ERROR:", error?.message);
+console.error(error);
         return Response.json({ error: "Error BBDD" }, { status: 500 });
     }
 }
@@ -48,15 +49,29 @@ export async function POST(req) {
         const { id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado } = await req.json();
 
         const [result] = await db.query(
-            `
-            INSERT INTO intercambios (id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, estado_solicitud_propietario, estado_solicitud_solicitante, fecha_inicio)
-            VALUES (?, ?, ?, ?, ?, NOW())
-    `,
-            [id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado, "solicitado", "solicitado"],
-        );
+  `
+  INSERT INTO intercambios (
+    id_usuario_solicitante,
+    id_usuario_propietario,
+    id_libro_solicitado,
+    estado_usuario_recibe,
+    estado_usuario_envia,
+    fecha_inicio
+  )
+  VALUES (?, ?, ?, ?, ?, NOW())
+  `,
+  [
+    id_usuario_solicitante,
+    id_usuario_propietario,
+    id_libro_solicitado,
+    "solicitado",
+    "solicitado"
+  ]
+);
 
         return Response.json({ id: result.insertId, message: "Intercambio creado" }, { status: 201 });
     } catch (error) {
+        console.error("DB ERROR:", error?.message);
         console.error(error);
         return Response.json({ error: "Error BBDD" }, { status: 500 });
     }
