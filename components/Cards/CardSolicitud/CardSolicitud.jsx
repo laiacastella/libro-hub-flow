@@ -4,16 +4,18 @@ import { PopUpBiblioteca, Boton } from "@/components/index";
 import PopUpValoracion from "@/components/PopUps/PopUpValoracion/PopUpValoracion";
 import { SquarePlus, ArrowLeftRight } from "lucide-react";
 import useIntercambio from "@/hooks/useIntercambio";
+import useUsuarioIntercambio from "@/hooks/useUsuarioIntercambio";
 
 import { useEffect, useState } from "react";
 
-export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
+export default function CardSolicitud({ filtro = "recibidas" }) {
     // Estados para controlar el popup y el intercambio activo
     const [open, setOpen] = useState(false);
     const [intercambioActivo, setIntercambioActivo] = useState(null);
     const [openValoracion, setOpenValoracion] = useState(false);
     const [intercambioValoracion, setIntercambioValoracion] = useState(null);
     const { obtenerIntercambios, actualizarEstadoIntercambio } = useIntercambio();
+    const { idUsuarioActual, obtenerTipoUsuarioIntercambio } = useUsuarioIntercambio();
 
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
     // Definimos el flujo de estados para cada acción
@@ -85,12 +87,10 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
         cerrarPopupValoracion();
     }
 
-    const idUsuarioNumero = Number(idUsuario);
     const intercambiosFiltrados = intercambios.filter((intercambio) => {
-        if (!idUsuarioNumero) return false;
+        if (!idUsuarioActual) return false;
 
-        const esPropietario = Number(intercambio.id_usuario_propietario) === idUsuarioNumero;
-        const esSolicitante = Number(intercambio.id_usuario_solicitante) === idUsuarioNumero;
+        const { esPropietario, esSolicitante } = obtenerTipoUsuarioIntercambio(intercambio);
         const esRechazado = intercambio.estado_solicitud === "rechazado";
 
         if (filtro === "recibidas") return esPropietario && !esRechazado;
@@ -173,7 +173,7 @@ export default function CardSolicitud({ filtro = "recibidas", idUsuario }) {
                 </div>
             ))}
             <PopUpBiblioteca isOpen={open} onClose={cerrarPopup} intercambio={intercambioActivo} avanzarEstado={avanzarEstado} />
-            <PopUpValoracion isOpen={openValoracion} onClose={cerrarPopupValoracion} intercambio={intercambioValoracion} idUsuarioActual={idUsuarioNumero} onValoracionGuardada={manejarValoracionGuardada} />
+            <PopUpValoracion isOpen={openValoracion} onClose={cerrarPopupValoracion} intercambio={intercambioValoracion} idUsuarioActual={idUsuarioActual} onValoracionGuardada={manejarValoracionGuardada} />
         </>
     );
 }
