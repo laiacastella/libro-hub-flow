@@ -36,6 +36,7 @@ export { default as FormIncidencia } from "./Formularios/FormIncidencia/FormInci
 export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqueda";
 export { default as FormRegistro } from "./Formularios/FormRegistro/FormRegistro";
 export { default as FormLogin } from "./Formularios/FormLogin/FormLogin";
+export { default as FormResetPassword } from "./Formularios/FormResetPassword/FormResetPassword";
 
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";

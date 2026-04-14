@@ -20,8 +20,42 @@ export default function InicioSesion () {
         router.push('/biblioteca')
     }
 
-    const handleEnviar = () => {
-        setOpenPassword(false);
+    const [loading, setLoading] = useState(false);
+    const [mensaje, setMensaje] = useState("");
+    const [tipoMensaje, setTipoMensaje] = useState("");
+
+    const handleEnviar = async () => {
+        if (!email) {
+            setMensaje("Introduce un email válido");
+            setTipoMensaje("error");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setMensaje("");
+            setTipoMensaje("");
+
+            const res = await fetch("/api/usuarios/forgot-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            await res.json();
+
+            setMensaje("Revisa tu correo para restablecer la contraseña");
+            setTipoMensaje("success");
+            setEmail("");
+
+        } catch (error) {
+            setMensaje("Error de servidor");
+            setTipoMensaje("error");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -56,19 +90,27 @@ export default function InicioSesion () {
                 cerrarAlHacerClickFuera={true}
                 footer={
                     <>
-                <Input
-                    tipo="email"
-                    placeholder="ejemplo@gmail.com"
-                    fullWidth
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <Boton texto="Enviar" onClick={handleEnviar} />
-                </>}
-                >
+                        <Input
+                            tipo="email"
+                            placeholder="ejemplo@gmail.com"
+                            fullWidth
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+
+                        <Boton
+                            texto={loading ? "Enviando..." : "Enviar"}
+                            onClick={handleEnviar}
+                        />
+                    </>
+                }>
 
                 <p>Introduce tu dirección de correo electrónico y si es correcto recibirás un enlace para resetear tu contraseña:</p>
-                
+                {mensaje && (
+                    <p style={{ color: tipoMensaje === "error" ? "red" : "green" }}>
+                        {mensaje}
+                    </p>
+                )}
             </PopUp>
         </main>
     )

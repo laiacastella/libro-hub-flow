@@ -10,7 +10,7 @@ export default function useAuthRedirect() {
     useEffect(() => {
         const usuario = localStorage.getItem("usuarioLogueado");
 
-        const rutasPublicas = ["/", "/inicioSesion", "/registro"];
+        const rutasPublicas = ["/", "/inicioSesion", "/registro", "/resetPassword"];
 
         if (usuario) {
             // Usuario logueado
