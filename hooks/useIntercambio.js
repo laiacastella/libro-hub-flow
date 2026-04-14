@@ -8,11 +8,11 @@ export default function useIntercambio() {
         return response.json();
     }, []);
 
-    const actualizarEstadoIntercambio = useCallback(async (idIntercambio, estado) => {
+    const actualizarEstadoIntercambio = useCallback(async (idIntercambio, estado, idUsuarioActual = null) => {
         const response = await fetch("/api/intercambios/estado", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_intercambio: idIntercambio, estado }),
+            body: JSON.stringify({ id_intercambio: idIntercambio, estado, id_usuario_actual: idUsuarioActual }),
         });
 
         if (!response.ok) throw new Error("No se pudo actualizar el estado del intercambio");
@@ -20,14 +20,26 @@ export default function useIntercambio() {
         return response.json().catch(() => ({}));
     }, []);
 
-    const eliminarIntercambio = useCallback(async (idIntercambio) => {
+    const eliminarIntercambio = useCallback(async (idIntercambio, idUsuarioActual = null) => {
         const response = await fetch("/api/intercambios/estado", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_intercambio: idIntercambio, estado: "eliminado" }),
+            body: JSON.stringify({ id_intercambio: idIntercambio, estado: "eliminado", id_usuario_actual: idUsuarioActual }),
         });
 
         if (!response.ok) throw new Error("No se pudo eliminar el intercambio");
+
+        return response.json().catch(() => ({}));
+    }, []);
+
+    const actualizarEstadoComunIntercambio = useCallback(async (idIntercambio, estado) => {
+        const response = await fetch("/api/intercambios/estado/comun", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_intercambio: idIntercambio, estado }),
+        });
+
+        if (!response.ok) throw new Error("No se pudo actualizar el estado comun del intercambio");
 
         return response.json().catch(() => ({}));
     }, []);
@@ -50,6 +62,7 @@ export default function useIntercambio() {
         obtenerIntercambios,
         actualizarEstadoIntercambio,
         eliminarIntercambio,
+        actualizarEstadoComunIntercambio,
         enviarValoracion,
     };
 }
