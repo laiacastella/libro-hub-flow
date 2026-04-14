@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Enlaces } from "@/components";
+import { Boton, Enlaces, PopUp } from "@/components";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import styles from "./Header.module.css";
 
@@ -11,13 +12,17 @@ export default function Header() {
 
     const usuario = useUsuario();
     const router = useRouter();
+    const [openLogout, setOpenLogout] = useState(false);
 
     const logout = () => {
-        if (confirm("¿Seguro que quieres cerrar sesión?")) {
-            localStorage.removeItem("usuarioLogueado");
-            router.refresh();
-            router.push("/");
-        }
+        setOpenLogout(true);
+    };
+
+    const handleConfirmLogout = () => {
+        localStorage.removeItem("usuarioLogueado");
+        setOpenLogout(false);
+        router.refresh();
+        router.push("/");
     };
 
     return (
@@ -86,6 +91,30 @@ export default function Header() {
                     </ul>
                 </div>
             </div>
+
+            <PopUp
+                isOpen={openLogout}
+                onClose={() => setOpenLogout(false)}
+                title="Cerrar sesión"
+                type="form"
+                cerrarAlHacerClickFuera={true}
+                footer={
+                    <>
+                    <Boton
+                        texto="Cancelar"
+                        onClick={() => setOpenLogout(false)}
+                    />
+
+                    <Boton
+                        texto="Cerrar sesión"
+                        onClick={handleConfirmLogout}
+                    />
+                    </>
+                }
+                >
+                <p>¿Seguro que quieres cerrar sesión?</p>
+                <p>Tu sesión actual se cerrará y volverás al inicio.</p>
+            </PopUp>
         </header>
     );
 }

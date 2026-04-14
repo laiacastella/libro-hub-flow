@@ -15,6 +15,7 @@ export { default as Select } from "./UI/Select/Select";
 export { default as Contador } from "./UI/Contador/Contador";
 export { default as EscribirTexto } from "./UI/EscribirTexto/EscribirTexto";
 export { default as ItemsPorPagina } from "./UI/ItemsPorPagina/ItemsPorPagina";
+export { default as PopUp } from "./UI/PopUp/PopUp";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
@@ -38,11 +39,9 @@ export { default as FormLogin } from "./Formularios/FormLogin/FormLogin";
 
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
-export { default as PopUpPassReset } from "./PopUps/PopUpPassReset/PopUpPassReset";
 export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncidencia";
 export { default as PopUpCambiarFoto } from "./PopUps/PopUpCambiarFoto/PopUpCambiarFoto";
 export { default as PopUpValoracion } from "./PopUps/PopUpValoracion/PopUpValoracion";
-export { default as PopUpGenerico } from "./PopUps/PopUpGenerico/PopUpGenerico";
 
 // Carrusel
 export { default as Carrusel } from "./Carrusel/Carrusel";

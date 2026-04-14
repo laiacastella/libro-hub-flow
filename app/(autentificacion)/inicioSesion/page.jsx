@@ -3,24 +3,25 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from './page.module.css'
-import { FormLogin, Enlaces, PopUpPassReset } from "@/components";
+import { FormLogin, Enlaces, PopUp, Boton, Input } from "@/components";
 import Link from "next/link";
 
 export default function InicioSesion () {
 
     const router = useRouter ()
-    const [mostrarPopup, setMostrarPopup] = useState(false);
+    const [openPassword, setOpenPassword] = useState(false);
+    const [email, setEmail] = useState("");
+
+    const password = () => {
+        setOpenPassword(true);
+    };
 
     const manejarLoginCorrecto = () => {
         router.push('/biblioteca')
     }
 
-    const abrirPopup = () => {
-        setMostrarPopup(true);
-    };
-
-    const cerrarPopup = () => {
-        setMostrarPopup(false);
+    const handleEnviar = () => {
+        setOpenPassword(false);
     };
 
     return (
@@ -39,7 +40,7 @@ export default function InicioSesion () {
                 <FormLogin onLoginSuccess={manejarLoginCorrecto} />
 
                 <div className={styles.textoLogin}>
-                    <Enlaces nomEnlace="¿Olvidaste tu contraseña?" onClick={abrirPopup} />
+                    <Enlaces nomEnlace="¿Olvidaste tu contraseña?" onClick={password} />
                     <p>
                         {" "}
                         ¿No tienes una cuenta?
@@ -48,7 +49,27 @@ export default function InicioSesion () {
                 </div>
             </div>
 
-            {mostrarPopup && <PopUpPassReset cerrar={cerrarPopup} />}
+            <PopUp
+                isOpen={openPassword}
+                onClose={() => setOpenPassword(false)}
+                title="Restablecer contraseña"
+                cerrarAlHacerClickFuera={true}
+                footer={
+                    <>
+                <Input
+                    tipo="email"
+                    placeholder="ejemplo@gmail.com"
+                    fullWidth
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <Boton texto="Enviar" onClick={handleEnviar} />
+                </>}
+                >
+
+                <p>Introduce tu dirección de correo electrónico y si es correcto recibirás un enlace para resetear tu contraseña:</p>
+                
+            </PopUp>
         </main>
     )
 }
