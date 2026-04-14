@@ -6,4 +6,9 @@ theme:
 nav:
   - Inicio: index.md
   - API:
-      - Intercambios: api/intercambios.md
+    - Intercambios:
+      - Resumen: api/intercambios/intercambios.md
+      - Libro: api/intercambios/libro.md
+      - Estado:
+        - Individual: api/intercambios/estado/individual.md
+        - Comun: api/intercambios/estado/comun.md
