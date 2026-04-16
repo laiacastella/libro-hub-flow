@@ -1,0 +1,164 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(0, 0, 0, 0.45);
+    display: grid;
+    place-items: center;
+    padding: 0.75rem;
+}
+
+.popup {
+    width: min(520px, 95vw);
+    border-radius: 12px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.main {
+    width: 100%;
+    background-color: #f2f0e8;
+    border-radius: 12px;
+    color: #111827;
+    padding: 1.25rem;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.closeButton {
+    border: 0;
+    background: transparent;
+    color: #111827;
+    padding: 0;
+}
+
+.subtitle {
+    margin: 0.65rem 0 1rem;
+    color: #4b5563;
+    font-size: 0.95rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+}
+
+.label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1f2937;
+}
+
+.estrellasSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.estrellasRow {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.starButton {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+}
+
+.starButton:hover {
+    transform: scale(1.08);
+}
+
+.starInactiva {
+    color: #cbd5e1;
+}
+
+.starActiva {
+    color: #f59e0b;
+}
+
+.comentarioSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 105px;
+    resize: vertical;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 0.7rem 0.8rem;
+    background-color: #ffffff;
+    color: #111827;
+    font-size: 0.95rem;
+    line-height: 1.35;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #7f9e7f;
+    box-shadow: 0 0 0 3px rgba(82, 146, 92, 0.2);
+}
+
+.error {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #b91c1c;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .overlay {
+        padding: 0.55rem;
+    }
+
+    .main {
+        padding: 0.95rem;
+    }
+
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .starButton {
+        padding: 0;
+    }
+
+    .actions {
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,32 @@
+.cabecera {
+    background-color: #f0efeacc;
+    min-height: 80px;
+    padding: 0 1.5rem;
+}
+
+.contenedorPrincipal {
+    min-height: 80px;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.boton {
+    height: 40px;
+    width: 100px;
+}
+
+.bienvenida {
+    color: #63a26c;
+    font-weight: bold;
+    font-size: 28px;
+}

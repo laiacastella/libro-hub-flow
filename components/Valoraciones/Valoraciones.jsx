@@ -1,5 +1,5 @@
 import styles from "./Valoraciones.module.css";
-import CardValoracion from "@/components/CardValoracion/CardValoracion";
+import { CardValoracion } from "@/components/index";
 
 export default function Valoraciones() {
     return (

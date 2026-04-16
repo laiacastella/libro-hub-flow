@@ -1,0 +1,133 @@
+.libroCardWrapper {
+    display: contents;
+}
+
+.libroCard {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 240px;
+    padding: clamp(12px, 2vw, 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    justify-self: center;
+}
+
+.libroCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.libroImage {
+    width: 100%;
+    max-width: 180px;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.libroTitulo {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #333;
+    text-transform: uppercase;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.libroAutor {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.botonSeleccionar {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #2f8f34;
+    background-color: #ffffff;
+    color: #2f8f34;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botonSeleccionar:hover {
+    background-color: #2f8f34;
+    color: #ffffff;
+}
+
+.seleccionado .botonSeleccionar {
+    background-color: #2f8f34;
+    color: #ffffff;
+    border-color: #2f8f34;
+}
+.seleccionado .botonSeleccionar:hover {
+    background-color: #25822a;
+    border-color: #2f8f34;
+}
+.biblioteca {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.libros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+.detalleInlineRow {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+@media (max-width: 550px) {
+    .librosPopup {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+.seleccionado {
+    background-color: #5dd461;
+    border: #4caf50 solid 2px;
+}
+.seleccionado .libroTitulo {
+    color: #fff;
+}
+.seleccionado .libroAutor {
+    color: #fff;
+}
+
+@media (max-width: 480px) {
+    .libros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .libroCard {
+        max-width: none;
+        border-radius: 6px;
+    }
+
+    .libroTitulo {
+        font-size: 1rem;
+    }
+}

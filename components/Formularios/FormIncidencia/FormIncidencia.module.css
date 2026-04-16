@@ -1,0 +1,201 @@
+.formCard {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.25rem;
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 3px #0001;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #374151;
+}
+
+.input,
+.select {
+    height: 42px;
+}
+
+.select {
+    background-color: #ffffff;
+    color: #374151;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.input,
+.select,
+.textarea {
+    padding: 0.5rem 0.75rem;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #407c42;
+}
+
+.textarea {
+    resize: none;
+    font-family: Arial;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    color: #9ca3af;
+}
+
+/* adjuntar */
+.adjuntarContainer {
+    border: 2px dashed #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f9fafb;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.adjuntarContainer:hover {
+    background-color: #f3f4f6;
+}
+
+.adjuntarContainerDragActive {
+    background-color: #eef8f0;
+    border-color: #407c42;
+}
+
+.adjuntarContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adjuntarIcon {
+    height: 2.5rem;
+    width: 2.5rem;
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
+}
+
+.adjuntarText {
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.adjuntarLink {
+    color: #407c42;
+    font-weight: 600;
+}
+
+.adjuntarSubtext {
+    font-size: 0.75rem;
+    color: #424243;
+    margin-top: 0.25rem;
+}
+
+.previewImage {
+    max-width: 100%;
+    max-height: 180px;
+    border-radius: 0.5rem;
+    object-fit: contain;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 640px) {
+    .formCard {
+        padding: 0.65rem;
+    }
+
+    .label {
+        font-size: 0.75rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .input,
+    .select,
+    .textarea {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .input,
+    .select {
+        height: 36px;
+    }
+
+    .adjuntarContainer {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.6rem;
+    }
+
+    .adjuntarContent {
+        align-items: flex-start;
+        justify-content: center;
+        text-align: left;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .adjuntarIcon {
+        height: 1.75rem;
+        width: 1.75rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .adjuntarText {
+        font-size: 0.75rem;
+        margin-bottom: 0;
+    }
+
+    .adjuntarSubtext {
+        font-size: 0.7rem;
+        margin-top: 0.1rem;
+        margin-bottom: 0;
+    }
+}
+
+.acciones {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.formButton {
+    height: 32px;
+    min-height: 32px;
+    min-width: 112px;
+    padding: 0.35rem 0.85rem;
+    font-size: 1rem;
+}

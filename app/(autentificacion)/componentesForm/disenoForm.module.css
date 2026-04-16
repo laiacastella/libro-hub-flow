@@ -1,0 +1,55 @@
+.estiloForm {
+    background-color: rgba(255, 255, 255, 0.75); 
+    backdrop-filter: blur(12px) brightness(1.2);
+   
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    
+    /* --- DIMENSIONES Y POSICIÓN --- */
+    width: 90%;            
+    /* max-width: 420px;       */
+    padding: 1.5rem 2.5rem 2.5rem 2.5rem;
+    margin: 10vh auto vh auto;  
+    
+    /* --- COMPORTAMIENTO --- */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }  
+
+
+
+  .contenedorLogo {
+    /* --- ESTÉTICA --- */
+    height: 4rem;           
+    width: 100%;            
+    
+    /* --- COMPORTAMIENTO --- */
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    
+    /* --- ESPACIADO --- */
+    margin-top: 0;
+    margin-bottom: 1.5rem;   
+  }
+
+.contenedorLogo img {
+    height: 100%;           
+    width: auto;            /* Mantiene la proporción original */
+    object-fit: contain;    /* Evita que la imagen se deforme */
+}
+
+.contenedorCampos{
+    /* --- COMPORTAMIENTO --- */
+    display: flex;
+    flex-direction: column; /* Apila los campos uno debajo del otro */
+    align-items: center;    /* Asegura que los campos estén centrados */
+    width: 100%;            
+    
+    /* --- ESPACIADO --- */
+    gap: 0.8rem;            /* Distancia uniforme entre cada campo */
+    margin-bottom: 1.2rem;  
+}

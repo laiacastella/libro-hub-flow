@@ -1,0 +1,20 @@
+.contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.boton {
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+    
+.activa {
+    font-weight: bold;
+    background-color: #407c42;
+    color: #fff;
+}

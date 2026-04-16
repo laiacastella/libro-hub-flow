@@ -1,0 +1,85 @@
+body {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+    ), url("/imagen-fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.fondo {
+    background-color: #E8DFD8cc;
+    border-radius: 12px;
+    padding: 40px;
+    width: 90%;
+}
+
+.perfil {
+    border-radius: 12px;
+    padding: 30px 10px;
+    margin-bottom: 20px;
+}
+
+.foto {
+    display: flex;
+    justify-content: center;
+}
+
+.fotoPerfil {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.navegacion {
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.contenido {
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 20px;
+}
+
+.paginas {
+    background: #f9f9f9cc;
+    border-radius: 14px;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    transition: all 0.25s ease;
+}
+
+.paginas:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.activo,
+.paginas:focus-visible {
+    background-color: #407c42;
+    border-color: #000;
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    color: #ffffff;
+}

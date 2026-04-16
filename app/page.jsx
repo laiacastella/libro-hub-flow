@@ -1,66 +1,66 @@
 "use client";
 
-import HeaderHome from "@/components/HeaderHome/HeaderHome.jsx";
-import Footer from "@/components/Footer/Footer.jsx";
+import { HeaderHome, Boton, CardIcono, Contador, Carrusel, LibroCarrusel, CardReseña } from "@/components";
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import datos from "@/data/libros.json";
+import dataReseñas from "@/data/reseñas.json";
 
 export default function Home() {
-    // Estado para almacenar las provincias
-    const [provincias, setProvincias] = useState([]);
-    // Prueba de conexión a la API
-    useEffect(() => {
-        fetch("/api/usuarios")
-            .then((res) => res.json())
-            .then((data) => setProvincias(data));
-    }, []);
+    const listaLibros = datos.libros;
 
     return (
-        <>
+        <main className={styles.main}>
             <HeaderHome />
-            <main>
-                {provincias.map((p) => (
-                    <div key={p.id_usuario}>
-                        <p>{p.nombre}</p>
-                        <img src={p.foto_perfil} alt="" />
-                    </div>
-                ))}
-                <div className={styles.bienvenida}>
-                    <div className={styles.explicacionMasBoton}>
-                        <div className={styles.explicacion}>
-                            <strong>LibroFlowHub</strong> es la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites. Descubre nuevas historias, dale una segunda vida a tus libros y comienza tu próximo capítulo con un solo clic.
-                            <b>Un proceso simple para descubrir tu proxima lectura.</b>
-                        </div>
-                        <button className={styles.boton} onClick={() => router.push("")}>
-                            Encuentra tu libro
-                        </button>
-                    </div>
+
+            <div className={styles.contenedorInfo}>
+                <div className={styles.contenedorImg}></div>
+
+                <h1 className={styles.texto}>
+                    Somos <b>LibroHubFlow</b>, la plataforma web de intercambios de libros donde la pasión por la lectura fluye sin límites.
+                </h1>
+                    <Boton type="button" texto="Encuentra tu libro" enlace="inicioSesion" />
+
+                <div className={styles.titulo}>Un proceso simple para descubrir tu proxima lectura</div>
+
+                <div className={styles.contenedorCards}>
+                    <CardIcono alt="icono añadir" rutaIcono="/square-plus.svg" texto="Añade facilmente los libros que quieres intercambiar" />
+
+                    <CardIcono alt="icono libros" rutaIcono="/books.svg" texto="Explora miles de ejemplares de otros usuarios y solicita los que te interesen con un solo clic" />
+
+                    <CardIcono alt="icono camion entrega" rutaIcono="/truck-delivery.svg" texto="Una vez aceptado el intercambio , coordina el envio con el otro usuario" />
+
+                    <CardIcono alt="icono cara feliz con check" rutaIcono="/mood-check.svg" texto="Intercambiaste, leíste... ¡Ahora inspira! ¿Lo prestas o lo recomiendas?" />
                 </div>
 
-                <div className={styles.porque}>
-                    <h2>¿Por qué LibroHubFlow?</h2>
+                <div className={styles.titulo}>Libros recién publicados</div>
 
-                    <div className={styles.cards}>
-                        <div className={styles.card}>
-                            <img src="/icono-card1-home.svg" alt="card-one" />
-                            <p>Añade facilmente los libros que quieres intercambiar</p>
-                        </div>
-                        <div className={styles.card}>
-                            <img src="/icono-card2-home.svg" alt="card-two" />
-                            <p>Explora miles de ejemplares de otros usuarios y solicita los que te interesen con un solo clic</p>
-                        </div>
-                        <div className={styles.card}>
-                            <img src="/icono-card3-home.svg" alt="card-three" />
-                            <p>Una vez aceptado el intercambio , coordina el envio con el otro usuario</p>
-                        </div>
-                        <div className={styles.card}>
-                            <img src="/icono-card4-home.svg" alt="card-four" />
-                            <p>Intercambiaste, leíste... ¡Ahora inspira! ¿Lo prestas o lo recomiendas?</p>
-                        </div>
-                    </div>
+                    <Carrusel items={listaLibros} slidesToShow={4} renderItem={(libro) => <LibroCarrusel libro={libro} />} />
+
+                <div className={styles.titulo}>Forma parte de nuestra comunidad</div>
+
+                    <Carrusel items={dataReseñas.testimonios} slidesToShow={3} renderItem={(reseña) => <CardReseña testimonio={reseña} />} />
+
+                <div className={styles.titulo}>
+                    Más de <Contador valorFinal={1000} /> lectores que ya están haciendo fluir sus historias.
                 </div>
-            </main>
-            <Footer />
-        </>
+
+                <div className={styles.contenedorImg2}></div>
+
+                <div className={styles.titulo}>Detrás del Hub</div>
+
+                <div className={styles.texto}>En LibroHubFlow creemos que un libro olvidado es una historia pausada. Nuestra misión es simple: que los libros circulen, las ideas se compartan y el planeta respire.</div>
+
+                <div className={styles.contenedorCards}>
+                    <CardIcono alt="icono mundo con flecha" rutaIcono="/world-share.svg" titulo="Comparte y Descubre" texto="Tu próxima lectura te está esperando gratis. Conecta estanterías de todo el país y accede a miles de títulos sin barreras." />
+                    <CardIcono alt="icono mensajes" rutaIcono="/messages.svg" titulo="Conecta y Debate" texto="Mucho más que un intercambio. Entra en el foro, comparte tus teorías y encuentra a lectores que vibran con tus mismos autores." />
+                    <CardIcono rutaIcono="/recycle.svg" titulo="Dale un respiro al Planeta" texto="Leer con conciencia es posible. Al hacer recircular tus libros, reduces el desperdicio y nos ayudas a crear un futuro más sostenible." />
+                </div>
+
+                <h2 className={styles.titulo}>
+                    Miles de historias... <br />
+                    Un solo punto de partida
+                </h2>
+            </div>
+        </main>
     );
 }

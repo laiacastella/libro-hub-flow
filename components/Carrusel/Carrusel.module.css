@@ -1,0 +1,50 @@
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.boton {
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.boton:hover {
+    background-color: #e2e6ea;
+}
+
+.slide {
+    min-width: calc(100% / var(--slides-to-show, 1));
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0.25rem;
+}
+
+.visor {
+    width: 100%;
+    overflow: hidden; /* Ocultar libros */
+}
+
+.riel {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Hace que se deslice */
+}
+
+.slide > * {
+    height: 100%;
+}

@@ -3,9 +3,48 @@
     font-weight: 700;
     margin: 0;
 }
-.contenedorSolicitudes {
+
+.selectorContainer {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.selector {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid #63a26c;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.selector:hover {
+    border-color: #4caf50;
+    box-shadow: 0 2px 8px rgba(99, 162, 108, 0.2);
+}
+
+.selector:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(99, 162, 108, 0.1);
+}
+
+.contenedorSolicitudes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(14px, 2vw, 20px);
+    align-items: stretch;
+    width: 100%;
+}
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
 }

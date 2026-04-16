@@ -1,0 +1,60 @@
+.Header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.cabecera {
+    width: 100%;
+    padding: 0.7rem 1.25rem;
+    background: transparent;
+    transition:
+        background-color 0.25s ease,
+        backdrop-filter 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.headerScrolled .cabecera {
+    background: rgba(20, 20, 20, 0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.14);
+}
+
+.contenedorInterno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo img {
+    height: 2.2rem;
+    display: block;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+@media (min-width: 1024px) {
+    .cabecera {
+        padding: 1rem 2.5rem;
+    }
+
+    .contenedorInterno {
+        margin: 0 auto;
+    }
+
+    .logo img {
+        height: 2.8rem;
+    }
+
+    .menu {
+        gap: 2rem;
+    }
+}
