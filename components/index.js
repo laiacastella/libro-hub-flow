@@ -19,6 +19,7 @@ export { default as PopUp } from "./UI/PopUp/PopUp";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
+export { default as CardIntercambioCompletado } from "./Cards/CardIntercambioCompletado/CardIntercambioCompletado";
 export { default as CardSolicitud } from "./Cards/CardSolicitud/CardSolicitud";
 export { default as CardValoracion } from "./Cards/CardValoracion/CardValoracion";
 export { default as CardLibro } from "./Cards/CardLibro/CardLibro";

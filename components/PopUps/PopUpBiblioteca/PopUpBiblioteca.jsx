@@ -104,6 +104,9 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     };
 
     if (!isOpen || !intercambio) return null;
+
+    console.log("Intercambio en PopUpBiblioteca:", intercambio);
+    
     return (
         <div className={styles.overlay} onClick={onClose}>
             <dialog className={styles.popup} open onClick={(e) => e.stopPropagation()}>
