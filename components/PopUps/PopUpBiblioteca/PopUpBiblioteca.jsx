@@ -9,6 +9,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     const [libroSeleccionado, setLibroSeleccionado] = useState(null);
     const [infoLibro, setInfoLibro] = useState(null);
     const esMovil = useEsMovil();
+    const idUsuarioBiblioteca = intercambio?.id_usuario_envia;
 
     console.log("libro seleccionado: ", libroSeleccionado);
 
@@ -145,7 +146,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                         </section>
                         <section className={styles.bodyPopup}>
                             <div className={styles.bibliotecaContainer}>
-                                <ComponenteBiblioteca todos={false} userId={intercambio.id_usuario} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} modoPopup={true} onSeleccionarLibro={handleSeleccionarLibroDesdeCard} />
+                                <ComponenteBiblioteca todos={false} id_usuario={idUsuarioBiblioteca} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} modoPopup={true} onSeleccionarLibro={handleSeleccionarLibroDesdeCard} />
                             </div>
                             <div className={`${styles.infoLibro} ${libroSeleccionado ? styles.isOpen : styles.isClosed}`}>
                                 {infoLibro && (
@@ -235,7 +236,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                             <div className={styles.bibliotecaContainerMobile}>
                                 <ComponenteBiblioteca
                                     todos={false}
-                                    userId={intercambio.id_usuario}
+                                    id_usuario={idUsuarioBiblioteca}
                                     setLibroSeleccionado={setLibroSeleccionado}
                                     libroSeleccionado={libroSeleccionado}
                                     modoPopup={true}
