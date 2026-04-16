@@ -34,7 +34,10 @@ export default function useIntercambio() {
             body: JSON.stringify({ id_intercambio: idIntercambio, estado, id_usuario_actual: idUsuarioActual }),
         });
 
-        if (!response.ok) throw new Error("No se pudo actualizar el estado individual del intercambio");
+        if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data?.error || "No se pudo actualizar el estado individual del intercambio");
+        }
 
         return response.json().catch(() => ({}));
     }, []);
@@ -46,7 +49,10 @@ export default function useIntercambio() {
             body: JSON.stringify({ id_intercambio: idIntercambio, estado }),
         });
 
-        if (!response.ok) throw new Error("No se pudo actualizar el estado comun del intercambio");
+        if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data?.error || "No se pudo actualizar el estado comun del intercambio");
+        }
 
         return response.json().catch(() => ({}));
     }, []);

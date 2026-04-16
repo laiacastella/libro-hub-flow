@@ -37,8 +37,8 @@ export async function PATCH(req) {
 
     const [rows] = await db.query(
       `SELECT
-         id_usuario_propietario,
-         id_usuario_solicitante,
+         COALESCE(id_usuario_recibe, id_usuario_envia) AS id_usuario_recibe,
+         COALESCE(id_usuario_envia, id_usuario_recibe) AS id_usuario_envia,
          estado_usuario_envia,
          estado_usuario_recibe
        FROM intercambios
@@ -53,9 +53,14 @@ export async function PATCH(req) {
 
     // Determinar si actualiza la columna de quien envia o quien recibe
     const intercambio = rows[0]; // asignar el intercambio encontrado a una variable
-    const idUsuarioActual = id_usuario_actual; // id del usuario que realiza la acción
-    const esUsuarioEnvia = idUsuarioActual === intercambio.id_usuario_solicitante; // true o false
-    const esUsuarioRecibe = idUsuarioActual === intercambio.id_usuario_propietario;
+    const idUsuarioActual = Number(id_usuario_actual); // id del usuario que realiza la acción
+    const esUsuarioEnvia = idUsuarioActual === Number(intercambio.id_usuario_envia); // true o false
+    const esUsuarioRecibe = idUsuarioActual === Number(intercambio.id_usuario_recibe);
+
+    if (!esUsuarioEnvia && !esUsuarioRecibe) {
+      return new Response(JSON.stringify({ error: "Usuario no autorizado para este intercambio" }), { status: 403 });
+    }
+
     const columnaObjetivo = esUsuarioEnvia ? "estado_usuario_envia" : "estado_usuario_recibe"; // columna a actualizar según el usuario
 
     // query para actualizar

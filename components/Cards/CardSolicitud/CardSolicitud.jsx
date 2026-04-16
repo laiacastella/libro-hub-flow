@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function CardSolicitud({ filtro = "todas" }) {
     const [popupActivo, setPopupActivo] = useState(null); // "biblioteca" | "valoracion" | null
     const [intercambioActivo, setIntercambioActivo] = useState(null); // intercambio seleccionado para el popup activo
-    const { obtenerIntercambios, actualizarEstadoIntercambio } = useIntercambio();
+    const { obtenerIntercambios, actualizarEstadoIntercambio, actualizarEstadoComunIntercambio } = useIntercambio();
     const { idUsuarioActual, obtenerTipoUsuarioIntercambio } = useUsuarioIntercambio();
 
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
@@ -20,9 +20,11 @@ export default function CardSolicitud({ filtro = "todas" }) {
         aceptado: "valorar", // individual
         rechazado: "rechazado", // en las dos columnas
         valorar: "finalizado", // individual
-        finalizado: "eliminado", // individual
-        eliminado: null,
+        finalizado: null,
     };
+
+    const estadosComunes = new Set(["seleccionado", "aceptado", "rechazado"]);
+    const estadosValidos = new Set(["solicitado", "seleccionado", "aceptado", "valorar", "finalizado", "rechazado"]);
     // Etiquetas para cada estado del botón
     const etiquetasBoton = {
         solicitado: "Ver biblioteca",
@@ -31,12 +33,17 @@ export default function CardSolicitud({ filtro = "todas" }) {
         rechazado: "Rechazado",
         valorar: "Valorar",
         finalizado: "Intercambio completado",
-        eliminado: "Eliminado",
     };
 
     function obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante) {
-        if (esPropietario) return intercambio.estado_usuario_recibe;
-        if (esSolicitante) return intercambio.estado_usuario_envia;
+        const normalizarEstado = (estado) => {
+            const estadoNormalizado = String(estado ?? "").trim().toLowerCase();
+            if (!estadoNormalizado) return "solicitado";
+            return estadosValidos.has(estadoNormalizado) ? estadoNormalizado : "solicitado";
+        };
+
+        if (esPropietario) return normalizarEstado(intercambio.estado_usuario_recibe);
+        if (esSolicitante) return normalizarEstado(intercambio.estado_usuario_envia);
         return null;
     }
 
@@ -54,9 +61,15 @@ export default function CardSolicitud({ filtro = "todas" }) {
         if (!siguienteEstado) return;
 
         try {
-            // Actualizar en la api
-            await actualizarEstadoIntercambio(id, siguienteEstado, idUsuarioActual);
-        } catch {
+            const cambioComun = estadosComunes.has(siguienteEstado);
+
+            if (cambioComun) {
+                await actualizarEstadoComunIntercambio(id, siguienteEstado);
+            } else {
+                await actualizarEstadoIntercambio(id, siguienteEstado, idUsuarioActual);
+            }
+        } catch (error) {
+            alert(error?.message || "No se pudo actualizar el estado del intercambio");
             return;
         }
 
@@ -65,7 +78,15 @@ export default function CardSolicitud({ filtro = "todas" }) {
             prev.map((i) => {
                 if (i.id_intercambio !== id) return i;
 
-                const idPropietario = Number(i.id_usuario_recibe);
+                if (estadosComunes.has(siguienteEstado)) {
+                    return {
+                        ...i,
+                        estado_usuario_recibe: siguienteEstado,
+                        estado_usuario_envia: siguienteEstado,
+                    };
+                }
+
+                const idPropietario = Number(i.id_usuario_recibe ?? i.id_usuario_envia);
                 const esPropietario = Number(idUsuarioActual) === idPropietario;
 
                 return esPropietario
@@ -122,43 +143,91 @@ export default function CardSolicitud({ filtro = "todas" }) {
             {intercambiosFiltrados.map((intercambio) => {
                 const { esPropietario, esSolicitante } = obtenerTipoUsuarioIntercambio(intercambio);
                 const estadoUsuario = obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante);
+                const puedeSeleccionarLibro = esPropietario;
+
+                const librosOrdenados = esSolicitante
+                    ? [
+                          {
+                              tipo: "ofrecido",
+                              titulo: intercambio.libro_ofrecido_titulo,
+                              foto: intercambio.libro_ofrecido_foto,
+                              textoPendiente: "Pendiente de selección",
+                          },
+                          {
+                              tipo: "solicitado",
+                              titulo: intercambio.libro_solicitado_titulo,
+                              foto: intercambio.libro_solicitado_foto,
+                              textoPendiente: "Libro solicitado",
+                          },
+                      ]
+                    : [
+                          {
+                              tipo: "solicitado",
+                              titulo: intercambio.libro_solicitado_titulo,
+                              foto: intercambio.libro_solicitado_foto,
+                              textoPendiente: "Libro solicitado",
+                          },
+                          {
+                              tipo: "ofrecido",
+                              titulo: intercambio.libro_ofrecido_titulo,
+                              foto: intercambio.libro_ofrecido_foto,
+                              textoPendiente: "Selecciona un libro",
+                          },
+                      ];
+
+                const renderLibro = (libro) => {
+                    if (libro.titulo) {
+                        return (
+                            <div className={styles.libro}>
+                                <img src={libro.foto} alt={libro.titulo} className={styles.libroImagen} loading="lazy" />
+                                <p className={styles.libroTitulo}>{libro.titulo}</p>
+                            </div>
+                        );
+                    }
+
+                    if (libro.tipo === "ofrecido" && puedeSeleccionarLibro) {
+                        return (
+                            <div className={styles.libro}>
+                                <div className={styles.libroNull} onClick={() => abrirPopup(intercambio)}>
+                                    <SquarePlus className={styles.masIcono} />
+                                    <p className={styles.libroTitulo}>Selecciona un libro</p>
+                                </div>
+                                <p className={`${styles.libroTitulo} ${styles.libroTituloSpacer}`}>Selecciona un libro</p>
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <div className={styles.libro}>
+                            <div className={`${styles.libroNull} ${styles.libroNullInactivo}`}>
+                                <p className={styles.libroTitulo}>{libro.textoPendiente}</p>
+                            </div>
+                            <p className={`${styles.libroTitulo} ${styles.libroTituloSpacer}`}>{libro.textoPendiente}</p>
+                        </div>
+                    );
+                };
 
                 return (
                 <div key={intercambio.id_intercambio} className={styles.solicitudCard}>
                     <div className={styles.librosContainer}>
-                        {/* Libro solicitado */}
-                        <div className={styles.libro}>
-                            <img src={intercambio.libro_solicitado_foto} alt={intercambio.libro_solicitado_titulo} className={styles.libroImagen} loading="lazy" />
-                            <p className={styles.libroTitulo}>{intercambio.libro_solicitado_titulo}</p>
-                        </div>
+                        {renderLibro(librosOrdenados[0])}
                         <ArrowLeftRight className={styles.intercambioIcono} />
-
-                        {/* Libro ofrecido */}
-                        <div className={styles.libro}>
-                            {intercambio.libro_ofrecido_titulo ? (
-                                <>
-                                    <img src={intercambio.libro_ofrecido_foto} alt={intercambio.libro_ofrecido_titulo} className={styles.libroImagen} loading="lazy" />
-                                    <p className={styles.libroTitulo}>{intercambio.libro_ofrecido_titulo}</p>
-                                </>
-                            ) : (
-                                <>
-                                    <div className={styles.libroNull} onClick={() => abrirPopup(intercambio)}>
-                                        <SquarePlus className={styles.masIcono} />
-                                        <p className={styles.libroTitulo}>Selecciona un libro</p>
-                                    </div>
-                                    <p className={`${styles.libroTitulo} ${styles.libroTituloSpacer}`}>Selecciona un libro</p>
-                                </>
-                            )}
-                        </div>
+                        {renderLibro(librosOrdenados[1])}
                     </div>
 
                     {/* Botones */}
 
                     <div className={styles.botonesFooter}>
                         {/* Si es solicitado -> mostrar "Ver biblioteca" */}
-                        {estadoUsuario === "solicitado" && (
+                        {estadoUsuario === "solicitado" && esPropietario && (
                             <>
                                 <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />
+                            </>
+                        )}
+
+                        {estadoUsuario === "solicitado" && esSolicitante && (
+                            <>
+                                <Boton texto="Esperando respuesta" className={styles.disabled} customClassName={true} disabled={true} />
                             </>
                         )}
 
@@ -166,7 +235,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         {estadoUsuario === "seleccionado" && (
                             <>
                                 <div className={styles.divBotones}>
-                                    <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />
+                                    {esPropietario && <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />}
                                     <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
                                     <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario, "rechazado")} />
                                 </div>
@@ -175,6 +244,12 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         {estadoUsuario === "finalizado" && (
                             <>
                                 <Boton texto="Intercambio finalizado" className={styles.disabled} customClassName={true} disabled={true} />
+                            </>
+                        )}
+
+                        {estadoUsuario === "rechazado" && (
+                            <>
+                                <Boton texto="Rechazado" className={styles.disabled} customClassName={true} disabled={true} />
                             </>
                         )}
 

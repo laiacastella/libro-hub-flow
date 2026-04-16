@@ -26,7 +26,7 @@ Actualiza el estado de una sola columna del intercambio segun quien realiza la a
 2. Si estado = aceptado, exige que exista id_libro_ofrecido.
 3. Busca el intercambio por id_intercambio.
 4. Decide la columna a actualizar:
-   - Si id_usuario_actual coincide con id_usuario_solicitante:
+   - Si id_usuario_actual coincide con id_usuario_recibe:
      - actualiza estado_usuario_envia
    - En caso contrario:
      - actualiza estado_usuario_recibe

@@ -52,8 +52,8 @@ export default function FichaLibro() {
 
             // datos que se envian a la api para crear el intercambio
             console.log("Enviando solicitud de intercambio con datos:", {
-                id_usuario_solicitante: usuario.id_usuario,
-                id_usuario_propietario: libro.id_usuario,
+                id_usuario_envia: usuario.id_usuario,
+                id_usuario_recibe: libro.id_usuario,
                 id_libro_solicitado: Number(id),
             });
 
@@ -62,8 +62,8 @@ export default function FichaLibro() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    id_usuario_solicitante: usuario.id_usuario,
-                    id_usuario_propietario: libro.id_usuario,
+                    id_usuario_envia: usuario.id_usuario,
+                    id_usuario_recibe: libro.id_usuario,
                     id_libro_solicitado: Number(id),
                 }),
             });

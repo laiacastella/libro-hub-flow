@@ -26,14 +26,14 @@ export async function POST(req) {
             return Response.json({ error: "No puedes evaluarte a ti mismo" }, { status: 400 });
         }
 
-        const [intercambioRows] = await db.query("SELECT id_usuario_solicitante, id_usuario_propietario FROM intercambios WHERE id_intercambio = ? LIMIT 1", [idIntercambio]);
+        const [intercambioRows] = await db.query("SELECT id_usuario_recibe, id_usuario_envia FROM intercambios WHERE id_intercambio = ? LIMIT 1", [idIntercambio]);
 
         if (!intercambioRows.length) {
             return Response.json({ error: "Intercambio no encontrado" }, { status: 404 });
         }
 
         const intercambio = intercambioRows[0];
-        const participantes = [Number(intercambio.id_usuario_solicitante), Number(intercambio.id_usuario_propietario)];
+        const participantes = [Number(intercambio.id_usuario_recibe), Number(intercambio.id_usuario_envia)];
 
         if (!participantes.includes(idUsuarioEvaluador) || !participantes.includes(idUsuarioEvaluado)) {
             return Response.json({ error: "Solo los usuarios del intercambio pueden valorar" }, { status: 403 });

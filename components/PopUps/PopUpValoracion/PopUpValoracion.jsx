@@ -13,8 +13,8 @@ export default function PopUpValoracion({ isOpen, onClose, intercambio, idUsuari
     const { enviarValoracion } = useIntercambio();
 
     const idActual = Number(idUsuarioActual);
-    const idPropietario = Number(intercambio?.id_usuario_propietario);
-    const idSolicitante = Number(intercambio?.id_usuario_solicitante);
+    const idPropietario = Number(intercambio?.id_usuario_envia);
+    const idSolicitante = Number(intercambio?.id_usuario_recibe);
     const idUsuarioValorado = idActual === idPropietario ? idSolicitante : idActual === idSolicitante ? idPropietario : null;
 
     const nombreUsuarioValorado =

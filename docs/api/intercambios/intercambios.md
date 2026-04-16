@@ -47,8 +47,8 @@ Crea una solicitud de intercambio.
 
 ```json
 {
-  "id_usuario_solicitante": 12,
-  "id_usuario_propietario": 34,
+  "id_usuario_recibe": 12,
+  "id_usuario_envia": 34,
   "id_libro_solicitado": 56
 }
 ```

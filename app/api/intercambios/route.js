@@ -7,6 +7,8 @@ export async function GET() {
             SELECT
                 i.*,
                 i.fecha_inicio AS fecha,
+                COALESCE(NULLIF(i.estado_usuario_envia, ''), 'solicitado') AS estado_usuario_envia,
+                COALESCE(NULLIF(i.estado_usuario_recibe, ''), 'solicitado') AS estado_usuario_recibe,
 
                 s.titulo AS libro_solicitado_titulo,
                 s.autor AS libro_solicitado_autor,
@@ -46,13 +48,24 @@ console.error(error);
 export async function POST(req) {
     try {
         // recibe el id del usuario solicitante, el id del usuario propietario y el id del libro solicitado
-        const { id_usuario_solicitante, id_usuario_propietario, id_libro_solicitado } = await req.json();
+        const {
+            id_usuario_envia,
+            id_usuario_recibe,
+            id_libro_solicitado,
+        } = await req.json();
+
+        const usuarioEnvia = id_usuario_envia;
+        const usuarioRecibe = id_usuario_recibe;
+
+        if (!usuarioEnvia || !usuarioRecibe || !id_libro_solicitado) {
+            return Response.json({ error: "Faltan datos" }, { status: 400 });
+        }
 
         const [result] = await db.query(
   `
   INSERT INTO intercambios (
-    id_usuario_solicitante,
-    id_usuario_propietario,
+    id_usuario_envia,
+    id_usuario_recibe,
     id_libro_solicitado,
     estado_usuario_recibe,
     estado_usuario_envia,
@@ -61,8 +74,8 @@ export async function POST(req) {
   VALUES (?, ?, ?, ?, ?, NOW())
   `,
   [
-    id_usuario_solicitante,
-    id_usuario_propietario,
+        usuarioEnvia,
+        usuarioRecibe,
     id_libro_solicitado,
     "solicitado",
     "solicitado"

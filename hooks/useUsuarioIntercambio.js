@@ -8,8 +8,8 @@ export default function useUsuarioIntercambio() {
 
     function obtenerTipoUsuarioIntercambio(intercambio) {
         // Compatibilidad con ambos esquemas de columnas
-        const idPropietario = Number(intercambio?.id_usuario_recibe);
-        const idSolicitante = Number(intercambio?.id_usuario_envia);
+        const idPropietario = Number(intercambio?.id_usuario_recibe ?? intercambio?.id_usuario_envia);
+        const idSolicitante = Number(intercambio?.id_usuario_envia ?? intercambio?.id_usuario_recibe);
         const idActual = Number(idUsuarioActual);
 
         // Determinar si el usuario actual es propietario o solicitante
