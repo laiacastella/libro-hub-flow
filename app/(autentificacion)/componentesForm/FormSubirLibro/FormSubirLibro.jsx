@@ -40,7 +40,7 @@ const FormSubirLibro = () => {
 useEffect(() => {
     const cargarGeneros = async () => {
         try {
-            const res = await fetch('/api/lista-generos');
+            const res = await fetch('/api/generos');
             const data = await res.json();
             
             console.log("Datos que llegaron al componente:", data);
