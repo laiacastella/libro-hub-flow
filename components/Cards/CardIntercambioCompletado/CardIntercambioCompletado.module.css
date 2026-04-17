@@ -1,0 +1,81 @@
+.cardCompletada {
+    grid-column: 1 / -1;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #d9e4db;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    padding: clamp(14px, 2vw, 20px);
+    display: grid;
+    grid-template-columns: minmax(220px, 280px) 1fr;
+    gap: clamp(14px, 2.4vw, 24px);
+    align-items: center;
+}
+
+.resumen {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+}
+
+.estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #1f7a2e;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.iconoEstado {
+    width: 20px;
+    height: 20px;
+}
+
+.meta {
+    margin: 0;
+    color: #2f3431;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.metaSec {
+    margin: 0;
+    color: #5e6862;
+    font-size: 0.86rem;
+}
+
+.librosFila {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: clamp(10px, 1.5vw, 16px);
+    align-items: center;
+}
+
+.iconoIntercambio {
+    width: 30px;
+    height: 30px;
+    color: #4f5953;
+}
+
+.libroBloque {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 0;
+}
+
+.portada {
+    width: min(100%, 130px);
+    aspect-ratio: 3 / 4;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: #ececec;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 760px) {
+    .cardCompletada {
+        grid-template-columns: 1fr;
+    }
+}

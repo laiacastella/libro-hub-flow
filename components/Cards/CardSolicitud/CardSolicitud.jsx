@@ -4,13 +4,22 @@ import { PopUpBiblioteca, Boton, PopUpValoracion } from "@/components/index";
 import { SquarePlus, ArrowLeftRight } from "lucide-react";
 import useIntercambio, { cumpleFiltroIntercambio } from "@/hooks/useIntercambio";
 import useUsuarioIntercambio from "@/hooks/useUsuarioIntercambio";
+import useTiempo from "@/hooks/useTiempo";
 import { useEffect, useState } from "react";
+import CardIntercambioCompletado from "../CardIntercambioCompletado/CardIntercambioCompletado";
+
+function TiempoSolicitud({ fecha }) {
+    const tiempoTranscurrido = useTiempo(fecha);
+    return <>{tiempoTranscurrido}</>;
+}
+
 
 export default function CardSolicitud({ filtro = "todas" }) {
     const [popupActivo, setPopupActivo] = useState(null); // "biblioteca" | "valoracion" | null
     const [intercambioActivo, setIntercambioActivo] = useState(null); // intercambio seleccionado para el popup activo
     const { obtenerIntercambios, actualizarEstadoIntercambio, actualizarEstadoComunIntercambio } = useIntercambio();
     const { idUsuarioActual, obtenerTipoUsuarioIntercambio } = useUsuarioIntercambio();
+    
 
     const [intercambios, setIntercambios] = useState([]); // todos intercambios
     // Definimos el flujo de estados para cada acción
@@ -145,6 +154,10 @@ export default function CardSolicitud({ filtro = "todas" }) {
                 const estadoUsuario = obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante);
                 const puedeSeleccionarLibro = esPropietario;
 
+                if (estadoUsuario === "finalizado") {
+                    return <CardIntercambioCompletado key={intercambio.id_intercambio} intercambio={intercambio} />;
+                }
+
                 const librosOrdenados = esSolicitante
                     ? [
                           {
@@ -177,9 +190,34 @@ export default function CardSolicitud({ filtro = "todas" }) {
 
                 const renderLibro = (libro) => {
                     if (libro.titulo) {
+                        const libroOfrecidoEditable = libro.tipo === "ofrecido" && puedeSeleccionarLibro && estadoUsuario === "seleccionado";
+
                         return (
-                            <div className={styles.libro}>
-                                <img src={libro.foto} alt={libro.titulo} className={styles.libroImagen} loading="lazy" />
+                            <div
+                                className={`${styles.libro} ${libroOfrecidoEditable ? styles.libroSeleccionable : ""}`}
+                                onClick={libroOfrecidoEditable ? () => abrirPopup(intercambio) : undefined}
+                                onKeyDown={
+                                    libroOfrecidoEditable
+                                        ? (e) => {
+                                              if (e.key === "Enter" || e.key === " ") {
+                                                  e.preventDefault();
+                                                  abrirPopup(intercambio);
+                                              }
+                                          }
+                                        : undefined
+                                }
+                                role={libroOfrecidoEditable ? "button" : undefined}
+                                tabIndex={libroOfrecidoEditable ? 0 : undefined}
+                                title={libroOfrecidoEditable ? "Cambiar libro seleccionado" : undefined}>
+                                <div className={styles.libroImagenWrapper}>
+                                    <img src={libro.foto} alt={libro.titulo} className={styles.libroImagen} loading="lazy" />
+                                    {libroOfrecidoEditable && (
+                                        <div className={styles.libroEditableHint}>
+                                           
+                                            <span>Cambiar libro</span>
+                                        </div>
+                                    )}
+                                </div>
                                 <p className={styles.libroTitulo}>{libro.titulo}</p>
                             </div>
                         );
@@ -209,6 +247,15 @@ export default function CardSolicitud({ filtro = "todas" }) {
 
                 return (
                 <div key={intercambio.id_intercambio} className={styles.solicitudCard}>
+                    <div className={styles.propuestaUsuario}>
+                        <p><strong>Propuesta de:</strong> {intercambio.solicitante_nick_usuario || intercambio.solicitante_nombre || "Usuario"}</p>
+                        <div>
+                            {/* hace cuanto */}
+                            <p className="text-muted" style={{ fontSize: "0.8rem" }}>
+                                <TiempoSolicitud fecha={intercambio.fecha_inicio || intercambio.fecha} />
+                            </p>
+                        </div>
+                    </div>
                     <div className={styles.librosContainer}>
                         {renderLibro(librosOrdenados[0])}
                         <ArrowLeftRight className={styles.intercambioIcono} />
@@ -235,7 +282,6 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         {estadoUsuario === "seleccionado" && (
                             <>
                                 <div className={styles.divBotones}>
-                                    {esPropietario && <Boton texto="Ver Biblioteca" variant="default" onClick={() => abrirPopup(intercambio)} className={styles.botonVerBiblioteca} customClassName={true} />}
                                     <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
                                     <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario, "rechazado")} />
                                 </div>

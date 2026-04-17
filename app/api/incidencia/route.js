@@ -1,19 +1,12 @@
 import { db } from "@/lib/db";
-import nodemailer from "nodemailer";
+import { transporter } from "@/lib/mailer";
 
-// Configurar email
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASSWORD,
-    },
-});
+
 
 async function enviarEmailIncidencia(datos) {
     try {
         const mailOptions = {
-            from: process.env.GMAIL_USER,
+             from: `"LibroHubFlow" <${process.env.EMAIL_USER}>`,
             to: "librohubflow@gmail.com",
             subject: `Nueva Incidencia: ${datos.asunto}`,
             html: `
