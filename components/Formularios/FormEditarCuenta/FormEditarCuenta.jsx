@@ -202,26 +202,6 @@ export default function FormEditarCuenta() {
 
             <div className={`col-12 col-md-6`}>
                 <Input
-                    label="Contraseña:"
-                    tipo="password"
-                    nombre="password"
-                    value={form.password}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className={`col-12 col-md-6`}>
-                <Input
-                    label="Repetir Contraseña:"
-                    tipo="password"
-                    nombre="repPassword"
-                    value={form.repPassword}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className={`col-12 col-md-6`}>
-                <Input
                     label="Correo Electrónico:"
                     tipo="email"
                     nombre="email"
@@ -238,6 +218,26 @@ export default function FormEditarCuenta() {
                 {emailDisponible === true && (
                     <p style={{ color: "green" }}>Correo disponible</p>
                 )}
+            </div>
+
+            <div className={`col-12 col-md-6`}>
+                <Input
+                    label="Contraseña:"
+                    tipo="password"
+                    nombre="password"
+                    value={form.password}
+                    onChange={handleChange}
+                />
+            </div>
+
+            <div className={`col-12 col-md-6`}>
+                <Input
+                    label="Repetir Contraseña:"
+                    tipo="password"
+                    nombre="repPassword"
+                    value={form.repPassword}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
