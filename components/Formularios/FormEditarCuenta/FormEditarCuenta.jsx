@@ -15,7 +15,6 @@ export default function FormEditarCuenta() {
         const [nickDisponible, setNickDisponible] = useState(null);
         const [emailDisponible, setEmailDisponible] = useState(null);
         const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
-        const [poblacionSeleccionada, setPoblacionSeleccionada] = useState("");
     
         useEffect(() => {
             fetch("/api/provincias")
@@ -298,7 +297,7 @@ export default function FormEditarCuenta() {
                     </div>
 
                     <div className={`col-12 col-md-6 ${styles.botones}`}>
-                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio" size="small" />
+                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuario" size="small" />
                     </div>
                 </div>
             </div>
