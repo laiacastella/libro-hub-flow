@@ -10,7 +10,7 @@ import {
     EscribirTexto } from "@/components";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import useUsuario from "@/hooks/useUsuario";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,7 +20,7 @@ export default function PerfilUsuarioPropio() {
     const usuario = useUsuario();
     const [numLibros, setNumLibros] = useState(0);
     const numSolicitudes = 7;
-    const numIntercambios = 23;
+    const [numIntercambios, setNumItercambios] = useState(0);
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab");
 
@@ -35,6 +35,16 @@ export default function PerfilUsuarioPropio() {
     const colorLibros = colorTexto("biblioteca");
     const colorSolicitud = colorTexto("solicitudes");
     const colorValoracion = colorTexto("valoraciones");
+
+    useEffect(() => {
+        if (!usuario?.id_usuario) return;
+
+        fetch(`/api/intercambios/finalizados?user=${usuario.id_usuario}`)
+            .then(res => res.json())
+            .then(data => setNumItercambios(data.total))
+            .catch(() => setNumItercambios(0));
+
+    }, [usuario]);
 
     return (
         <main className={`container-fluid my-4 ${styles.fondo}`}>
@@ -60,7 +70,8 @@ export default function PerfilUsuarioPropio() {
                     <EscribirTexto texto={`${usuario?.codigo_postal}`} Tipo="h3" velocidad="30" />
                     <EscribirTexto texto={`${usuario?.telefono}`} Tipo="h3" velocidad="30" />
                     <div className="d-flex align-items-baseline gap-2">
-                        <Contador 
+                        <Contador
+                            key={`intercambios-${numIntercambios}`}
                             valorFinal={numIntercambios}
                             colorInicio="#407c42"
                             colorFin="#000000"
@@ -89,7 +100,7 @@ export default function PerfilUsuarioPropio() {
                         ${paginaActiva === "biblioteca" ? styles.activo : ""}`}
                         onClick={() => setPaginaActiva("biblioteca")}>
                             <h1><Contador 
-                                key={`libros-${paginaActiva}`}
+                                key={`libros-${paginaActiva}-${numLibros}`}
                                 valorFinal={numLibros}
                                 colorInicio={colorLibros.inicio}
                                 colorFin={colorLibros.fin}
@@ -124,8 +135,8 @@ export default function PerfilUsuarioPropio() {
                         onClick={() => setPaginaActiva("valoraciones")}>
                             <h1>
                                 <Contador
-                                    key={`valoraciones-${paginaActiva}`}
-                                    valorFinal={`${usuario?.puntuacion_promedio}`} 
+                                    key={`valoracion-${paginaActiva}-${usuario?.puntuacion_promedio}`}
+                                    valorFinal={usuario?.puntuacion_promedio ?? 0} 
                                     colorInicio={colorValoracion.inicio}
                                     colorFin={colorValoracion.fin}
                                     duracion="500"
@@ -140,8 +151,8 @@ export default function PerfilUsuarioPropio() {
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
                     {paginaActiva === "biblioteca" && <ComponenteBiblioteca 
-                        id_usuario={`${usuario?.id_usuario}`} 
-                        setNumLibros={setNumLibros}/>}
+                        id_usuario={usuario?.id_usuario} 
+                        setNumLibros={setNumLibros} />}
                     {paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones />}
                 </div>

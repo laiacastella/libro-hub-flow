@@ -25,7 +25,7 @@ export default function EditarCuenta() {
             <div className={styles.fondo}>
                 <div>
                     <h2 className={styles.titulo}>
-                        <Link href="perfilUsuarioPropio" >
+                        <Link href="perfilUsuario" >
                             <Undo2 size="30" color="#000000"/> 
                         </Link>
                         {" "}Mi información personal
@@ -39,7 +39,7 @@ export default function EditarCuenta() {
                             alt="perfil" 
                             width={200} 
                             height={200} 
-                            className="rounded-circle" 
+                            className={styles.fotoPerfil}
                             unoptimized 
                         />
                         <Boton type="button" onClick={abrirPopup} texto="Cambiar foto de perfil" size="small"/>

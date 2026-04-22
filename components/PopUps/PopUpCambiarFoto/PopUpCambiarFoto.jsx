@@ -106,9 +106,9 @@ const PopUpCambiarFoto = ({ cerrar }) => {
                 <Image 
                     src={usuario?.foto_perfil || "/perfilUsuario.svg"}
                     alt="perfil" 
-                    width={100} 
-                    height={100} 
-                    className="rounded-circle" 
+                    width={300}
+                    height={300} 
+                    className={styles.foto}
                     unoptimized 
                 />
 
