@@ -41,7 +41,7 @@ export default function Header() {
                 <div className={`collapse navbar-collapse`} id="menuPrincipal">
                     <ul className={`navbar-nav ms-auto ${styles.menu}`}>
                         <li className="nav-item">
-                            <Enlaces nomEnlace="Solicitudes" ruta="/perfilUsuarioPropio?tab=solicitudes" />
+                            <Enlaces nomEnlace="Solicitudes" ruta="/perfilUsuario?tab=solicitudes" />
                         </li>
 
                         <li className="nav-item">
