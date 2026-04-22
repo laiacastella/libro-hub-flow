@@ -26,23 +26,23 @@ export default function ComponenteBiblioteca({
     }, []);
 
     useEffect(() => {
-    const url = `/api/libros?page=${paginaActual}&limit=${librosPorPagina}&search=${filtro}${
-        id_usuario ? `&user=${id_usuario}` : ""
-    }`;
+        const url = `/api/libros?page=${paginaActual}&limit=${librosPorPagina}&search=${filtro}${
+            id_usuario ? `&user=${id_usuario}` : ""
+        }`;
 
-    fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("DATA:", data);
-            setLibros(data.data);
-            setTotalPaginas(data.totalPaginas);
-            if (setNumLibros && data.totalItems !== undefined) {
-                setNumLibros(data.totalItems);
-            }
-        })
-        .catch((err) => console.error("Error final:", err));
+        fetch(url)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("DATA:", data);
+                setLibros(data.data);
+                setTotalPaginas(data.totalPaginas);
+                if (setNumLibros && data.totalItems !== undefined) {
+                    setNumLibros(data.totalItems);
+                }
+            })
+            .catch((err) => console.error("Error final:", err));
 
-}, [paginaActual, filtro, id_usuario, librosPorPagina]);
+    }, [paginaActual, filtro, id_usuario, librosPorPagina]);
 
     console.log("texto búsqueda", filtro);
     return (
