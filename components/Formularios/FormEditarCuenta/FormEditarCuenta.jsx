@@ -147,7 +147,7 @@ export default function FormEditarCuenta() {
                     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioActualizado));
                     window.dispatchEvent(new Event("usuarioActualizado"));
 
-                    router.push("/perfilUsuarioPropio");
+                    router.push("/perfilUsuario");
                     router.refresh();
                 }
     

@@ -64,7 +64,7 @@ export async function POST(req) {
             `
             UPDATE usuarios
             SET puntuacion_promedio = (
-                SELECT ROUND(AVG(puntuacion), 2)
+                SELECT COALESCE(ROUND(AVG(puntuacion), 2), 0)
                 FROM valoraciones
                 WHERE id_usuario_evaluado = ?
             )

@@ -43,7 +43,7 @@ export async function POST(req) {
         );
 
         // 5. Link de reset
-        const resetLink = `http://localhost:3000/resetPassword?token=${token}`;
+        const resetLink = `https://libro-hub-flow.vercel.app/resetPassword?token=${token}`;
 
         // 6. Enviar email
         await transporter.sendMail({

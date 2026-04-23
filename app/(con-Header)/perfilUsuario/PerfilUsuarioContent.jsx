@@ -58,7 +58,7 @@ export default function PerfilUsuarioPropio() {
                         alt="perfil" 
                         width={200} 
                         height={200} 
-                        className="rounded-circle" 
+                        className={styles.fotoPerfil}
                         unoptimized 
                     />
                 </div>
