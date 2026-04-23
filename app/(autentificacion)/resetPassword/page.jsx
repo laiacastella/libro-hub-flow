@@ -1,12 +1,12 @@
 "use client";
 
 import { Suspense } from "react";
-import ResetPasswordContent from "./ResetPasswordContent";
+import resetPasswordContent from "./resetPasswordContent";
 
 export default function Page() {
     return (
         <Suspense fallback={<div>Cargando...</div>}>
-        <ResetPasswordContent />
+        <resetPasswordContent />
         </Suspense>
     );
 }
