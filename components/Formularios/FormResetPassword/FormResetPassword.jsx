@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input, Boton } from "@/components";
 import styles from "./FormResetPassword.module.css";
+import comprobarPassword from "@/hooks/comprobarPassword";
 
 const FormResetPassword = ({ token, onSuccess }) => {
     const [password_hash, setPassword] = useState("");
@@ -21,8 +22,10 @@ const FormResetPassword = ({ token, onSuccess }) => {
             return;
         }
 
-        if (password_hash !== repPassword) {
-            setError("Las contraseñas no coinciden");
+        const errorPassword = comprobarPassword(password_hash, repPassword);
+
+        if (errorPassword) {
+            setError(errorPassword);
             return;
         }
 
