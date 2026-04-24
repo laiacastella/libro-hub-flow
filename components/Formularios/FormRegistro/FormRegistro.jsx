@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserPlus } from "lucide-react";
 import Image from "next/image";
+import comprobarPassword from "@/hooks/comprobarPassword";
 
 const FormRegistro = () => {
 
@@ -147,13 +148,10 @@ const FormRegistro = () => {
             return;
         }
 
-        if (!form.repPassword) {
-            setMensaje("Tienes que introducir la misma Contraseña en Repetir contraseña");
-            return;
-        }
+        const errorPassword = comprobarPassword(form.password, form.repPassword);
 
-        if (form.password !== form.repPassword) {
-            setMensaje("Las contraseñas no coinciden");
+        if (errorPassword) {
+            setMensaje(errorPassword);
             return;
         }
 

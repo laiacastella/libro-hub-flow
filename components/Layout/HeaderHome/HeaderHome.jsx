@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Boton } from "@/components";
 import Image from "next/image";
 import styles from "./HeaderHome.module.css";
+import Link from "next/link";
 
 export default function HeaderHome() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -40,7 +41,9 @@ export default function HeaderHome() {
             <div className={styles.cabecera}>
                 <div className={styles.contenedorInterno}>
                     <div className={styles.logo}>
-                        <Image src="/logo-h1Blanco.svg" alt="Logo" width={120} height={40} />
+                        <Link href="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+                            <Image src="/logo-h1Blanco.svg" alt="Logo" width={120} height={40} />
+                        </Link>
                     </div>
                     <div className={styles.menu}>
                         <Boton type="button" texto="Iniciar sesión" enlace="inicioSesion" size={isMobile ? "small" : "medium"} />

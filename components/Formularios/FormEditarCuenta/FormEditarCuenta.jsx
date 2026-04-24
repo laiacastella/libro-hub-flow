@@ -15,7 +15,6 @@ export default function FormEditarCuenta() {
         const [nickDisponible, setNickDisponible] = useState(null);
         const [emailDisponible, setEmailDisponible] = useState(null);
         const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
-        const [poblacionSeleccionada, setPoblacionSeleccionada] = useState("");
     
         useEffect(() => {
             fetch("/api/provincias")
@@ -148,7 +147,7 @@ export default function FormEditarCuenta() {
                     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioActualizado));
                     window.dispatchEvent(new Event("usuarioActualizado"));
 
-                    router.push("/perfilUsuarioPropio");
+                    router.push("/perfilUsuario");
                     router.refresh();
                 }
     
@@ -202,26 +201,6 @@ export default function FormEditarCuenta() {
 
             <div className={`col-12 col-md-6`}>
                 <Input
-                    label="Contraseña:"
-                    tipo="password"
-                    nombre="password"
-                    value={form.password}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className={`col-12 col-md-6`}>
-                <Input
-                    label="Repetir Contraseña:"
-                    tipo="password"
-                    nombre="repPassword"
-                    value={form.repPassword}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className={`col-12 col-md-6`}>
-                <Input
                     label="Correo Electrónico:"
                     tipo="email"
                     nombre="email"
@@ -238,6 +217,26 @@ export default function FormEditarCuenta() {
                 {emailDisponible === true && (
                     <p style={{ color: "green" }}>Correo disponible</p>
                 )}
+            </div>
+
+            <div className={`col-12 col-md-6`}>
+                <Input
+                    label="Contraseña:"
+                    tipo="password"
+                    nombre="password"
+                    value={form.password}
+                    onChange={handleChange}
+                />
+            </div>
+
+            <div className={`col-12 col-md-6`}>
+                <Input
+                    label="Repetir Contraseña:"
+                    tipo="password"
+                    nombre="repPassword"
+                    value={form.repPassword}
+                    onChange={handleChange}
+                />
             </div>
 
             <div className={`col-12 col-md-6`}>
@@ -298,7 +297,7 @@ export default function FormEditarCuenta() {
                     </div>
 
                     <div className={`col-12 col-md-6 ${styles.botones}`}>
-                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuarioPropio" size="small" />
+                        <Boton type="button" texto="Cancelar" variant="red" enlace="perfilUsuario" size="small" />
                     </div>
                 </div>
             </div>

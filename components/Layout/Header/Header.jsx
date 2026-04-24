@@ -41,7 +41,7 @@ export default function Header() {
                 <div className={`collapse navbar-collapse`} id="menuPrincipal">
                     <ul className={`navbar-nav ms-auto ${styles.menu}`}>
                         <li className="nav-item">
-                            <Enlaces nomEnlace="Solicitudes" ruta="/perfilUsuarioPropio?tab=solicitudes" />
+                            <Enlaces nomEnlace="Solicitudes" ruta="/perfilUsuario?tab=solicitudes" />
                         </li>
 
                         <li className="nav-item">
@@ -51,22 +51,22 @@ export default function Header() {
                         <li>
                             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                 <div className="dropdown text-end">
-                                    <button className="d-inline-flex align-items-center gap-2 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                                    <div className="d-inline-flex align-items-center gap-2 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
                                         <Image 
                                             src={usuario?.foto_perfil || "/perfilUsuario.svg"}
                                             alt="perfil" 
-                                            width={40} 
-                                            height={40} 
-                                            className="rounded-circle" 
+                                            width={50} 
+                                            height={50} 
+                                            className={styles.fotoPerfil}
                                             unoptimized 
                                         />
                                         {" "}
                                         <Enlaces nomEnlace={`Hola, ${usuario?.nombre}`} ruta="" />
-                                    </button>
+                                    </div>
 
-                                    <ul className="dropdown-menu text-small">
+                                    <ul className="dropdown-menu dropdown-menu-end text-small">
                                         <li>
-                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta="/perfilUsuarioPropio" />
+                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta="/perfilUsuario" />
                                         </li>
 
                                         <li>
