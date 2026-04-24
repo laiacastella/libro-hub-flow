@@ -77,7 +77,8 @@ export async function POST(req) {
             return Response.json({ error: "Faltan datos" }, { status: 400 });
         }
 
-        const fecha = new Date().toISOString();
+        const ahora = new Date();
+        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" }); 
 
         const [result] = await db.query(
             `
@@ -97,7 +98,7 @@ export async function POST(req) {
                 id_libro_solicitado,
                 "solicitado",
                 "solicitado",
-                fecha
+                fechaEspana
             ]
         );
 
