@@ -7,12 +7,11 @@
 .selectorContainer {
     display: flex;
     width: 100%;
-    justify-content: center;
     margin-bottom: 2rem;
 }
 
 .selector {
-    width: 100%;
+    width:20%;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border: 2px solid #63a26c;
@@ -47,4 +46,13 @@
     align-items: center;
     width: 100%;
     padding: 20px;
+}
+.contenedorGeneral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
 }
