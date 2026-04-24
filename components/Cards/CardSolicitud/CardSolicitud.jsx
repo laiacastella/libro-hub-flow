@@ -216,7 +216,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                           },
                       ];
 
-                const textoCabeceraPropuesta = esSolicitante ? "Propuesta para:" : "Propuesta de:";
+                const textoCabeceraPropuesta = esSolicitante ? "Solicitud para:" : "Solicitud de:";
                 const usuarioCabeceraPropuesta = esSolicitante
                     ? intercambio.propietario_nick_usuario || intercambio.propietario_nombre || "Usuario"
                     : intercambio.solicitante_nick_usuario || intercambio.solicitante_nombre || "Usuario";
