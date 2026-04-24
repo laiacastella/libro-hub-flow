@@ -10,8 +10,7 @@ export default function ComponenteBiblioteca({
     mostrarDetalleInline = false,
     detalleInline = null,
     onSeleccionarLibro = null,
-    id_usuario,
-    setNumLibros
+    id_usuario
 }) {
     const [libros, setLibros] = useState([]);
     const [filtro, setFiltro] = useState("");
@@ -36,9 +35,6 @@ export default function ComponenteBiblioteca({
                 console.log("DATA:", data);
                 setLibros(data.data);
                 setTotalPaginas(data.totalPaginas);
-                if (setNumLibros && data.totalItems !== undefined) {
-                    setNumLibros(data.totalItems);
-                }
             })
             .catch((err) => console.error("Error final:", err));
 
