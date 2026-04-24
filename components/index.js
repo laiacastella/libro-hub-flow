@@ -42,7 +42,6 @@ export { default as FormResetPassword } from "./Formularios/FormResetPassword/Fo
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
 export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncidencia";
-export { default as PopUpCambiarFoto } from "./PopUps/PopUpCambiarFoto/PopUpCambiarFoto";
 export { default as PopUpValoracion } from "./PopUps/PopUpValoracion/PopUpValoracion";
 
 // Carrusel
