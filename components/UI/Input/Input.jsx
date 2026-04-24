@@ -5,7 +5,7 @@ import { Eye, EyeClosed } from "lucide-react";
 
 export default function Input({
     label,
-    tipo, // text, password, email, number, checkbox, radio, file, color, date, range, tel, url y search.
+    tipo, // text, textarea, password, email, number, checkbox, radio, file, color, date, range, tel, url y search.
     id, 
     nombre,
     maxLength,
