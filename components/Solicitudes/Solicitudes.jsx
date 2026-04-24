@@ -9,12 +9,12 @@ export default function Solicitudes() {
     const usuario = useUsuario();
 
     return (
-        <>
+        <div className={styles.contenedorGeneral}>
             <div className={styles.selectorContainer}>
                 <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.selector}>
                     <option value="todas">Todas</option>
                     <option value="recibidas">Recibidas</option>
-                    <option value="realizadas">Realizadas</option>
+                    <option value="realizadas">Enviadas</option>
                     <option value="historial">Historial</option>
                 </select>
             </div>
@@ -22,6 +22,6 @@ export default function Solicitudes() {
             <div className={styles.contenedorSolicitudes}>
                 <CardSolicitud filtro={filtro} idUsuario={usuario?.id_usuario} />
             </div>
-        </>
+        </div>
     );
 }

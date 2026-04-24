@@ -19,7 +19,7 @@ export default function PerfilUsuarioPropio() {
     
     const usuario = useUsuario();
     const [numLibros, setNumLibros] = useState(0);
-    const numSolicitudes = 7;
+    const [numSolicitudes, setNumSolicitudes] = useState(0);
     const [numIntercambios, setNumItercambios] = useState(0);
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab");
@@ -39,10 +39,21 @@ export default function PerfilUsuarioPropio() {
     useEffect(() => {
         if (!usuario?.id_usuario) return;
 
-        fetch(`/api/intercambios/finalizados?user=${usuario.id_usuario}`)
-            .then(res => res.json())
-            .then(data => setNumItercambios(data.total))
-            .catch(() => setNumItercambios(0));
+        Promise.all([
+            fetch(`/api/intercambios/finalizados?user=${usuario.id_usuario}`).then(r => r.json()),
+            fetch(`/api/intercambios?mode=count&user=${usuario.id_usuario}`).then(r => r.json()),
+            fetch(`/api/libros/count?user=${usuario.id_usuario}`).then(r => r.json())
+        ])
+        .then(([intercambiosData, solicitudesData, librosData]) => {
+            setNumItercambios(intercambiosData.total);
+            setNumSolicitudes(solicitudesData.total);
+            setNumLibros(librosData.total);
+        })
+        .catch(() => {
+            setNumItercambios(0);
+            setNumSolicitudes(0);
+            setNumLibros(0);
+        });
 
     }, [usuario]);
 
@@ -117,7 +128,7 @@ export default function PerfilUsuarioPropio() {
                         ${paginaActiva === "solicitudes" ? styles.activo : ""}`}
                         onClick={() => setPaginaActiva("solicitudes")}>
                             <h1><Contador 
-                                key={`solicitudes-${paginaActiva}`}
+                                key={`solicitudes-${paginaActiva}-${numSolicitudes}`}
                                 valorFinal={numSolicitudes}
                                 colorInicio={colorSolicitud.inicio}
                                 colorFin={colorSolicitud.fin}
@@ -151,8 +162,7 @@ export default function PerfilUsuarioPropio() {
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
                     {paginaActiva === "biblioteca" && <ComponenteBiblioteca 
-                        id_usuario={usuario?.id_usuario} 
-                        setNumLibros={setNumLibros} />}
+                        id_usuario={usuario?.id_usuario} />}
                     {paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones />}
                 </div>
