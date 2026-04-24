@@ -1,7 +1,27 @@
 import { db } from "@/lib/db";
 
-export async function GET() {
+export async function GET(req) {
     try {
+        const { searchParams } = new URL(req.url);
+        const user = searchParams.get("user");
+        const mode = searchParams.get("mode");
+
+        // Consulta para obtener el numero de solicitudes de intercambio
+        if (mode === "count" && user) {
+            const [rows] = await db.query(
+                `
+                SELECT COUNT(*) AS total
+                FROM intercambios
+                WHERE (id_usuario_envia = ? OR id_usuario_recibe = ?)
+                AND (estado_usuario_recibe IS NULL OR estado_usuario_recibe != 'eliminado')
+                AND (estado_usuario_envia IS NULL OR estado_usuario_envia != 'eliminado')
+                `,
+                [user, user]
+            );
+
+            return Response.json({ total: rows[0].total });
+        }
+
         // Consulta para obtener los intercambios, incluyendo información de los libros y usuarios relacionados
         const [rows] = await db.query(`
             SELECT
@@ -38,7 +58,7 @@ export async function GET() {
         return Response.json(rows);
     } catch (error) {
         console.error("DB ERROR:", error?.message);
-console.error(error);
+        console.error(error);
         return Response.json({ error: "Error BBDD" }, { status: 500 });
     }
 }
