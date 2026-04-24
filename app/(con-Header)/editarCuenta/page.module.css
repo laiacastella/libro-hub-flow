@@ -40,3 +40,22 @@ body {
 .form {
     margin: 20px;
 }
+
+.contenido {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 95%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+.previewContainer {
+    margin-top: 10px;
+    text-align: center;
+}
