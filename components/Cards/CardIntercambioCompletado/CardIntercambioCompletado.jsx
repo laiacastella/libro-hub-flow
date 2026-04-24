@@ -19,20 +19,20 @@ export default function CardIntercambioCompletado({ intercambio }) {
 
     return (
         <article className={styles.cardCompletada}>
-            <div className={styles.resumen}>
-                <div className={styles.estado}>
-                    <CheckCircle2 className={styles.iconoEstado} />
-                    <span>Intercambio completado</span>
-                </div>
-                <p className={styles.meta}>{intercambio?.libro_solicitado_titulo || "Libro"} solicitado por {solicitante} y cambiado por {intercambio?.libro_ofrecido_titulo || "otro libro"} de {propietario}</p>
-                {tiempo && <p className={styles.metaSec}>{tiempo}</p>}
-            </div>
+            
             <div className={styles.librosFila}>
                 <LibroIntercambio titulo={intercambio?.libro_solicitado_titulo} foto={intercambio?.libro_solicitado_foto} />
                 <ArrowLeftRight className={styles.iconoIntercambio} />
                 <LibroIntercambio titulo={intercambio?.libro_ofrecido_titulo} foto={intercambio?.libro_ofrecido_foto} />
             </div>
-
+<div className={styles.resumen}>
+                <div className={styles.estado}>
+                    <CheckCircle2 className={styles.iconoEstado} />
+                    <span>Intercambio completado</span>
+                </div>
+                <p className={styles.meta}><strong></strong>{intercambio?.libro_solicitado_titulo || "Libro"} solicitado por {solicitante} y cambiado por {intercambio?.libro_ofrecido_titulo || "otro libro"} de {propietario}</p>
+                {tiempo && <p className={styles.metaSec}>{tiempo}</p>}
+            </div>
         </article>
     );
 }
