@@ -7,12 +7,42 @@
     aspect-ratio: 7 / 8;
     min-height: 380px;
     padding: clamp(12px, 2vw, 20px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px #52925c93;;
     text-align: center;
     display: grid;
     grid-template-rows: minmax(0, 72%) auto;
     align-items: center;
     gap: 15px;
+}
+
+.estadoVacio {
+    width: min(100%, 520px);
+    min-height: 180px;
+    margin: 0 auto;
+    padding: clamp(16px, 2.2vw, 24px);
+    border-radius: 12px;
+    border: 1px dashed #63a26c;
+    background: linear-gradient(145deg, #f7fcf8 0%, #edf7ef 100%);
+    box-shadow: 0px 4px 12px rgba(82, 146, 92, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.estadoVacioTitulo {
+    margin: 0;
+    font-size: clamp(1.05rem, 1vw + 0.8rem, 1.35rem);
+    color: #2f5f36;
+    font-weight: 700;
+}
+
+.estadoVacioTexto {
+    margin: 0;
+    font-size: clamp(0.92rem, 0.5vw + 0.78rem, 1.02rem);
+    line-height: 1.45;
+    color: #3f4e42;
 }
 .propuestaUsuario {
     color: #3f3f3f;
@@ -302,6 +332,10 @@
 @media (max-width: 768px) {
     .solicitudCard {
         min-height: 340px;
+    }
+
+    .estadoVacio {
+        min-height: 160px;
     }
 }
 

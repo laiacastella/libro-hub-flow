@@ -147,8 +147,36 @@ export default function CardSolicitud({ filtro = "todas" }) {
     const esPopupBibliotecaAbierto = popupActivo === "biblioteca" && Boolean(intercambioActivo);
     const esPopupValoracionAbierto = popupActivo === "valoracion" && Boolean(intercambioActivo);
 
+    const mensajesEstadoVacio = {
+        recibidas: {
+            titulo: "Sin propuestas en bandeja",
+            texto: "Cuando alguien quiera intercambiar contigo, su solicitud aparecera aqui.",
+        },
+        realizadas: {
+            titulo: "Aun no has lanzado propuestas",
+            texto: "Explora otras bibliotecas y envia una solicitud para empezar tu proximo intercambio.",
+        },
+        historial: {
+            titulo: "Tu historial esta por estrenarse",
+            texto: "En cuanto cierres un intercambio, quedara guardado en este apartado.",
+        },
+        todas: {
+            titulo: "Todo despejado por ahora",
+            texto: "No hay movimientos activos en solicitudes. Es un buen momento para buscar un nuevo libro.",
+        },
+    };
+
+    const mensajeEstadoVacio = mensajesEstadoVacio[filtro] || mensajesEstadoVacio.todas;
+    const mostrarEstadoVacio = Boolean(idUsuarioActual) && intercambiosFiltrados.length === 0;
+
     return (
         <>
+            {mostrarEstadoVacio && (
+                <div className={styles.estadoVacio}>
+                    <h3 className={styles.estadoVacioTitulo}>{mensajeEstadoVacio.titulo}</h3>
+                    <p className={styles.estadoVacioTexto}>{mensajeEstadoVacio.texto}</p>
+                </div>
+            )}
             {intercambiosFiltrados.map((intercambio) => {
                 const { esPropietario, esSolicitante } = obtenerTipoUsuarioIntercambio(intercambio);
                 const estadoUsuario = obtenerEstadoUsuario(intercambio, esPropietario, esSolicitante);
@@ -187,6 +215,11 @@ export default function CardSolicitud({ filtro = "todas" }) {
                               textoPendiente: "Selecciona un libro",
                           },
                       ];
+
+                const textoCabeceraPropuesta = esSolicitante ? "Propuesta para:" : "Propuesta de:";
+                const usuarioCabeceraPropuesta = esSolicitante
+                    ? intercambio.propietario_nick_usuario || intercambio.propietario_nombre || "Usuario"
+                    : intercambio.solicitante_nick_usuario || intercambio.solicitante_nombre || "Usuario";
 
                 const renderLibro = (libro) => {
                     if (libro.titulo) {
@@ -248,7 +281,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                 return (
                 <div key={intercambio.id_intercambio} className={styles.solicitudCard}>
                     <div className={styles.propuestaUsuario}>
-                        <p><strong>Propuesta de:</strong> {intercambio.solicitante_nick_usuario || intercambio.solicitante_nombre || "Usuario"}</p>
+                        <p><strong>{textoCabeceraPropuesta}</strong> {usuarioCabeceraPropuesta}</p>
                         <div>
                             {/* hace cuanto */}
                             <p className="text-muted" style={{ fontSize: "0.8rem" }}>
