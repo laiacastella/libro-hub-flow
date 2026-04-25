@@ -67,45 +67,47 @@ export async function GET(req) {
 // Creación de la solicitud
 export async function POST(req) {
     try {
-        // recibe el id del usuario solicitante, el id del usuario propietario y el id del libro solicitado
         const {
             id_usuario_envia,
             id_usuario_recibe,
-            id_libro_solicitado,
+            id_libro_solicitado
         } = await req.json();
 
-        const usuarioEnvia = id_usuario_envia;
-        const usuarioRecibe = id_usuario_recibe;
-
-        if (!usuarioEnvia || !usuarioRecibe || !id_libro_solicitado) {
+        if (!id_usuario_envia || !id_usuario_recibe || !id_libro_solicitado) {
             return Response.json({ error: "Faltan datos" }, { status: 400 });
         }
 
-        const [result] = await db.query(
-  `
-  INSERT INTO intercambios (
-    id_usuario_envia,
-    id_usuario_recibe,
-    id_libro_solicitado,
-    estado_usuario_recibe,
-    estado_usuario_envia,
-    fecha_inicio
-  )
-  VALUES (?, ?, ?, ?, ?, NOW())
-  `,
-  [
-        usuarioEnvia,
-        usuarioRecibe,
-    id_libro_solicitado,
-    "solicitado",
-    "solicitado"
-  ]
-);
+        const ahora = new Date();
+        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" }); 
 
-        return Response.json({ id: result.insertId, message: "Intercambio creado" }, { status: 201 });
+        const [result] = await db.query(
+            `
+            INSERT INTO intercambios (
+                id_usuario_envia,
+                id_usuario_recibe,
+                id_libro_solicitado,
+                estado_usuario_recibe,
+                estado_usuario_envia,
+                fecha_inicio
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            `,
+            [
+                id_usuario_envia,
+                id_usuario_recibe,
+                id_libro_solicitado,
+                "solicitado",
+                "solicitado",
+                fechaEspana
+            ]
+        );
+
+        return Response.json(
+            { id: result.insertId, message: "Intercambio creado" },
+            { status: 201 }
+        );
     } catch (error) {
         console.error("DB ERROR:", error?.message);
-        console.error(error);
         return Response.json({ error: "Error BBDD" }, { status: 500 });
     }
 }
