@@ -1,0 +1,10 @@
+.contenedorMain {
+    background-image: url("../../../public/subirForm.jpg");
+    background-size: contain;
+    background-position: center;
+  
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

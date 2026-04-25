@@ -1,0 +1,24 @@
+.textarea {
+  
+    background-color: rgb(244, 244, 243);
+    width: 100%;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit; 
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    
+    
+    resize: vertical; 
+    min-height: 100px;
+    transition: all 0.3s ease;
+}
+
+.textarea:focus { 
+    border-color: #63A26C; 
+    box-shadow: 0 0 5px rgba(99, 162, 108, 0.3);
+    outline: none;
+    
+}

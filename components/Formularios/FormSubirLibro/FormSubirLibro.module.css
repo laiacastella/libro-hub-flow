@@ -1,0 +1,44 @@
+.formContenedor{
+    background-color: rgba(255, 255, 255, 0.75); 
+    backdrop-filter: blur(12px) brightness(1.2);
+   
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    
+    /* --- DIMENSIONES Y POSICIÓN --- */
+    width: 60%;            
+    box-sizing: border-box;
+    padding: 1.5rem;
+    margin: 4.6rem auto;
+    
+    /* --- COMPORTAMIENTO --- */
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.contenedorMain {
+    box-sizing: border-box;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: row; 
+    gap: 2.5rem;           
+    align-items: center;
+
+    width: 100%;  
+    margin: 0 auto;
+}
+
+.columnaPortada :global(.container) { 
+    height: 100%;       
+    width: 100%;
+}
+
+.columnaCampos {       
+    display: flex;
+    width: 25rem;
+    flex-direction: column;
+    gap: 0.8rem;
+}

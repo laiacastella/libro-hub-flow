@@ -1,4 +1,5 @@
 import React from 'react';
+import Styles from './AreaTexto.module.css'
 
 const AreaTexto = ({ name, placeholder, value, onChange, rows = 4, required = false }) => {
   return (
@@ -9,7 +10,7 @@ const AreaTexto = ({ name, placeholder, value, onChange, rows = 4, required = fa
       onChange={onChange}
       rows={rows} 
       required={required}
-      
+      className={Styles.textarea}
     />
   );
 };

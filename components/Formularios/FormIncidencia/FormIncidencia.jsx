@@ -17,7 +17,7 @@ export default function FormIncidencia({ onClose }) {
     const [formData, setFormData] = useState({
         nombreCompleto: "",
         correoElectronico: "",
-        tipoIncidencia: "Error Técnico (Bug)",
+        tipoIncidencia: "",
         telefono: "",
         asunto: "",
         descripcion: "",
@@ -115,7 +115,7 @@ export default function FormIncidencia({ onClose }) {
             setFormData({
                 nombreCompleto: "",
                 correoElectronico: "",
-                tipoIncidencia: "Error Técnico (Bug)",
+                tipoIncidencia: "",
                 telefono: "",
                 asunto: "",
                 descripcion: "",

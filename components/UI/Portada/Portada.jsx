@@ -1,10 +1,19 @@
 import React, { useState, useRef } from 'react';
 import styles from './Portada.module.css';
+import { useEffect } from 'react';
+import { ImagePlus } from 'lucide-react';
 
-const Portada = ({ name, onChange, setSubiendoPadre }) => {
+const Portada = ({ name, value, onChange, setSubiendoPadre }) => {
   const [preview, setPreview] = useState(null);
   const [subiendoInterno, setSubiendoInterno] = useState(false); 
   const fileInputRef = useRef(null);
+
+ useEffect(() => {
+    // Si el valor que viene del formulario es null, limpiamos la vista previa
+    if (value === null) {
+      setPreview(null);
+    }
+  }, [value]);
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -46,7 +55,7 @@ const Portada = ({ name, onChange, setSubiendoPadre }) => {
 
   return (
    
-    <div className={styles.container} onClick={() => fileInputRef.current.click()}>
+    <div className={styles.container} onClick={() => !subiendoInterno && fileInputRef.current.click()}>
       <input 
         type="file" 
         ref={fileInputRef} 
@@ -61,7 +70,11 @@ const Portada = ({ name, onChange, setSubiendoPadre }) => {
       {preview ? (
         <img src={preview} className={styles.preview} alt="Portada" />
       ) : (
-        <span className={styles.icon}>⊕</span>
+        <div className={styles.placeholder}>
+          <ImagePlus className={styles.icon} size={48} strokeWidth={1.5} />
+          <p className={styles.text}> Añadir Portada </p>
+          <p className={styles.text}> PNG o JPG hasta 10MB</p>
+        </div>
       )}
     </div>
   );
