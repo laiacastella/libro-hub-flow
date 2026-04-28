@@ -10,11 +10,11 @@ Ejemplo:
 <div align="center">
 ```text
 feat/solicitudes/anadir-fecha-solicitud
-        ↓
+↓
 develop
-        ↓
+↓
 staging
-        ↓
+↓
 main
 ```
 </div>
