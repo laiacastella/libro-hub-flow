@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Libro Hub Flow
 
-## Getting Started
+Proyecto web construido con Next.js y una documentación adicional en MkDocs.
 
-First, run the development server:
+## Descripción
+
+`libro-hub-flow` es una aplicación de biblioteca/intercambio de libros que combina:
+
+- Frontend con `Next.js` y `React`
+- Estilos con Bootstrap y CSS modules
+- Autenticación y lógica de usuario
+- APIs internas gestionadas desde `app/api`
+- Documentación técnica en `docs/` usando MkDocs Material
+
+## Tecnologías principales
+
+- `next` 16.x
+- `react` 19.x
+- `bootstrap` 5
+- `tailwindcss` 4
+- `mysql2`
+- `bcryptjs`
+- `nodemailer`
+- `firebase`
+- `mkdocs` + `mkdocs-material`
+
+## Scripts disponibles
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
+
+- `npm run dev`: ejecuta el servidor de desarrollo de Next.js.
+- `npm run build`: genera la aplicación para producción.
+- `npm run start`: inicia la aplicación ya compilada.
+- `npm run lint`: ejecuta ESLint sobre el código.
+
+## Desarrollo local
+
+1. Instala dependencias:
+
+```bash
+npm install
+```
+
+2. Arranca el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Abre el navegador en:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Edita archivos en `app/` y `components/`.
 
-## Learn More
+## Documentación con MkDocs
 
-To learn more about Next.js, take a look at the following resources:
+La documentación del proyecto se encuentra en la carpeta `docs/` y se configura con `mkdocs.yml`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Ejecutar el sitio de docs localmente
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Si no tienes MkDocs instalado, instálalo con Python:
 
-## Deploy on Vercel
+```bash
+python -m pip install mkdocs mkdocs-material
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Luego ejecuta:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+python -m mkdocs serve
+```
+
+El sitio quedará disponible en:
+
+```text
+http://127.0.0.1:8000
+```
+
+### Construir la documentación estática
+
+```bash
+mkdocs build
+```
+
+## Estructura relevante
+
+- `app/`: rutas y páginas de la aplicación Next.js.
+- `components/`: componentes reutilizables.
+- `docs/`: contenido de la documentación MkDocs.
+- `lib/`: utilidades del backend, como base de datos y correo.
+- `public/`: activos estáticos.
+
+## Navegación de la documentación
+
+El menú de `mkdocs.yml` incluye:
+
+- `Inicio`
+- `API > Intercambios`
+- La documentación del flujo de trabajo y ramas
+
+## Notas adicionales
+
+- Esta rama actual es `develop`.
+- Para ramas de trabajo se recomienda usar la convención `tipo/donde/breve-nombre-descriptivo`.
+- No hacer push directo a `main`.
+
