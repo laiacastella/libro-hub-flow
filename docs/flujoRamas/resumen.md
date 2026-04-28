@@ -13,6 +13,8 @@ Además, el trabajo se organiza mediante ramas de tipo `feat/*`, `fix/*`, etc., 
 
 El objetivo de este flujo es trabajar en equipo sin interferir entre cambios, detectar errores antes de producción y mantener siempre una versión estable del proyecto.
 
+---
+
 # ✅ Resumen rápido
 
 * Día a día
