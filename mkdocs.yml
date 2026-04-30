@@ -5,10 +5,18 @@ theme:
 
 nav:
   - Inicio: index.md
+  - ¿Cómo trabajar con ramas?:
+      - Resumen: flujoRamas/resumen.md
+      - Convención de nombres de ramas: flujoRamas/convenciónNombreRamas.md
+      - Estructura de ramas: flujoRamas/estructuraRamas.md
+      - Flujo de ramas: flujoRamas/flujoramas.md
+      - Flujo de trabajo: flujoRamas/flujoTrabajo.md
+      - Normas recomendadas: flujoRamas/normasRecomentadas.md
+      - Paso a staging/main: flujoRamas/pasoStagingMain.md
   - API:
-    - Intercambios:
-      - Resumen: api/intercambios/intercambios.md
-      - Libro: api/intercambios/libro.md
-      - Estado:
-        - Individual: api/intercambios/estado/individual.md
-        - Comun: api/intercambios/estado/comun.md
+      - Intercambios:
+          - Resumen: api/intercambios/intercambios.md
+          - Libro: api/intercambios/libro.md
+          - Estado:
+              - Individual: api/intercambios/estado/individual.md
+              - Comun: api/intercambios/estado/comun.md

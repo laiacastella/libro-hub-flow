@@ -1,12 +1,13 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import FormSubirLibro from '../../(autentificacion)/componentesForm/FormSubirLibro/FormSubirLibro';
+import FormSubirLibro from '../../../components/Formularios/FormSubirLibro/FormSubirLibro';
+import styles from './pageSubirL.module.css'
 
 export default function Subirlibro () {
     const router = useRouter();
 return (
-    <main>
+    <main className = {styles.contenedorMain}>
 
         <FormSubirLibro />
         

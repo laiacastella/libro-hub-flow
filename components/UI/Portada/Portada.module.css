@@ -1,0 +1,69 @@
+.container {
+  width: 22rem;
+  height: 30rem;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.text {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+/* Al poner el puntero (hover), el borde y el icono cambian a verde */
+.container:hover {
+  border-color: #4CAF50;
+
+}
+
+.container:hover .icon,
+.container:hover .text {
+  color: #4CAF50;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.loader {
+  position: absolute;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #4CAF50;
+  font-weight: bold;
+}
