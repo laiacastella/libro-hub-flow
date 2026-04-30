@@ -3,15 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+
+  "start:staging": "env-cmd -f .env.staging next start",
+  "build:staging": "env-cmd -f .env.staging next build",
+
+  "lint": "eslint"
+},
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
     "dotenv": "^17.2.4",
+    "env-cmd": "^11.0.0",
     "firebase": "^12.8.0",
     "html-minifier-terser": "^7.2.0",
     "lucide-react": "^0.575.0",
