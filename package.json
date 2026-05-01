@@ -9,6 +9,7 @@
 
   "start:staging": "env-cmd -f .env.staging next start",
   "build:staging": "env-cmd -f .env.staging next build",
+  "dev:staging": "env-cmd -f .env.staging next dev",
 
   "lint": "eslint"
 },
