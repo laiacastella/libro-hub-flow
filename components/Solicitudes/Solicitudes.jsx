@@ -19,6 +19,10 @@ export default function Solicitudes() {
                 </select>
             </div>
 
+            <div>
+                Hola!
+            </div>
+
             <div className={styles.contenedorSolicitudes}>
                 <CardSolicitud filtro={filtro} idUsuario={usuario?.id_usuario} />
             </div>
