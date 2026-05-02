@@ -4,9 +4,19 @@ export async function GET(request, { params }) {
     try {
         const { id } = await params; 
 
-        // Consultamos solo los datos que necesitamos mostrar en la card
+        // Modificamos la consulta para incluir todos los campos necesarios
         const [rows] = await db.query(
-            "SELECT nick_usuario, nombre, foto_perfil FROM usuarios WHERE id_usuario = ?", 
+            `SELECT 
+                nick_usuario,
+                nombre,
+                apellidos,
+                poblacion, 
+                provincia, 
+                codigo_postal,
+                puntuacion_promedio, 
+                foto_perfil 
+             FROM usuarios 
+             WHERE id_usuario = ?`, 
             [id]
         );
 

@@ -66,7 +66,7 @@ export default function Header() {
 
                                     <ul className="dropdown-menu dropdown-menu-end text-small">
                                         <li>
-                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta="/perfilUsuario" />
+                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta={`/perfilUsuario?id=${usuario.id_usuario}`} />
                                         </li>
 
                                         <li>

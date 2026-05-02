@@ -15,16 +15,22 @@ import styles from "./page.module.css";
 import useUsuario from "@/hooks/useUsuario";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function PerfilUsuarioPropio() {
+export default function PerfilUsuario() {
     
-    const usuario = useUsuario();
+    const usuarioLogueado = useUsuario();
+    const searchParams = useSearchParams();
+    const targetId = searchParams.get("id");
+    
+    const [usuarioMostrado, setUsuarioMostrado] = useState(null);
+    const [isMismoUsuario, setIsMismoUsuario] = useState(true);
+
     const [numLibros, setNumLibros] = useState(0);
     const [numSolicitudes, setNumSolicitudes] = useState(0);
-    const [numIntercambios, setNumItercambios] = useState(0);
-    const searchParams = useSearchParams();
+    const [numIntercambios, setNumIntercambios] = useState(0);
+    
     const tab = searchParams.get("tab");
-
     const [paginaActiva, setPaginaActiva] = useState(tab || "biblioteca");
+    
     const esActivo = (tab) => paginaActiva === tab;
 
     const colorTexto = (tab) =>
@@ -36,36 +42,62 @@ export default function PerfilUsuarioPropio() {
     const colorSolicitud = colorTexto("solicitudes");
     const colorValoracion = colorTexto("valoraciones");
 
+    // Efecto para determinar el perfil del usuario que se muestra
     useEffect(() => {
-        if (!usuario?.id_usuario) return;
+        if (!usuarioLogueado?.id_usuario) return;
+
+        if (!targetId || Number(targetId) === Number(usuarioLogueado.id_usuario)) {
+            setIsMismoUsuario(true);
+            setUsuarioMostrado(usuarioLogueado);
+        } else {
+            setIsMismoUsuario(false);
+            // Si visitas otro perfil, obtenemos sus datos
+            fetch(`/api/usuarios/${targetId}`)
+                .then(r => r.json())
+                .then(data => setUsuarioMostrado(data))
+                .catch(() => setUsuarioMostrado(null));
+        }
+    }, [usuarioLogueado, targetId]);
+
+    // Efecto para cargar los contadores de datos dependiendo del ID activo
+    useEffect(() => {
+        if (!usuarioLogueado?.id_usuario) return;
+
+        const idActual = isMismoUsuario ? usuarioLogueado.id_usuario : targetId;
+        
+        if (!idActual) return;
 
         Promise.all([
-            fetch(`/api/intercambios/finalizados?user=${usuario.id_usuario}`).then(r => r.json()),
-            fetch(`/api/intercambios?mode=count&user=${usuario.id_usuario}`).then(r => r.json()),
-            fetch(`/api/libros/count?user=${usuario.id_usuario}`).then(r => r.json())
+            fetch(`/api/intercambios/finalizados?user=${idActual}`).then(r => r.json()),
+            fetch(`/api/intercambios?mode=count&user=${idActual}`).then(r => r.json()),
+            fetch(`/api/libros/count?user=${idActual}`).then(r => r.json())
         ])
         .then(([intercambiosData, solicitudesData, librosData]) => {
-            setNumItercambios(intercambiosData.total);
+            setNumIntercambios(intercambiosData.total);
             setNumSolicitudes(solicitudesData.total);
             setNumLibros(librosData.total);
         })
         .catch(() => {
-            setNumItercambios(0);
+            setNumIntercambios(0);
             setNumSolicitudes(0);
             setNumLibros(0);
         });
 
-    }, [usuario]);
+    }, [isMismoUsuario, usuarioLogueado, targetId]);
+
+    // Mostrar un estado de carga mientras se obtienen los datos del usuario a mostrar
+    if (!usuarioMostrado) {
+        return <div className="text-center my-5">Cargando perfil...</div>;
+    }
 
     return (
         <main className={`container-fluid my-4 ${styles.fondo}`}>
-
 
             <div className={`row align-items-center ${styles.perfil}`}>
 
                 <div className={`col-12 col-md-3 text-center ${styles.foto}`}>
                     <Image 
-                        src={usuario?.foto_perfil || "/perfilUsuario.svg"}
+                        src={usuarioMostrado?.foto_perfil || "/perfilUsuario.svg"}
                         alt="perfil" 
                         width={200} 
                         height={200} 
@@ -75,11 +107,11 @@ export default function PerfilUsuarioPropio() {
                 </div>
 
                 <div className={`col-12 col-md-7 ${styles.datos}`}>
-                    <EscribirTexto texto={`${usuario?.nombre} ${usuario?.apellidos} (${usuario?.nick_usuario})`} Tipo="h2" velocidad="30" />
-                    <EscribirTexto texto={`${usuario?.email}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`${usuario?.poblacion}, ${usuario?.provincia}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`${usuario?.codigo_postal}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`${usuario?.telefono}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuarioMostrado?.nombre} ${usuarioMostrado?.apellidos} (${usuarioMostrado?.nick_usuario})`} Tipo="h2" velocidad="30" />
+                    <EscribirTexto texto={`${usuarioMostrado?.email}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuarioMostrado?.poblacion}, ${usuarioMostrado?.provincia}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuarioMostrado?.codigo_postal}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuarioMostrado?.telefono}`} Tipo="h3" velocidad="30" />
                     <div className="d-flex align-items-baseline gap-2">
                         <Contador
                             key={`intercambios-${numIntercambios}`}
@@ -96,9 +128,12 @@ export default function PerfilUsuarioPropio() {
                     </div>
                 </div>
 
-                <div className={`col-12 col-md-2 ${styles.editarDatos}`}>
-                    <Boton type="button" texto="Editar datos de la cuenta" enlace="editarCuenta" />
-                </div>
+                {/* Mostrar botón de editar solo si estamos en el propio perfil */}
+                {isMismoUsuario && (
+                    <div className={`col-12 col-md-2 ${styles.editarDatos}`}>
+                        <Boton type="button" texto="Editar datos de la cuenta" enlace="editarCuenta" />
+                    </div>
+                )}
 
             </div>
 
@@ -110,23 +145,25 @@ export default function PerfilUsuarioPropio() {
                         className={`${styles.paginas}
                         ${paginaActiva === "biblioteca" ? styles.activo : ""}`}
                         onClick={() => setPaginaActiva("biblioteca")}>
-                            <h1><Contador 
-                                key={`libros-${paginaActiva}-${numLibros}`}
-                                valorFinal={numLibros}
-                                colorInicio={colorLibros.inicio}
-                                colorFin={colorLibros.fin}
-                                duracion="500"
-                            /></h1>
-                            <h2>Libros disponibles</h2>
+                        <h1><Contador 
+                            key={`libros-${paginaActiva}-${numLibros}`}
+                            valorFinal={numLibros}
+                            colorInicio={colorLibros.inicio}
+                            colorFin={colorLibros.fin}
+                            duracion="500"
+                        /></h1>
+                        <h2>Libros disponibles</h2>
                     </div>
                 </div>
 
-                <div className="col-12 col-md-4 mb-2">
-                    <div
-                        tabIndex={0}
-                        className={`${styles.paginas}
-                        ${paginaActiva === "solicitudes" ? styles.activo : ""}`}
-                        onClick={() => setPaginaActiva("solicitudes")}>
+                {/* Mostrar pestaña de solicitudes solo si estamos en el propio perfil */}
+                {isMismoUsuario && (
+                    <div className="col-12 col-md-4 mb-2">
+                        <div
+                            tabIndex={0}
+                            className={`${styles.paginas}
+                            ${paginaActiva === "solicitudes" ? styles.activo : ""}`}
+                            onClick={() => setPaginaActiva("solicitudes")}>
                             <h1><Contador 
                                 key={`solicitudes-${paginaActiva}-${numSolicitudes}`}
                                 valorFinal={numSolicitudes}
@@ -135,8 +172,9 @@ export default function PerfilUsuarioPropio() {
                                 duracion="500"
                             /></h1>
                             <h2>Solicitudes de intercambio</h2>
+                        </div>
                     </div>
-                </div>
+                )}
 
                 <div className="col-12 col-md-4 mb-2">
                     <div
@@ -144,26 +182,27 @@ export default function PerfilUsuarioPropio() {
                         className={`${styles.paginas}
                         ${paginaActiva === "valoraciones" ? styles.activo : ""}`}
                         onClick={() => setPaginaActiva("valoraciones")}>
-                            <h1>
-                                <Contador
-                                    key={`valoracion-${paginaActiva}-${usuario?.puntuacion_promedio}`}
-                                    valorFinal={usuario?.puntuacion_promedio ?? 0} 
-                                    colorInicio={colorValoracion.inicio}
-                                    colorFin={colorValoracion.fin}
-                                    duracion="500"
-                                />
-                                <Estrellas valoracion={`${usuario?.puntuacion_promedio}`} />
-                            </h1>
-                            <h2>Valoración media</h2>
+                        <h1>
+                            <Contador
+                                key={`valoracion-${paginaActiva}-${usuarioMostrado?.puntuacion_promedio}`}
+                                valorFinal={usuarioMostrado?.puntuacion_promedio ?? 0} 
+                                colorInicio={colorValoracion.inicio}
+                                colorFin={colorValoracion.fin}
+                                duracion="500"
+                            />
+                            <Estrellas valoracion={`${usuarioMostrado?.puntuacion_promedio}`} />
+                        </h1>
+                        <h2>Valoración media</h2>
                     </div>
                 </div>
             </div>
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
+                    {/* Para el componente de biblioteca, mandamos el id_usuario correspondiente */}
                     {paginaActiva === "biblioteca" && <ComponenteBiblioteca 
-                        id_usuario={usuario?.id_usuario} />}
-                    {paginaActiva === "solicitudes" && <Solicitudes />}
+                        id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} />}
+                    {isMismoUsuario && paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones />}
                 </div>
             </div>
