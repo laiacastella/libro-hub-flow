@@ -46,17 +46,15 @@ export default function PerfilUsuario() {
     useEffect(() => {
         if (!usuarioLogueado?.id_usuario) return;
 
-        if (!targetId || Number(targetId) === Number(usuarioLogueado.id_usuario)) {
-            setIsMismoUsuario(true);
-            setUsuarioMostrado(usuarioLogueado);
-        } else {
-            setIsMismoUsuario(false);
-            // Si visitas otro perfil, obtenemos sus datos
-            fetch(`/api/usuarios/${targetId}`)
-                .then(r => r.json())
-                .then(data => setUsuarioMostrado(data))
-                .catch(() => setUsuarioMostrado(null));
-        }
+        const idActual = targetId || usuarioLogueado.id_usuario;
+
+        fetch(`/api/usuarios/${idActual}`)
+            .then(r => r.json())
+            .then(data => {
+                setUsuarioMostrado(data);
+                setIsMismoUsuario(Number(idActual) === Number(usuarioLogueado.id_usuario));
+            })
+            .catch(() => setUsuarioMostrado(null));
     }, [usuarioLogueado, targetId]);
 
     // Efecto para cargar los contadores de datos dependiendo del ID activo
@@ -107,11 +105,33 @@ export default function PerfilUsuario() {
                 </div>
 
                 <div className={`col-12 col-md-7 ${styles.datos}`}>
-                    <EscribirTexto texto={`${usuarioMostrado?.nombre} ${usuarioMostrado?.apellidos} (${usuarioMostrado?.nick_usuario})`} Tipo="h2" velocidad="30" />
-                    <EscribirTexto texto={`${usuarioMostrado?.email}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`${usuarioMostrado?.poblacion}, ${usuarioMostrado?.provincia}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`${usuarioMostrado?.codigo_postal}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`${usuarioMostrado?.telefono}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto
+                        texto={`${usuarioMostrado?.nombre || ''} ${usuarioMostrado?.apellidos || ''} (${usuarioMostrado?.nick_usuario || ''})`} 
+                        Tipo="h2" 
+                        velocidad="30" 
+                    />
+                    
+                    {/* Ocultar email si no es el mismo usuario */}
+                    {isMismoUsuario && (
+                        <EscribirTexto texto={usuarioMostrado?.email} Tipo="h3" velocidad="30" />
+                    )}
+                    
+                    <EscribirTexto
+                        texto={`${usuarioMostrado?.poblacion || ''}, ${usuarioMostrado?.provincia || ''}`} 
+                        Tipo="h3" 
+                        velocidad="30" 
+                    />
+                    <EscribirTexto
+                        texto={usuarioMostrado?.codigo_postal} 
+                        Tipo="h3" 
+                        velocidad="30" 
+                    />
+                    
+                    {/* Ocultar teléfono si no es el mismo usuario */}
+                    {isMismoUsuario && (
+                        <EscribirTexto texto={usuarioMostrado?.telefono} Tipo="h3" velocidad="30" />
+                    )}
+                    
                     <div className="d-flex align-items-baseline gap-2">
                         <Contador
                             key={`intercambios-${numIntercambios}`}
@@ -139,7 +159,7 @@ export default function PerfilUsuario() {
 
             <div className={`row text-center ${styles.navegacion}`}>
 
-                <div className="col-12 col-md-4 mb-2">        
+                <div className={`col-12 ${isMismoUsuario ? "col-md-4" : "col-md-6"} mb-2`}>        
                     <div
                         tabIndex={0}
                         className={`${styles.paginas}
@@ -176,7 +196,7 @@ export default function PerfilUsuario() {
                     </div>
                 )}
 
-                <div className="col-12 col-md-4 mb-2">
+                <div className={`col-12 ${isMismoUsuario ? "col-md-4" : "col-md-6"} mb-2`}>
                     <div
                         tabIndex={0}
                         className={`${styles.paginas}
@@ -199,7 +219,6 @@ export default function PerfilUsuario() {
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
-                    {/* Para el componente de biblioteca, mandamos el id_usuario correspondiente */}
                     {paginaActiva === "biblioteca" && <ComponenteBiblioteca 
                         id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} />}
                     {isMismoUsuario && paginaActiva === "solicitudes" && <Solicitudes />}
