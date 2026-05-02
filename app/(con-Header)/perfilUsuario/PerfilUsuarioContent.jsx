@@ -42,19 +42,33 @@ export default function PerfilUsuario() {
     const colorSolicitud = colorTexto("solicitudes");
     const colorValoracion = colorTexto("valoraciones");
 
-    // Efecto para determinar el perfil del usuario que se muestra
     useEffect(() => {
-        if (!usuarioLogueado?.id_usuario) return;
+    // Obtenemos el ID actual
+    const idActual = targetId || usuarioLogueado?.id_usuario;
 
-        const idActual = targetId || usuarioLogueado.id_usuario;
+    // Validación para evitar que la petición falle si el ID aún no está definido
+    if (!idActual || idActual === "undefined" || idActual === "null") {
+        return;
+    }
 
-        fetch(`/api/usuarios/${idActual}`)
-            .then(r => r.json())
-            .then(data => {
-                setUsuarioMostrado(data);
-                setIsMismoUsuario(Number(idActual) === Number(usuarioLogueado.id_usuario));
-            })
-            .catch(() => setUsuarioMostrado(null));
+    fetch(`/api/usuarios/${idActual}`)
+        .then(r => {
+            if (!r.ok) {
+                throw new Error("Usuario no encontrado");
+            }
+            return r.json();
+        })
+        .then(data => {
+            setUsuarioMostrado(data);
+            setIsMismoUsuario(
+                usuarioLogueado?.id_usuario 
+                    ? Number(idActual) === Number(usuarioLogueado.id_usuario) 
+                    : false
+            );
+        })
+        .catch(() => {
+            setUsuarioMostrado(null);
+        });
     }, [usuarioLogueado, targetId]);
 
     // Efecto para cargar los contadores de datos dependiendo del ID activo

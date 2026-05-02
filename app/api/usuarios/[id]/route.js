@@ -7,18 +7,21 @@ export async function GET(request, { params }) {
         // Consulta SQL completa para evitar campos "undefined"
         const [rows] = await db.query(
             `SELECT 
-                id_usuario,
-                nick_usuario,
-                nombre,
-                apellidos,
-                email,
-                poblacion, 
-                provincia, 
-                codigo_postal,
-                telefono,
-                puntuacion_promedio, 
-                foto_perfil 
-             FROM usuarios 
+                u.id_usuario,
+                u.nick_usuario,
+                u.email,
+                u.nombre,
+                u.apellidos,
+                u.foto_perfil,
+                u.password_hash,
+                u.telefono,
+                u.codigo_postal,
+                u.puntuacion_promedio,
+                p.provincia AS provincia,
+                po.poblacion AS poblacion
+            FROM usuarios u
+            LEFT JOIN provincias p ON u.id_provincia = p.id_provincia
+            LEFT JOIN poblaciones po ON u.id_poblacion = po.id_poblacion
              WHERE id_usuario = ?`, 
             [id]
         );
