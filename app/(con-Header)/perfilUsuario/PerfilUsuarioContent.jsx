@@ -28,48 +28,62 @@ export default function PerfilUsuario() {
     const [numSolicitudes, setNumSolicitudes] = useState(0);
     const [numIntercambios, setNumIntercambios] = useState(0);
     
-    const tab = searchParams.get("tab");
-    const [paginaActiva, setPaginaActiva] = useState(tab || "biblioteca");
+    const tabParam = searchParams.get("tab");
+    const [paginaActiva, setPaginaActiva] = useState(tabParam || "biblioteca");
+
+    useEffect(() => {
+        if (tabParam === "solicitudes" && !isMismoUsuario) {
+            // Si es otro perfil y viene "solicitudes", forzamos a biblioteca
+            setPaginaActiva("biblioteca");
+        } else {
+            setPaginaActiva(tabParam || "biblioteca");
+        }
+    }, [tabParam, isMismoUsuario]);
     
     const esActivo = (tab) => paginaActiva === tab;
 
-    const colorTexto = (tab) =>
+    const colorTextoColor = (tab) =>
         esActivo(tab)
             ? { inicio: "#ffffff", fin: "#ffffff" }
             : { inicio: "#333333", fin: "#333333" };
 
-    const colorLibros = colorTexto("biblioteca");
-    const colorSolicitud = colorTexto("solicitudes");
-    const colorValoracion = colorTexto("valoraciones");
+    const colorLibros = colorTextoColor("biblioteca");
+    const colorSolicitud = colorTextoColor("solicitudes");
+    const colorValoracion = colorTextoColor("valoraciones");
 
     useEffect(() => {
-    // Obtenemos el ID actual
-    const idActual = targetId || usuarioLogueado?.id_usuario;
+        // Limpiamos la pantalla de datos anteriores para mostrar "Cargando..."
+        setUsuarioMostrado(null);
 
-    // Validación para evitar que la petición falle si el ID aún no está definido
-    if (!idActual || idActual === "undefined" || idActual === "null") {
-        return;
-    }
+        // Obtenemos el ID actual. Si la página activa es "solicitudes", mostramos los datos del usuario logueado.
+        const idActual = paginaActiva === "solicitudes" 
+            ? usuarioLogueado?.id_usuario 
+            : (targetId || usuarioLogueado?.id_usuario);
 
-    fetch(`/api/usuarios/${idActual}`)
-        .then(r => {
-            if (!r.ok) {
-                throw new Error("Usuario no encontrado");
-            }
-            return r.json();
-        })
-        .then(data => {
-            setUsuarioMostrado(data);
-            setIsMismoUsuario(
-                usuarioLogueado?.id_usuario 
-                    ? Number(idActual) === Number(usuarioLogueado.id_usuario) 
-                    : false
-            );
-        })
-        .catch(() => {
-            setUsuarioMostrado(null);
-        });
-    }, [usuarioLogueado, targetId]);
+        // Validación para evitar que la petición falle si el ID aún no está definido
+        if (!idActual || idActual === "undefined" || idActual === "null") {
+            return;
+        }
+
+        fetch(`/api/usuarios/${idActual}`)
+            .then(r => {
+                if (!r.ok) {
+                    throw new Error("Usuario no encontrado");
+                }
+                return r.json();
+            })
+            .then(data => {
+                setUsuarioMostrado(data);
+                setIsMismoUsuario(
+                    usuarioLogueado?.id_usuario 
+                        ? Number(idActual) === Number(usuarioLogueado.id_usuario) 
+                        : false
+                );
+            })
+            .catch(() => {
+                setUsuarioMostrado(null);
+            });
+    }, [usuarioLogueado, targetId, paginaActiva]);
 
     // Efecto para cargar los contadores de datos dependiendo del ID activo
     useEffect(() => {
