@@ -1,0 +1,70 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup {
+    border: none;
+    border-radius: 25px;
+    padding: 40px;
+    background-color: #f3f4f6;
+    /* Gris muy claro de fondo */
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.titulo {
+    font-size: 1.6rem;
+    color: #111827;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.titulo strong {
+    color: #374151;
+}
+
+.cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.textoSecundario {
+    font-size: 0.95rem;
+}
+
+.felicitacion {
+    font-weight: bold;
+    color: #111827;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.botonAceptar {
+    padding: 12px 60px !important;
+    font-size: 1.1rem !important;
+    border-radius: 12px !important;
+}
