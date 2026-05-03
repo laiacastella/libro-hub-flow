@@ -1,60 +1,51 @@
 "use client";
-import { useEffect } from "react";
-import styles from "./PopUpIntercambioSolicitado.module.css";
+import React from "react";
+import PopUp from "@/components/UI/PopUp/PopUp"; // Asegúrate de que la ruta sea la correcta
 import { Boton } from "@/components/index";
+import styles from "./PopUpIntercambioSolicitado.module.css";
 
 const PopUpIntercambioSolicitado = ({ isOpen, onClose, userName }) => {
-    
-    // Bloqueo de scroll
-    useEffect(() => {
-        if (isOpen) {
-            document.body.classList.add("no-scroll");
-        } else {
-            document.body.classList.remove("no-scroll");
-        }
-    }, [isOpen]);
+  // Definimos el footer que le pasaremos al PopUp base
+  const footerModal = (
+    <div className={styles.footerCentered}>
+      <Boton 
+        texto="ACEPTAR" 
+        variant="default" 
+        size="large" 
+        onClick={onClose} 
+      />
+    </div>
+  );
 
-    if (!isOpen) return null;
-
-    return (
-        <div className={styles.overlay} onClick={onClose}>
-            <dialog 
-                className={styles.popup} 
-                open 
-                onClick={(e) => e.stopPropagation()}
-            >
-                <div className={styles.container}>
-                    <h2 className={styles.titulo}>
-                        ¡Ya le avisamos a <strong>{userName}</strong> que te interesa el intercambio!
-                    </h2>
-                    
-                    <div className={styles.cuerpo}>
-                        <p>
-                            <strong>{userName}</strong> va a recibir un mensaje con tus datos de contacto. 
-                            Si él/ella también está interesado/a en hacer match se va a comunicar contigo.
-                        </p>
-                        
-                        <p className={styles.textoSecundario}>
-                            Estás dando una segunda vida a un libro y apoyando un modelo más sostenible y consciente. 
-                            Cada libro que compartimos es una historia que sigue viva y una huella menos en el planeta.
-                        </p>
-                        
-                        <p className={styles.felicitacion}>¡Felicitaciones por ser parte del cambio!</p>
-                    </div>
-
-                    <div className={styles.footer}>
-                        {/*componente Boton*/}
-                        <Boton 
-                            texto="ACEPTAR" 
-                            variant="default" 
-                            onClick={onClose} 
-                            className={styles.botonAceptar}
-                        />
-                    </div>
-                </div>
-            </dialog>
+  return (
+    <PopUp
+      isOpen={isOpen}
+      onClose={onClose}
+      footer={footerModal}
+      cerrarAlHacerClickFuera={true}
+      popupClassName={styles.customContainer} // Para darle el estilo de la imagen 1b5485.png
+    >
+      <div className={styles.content}>
+        <h2 className={styles.titulo}>
+          ¡Ya le avisamos a <strong>{userName}</strong> que te interesa el intercambio!
+        </h2>
+        
+        <div className={styles.textoCuerpo}>
+          <p>
+            <strong>{userName}</strong> va a recibir un mensaje con tus datos de contacto. 
+            Si él/ella también está interesado/a en hacer match se va a comunicar contigo.
+          </p>
+          
+          <p className={styles.sostenibilidad}>
+            Estás dando una segunda vida a un libro y apoyando un modelo más sostenible y consciente. 
+            Cada libro que compartimos es una historia que sigue viva y una huella menos en el planeta.
+          </p>
+          
+          <p className={styles.felicitacion}>¡Felicitaciones por ser parte del cambio!</p>
         </div>
-    );
+      </div>
+    </PopUp>
+  );
 };
 
 export default PopUpIntercambioSolicitado;
