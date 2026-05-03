@@ -23,7 +23,7 @@ const PopUpIntercambioSolicitado = ({ isOpen, onClose, userName }) => {
       onClose={onClose}
       footer={footerModal}
       cerrarAlHacerClickFuera={true}
-      popupClassName={styles.customContainer} // Para darle el estilo de la imagen 1b5485.png
+      popupClassName={styles.customContainer} 
     >
       <div className={styles.content}>
         <h2 className={styles.titulo}>
