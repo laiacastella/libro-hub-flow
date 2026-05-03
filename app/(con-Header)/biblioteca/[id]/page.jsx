@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
@@ -10,6 +10,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FichaLibro() {
     const { id } = useParams();
+    const router = useRouter();
+
     const [libro, setLibro] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [solicitandoIntercambio, setSolicitandoIntercambio] = useState(false);
@@ -114,7 +116,12 @@ export default function FichaLibro() {
                                     <button className={`btn btn-success px-4 py-2 ${styles.btnPrincipal}`}>Editar Datos Libro</button>
                                 ) : (
                                     <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
-                                        <div className="d-flex align-items-center gap-2">
+                                       
+                                        <div 
+                                            className="d-flex align-items-center gap-2" 
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => router.push(`/perfilUsuario?id=${libro.id_usuario}`)}
+                                        >
                                             <div className={styles.avatarMini}></div>
                                             <div>
                                                 <p className="mb-0 x-small text-muted" style={{ fontSize: "0.7rem" }}>
@@ -124,6 +131,7 @@ export default function FichaLibro() {
                                                 <Estrellas valoracion={libro.puntuacion_promedio} />
                                             </div>
                                         </div>
+
                                         <button className={`btn btn-success px-3 ${styles.btnPrincipal}`} onClick={handleSolicitarIntercambio} disabled={solicitandoIntercambio}>
                                             {solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"}
                                         </button>
