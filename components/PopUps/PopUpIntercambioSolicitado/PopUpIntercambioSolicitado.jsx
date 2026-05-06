@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import PopUp from "@/components/UI/PopUp/PopUp"; // Asegúrate de que la ruta sea la correcta
+import PopUp from "@/components/UI/PopUp/PopUp";
 import { Boton } from "@/components/index";
 import styles from "./PopUpIntercambioSolicitado.module.css";
 
@@ -33,7 +32,7 @@ const PopUpIntercambioSolicitado = ({ isOpen, onClose, userName }) => {
         <div className={styles.textoCuerpo}>
           <p>
             <strong>{userName}</strong> va a recibir un mensaje con tus datos de contacto. 
-            Si él/ella también está interesado/a en hacer match se va a comunicar contigo.
+            Si también está interesado@ en hacer match se va a comunicarse contigo.
           </p>
           
           <p className={styles.sostenibilidad}>
