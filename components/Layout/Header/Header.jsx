@@ -41,7 +41,7 @@ export default function Header() {
                 <div className={`collapse navbar-collapse`} id="menuPrincipal">
                     <ul className={`navbar-nav ms-auto ${styles.menu}`}>
                         <li className="nav-item">
-                            <Enlaces nomEnlace="Solicitudes" ruta="/perfilUsuario?tab=solicitudes" />
+                            <Enlaces nomEnlace="Solicitudes" ruta={`/perfilUsuario?tab=solicitudes&id=${usuario?.id_usuario || ''}`} />
                         </li>
 
                         <li className="nav-item">
@@ -66,7 +66,7 @@ export default function Header() {
 
                                     <ul className="dropdown-menu dropdown-menu-end text-small">
                                         <li>
-                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta="/perfilUsuario" />
+                                            <Enlaces className="dropdown-item" nomEnlace="Perfil" ruta={`/perfilUsuario?id=${usuario.id_usuario}`} />
                                         </li>
 
                                         <li>
