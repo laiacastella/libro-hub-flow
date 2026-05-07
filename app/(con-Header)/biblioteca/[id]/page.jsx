@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
-import { Comentarios, Estrellas } from "@/components";
+import { Comentarios, Estrellas, PopUpIntercambioSolicitado } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -16,6 +16,7 @@ export default function FichaLibro() {
     const [cargando, setCargando] = useState(true);
     const [solicitandoIntercambio, setSolicitandoIntercambio] = useState(false);
     const [errorIntercambio, setErrorIntercambio] = useState("");
+    const [abrirPopupExito, setAbrirPopupExito] = useState(false);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
@@ -76,11 +77,8 @@ export default function FichaLibro() {
             if (!res.ok) {
                 throw new Error(data?.error || "No se pudo solicitar el intercambio");
             }
-
-            // Si todo va bien, mostrar mensaje de éxito
-            alert("Solicitud de intercambio enviada"); 
-            // setAbrirPopupConfirmacion(true); // Abrir popup
-            
+         
+            setAbrirPopupExito(true); // Abrir el popup de éxito
         } catch (error) {
             console.error("Error solicitando intercambio:", error);
             setErrorIntercambio(error?.message || "Error al solicitar intercambio");
@@ -147,7 +145,14 @@ export default function FichaLibro() {
                 <div className={`mt-5 p-4 rounded-4 ${styles.seccionResenas}`}>
                     <Comentarios />
                 </div>
+
+                <PopUpIntercambioSolicitado 
+                    isOpen={abrirPopupExito} 
+                    onClose={() => setAbrirPopupExito(false)} 
+                    userName={libro.nick_usuario || "el usuario"} 
+                />
             </div>
         </div>
+        
     );
 }
