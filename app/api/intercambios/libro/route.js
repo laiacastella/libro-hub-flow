@@ -25,7 +25,8 @@ export async function PATCH(req) {
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (error) {
-    console.error("Error PATCH /libro:", error);
-    return new Response(JSON.stringify({ error: "Error al actualizar libro ofrecido" }), { status: 500 });
+    console.error("Error PATCH /libro:", error.message);
+    console.error("Stack:", error.stack);
+    return new Response(JSON.stringify({ error: error.message || "Error al actualizar libro ofrecido" }), { status: 500 });
   }
 }

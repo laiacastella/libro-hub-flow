@@ -10,7 +10,7 @@ export async function GET(request) {
         const limit = parseInt(searchParams.get("limit")) || 6;
         const search = searchParams.get("search") || "";
 
-        const result = await paginate(db, "libros", page, limit, search, user);
+        const result = await paginate(db, "libros", page, limit, search, user, [{ clause: "disponibilidad != ?", params: ["archivado"] }]);
 
         return Response.json(result);
     } catch (error) {
