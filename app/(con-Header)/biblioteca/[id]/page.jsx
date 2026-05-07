@@ -96,7 +96,12 @@ export default function FichaLibro() {
                 <div className="row g-4 align-items-start">
                     {/* Portada */}
                     <div className="col-12 col-md-4 text-center">
-                        <img src={libro.foto_portada} alt={libro.titulo} className={`img-fluid rounded-3 shadow ${styles.portada}`} />
+                        <div className={styles.portadaWrapper}>
+                            <img src={libro.foto_portada} alt={libro.titulo} className={`img-fluid rounded-3 shadow ${styles.portada}`} />
+                            {libro.disponibilidad === 'reservado' && (
+                                <span className={styles.badgeReservado}>Reservado</span>
+                            )}
+                        </div>
                     </div>
 
                     {/* Info del Libro */}
