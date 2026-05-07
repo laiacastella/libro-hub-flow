@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
-import { Comentarios, Estrellas } from "@/components";
+import { Comentarios, Estrellas, Boton } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -113,7 +113,7 @@ export default function FichaLibro() {
                             {/* Condicional de botones según diseño */}
                             <div className="mt-4">
                                 {esMiLibro ? (
-                                    <button className={`btn btn-success px-4 py-2 ${styles.btnPrincipal}`}>Editar Datos Libro</button>
+                                    <Boton texto="Editar Datos Libro" variant="default" />
                                 ) : (
                                     <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
                                        
@@ -132,9 +132,16 @@ export default function FichaLibro() {
                                             </div>
                                         </div>
 
-                                        <button className={`btn btn-success px-3 ${styles.btnPrincipal}`} onClick={handleSolicitarIntercambio} disabled={solicitandoIntercambio}>
-                                            {solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"}
-                                        </button>
+                                        {libro.disponibilidad === 'reservado' ? (
+                                            <Boton texto="Reservado" variant="disabled" disabled />
+                                        ) : (
+                                            <Boton 
+                                                texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
+                                                variant="default" 
+                                                onClick={handleSolicitarIntercambio} 
+                                                disabled={solicitandoIntercambio} 
+                                            />
+                                        )}
                                     </div>
                                 )}
                                 {errorIntercambio && <p className="text-danger small mt-2 mb-0">{errorIntercambio}</p>}
