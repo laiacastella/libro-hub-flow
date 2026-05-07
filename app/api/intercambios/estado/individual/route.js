@@ -79,10 +79,10 @@ export async function PATCH(req) {
 
     if (statusRows.length) {
       const s = statusRows[0];
-      const enviaFinalizado = String(s.estado_usuario_envia) === "finalizado";
-      const recibeFinalizado = String(s.estado_usuario_recibe) === "finalizado";
+      const enviaValorar = String(s.estado_usuario_envia) === "valorar";
+      const recibeValorar = String(s.estado_usuario_recibe) === "valorar";
       
-      if (enviaFinalizado && recibeFinalizado) {
+      if (enviaValorar && recibeValorar) {
         await db.query(
           "UPDATE libros SET disponibilidad = 'archivado' WHERE id_libro IN (?, ?)",
           [s.id_libro_ofrecido, s.id_libro_solicitado]
