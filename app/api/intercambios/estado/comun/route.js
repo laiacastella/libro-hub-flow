@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 async function validarAceptacion(idIntercambio, estado) {
   if (estado !== "aceptado") return null;
 
-  // Consultar el intercambio para verificar si tiene libro ofrecido
+    // Consultar el intercambio para verificar si tiene libro ofrecido
   const [rows] = await db.query(
     "SELECT id_libro_ofrecido FROM intercambios WHERE id_intercambio = ? LIMIT 1",
     [idIntercambio]
@@ -31,41 +31,55 @@ export async function PATCH(req) {
       return new Response(JSON.stringify({ error: "Faltan datos" }), { status: 400 });
     }
 
-    // Validar aceptación si el nuevo estado es "aceptado"
+    // Validar aceptacion
     const errorAceptacion = await validarAceptacion(id_intercambio, estado);
     if (errorAceptacion) return errorAceptacion;
 
-    // Actualizar el estado del intercambio para ambos usuarios
+    // Si es aceptado, obtener IDs de libros y marcar como reservados
+    if (estado === "aceptado") {
+      const [intercambioRows] = await db.query(
+        "SELECT id_libro_solicitado, id_libro_ofrecido FROM intercambios WHERE id_intercambio = ? LIMIT 1",
+        [id_intercambio]
+      );
+
+      if (!intercambioRows.length) {
+        return new Response(JSON.stringify({ error: "Intercambio no encontrado" }), { status: 404 });
+      }
+
+      const { id_libro_solicitado, id_libro_ofrecido } = intercambioRows[0];
+
+      // Actualizar intercambio
+      await db.query(
+        `UPDATE intercambios SET estado_usuario_envia = ?, estado_usuario_recibe = ? WHERE id_intercambio = ?`,
+        [estado, estado, id_intercambio]
+      );
+
+      // Marcar libros como reservados
+      await db.query(
+        "UPDATE libros SET disponibilidad = 'reservado' WHERE id_libro IN (?, ?)",
+        [id_libro_solicitado, id_libro_ofrecido]
+      );
+
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    }
+
+    // Para otros estados, solo actualizar intercambio
     const [result] = await db.query(
-      `UPDATE intercambios
-       SET estado_usuario_envia = ?,
-           estado_usuario_recibe = ?
-       WHERE id_intercambio = ?`,
+      `UPDATE intercambios 
+      SET estado_usuario_envia = ?, 
+      estado_usuario_recibe = ? 
+      WHERE id_intercambio = ?`,
       [estado, estado, id_intercambio]
     );
-
+    
     // Si no se afectó ninguna fila, el intercambio no se encontró
     if (!result.affectedRows) {
       return new Response(JSON.stringify({ error: "Intercambio no encontrado" }), { status: 404 });
     }
 
-    const intercambioActualizado = {
-      id_intercambio,
-      estado_usuario_envia: estado,
-      estado_usuario_recibe: estado,
-    };
-
-    console.log("PATCH /estado/comun actualizado:", intercambioActualizado);
-
-    // Retornar confirmacion de exito
-    return new Response(
-      JSON.stringify({
-        ok: true,
-      }),
-      { status: 200 }
-    );
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (error) {
     console.error("Error PATCH /estado/comun:", error);
-    return new Response(JSON.stringify({ error: "Error al actualizar estado comun" }), { status: 500 });
+    return new Response(JSON.stringify({ error: error.message || "Error al actualizar estado comun" }), { status: 500 });
   }
 }
