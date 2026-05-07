@@ -118,7 +118,11 @@ export default function FichaLibro() {
                             {/* Condicional de botones según diseño */}
                             <div className="mt-4">
                                 {esMiLibro ? (
-                                    <Boton texto="Editar Datos Libro" variant="default" />
+                                    <Boton 
+                                        texto="Editar Datos Libro" 
+                                        variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
+                                        disabled={libro.disponibilidad === 'reservado'} 
+                                    />
                                 ) : (
                                     <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
                                        
