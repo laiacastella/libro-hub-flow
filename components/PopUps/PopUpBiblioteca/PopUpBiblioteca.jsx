@@ -149,7 +149,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                         </section>
                         <section className={styles.bodyPopup}>
                             <div className={styles.bibliotecaContainer}>
-                                <ComponenteBiblioteca todos={false} id_usuario={idUsuarioBiblioteca} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} modoPopup={true} onSeleccionarLibro={handleSeleccionarLibroDesdeCard} />
+                                <ComponenteBiblioteca todos={false} id_usuario={idUsuarioBiblioteca} setLibroSeleccionado={setLibroSeleccionado} libroSeleccionado={libroSeleccionado} modoPopup={true} onSeleccionarLibro={handleSeleccionarLibroDesdeCard} soloDisponibles={true} />
                             </div>
                             <div className={`${styles.infoLibro} ${libroSeleccionado ? styles.isOpen : styles.isClosed}`}>
                                 {infoLibro && (
@@ -244,6 +244,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                                     libroSeleccionado={libroSeleccionado}
                                     modoPopup={true}
                                     onSeleccionarLibro={handleSeleccionarLibroDesdeCard}
+                                    soloDisponibles={true}
                                     mostrarDetalleInline={Boolean(libroSeleccionado)}
                                     detalleInline={
                                         infoLibro ? (

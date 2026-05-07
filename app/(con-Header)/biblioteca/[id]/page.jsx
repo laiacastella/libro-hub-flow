@@ -38,10 +38,10 @@ export default function FichaLibro() {
         }
     }, [id, guardarLibroActivo]);
 
-    const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
-
     if (cargando) return <div className="text-center mt-5">Cargando ficha...</div>;
     if (!libro) return <div className="text-center mt-5">Libro no encontrado</div>;
+
+    const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
 
     async function handleSolicitarIntercambio() {
         // Si el usuario no está logueado, o el libro no tiene propietario, o no hay id, no se puede solicitar intercambio
