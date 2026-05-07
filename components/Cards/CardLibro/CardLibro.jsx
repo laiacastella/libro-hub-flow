@@ -44,7 +44,10 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
     return (
         <div className={styles.biblioteca}>
             <div className={`${styles.libros} ${dosColumnasMovil ? styles.librosPopup : ""}`}>
-                {librosFiltrados.map((libro, index) => (
+                {librosFiltrados.map((libro, index) => {
+                    if (libro.disponibilidad === 'archivado') return null;
+
+                    return (
                     <div key={libro.id_libro} className={styles.libroCardWrapper}>
                         <div
                             className={`${styles.libroCard} ${normalizarId(libro.id_libro) === libroSeleccionadoId ? styles.seleccionado : ""}`}
@@ -56,6 +59,9 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
 
                                 router.push(`/biblioteca/${libro.id_libro}`);
                             }}>
+                            {libro.disponibilidad === 'reservado' && (
+                                <span className={styles.badgeReservado}>Reservado</span>
+                            )}
                             <Image src={libro.foto_portada || "https://via.placeholder.com/150x200?text=Sin+Portada"} alt={libro.titulo || "Sin Portada"} className={styles.libroImage} width={150} height={200} onError={manejarErrorImagen} unoptimized={libro.foto_portada?.startsWith("http") ? true : false} />
                             <p className={styles.libroTitulo}>{libro.titulo}</p>
                             <p className={styles.libroAutor}>{libro.autor}</p>
@@ -74,7 +80,8 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
 
                         {mostrarDetalleInline && detalleInline && index === indiceInsercionDetalle && <div className={styles.detalleInlineRow}>{detalleInline}</div>}
                     </div>
-                ))}
+                );
+                })}
             </div>
         </div>
     );
