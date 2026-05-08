@@ -65,3 +65,18 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
+.loading,
+.error,
+.empty {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #666;
+    font-size: 0.95rem;
+}
+.error {
+    color: #b91c1c;
+    background-color: #fef2f2;
+}
