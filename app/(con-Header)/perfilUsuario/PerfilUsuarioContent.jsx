@@ -250,7 +250,7 @@ export default function PerfilUsuario() {
                     {paginaActiva === "biblioteca" && <ComponenteBiblioteca 
                         id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} />}
                     {isMismoUsuario && paginaActiva === "solicitudes" && <Solicitudes />}
-                    {paginaActiva === "valoraciones" && <Valoraciones />}
+                    {paginaActiva === "valoraciones" && <Valoraciones userId={usuarioMostrado?.id_usuario} />}
                 </div>
             </div>
         </main>
