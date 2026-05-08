@@ -59,7 +59,7 @@ const FormLogin = ({ onLoginSuccess }) => {
 
                 {errorLogin && <p className={styles.errorLogin}>{errorLogin}</p>}
 
-                <Boton type="submit" icono={UserRoundKey} texto={cargando ? "ENTRANDO..." : "INICIAR SESION"} disabled={cargando} />
+                <Boton type="submit" icono={UserRoundKey} texto={cargando ? "Entrando..." : "Iniciar Sesion"} disabled={cargando} />
             </form>
         </div>
     );

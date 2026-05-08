@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
 
-        const [rows] = await db.query("SELECT id_genero as id, tipo_genero as nombre FROM generos");
+        const [rows] = await db.query("SELECT id_genero as id, tipo_genero as nombre FROM generos ORDER BY nombre ASC");
         
    
         return NextResponse.json(rows);
