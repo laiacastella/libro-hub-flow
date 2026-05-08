@@ -69,7 +69,10 @@ export default function CardValoracion({ userId }) {
     if (valoraciones.length === 0) {
         return (
             <div className={styles.valoracionesContainer}>
-                <div className={styles.empty}>Aun no hay valoraciones</div>
+                <div className={styles.estadoVacio}>
+                    <h3 className={styles.estadoVacioTitulo}>Tu reputación está por estrenarse</h3>
+                    <p className={styles.estadoVacioTexto}>Completa intercambios y recibe valoraciones para construir tu perfil de confianza.</p>
+                </div>
             </div>
         );
     }

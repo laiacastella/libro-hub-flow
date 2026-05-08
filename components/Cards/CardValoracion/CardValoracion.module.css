@@ -80,3 +80,38 @@
     color: #b91c1c;
     background-color: #fef2f2;
 }
+
+.estadoVacio {
+    width: min(100%, 520px);
+    min-height: 180px;
+    margin: 0 auto;
+    padding: clamp(16px, 2.2vw, 24px);
+    border-radius: 12px;
+    background: #f6fdf7;
+    border: 1px solid #d4ecda;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.estadoVacioTitulo {
+    margin: 0;
+    font-size: clamp(1.05rem, 1vw + 0.8rem, 1.35rem);
+    color: #2f5f36;
+    font-weight: 700;
+}
+
+.estadoVacioTexto {
+    margin: 0;
+    font-size: clamp(0.92rem, 0.5vw + 0.78rem, 1.02rem);
+    line-height: 1.45;
+    color: #3f4e42;
+}
+
+@media (max-width: 768px) {
+    .estadoVacio {
+        min-height: 160px;
+    }
+}
