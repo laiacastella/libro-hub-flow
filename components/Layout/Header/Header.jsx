@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Boton, Enlaces, PopUp } from "@/components";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import styles from "./Header.module.css";
 
@@ -13,6 +13,11 @@ export default function Header() {
     const usuario = useUsuario();
     const router = useRouter();
     const [openLogout, setOpenLogout] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const logout = () => {
         setOpenLogout(true);
@@ -41,13 +46,14 @@ export default function Header() {
                 <div className={`collapse navbar-collapse`} id="menuPrincipal">
                     <ul className={`navbar-nav ms-auto ${styles.menu}`}>
                         <li className="nav-item">
-                            <Enlaces nomEnlace="Solicitudes" ruta={`/perfilUsuario?tab=solicitudes&id=${usuario?.id_usuario || ''}`} />
+                            <Enlaces nomEnlace="Solicitudes" ruta={mounted ? `/perfilUsuario?tab=solicitudes&id=${usuario?.id_usuario || ''}` : "/perfilUsuario"} />
                         </li>
 
                         <li className="nav-item">
                             <Enlaces nomEnlace="Biblioteca" ruta="/biblioteca" />
                         </li>
 
+                        {mounted && (
                         <li>
                             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                                 <div className="dropdown text-end">
@@ -61,7 +67,7 @@ export default function Header() {
                                             unoptimized 
                                         />
                                         {" "}
-                                        <Enlaces nomEnlace={`Hola, ${usuario?.nombre}`} ruta="" />
+                                        <Enlaces nomEnlace={`Hola, ${usuario?.nombre || 'Invitado'}`} ruta="" />
                                     </div>
 
                                     <ul className="dropdown-menu dropdown-menu-end text-small">
@@ -88,6 +94,7 @@ export default function Header() {
                                 </div>
                             </div>
                         </li>
+                        )}
                     </ul>
                 </div>
             </div>

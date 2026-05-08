@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./FormIncidencia.module.css";
 import React, { useState, useRef } from "react";
-import { Boton } from "@/components";
+import { Boton, PopUp } from "@/components";
 
 export default function FormIncidencia({ onClose }) {
     const maxPhotoSize = 10 * 1024 * 1024; // 10MB en bytes
@@ -23,6 +23,14 @@ export default function FormIncidencia({ onClose }) {
         descripcion: "",
     });
 
+    // Estado para el modal
+    const [modal, setModal] = useState({
+        isOpen: false,
+        title: "",
+        message: "",
+        type: "info", // 'success' | 'error' | 'info'
+    });
+
     // Actualiza cualquier campo usando su name.
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +41,12 @@ export default function FormIncidencia({ onClose }) {
         if (!file) return;
 
         if (file.size > maxPhotoSize) {
-            alert("La imagen debe ser menor de 10MB.");
+            setModal({
+                isOpen: true,
+                title: "Archivo demasiado grande",
+                message: "La imagen debe ser menor de 10MB.",
+                type: "error",
+            });
             if (inputElement) inputElement.value = "";
             return;
         }
@@ -106,12 +119,22 @@ export default function FormIncidencia({ onClose }) {
             const result = await response.json();
 
             if (!response.ok) {
-                alert(result.error || "Error al enviar el reporte");
+                setModal({
+                    isOpen: true,
+                    title: "Error",
+                    message: result.error || "Error al enviar el reporte",
+                    type: "error",
+                });
                 return;
             }
 
             // Si todo fue bien, muestra mensaje y limpia formulario + adjunto.
-            alert("Incidencia registrada correctamente. Nos pondremos en contacto pronto.");
+            setModal({
+                isOpen: true,
+                title: "¡Éxito!",
+                message: "Incidencia registrada correctamente. Nos pondremos en contacto pronto.",
+                type: "success",
+            });
             setFormData({
                 nombreCompleto: "",
                 correoElectronico: "",
@@ -124,13 +147,19 @@ export default function FormIncidencia({ onClose }) {
             setPreview("");
         } catch (error) {
             console.error("Error al enviar el reporte:", error);
-            alert("Error al enviar el reporte. Intenta de nuevo.");
+            setModal({
+                isOpen: true,
+                title: "Error",
+                message: "Error al enviar el reporte. Intenta de nuevo.",
+                type: "error",
+            });
         } finally {
-            onClose();
-        }
+                // No cerrar el formulario automáticamente aquí: mostrar primero el modal
+            }
     };
 
     return (
+        <>
         <div className={styles.formCard}>
             <form onSubmit={handleSubmit}>
                 {/* datos personales */}
@@ -227,5 +256,27 @@ export default function FormIncidencia({ onClose }) {
                 </div>
             </form>
         </div>
-    );
+
+                <PopUp
+                    isOpen={modal.isOpen}
+                    onClose={() => setModal({ ...modal, isOpen: false })}
+                    title={modal.title}
+                    footer={
+                        <Boton
+                            texto="Aceptar"
+                            variant={modal.type === "error" ? "red" : "default"}
+                            onClick={() => {
+                                // Cierra el modal interno; si la operación fue un éxito, también cerrar el formulario padre
+                                setModal((prev) => ({ ...prev, isOpen: false }));
+                                if (modal.type === "success") onClose();
+                            }}
+                        />
+                    }
+                >
+          <p>
+            {modal.message}
+          </p>
+                </PopUp>
+            </>
+  );
 }

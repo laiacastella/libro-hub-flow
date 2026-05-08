@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { transporter } from "@/lib/mailer";
+
 
 const enviarEmailNotificacion = async (id_usuario, id_libro) => {
     try {
@@ -10,13 +12,8 @@ const enviarEmailNotificacion = async (id_usuario, id_libro) => {
         );
 
         if (info.length > 0) {
-            const transporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-            });
-
             await transporter.sendMail({
-                from: '"Libro-Hub" <noreply@librohub.com>',
+                from: `"LibroHubFlow" <${process.env.EMAIL_USER}>`,
                 to: info[0].email,
                 subject: "¡Nueva solicitud de intercambio!",
                 html: `<p>Hola ${info[0].nick_usuario}, alguien quiere tu libro: <b>${info[0].titulo}</b>.</p>`
