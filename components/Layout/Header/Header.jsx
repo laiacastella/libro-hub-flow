@@ -108,13 +108,14 @@ export default function Header() {
                 footer={
                     <>
                     <Boton
-                        texto="Cancelar"
-                        onClick={() => setOpenLogout(false)}
+                        texto="Cerrar sesión"
+                        onClick={handleConfirmLogout}
                     />
 
                     <Boton
-                        texto="Cerrar sesión"
-                        onClick={handleConfirmLogout}
+                        texto="Cancelar"
+                        variant="red"
+                        onClick={() => setOpenLogout(false)}
                     />
                     </>
                 }
