@@ -99,9 +99,9 @@ export default function PerfilUsuario() {
             fetch(`/api/libros/count?user=${idActual}`).then(r => r.json())
         ])
         .then(([intercambiosData, solicitudesData, librosData]) => {
-            setNumIntercambios(intercambiosData.total);
-            setNumSolicitudes(solicitudesData.total);
-            setNumLibros(librosData.total);
+            setNumIntercambios(intercambiosData?.total || 0);
+            setNumSolicitudes(solicitudesData?.total || 0);
+            setNumLibros(librosData?.total || 0);
         })
         .catch(() => {
             setNumIntercambios(0);
@@ -163,7 +163,7 @@ export default function PerfilUsuario() {
                     <div className="d-flex align-items-baseline gap-2">
                         <Contador
                             key={`intercambios-${numIntercambios}`}
-                            valorFinal={numIntercambios}
+                            valorFinal={numIntercambios || 0}
                             colorInicio="#407c42"
                             colorFin="#000000"
                             duracion="300"
@@ -195,7 +195,7 @@ export default function PerfilUsuario() {
                         onClick={() => setPaginaActiva("biblioteca")}>
                         <h1><Contador 
                             key={`libros-${paginaActiva}-${numLibros}`}
-                            valorFinal={numLibros}
+                            valorFinal={numLibros || 0}
                             colorInicio={colorLibros.inicio}
                             colorFin={colorLibros.fin}
                             duracion="500"
@@ -214,7 +214,7 @@ export default function PerfilUsuario() {
                             onClick={() => setPaginaActiva("solicitudes")}>
                             <h1><Contador 
                                 key={`solicitudes-${paginaActiva}-${numSolicitudes}`}
-                                valorFinal={numSolicitudes}
+                                valorFinal={numSolicitudes || 0}
                                 colorInicio={colorSolicitud.inicio}
                                 colorFin={colorSolicitud.fin}
                                 duracion="500"

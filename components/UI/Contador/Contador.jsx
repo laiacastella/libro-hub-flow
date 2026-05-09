@@ -36,20 +36,25 @@ const Contador = ({
     }, [valorFinal]);
 
     const iniciarAnimacion = () => {
-    let inicio = 0;
-    const incremento = valorFinal / (duracion / 16);
-    
-    const actualizar = () => {
-        inicio += incremento;
-        if (inicio < valorFinal) {
-            setCuenta(Math.floor(inicio));
-            requestAnimationFrame(actualizar);
-        } else {
-            setCuenta(valorFinal);
+        // Si el valor final es 0, no hay nada que animar, fijamos en 0 y salimos
+        if (valorFinal === 0) {
+            setCuenta(0);
+            return;
         }
-    };
+        let inicio = 0;
+        const incremento = valorFinal / (duracion / 16);
     
-    actualizar();
+        const actualizar = () => {
+            inicio += incremento;
+            if (inicio < valorFinal) {
+                setCuenta(Math.floor(inicio));
+                requestAnimationFrame(actualizar);
+            } else {
+                setCuenta(valorFinal);
+            }
+        };
+    
+        actualizar();
     };
 
     return (
@@ -58,12 +63,14 @@ const Contador = ({
             className={`
                 ${styles.contador} 
                 ${styles[size]} 
-                ${cuenta > 0 ? styles.visible : ''}
+                ${styles.visible}
             `}
             style={{
                 background: `linear-gradient(10deg, ${colorInicio} 0%, ${colorFin} 100%)`,
                 WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
+                WebkitTextFillColor: "transparent",
+                // Por si acaso el estilo visible no está aplicado por defecto:
+                opacity: 1
             }}
         >
             {cuenta.toLocaleString()}
