@@ -99,8 +99,29 @@ export async function POST(req) {
             return Response.json({ error: "Faltan datos" }, { status: 400 });
         }
 
+        // Verificar si el usuario ya tiene una solicitud activa para este libro
+        const [solicitudesExistentes] = await db.query(
+            `
+            SELECT id_intercambio 
+            FROM intercambios 
+            WHERE id_usuario_envia = ? 
+              AND id_libro_solicitado = ?
+              AND estado_usuario_envia NOT IN ('finalizado', 'rechazado', 'eliminado')
+              AND estado_usuario_recibe NOT IN ('finalizado', 'rechazado', 'eliminado')
+            LIMIT 1
+            `,
+            [id_usuario_envia, id_libro_solicitado]
+        );
+
+        if (solicitudesExistentes.length > 0) {
+            return Response.json(
+                { error: "Ya tienes una solicitud activa para este libro" },
+                { status: 409 }
+            );
+        }
+
         const ahora = new Date();
-        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" }); 
+        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
 
         const [result] = await db.query(
             `
