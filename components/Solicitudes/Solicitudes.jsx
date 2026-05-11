@@ -14,15 +14,12 @@ export default function Solicitudes() {
                 <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.selector}>
                     <option value="todas">Todas</option>
                     <option value="recibidas">Recibidas</option>
-                    <option value="realizadas">Enviadass</option>
+                    <option value="realizadas">Enviadas</option>
                     <option value="historial">Historial</option>
                 </select>
             </div>
 
-            <div>
-                Hola!
-            </div>
-
+            
             <div className={styles.contenedorSolicitudes}>
                 <CardSolicitud filtro={filtro} idUsuario={usuario?.id_usuario} />
             </div>

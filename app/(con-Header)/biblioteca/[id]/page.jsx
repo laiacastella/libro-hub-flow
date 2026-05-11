@@ -1,19 +1,22 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
-import { Comentarios, Estrellas } from "@/components";
+import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FichaLibro() {
     const { id } = useParams();
+    const router = useRouter();
+
     const [libro, setLibro] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [solicitandoIntercambio, setSolicitandoIntercambio] = useState(false);
     const [errorIntercambio, setErrorIntercambio] = useState("");
+    const [abrirPopupExito, setAbrirPopupExito] = useState(false);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
@@ -35,10 +38,10 @@ export default function FichaLibro() {
         }
     }, [id, guardarLibroActivo]);
 
-    const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
-
     if (cargando) return <div className="text-center mt-5">Cargando ficha...</div>;
     if (!libro) return <div className="text-center mt-5">Libro no encontrado</div>;
+
+    const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
 
     async function handleSolicitarIntercambio() {
         // Si el usuario no está logueado, o el libro no tiene propietario, o no hay id, no se puede solicitar intercambio
@@ -74,11 +77,8 @@ export default function FichaLibro() {
             if (!res.ok) {
                 throw new Error(data?.error || "No se pudo solicitar el intercambio");
             }
-
-            // Si todo va bien, mostrar mensaje de éxito
-            alert("Solicitud de intercambio enviada"); 
-            // setAbrirPopupConfirmacion(true); // Abrir popup
-            
+         
+            setAbrirPopupExito(true); // Abrir el popup de éxito
         } catch (error) {
             console.error("Error solicitando intercambio:", error);
             setErrorIntercambio(error?.message || "Error al solicitar intercambio");
@@ -94,7 +94,12 @@ export default function FichaLibro() {
                 <div className="row g-4 align-items-start">
                     {/* Portada */}
                     <div className="col-12 col-md-4 text-center">
-                        <img src={libro.foto_portada} alt={libro.titulo} className={`img-fluid rounded-3 shadow ${styles.portada}`} />
+                        <div className={styles.portadaWrapper}>
+                            <img src={libro.foto_portada} alt={libro.titulo} className={`img-fluid rounded-3 shadow ${styles.portada}`} />
+                            {libro.disponibilidad === 'reservado' && (
+                                <span className={styles.badgeReservado}>Reservado</span>
+                            )}
+                        </div>
                     </div>
 
                     {/* Info del Libro */}
@@ -111,10 +116,19 @@ export default function FichaLibro() {
                             {/* Condicional de botones según diseño */}
                             <div className="mt-4">
                                 {esMiLibro ? (
-                                    <button className={`btn btn-success px-4 py-2 ${styles.btnPrincipal}`}>Editar Datos Libro</button>
+                                    <Boton 
+                                        texto="Editar Datos Libro" 
+                                        variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
+                                        disabled={libro.disponibilidad === 'reservado'} 
+                                    />
                                 ) : (
                                     <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
-                                        <div className="d-flex align-items-center gap-2">
+                                       
+                                        <div 
+                                            className="d-flex align-items-center gap-2" 
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => router.push(`/perfilUsuario?id=${libro.id_usuario}`)}
+                                        >
                                             <div className={styles.avatarMini}></div>
                                             <div>
                                                 <p className="mb-0 x-small text-muted" style={{ fontSize: "0.7rem" }}>
@@ -124,9 +138,17 @@ export default function FichaLibro() {
                                                 <Estrellas valoracion={libro.puntuacion_promedio} />
                                             </div>
                                         </div>
-                                        <button className={`btn btn-success px-3 ${styles.btnPrincipal}`} onClick={handleSolicitarIntercambio} disabled={solicitandoIntercambio}>
-                                            {solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"}
-                                        </button>
+
+                                        {libro.disponibilidad === 'reservado' ? (
+                                            <Boton texto="Reservado" variant="disabled" disabled />
+                                        ) : (
+                                            <Boton 
+                                                texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
+                                                variant="default" 
+                                                onClick={handleSolicitarIntercambio} 
+                                                disabled={solicitandoIntercambio} 
+                                            />
+                                        )}
                                     </div>
                                 )}
                                 {errorIntercambio && <p className="text-danger small mt-2 mb-0">{errorIntercambio}</p>}
@@ -139,7 +161,14 @@ export default function FichaLibro() {
                 <div className={`mt-5 p-4 rounded-4 ${styles.seccionResenas}`}>
                     <Comentarios />
                 </div>
+
+                <PopUpIntercambioSolicitado 
+                    isOpen={abrirPopupExito} 
+                    onClose={() => setAbrirPopupExito(false)} 
+                    userName={libro.nick_usuario || "el usuario"} 
+                />
             </div>
         </div>
+        
     );
 }

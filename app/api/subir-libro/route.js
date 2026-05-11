@@ -21,7 +21,7 @@ export async function POST(req) {
             );
         }
 
-        const disponibilidad = 1; 
+        const disponibilidad = 'disponible'; 
         const fecha_publicacion = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
         
         const idUsuarioNum = Number(id_usuario);

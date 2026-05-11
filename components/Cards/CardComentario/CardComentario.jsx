@@ -7,21 +7,31 @@ import useTiempo from "@/hooks/useTiempo";
 import useLibroActivo from "@/hooks/useLibroActivo";
 import Boton from "@/components/UI/Boton/Boton";
 import FormEditarComentario from "@/components/Formularios/FormEditarComentario/FormEditarComentario";
+import { useRouter } from "next/navigation";
 
 function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, iniciarEdicionComentario, manejarEliminarComentario, cancelarEdicionComentario, manejarComentarioEditado }) {
     const esMiComentario = usuarioLogueado && Number(comentario.id_usuario) === Number(usuarioLogueado.id_usuario);
-
+    
+    const router = useRouter();
     const tiempoTranscurrido = useTiempo(comentario.fecha_comentario);
     return (
         <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
             <div className="row g-0 align-items-center mb-2">
-                <div className="col-auto me-2">
+                <div
+                    className="col-auto me-2" 
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push(`/perfilUsuario?id=${comentario.id_usuario}`)}
+                >
                     <div className={styles.avatarWrapper}>
                         <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil} alt="avatar" className={styles.perfilUsuario} />
                     </div>
                 </div>
 
-                <div className="col d-flex flex-column">
+                <div
+                    className="col d-flex flex-column" 
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push(`/perfilUsuario?id=${comentario.id_usuario}`)}
+                >
                     <span className={styles.nombreUsuario}>{esMiComentario ? usuarioLogueado?.nick_usuario : comentario.nick_usuario}</span>
                     <span className={styles.tiempoPublicacion}>{tiempoTranscurrido}</span>
                 </div>

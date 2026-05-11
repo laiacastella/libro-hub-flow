@@ -7,9 +7,9 @@
   "build": "next build",
   "start": "next start",
 
-  "start:staging": "env-cmd -f .env.staging next start",
-  "build:staging": "env-cmd -f .env.staging next build",
-  "dev:staging": "env-cmd -f .env.staging next dev",
+  "start:prod": "env-cmd -f .env.prod next start",
+  "build:prod": "env-cmd -f .env.prod next build",
+  "dev:prod": "env-cmd -f .env.prod next dev",
 
   "lint": "eslint"
 },
