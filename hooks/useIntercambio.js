@@ -8,7 +8,7 @@ export function cumpleFiltroIntercambio(filtro, { esPropietario, esSolicitante, 
 
     switch (filtro) {
         case "todas":
-            return (esPropietario || esSolicitante) && !esEliminado && !esFinalizado;
+            return (esPropietario || esSolicitante) && !esRechazado && !esEliminado && !esFinalizado;
         case "recibidas":
             return esPropietario && !esRechazado && !esEliminado && !esFinalizado;
         case "realizadas":
