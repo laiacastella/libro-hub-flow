@@ -60,6 +60,18 @@ export async function PATCH(req) {
         [id_libro_solicitado, id_libro_ofrecido]
       );
 
+      // Rechazar otros intercambios que involucren estos libros
+      await db.query(
+        `UPDATE intercambios 
+         SET estado_usuario_envia = 'rechazado', 
+             estado_usuario_recibe = 'rechazado' 
+         WHERE id_intercambio != ? 
+           AND (estado_usuario_envia NOT IN ('finalizado', 'rechazado', 'eliminado') 
+                OR estado_usuario_recibe NOT IN ('finalizado', 'rechazado', 'eliminado'))
+           AND (id_libro_solicitado IN (?, ?) OR id_libro_ofrecido IN (?, ?))`,
+        [id_intercambio, id_libro_solicitado, id_libro_ofrecido, id_libro_solicitado, id_libro_ofrecido]
+      );
+
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
