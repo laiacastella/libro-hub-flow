@@ -8,7 +8,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_solicitante, id_lib
                 u_recibe.email AS email_duenyo, 
                 u_recibe.nombre AS nombre_duenyo, 
                 u_envia.nombre AS nombre_solicitante,
-                l.titulo 
+                l.titulo AS titulo
              FROM usuarios u_recibe, usuarios u_envia, libros l 
              WHERE u_recibe.id_usuario = ? 
              AND u_envia.id_usuario = ? 
