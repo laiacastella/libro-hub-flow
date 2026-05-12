@@ -9,11 +9,11 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                 u_recibe.nombre AS nombre_duenyo, 
                 u_envia.nombre AS nombre_solicitante,
                 l.titulo AS titulo
-             FROM usuarios u_recibe, usuarios u_envia, libros l 
-             WHERE u_recibe.id_usuario = ? 
-             AND u_envia.id_usuario = ? 
-             AND l.id_libro = ?`, 
-            [id_usuario_recibe, id_solicitante, id_libro]
+            FROM usuarios u_recibe
+            JOIN usuarios u_envia ON u_envia.id_usuario = ?
+            JOIN libros l ON l.id_libro = ?
+            WHERE u_recibe.id_usuario = ?`,
+            [id_solicitante, id_libro, id_usuario_recibe]
         );
 
         if (info.length > 0) {
@@ -173,7 +173,7 @@ export async function POST(req) {
             ]
         );
 
-        enviarEmailNotificacion(id_usuario_recibe, id_libro_solicitado, id_usuario_envia);
+        awaitenviarEmailNotificacion(id_usuario_recibe, id_libro_solicitado, id_usuario_envia);
         
         return Response.json(
             { id: result.insertId, message: "Intercambio creado" },
