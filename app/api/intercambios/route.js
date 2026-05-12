@@ -1,19 +1,19 @@
 import { db } from "@/lib/db";
 import nodemailer from "nodemailer";
 
-const enviarEmailNotificacion = async (id_usuario_recibe, id_solicitante, id_libro) => {
+const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitante) => {
     try {
         const [info] = await db.query(
             `SELECT 
                 u_recibe.email AS email_duenyo, 
                 u_recibe.nombre AS nombre_duenyo, 
                 u_envia.nombre AS nombre_solicitante,
-                l.titulo AS titul
+                l.titulo AS titulo
              FROM usuarios u_recibe, usuarios u_envia, libros l 
              WHERE u_recibe.id_usuario = ? 
              AND u_envia.id_usuario = ? 
              AND l.id_libro = ?`, 
-            [id_usuario_recibe, id_solicitante, id_libro]
+            [id_usuario_recibe, id_libro, id_solicitante]
         );
 
         if (info.length > 0) {
@@ -35,7 +35,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_solicitante, id_lib
                 subject: `¡Buenas noticias! ${nombre_solicitante} tiene una propuesta para ti`,
                 html: `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #444; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 15px;">
-                        <h2 style="color: #2e7d32; text-align: center;">¡Hola, ${nombre_dueno}!</h2>
+                        <h2 style="color: #2e7d32; text-align: center;">¡Hola, ${nombre_duenyo}!</h2>
                         
                         <p style="font-size: 16px; line-height: 1.6;">
                             Esperamos que estés teniendo un día maravilloso. Te escribimos porque hay alguien que comparte tu amor por la lectura.
