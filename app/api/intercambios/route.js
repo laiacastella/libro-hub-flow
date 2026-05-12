@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import nodemailer from "nodemailer";
 
-const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitante) => {
+const enviarEmailNotificacion = async (id_usuario_recibe, id_solicitante, id_libro) => {
     try {
         const [info] = await db.query(
             `SELECT 
