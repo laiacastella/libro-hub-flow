@@ -8,7 +8,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_solicitante, id_lib
                 u_recibe.email AS email_duenyo, 
                 u_recibe.nombre AS nombre_duenyo, 
                 u_envia.nombre AS nombre_solicitante,
-                l.titulo AS titulo
+                l.titulo AS titul
              FROM usuarios u_recibe, usuarios u_envia, libros l 
              WHERE u_recibe.id_usuario = ? 
              AND u_envia.id_usuario = ? 
@@ -19,8 +19,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_solicitante, id_lib
         if (info.length > 0) {
             const { email_duenyo, nombre_duenyo, nombre_solicitante, titulo } = info[0];
             
-            // Construimos el enlace directo (ajusta la URL a tu dominio de producción si es necesario)
-            const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario`;
+            const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario?id=${id_usuario_recibe}&intercambio=${id_solicitante}`;
 
             const transporter = nodemailer.createTransport({
                 service: "gmail",
