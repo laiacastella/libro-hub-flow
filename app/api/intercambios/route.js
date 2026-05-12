@@ -13,7 +13,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
              WHERE u_recibe.id_usuario = ? 
              AND u_envia.id_usuario = ? 
              AND l.id_libro = ?`, 
-            [id_usuario_recibe, id_libro, id_solicitante]
+            [id_usuario_recibe, id_solicitante, id_libro]
         );
 
         if (info.length > 0) {
