@@ -27,8 +27,8 @@ const enviarEmailNotificacion = async (id_usuario, id_libro) => {
             });
 
             await transporter.sendMail({
-                from: '"Libro-Hub 📖" <noreply@librohub.com>',
-                to: email_dueno,
+                from: '"Libro-Hub" <@librohub.com>',
+                to: info[0].email,
                 subject: `¡Buenas noticias! ${nombre_solicitante} tiene una propuesta para ti`,
                 html: `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #444; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 15px;">
