@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import nodemailer from "nodemailer";
 
 const enviarEmailNotificacion = async (id_usuario, id_libro) => {
     try {
@@ -16,7 +17,7 @@ const enviarEmailNotificacion = async (id_usuario, id_libro) => {
         );
 
         if (info.length > 0) {
-            const { email_dueno, nombre_dueno, nombre_solicitante, titulo } = info[0];
+            const { email_duenyo, nombre_duenyo, nombre_solicitante, titulo } = info[0];
             
             // Construimos el enlace directo (ajusta la URL a tu dominio de producción si es necesario)
             const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario`;
@@ -28,7 +29,7 @@ const enviarEmailNotificacion = async (id_usuario, id_libro) => {
 
             await transporter.sendMail({
                 from: '"Libro-Hub" <@librohub.com>',
-                to: info[0].email,
+                to: email_duenyo,
                 subject: `¡Buenas noticias! ${nombre_solicitante} tiene una propuesta para ti`,
                 html: `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #444; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 15px;">
