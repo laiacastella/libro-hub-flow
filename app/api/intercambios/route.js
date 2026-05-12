@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import nodemailer from "nodemailer";
 
-const enviarEmailNotificacion = async (id_usuario, id_libro) => {
+const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitante) => {
     try {
         const [info] = await db.query(
             `SELECT 
@@ -24,7 +24,10 @@ const enviarEmailNotificacion = async (id_usuario, id_libro) => {
 
             const transporter = nodemailer.createTransport({
                 service: "gmail",
-                auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+                auth:{ 
+                    user: process.env.EMAIL_USER, 
+                    pass: process.env.EMAIL_PASS 
+                }
             });
 
             await transporter.sendMail({
