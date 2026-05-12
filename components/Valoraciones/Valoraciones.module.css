@@ -1,11 +1,27 @@
-.titular {
-    font-size: 36px;
-    font-weight: 700;
-    margin: 0;
+.valoracionesWrapper {
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
 }
+
 .valoracionesContainer {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
+    justify-self: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
 }
