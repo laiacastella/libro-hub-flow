@@ -3,7 +3,7 @@ import styles from "./Footer.module.css";
 import { Users, AlertTriangle, Copyright } from "lucide-react";
 import { useState } from "react";
 import Enlaces from "@/components/UI/Enlaces/Enlaces";
-import PopUpIncidencia from "@/components/PopUps/PopUpIncidencia/PopUpIncidencia";
+import { PopUp, FormIncidencia } from "@/components";
 
 export default function Footer() {
     const [isPopupIncidenciaOpen, setIsPopupIncidenciaOpen] = useState(false);
@@ -55,7 +55,9 @@ export default function Footer() {
                 </div>
             </div>
 
-            <PopUpIncidencia isOpen={isPopupIncidenciaOpen} onClose={cerrarPopupIncidencia} />
+            <PopUp title="Reportar una Incidencia" isOpen={isPopupIncidenciaOpen} onClose={cerrarPopupIncidencia} popupClassName={styles.popupIncidencia}>
+                <FormIncidencia onClose={cerrarPopupIncidencia} />
+            </PopUp>
         </div>
     );
 }
