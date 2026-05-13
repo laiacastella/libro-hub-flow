@@ -4,20 +4,12 @@ import { useState, useEffect } from "react";
 import styles from "./CardValoracion.module.css";
 import { Estrellas } from "@/components/index";
 import { useRouter } from "next/navigation";
+import useTiempo from "@/hooks/useTiempo";
 
-function tiempoRelativo(fecha) {
-    const ahora = new Date();
-    const fechaValoracion = new Date(fecha);
-    const diferenciaMs = ahora - fechaValoracion;
-    const minutos = Math.floor(diferenciaMs / 60000);
-    const horas = Math.floor(minutos / 60);
-    const dias = Math.floor(horas / 24);
-
-    if (minutos < 1) return "ahora mismo";
-    if (minutos < 60) return `hace ${minutos} min`;
-    if (horas < 24) return `hace ${horas} h`;
-    if (dias < 30) return `hace ${dias} d`;
-    return fechaValoracion.toLocaleDateString("es-ES");
+// Componente auxiliar solo para el tiempo
+function Tiempo({ fecha }) {
+    const tiempo = useTiempo(fecha);
+    return tiempo;
 }
 
 export default function CardValoracion({ userId }) {
@@ -104,7 +96,9 @@ export default function CardValoracion({ userId }) {
                             onClick={() => router.push(`/perfilUsuario?id=${v.id_usuario_evaluador}`)}
                         >
                             <span className={styles.nombreUsuario}>{v.nick_usuario}</span>
-                            <span className={styles.tiempoPublicacion}>{tiempoRelativo(v.fecha_valoracion)}</span>
+                            <span className={styles.tiempoPublicacion}>
+                                <Tiempo fecha={v.fecha_valoracion} />
+                            </span>
                         </div>
 
                         <div className="col-auto">
