@@ -25,7 +25,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                 service: "gmail",
                 auth:{ 
                     user: process.env.EMAIL_USER, 
-                    pass: process.env.EMAIL_PASS 
+                    pass: process.env.EMAIL_PASSWORD 
                 }
             });
 
@@ -65,6 +65,10 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                     </div>
                 `
             });
+
+            console.log("EMAIL_USER:", process.env.EMAIL_USER);
+            console.log("EMAIL_PASS:", process.env.EMAIL_PASSWORD);
+            console.log("Enviando email a:", email_duenyo);
         }
     } catch (e) { 
         console.error("Error al enviar el email:", e.message); 
