@@ -173,7 +173,11 @@ export async function POST(req) {
             ]
         );
 
-        awaitenviarEmailNotificacion(id_usuario_recibe, id_libro_solicitado, id_usuario_envia);
+        await enviarEmailNotificacion(
+            id_usuario_recibe,
+            id_libro_solicitado,
+            id_usuario_envia
+        );
         
         return Response.json(
             { id: result.insertId, message: "Intercambio creado" },
