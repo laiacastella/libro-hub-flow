@@ -30,7 +30,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
             });
 
             await transporter.sendMail({
-                from: '"Libro-Hub" <@librohub.com>',
+                from: `"Libro-Hub" <${process.env.EMAIL_USER}>`,
                 to: email_duenyo,
                 subject: `¡Buenas noticias! ${nombre_solicitante} tiene una propuesta para ti`,
                 html: `
