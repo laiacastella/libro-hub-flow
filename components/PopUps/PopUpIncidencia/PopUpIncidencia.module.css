@@ -49,7 +49,7 @@
 @media (max-width: 768px) {
     .overlay {
         padding: 0.5rem;
-        place-items: start center;
+        place-items: center;
     }
 
     .popup {

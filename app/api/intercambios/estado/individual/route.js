@@ -71,22 +71,39 @@ export async function PATCH(req) {
       [estado, id_intercambio]
     );
 
-    // Verificar si ambos finalizaron para archivar libros
+    // Obtener información del intercambio para saber qué libro archivar
     const [statusRows] = await db.query(
-      `SELECT id_libro_ofrecido, id_libro_solicitado, estado_usuario_envia, estado_usuario_recibe FROM intercambios WHERE id_intercambio = ? LIMIT 1`,
+      `SELECT id_libro_ofrecido, id_libro_solicitado, id_usuario_envia, id_usuario_recibe, estado_usuario_envia, estado_usuario_recibe 
+       FROM intercambios WHERE id_intercambio = ? LIMIT 1`,
       [id_intercambio]
     );
 
     if (statusRows.length) {
       const s = statusRows[0];
+      const esEnvia = Number(id_usuario_actual) === Number(s.id_usuario_envia);
+      const esRecibe = Number(id_usuario_actual) === Number(s.id_usuario_recibe);
+      
+      // Archivar el libro del usuario que confirma la entrega
+      // El solicitante (envia) es dueño del libro_ofrecido
+      // El propietario (recibe) es dueño del libro_solicitado
+      if (estado === "valorar") {
+        const idLibroAArchivar = esEnvia ? s.id_libro_ofrecido : s.id_libro_solicitado;
+        
+        if (idLibroAArchivar) {
+          await db.query(
+            "UPDATE libros SET disponibilidad = 'archivado' WHERE id_libro = ?",
+            [idLibroAArchivar]
+          );
+        }
+      }
+      
+      // Verificar si ambos han llegado a "valorar" para finalizar completamente
       const enviaValorar = String(s.estado_usuario_envia) === "valorar";
       const recibeValorar = String(s.estado_usuario_recibe) === "valorar";
       
       if (enviaValorar && recibeValorar) {
-        await db.query(
-          "UPDATE libros SET disponibilidad = 'archivado' WHERE id_libro IN (?, ?)",
-          [s.id_libro_ofrecido, s.id_libro_solicitado]
-        );
+        // Ambos han confirmado, el intercambio está completamente finalizado
+        // Los libros ya fueron archivados individualmente
       }
     }
 

@@ -1,25 +1,92 @@
 import { db } from "@/lib/db";
-import { transporter } from "@/lib/mailer";
+import nodemailer from "nodemailer";
 
-
-const enviarEmailNotificacion = async (id_usuario, id_libro) => {
+const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitante) => {
     try {
         const [info] = await db.query(
-            `SELECT u.email, u.nick_usuario, l.titulo 
-             FROM usuarios u, libros l 
-             WHERE u.id_usuario = ? AND l.id_libro = ?`, 
-            [id_usuario, id_libro]
+            `SELECT 
+                u_recibe.email AS email_duenyo, 
+                u_recibe.nombre AS nombre_duenyo, 
+                u_envia.nombre AS nombre_solicitante,
+                u_envia.telefono AS telefono_solicitante,
+                l.titulo AS titulo
+            FROM usuarios u_recibe
+            JOIN usuarios u_envia ON u_envia.id_usuario = ?
+            JOIN libros l ON l.id_libro = ?
+            WHERE u_recibe.id_usuario = ?`,
+            [id_solicitante, id_libro, id_usuario_recibe]
         );
 
         if (info.length > 0) {
+            const {
+                email_duenyo,
+                nombre_duenyo,
+                nombre_solicitante,
+                telefono_solicitante,
+                titulo
+            } = info[0];
+
+            const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario?tab=solicitudes&id=${id_usuario_recibe}`;
+
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth:{ 
+                    user: process.env.EMAIL_USER, 
+                    pass: process.env.EMAIL_PASS
+                }
+            });
+
             await transporter.sendMail({
                 from: `"LibroHubFlow" <${process.env.EMAIL_USER}>`,
-                to: info[0].email,
-                subject: "¡Nueva solicitud de intercambio!",
-                html: `<p>Hola ${info[0].nick_usuario}, alguien quiere tu libro: <b>${info[0].titulo}</b>.</p>`
+                to: email_duenyo,
+                subject: `¡Buenas noticias! ${nombre_solicitante} tiene una propuesta para ti`,
+                html: `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #444; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 15px;">
+                        <h2 style="color: #2e7d32; text-align: center;">¡Hola, ${nombre_duenyo}!</h2>
+                        
+                        <p style="font-size: 16px; line-height: 1.6;">
+                            Esperamos que estés teniendo un día maravilloso. Te escribimos porque hay alguien que comparte tu amor por la lectura.
+                        </p>
+                        
+                        <p style="font-size: 16px; line-height: 1.6;">
+                            <strong>${nombre_solicitante}</strong> ha visto tu libro <span style="color: #2e7d32; font-weight: bold;">"${titulo}"</span> y le encantaría poder intercambiarlo contigo. 
+                        </p>
+
+                        <div style="padding:15px; border-radius:10px; margin-top:20px;">
+                            <p style="margin:0; font-size:15px;">
+                                 <strong>Teléfono de contacto:</strong> 
+                                ${telefono_solicitante || 'No disponible'}
+                            </p>
+                        </div>
+
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="${enlaceSolicitud}" 
+                               style="background-color: #2e7d32; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+                                Ver la solicitud de intercambio
+                            </a>
+                        </div>
+
+                        <p style="font-size: 15px; color: #666; font-style: italic; text-align: center;">
+                            "Cada libro compartido es una nueva historia que cobra vida."
+                        </p>
+                        
+                        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                        
+                        <p style="font-size: 13px; color: #999; text-align: center;">
+                            Gracias por ser parte de nuestra comunidad y por ayudar a dar una segunda vida a los libros. <br>
+                            Con cariño, el equipo de <strong>LibroHubFlow</strong>.
+                        </p>
+                    </div>
+                `
             });
+
+            console.log("EMAIL_USER:", process.env.EMAIL_USER);
+            console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+            console.log("Enviando email a:", email_duenyo);
         }
-    } catch (e) { console.error("Error email:", e.message); }
+    } catch (e) { 
+        console.error("Error al enviar el email:", e.message); 
+    }
 };
 
 export async function GET(req) {
@@ -43,6 +110,8 @@ export async function GET(req) {
 
             return Response.json({ total: rows[0].total });
         }
+
+
 
         // Consulta para obtener los intercambios, incluyendo información de los libros y usuarios relacionados
         const [rows] = await db.query(`
@@ -99,6 +168,27 @@ export async function POST(req) {
             return Response.json({ error: "Faltan datos" }, { status: 400 });
         }
 
+         // Verificar si el usuario ya tiene una solicitud activa para este libro
+        const [solicitudesExistentes] = await db.query(
+            `
+            SELECT id_intercambio 
+            FROM intercambios 
+            WHERE id_usuario_envia = ? 
+              AND id_libro_solicitado = ?
+              AND estado_usuario_envia NOT IN ('finalizado', 'rechazado', 'eliminado')
+              AND estado_usuario_recibe NOT IN ('finalizado', 'rechazado', 'eliminado')
+            LIMIT 1
+            `,
+            [id_usuario_envia, id_libro_solicitado]
+        );
+
+        if (solicitudesExistentes.length > 0) {
+            return Response.json(
+                { error: "Ya tienes una solicitud activa para este libro" },
+                { status: 409 }
+            );
+        }
+
         const ahora = new Date();
         const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" }); 
 
@@ -124,7 +214,11 @@ export async function POST(req) {
             ]
         );
 
-        enviarEmailNotificacion(id_usuario_recibe, id_libro_solicitado);
+        await enviarEmailNotificacion(
+            id_usuario_recibe,
+            id_libro_solicitado,
+            id_usuario_envia
+        );
         
         return Response.json(
             { id: result.insertId, message: "Intercambio creado" },

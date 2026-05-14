@@ -1,6 +1,6 @@
 "use client";
 import styles from "./CardSolicitud.module.css";
-import { PopUpBiblioteca, Boton, PopUpValoracion } from "@/components/index";
+import { PopUpBiblioteca, Boton, PopUpValoracion, PopUpProblemaIntercambio } from "@/components/index";
 import { SquarePlus, ArrowLeftRight } from "lucide-react";
 import useIntercambio, { cumpleFiltroIntercambio } from "@/hooks/useIntercambio";
 import useUsuarioIntercambio from "@/hooks/useUsuarioIntercambio";
@@ -15,8 +15,9 @@ function TiempoSolicitud({ fecha }) {
 
 
 export default function CardSolicitud({ filtro = "todas" }) {
-    const [popupActivo, setPopupActivo] = useState(null); // "biblioteca" | "valoracion" | null
+    const [popupActivo, setPopupActivo] = useState(null); // "biblioteca" | "valoracion" | "problema" | null
     const [intercambioActivo, setIntercambioActivo] = useState(null); // intercambio seleccionado para el popup activo
+    const [estadoUsuarioActivo, setEstadoUsuarioActivo] = useState(null); // estado del usuario para el intercambio activo
     const { obtenerIntercambios, actualizarEstadoIntercambio, actualizarEstadoComunIntercambio } = useIntercambio();
     const { idUsuarioActual, obtenerTipoUsuarioIntercambio } = useUsuarioIntercambio();
     
@@ -116,19 +117,54 @@ export default function CardSolicitud({ filtro = "todas" }) {
         setIntercambioActivo(null);
     }
 
-    function abrirPopupValoracion(intercambio) {
+    function abrirPopupValoracion(intercambio, estadoUsuario) {
         setIntercambioActivo(intercambio);
+        setEstadoUsuarioActivo(estadoUsuario);
         setPopupActivo("valoracion");
     }
 
     function cerrarPopupValoracion() {
         setPopupActivo(null);
         setIntercambioActivo(null);
+        setEstadoUsuarioActivo(null);
+    }
+
+    function abrirPopupProblema(intercambio, estadoUsuario) {
+        setIntercambioActivo(intercambio);
+        setEstadoUsuarioActivo(estadoUsuario);
+        setPopupActivo("problema");
+    }
+
+    function cerrarPopupProblema() {
+        setPopupActivo(null);
+        setIntercambioActivo(null);
+        setEstadoUsuarioActivo(null);
     }
 
     async function manejarValoracionGuardada(idIntercambio) {
         await avanzarEstado(idIntercambio, "valorar");
         cerrarPopupValoracion();
+    }
+
+    async function manejarProblemaResuelto(idIntercambio, tipoAccion) {
+        // Actualizar visualmente solo el estado del usuario actual
+        setIntercambios((prev) =>
+            prev.map((i) => {
+                if (i.id_intercambio !== idIntercambio) return i;
+
+                const nuevoEstado = tipoAccion === "revertir" ? "rechazado" : "finalizado";
+                const { esPropietario, esSolicitante } = obtenerTipoUsuarioIntercambio(i);
+                
+                // Solo actualizar el estado del usuario que reporta
+                if (esSolicitante) {
+                    return { ...i, estado_usuario_envia: nuevoEstado };
+                } else if (esPropietario) {
+                    return { ...i, estado_usuario_recibe: nuevoEstado };
+                }
+                return i;
+            })
+        );
+        cerrarPopupProblema();
     }
 
     const intercambiosFiltrados = intercambios.filter((intercambio) => {
@@ -146,6 +182,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
 
     const esPopupBibliotecaAbierto = popupActivo === "biblioteca" && Boolean(intercambioActivo);
     const esPopupValoracionAbierto = popupActivo === "valoracion" && Boolean(intercambioActivo);
+    const esPopupProblemaAbierto = popupActivo === "problema" && Boolean(intercambioActivo);
 
     const mensajesEstadoVacio = {
         recibidas: {
@@ -335,11 +372,27 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         {/* si es valorar al hacer click se abre el popup de valoracion */}
                         {estadoUsuario === "valorar" && (
                             <>
-                                <Boton texto="Valorar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => abrirPopupValoracion(intercambio)} />
+                                <Boton texto="Valorar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => abrirPopupValoracion(intercambio, estadoUsuario)} />
                             </>
                         )}
 
-                        {!["solicitado", "seleccionado", "finalizado", "rechazado", "valorar"].includes(estadoUsuario) && flujoEstados[estadoUsuario] && (
+                        {/* Si es aceptado -> mostrar botón principal + reportar problema */}
+                        {estadoUsuario === "aceptado" && (
+                            <>
+                                <div className={styles.divBotonesColumn}>
+                                    <Boton texto="Confirmar entrega" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
+                                    <button 
+                                        type="button"
+                                        className={styles.textoProblema}
+                                        onClick={() => abrirPopupProblema(intercambio, estadoUsuario)}
+                                    >
+                                        ¿Problema? Reportar incidencia
+                                    </button>
+                                </div>
+                            </>
+                        )}
+
+                        {!["solicitado", "seleccionado", "finalizado", "rechazado", "valorar", "aceptado"].includes(estadoUsuario) && flujoEstados[estadoUsuario] && (
                             <>
                                 <Boton texto={etiquetasBoton[estadoUsuario]} className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
                             </>
@@ -349,6 +402,14 @@ export default function CardSolicitud({ filtro = "todas" }) {
             )})}
             <PopUpBiblioteca isOpen={esPopupBibliotecaAbierto} onClose={cerrarPopup} intercambio={intercambioActivo} avanzarEstado={avanzarEstado} />
             <PopUpValoracion isOpen={esPopupValoracionAbierto} onClose={cerrarPopupValoracion} intercambio={intercambioActivo} idUsuarioActual={idUsuarioActual} onValoracionGuardada={manejarValoracionGuardada} />
+            <PopUpProblemaIntercambio 
+                isOpen={esPopupProblemaAbierto} 
+                onClose={cerrarPopupProblema} 
+                intercambio={intercambioActivo} 
+                idUsuarioActual={idUsuarioActual}
+                estadoUsuario={estadoUsuarioActivo}
+                onProblemaResuelto={manejarProblemaResuelto}
+            />
         </>
     );
 }
