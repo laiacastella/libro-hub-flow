@@ -32,7 +32,7 @@ const PopUpIntercambioSolicitado = ({ isOpen, onClose, userName }) => {
         <div className={styles.textoCuerpo}>
           <p>
             <strong>{userName}</strong> va a recibir un mensaje con tus datos de contacto. 
-            Si también está interesad@ en hacer match se va a comunicarse contigo.
+            Si también está interesad@ en hacer match se comunicará contigo.
           </p>
           
           <p className={styles.sostenibilidad}>
