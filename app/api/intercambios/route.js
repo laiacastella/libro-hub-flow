@@ -26,7 +26,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                 titulo
             } = info[0];
 
-            const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario?id=${id_usuario_recibe}&intercambio=${id_solicitante}`;
+            const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario?tab=solicitudes&id=${id_usuario_recibe}`;
 
             const transporter = nodemailer.createTransport({
                 service: "gmail",
