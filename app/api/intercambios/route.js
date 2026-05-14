@@ -111,6 +111,29 @@ export async function GET(req) {
             return Response.json({ total: rows[0].total });
         }
 
+        // Verificar si el usuario ya tiene una solicitud activa para un libro específico
+        if (mode === "check" && user) {
+            const libroId = searchParams.get("libro");
+            if (!libroId) {
+                return Response.json({ error: "Falta el ID del libro" }, { status: 400 });
+            }
+
+            const [rows] = await db.query(
+                `
+                SELECT id_intercambio 
+                FROM intercambios 
+                WHERE id_usuario_envia = ? 
+                  AND id_libro_solicitado = ?
+                  AND estado_usuario_envia NOT IN ('finalizado', 'rechazado', 'eliminado')
+                  AND estado_usuario_recibe NOT IN ('finalizado', 'rechazado', 'eliminado')
+                LIMIT 1
+                `,
+                [user, libroId]
+            );
+
+            return Response.json({ existe: rows.length > 0 });
+        }
+
 
 
         // Consulta para obtener los intercambios, incluyendo información de los libros y usuarios relacionados
