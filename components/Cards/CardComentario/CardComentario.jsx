@@ -128,8 +128,16 @@ export default function CardComentario({ comentarios, setComentarios }) {
         }
     };
 
+    const mostrarEstadoVacio = comentarios.length === 0;
+
     return (
         <>
+            {mostrarEstadoVacio && (
+                <div className={styles.estadoVacio}>
+                    <h3 className={styles.estadoVacioTitulo}>Sin comentarios aún</h3>
+                    <p className={styles.estadoVacioTexto}>Sé el primero en compartir tu opinión sobre este libro.</p>
+                </div>
+            )}
             {comentarios.map((comentario) => (
                 <ComentarioItem 
                     key={comentario.id_comentario} 
