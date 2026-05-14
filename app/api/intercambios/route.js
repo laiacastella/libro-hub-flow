@@ -32,7 +32,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                 service: "gmail",
                 auth:{ 
                     user: process.env.EMAIL_USER, 
-                    pass: process.env.EMAIL_PASSWORD 
+                    pass: process.env.EMAIL_PASS
                 }
             });
 
@@ -81,7 +81,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
             });
 
             console.log("EMAIL_USER:", process.env.EMAIL_USER);
-            console.log("EMAIL_PASS:", process.env.EMAIL_PASSWORD);
+            console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
             console.log("Enviando email a:", email_duenyo);
         }
     } catch (e) { 
