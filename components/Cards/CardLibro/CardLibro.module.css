@@ -19,6 +19,22 @@
     align-items: center;
     cursor: pointer;
     justify-self: center;
+    position: relative;
+}
+
+.badgeReservado {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #5d835f;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    z-index: 1;
 }
 
 .libroCard:hover {

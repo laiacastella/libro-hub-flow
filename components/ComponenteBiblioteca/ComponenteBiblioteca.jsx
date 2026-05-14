@@ -3,14 +3,15 @@ import styles from "./ComponenteBiblioteca.module.css";
 import { CardLibro, BarraBusqueda, Paginacion, ItemsPorPagina } from "@/components";
 import { useState, useEffect, useCallback  } from "react";
 
-export default function ComponenteBiblioteca({ 
+export default function ComponenteBiblioteca({
     setLibroSeleccionado,
     libroSeleccionado,
     modoPopup = false,
     mostrarDetalleInline = false,
     detalleInline = null,
     onSeleccionarLibro = null,
-    id_usuario
+    id_usuario,
+    soloDisponibles = false
 }) {
     const [libros, setLibros] = useState([]);
     const [filtro, setFiltro] = useState("");
@@ -27,18 +28,22 @@ export default function ComponenteBiblioteca({
     useEffect(() => {
         const url = `/api/libros?page=${paginaActual}&limit=${librosPorPagina}&search=${filtro}${
             id_usuario ? `&user=${id_usuario}` : ""
-        }`;
+        }${soloDisponibles ? `&solo_disponibles=true` : ""}`;
 
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
                 console.log("DATA:", data);
-                setLibros(data.data);
-                setTotalPaginas(data.totalPaginas);
+                setLibros(data.data || []);
+                setTotalPaginas(data.totalPaginas || 1);
             })
-            .catch((err) => console.error("Error final:", err));
+            .catch((err) => {
+                console.error("Error final:", err);
+                setLibros([]);
+                setTotalPaginas(1);
+            });
 
-    }, [paginaActual, filtro, id_usuario, librosPorPagina]);
+    }, [paginaActual, filtro, id_usuario, librosPorPagina, soloDisponibles]);
 
     console.log("texto búsqueda", filtro);
     return (

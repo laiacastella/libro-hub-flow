@@ -21,6 +21,26 @@
     /* El borde verde oscuro de tu imagen */
 }
 
+.portadaWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.badgeReservado {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: #5d835f;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    z-index: 1;
+}
+
 /* El cuadro gris de las reseñas que se ve en tu imagen */
 .seccionResenas {
     background-color: #f8f9fa;

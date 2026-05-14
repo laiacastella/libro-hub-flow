@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 
 export default function EscribirTexto({
@@ -9,16 +9,26 @@ export default function EscribirTexto({
   const [contenido, setContenido] = useState("");
   const [indice, setIndice] = useState(0);
 
+  // Convertimos a string de forma segura al inicio
+  const textoSeguro = texto || "";
+
   useEffect(() => {
-    if (indice < texto.length) {
+    // Cuando el prop 'texto' cambia, reseteamos el estado
+    setContenido("");
+    setIndice(0);
+  }, [texto]);
+
+  useEffect(() => {
+    // Verificamos la longitud
+    if (indice < textoSeguro.length) {
       const timeout = setTimeout(() => {
-        setContenido((prev) => prev + texto.charAt(indice));
+        setContenido((prev) => prev + textoSeguro.charAt(indice));
         setIndice(indice + 1);
       }, velocidad);
 
       return () => clearTimeout(timeout);
     }
-  }, [indice, texto, velocidad]);
+  }, [indice, textoSeguro, velocidad]);
 
   return <Tipo>{contenido}</Tipo>;
 }

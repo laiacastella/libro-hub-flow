@@ -235,6 +235,19 @@
     }
 }
 
+.popupIncidencia {
+    width: min(1100px, 96vw);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .popupIncidencia {
+        width: 96vw;
+        max-height: 95vh;
+    }
+}
+
 .enlaces {
     /* --- ESTÉTICA --- */
     color: #407c42; /* El mismo verde para dar coherencia */
