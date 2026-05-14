@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
 import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton } from "@/components";
@@ -17,9 +17,17 @@ export default function FichaLibro() {
     const [solicitandoIntercambio, setSolicitandoIntercambio] = useState(false);
     const [errorIntercambio, setErrorIntercambio] = useState("");
     const [abrirPopupExito, setAbrirPopupExito] = useState(false);
+    const [yaSolicitado, setYaSolicitado] = useState(false);
+    const [verificandoSolicitud, setVerificandoSolicitud] = useState(true);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
+
+    // Calcular si es mi libro - DEBE estar antes de los useEffects que lo usan
+    const esMiLibro = useMemo(() => {
+        return libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
+    }, [libro, usuario]);
+
     console.log("ID del libro en FichaLibro:", id);
     useEffect(() => {
         if (id) {
@@ -38,10 +46,24 @@ export default function FichaLibro() {
         }
     }, [id, guardarLibroActivo]);
 
+    // Verificar si el usuario ya tiene una solicitud activa para este libro
+    useEffect(() => {
+        if (usuario?.id_usuario && id && !esMiLibro) {
+            setVerificandoSolicitud(true);
+            fetch(`/api/intercambios?mode=check&user=${usuario.id_usuario}&libro=${id}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setYaSolicitado(data.existe);
+                })
+                .catch((err) => console.error("Error verificando solicitud:", err))
+                .finally(() => setVerificandoSolicitud(false));
+        } else {
+            setVerificandoSolicitud(false);
+        }
+    }, [usuario?.id_usuario, id, esMiLibro]);
+
     if (cargando) return <div className="text-center mt-5">Cargando ficha...</div>;
     if (!libro) return <div className="text-center mt-5">Libro no encontrado</div>;
-
-    const esMiLibro = libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
 
     async function handleSolicitarIntercambio() {
         // Si el usuario no está logueado, o el libro no tiene propietario, o no hay id, no se puede solicitar intercambio
@@ -78,6 +100,7 @@ export default function FichaLibro() {
                 throw new Error(data?.error || "No se pudo solicitar el intercambio");
             }
          
+            setYaSolicitado(true); // Actualizar estado para deshabilitar el botón
             setAbrirPopupExito(true); // Abrir el popup de éxito
         } catch (error) {
             console.error("Error solicitando intercambio:", error);
@@ -141,12 +164,14 @@ export default function FichaLibro() {
 
                                         {libro.disponibilidad === 'reservado' ? (
                                             <Boton texto="Reservado" variant="disabled" disabled />
+                                        ) : yaSolicitado ? (
+                                            <Boton texto="Solicitado" variant="disabled" disabled />
                                         ) : (
                                             <Boton 
                                                 texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
                                                 variant="default" 
                                                 onClick={handleSolicitarIntercambio} 
-                                                disabled={solicitandoIntercambio} 
+                                                disabled={solicitandoIntercambio || verificandoSolicitud} 
                                             />
                                         )}
                                     </div>
