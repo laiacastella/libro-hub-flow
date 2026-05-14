@@ -16,7 +16,7 @@ function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, ini
     const router = useRouter();
     const tiempoTranscurrido = useTiempo(comentario.fecha_comentario);
     return (
-        <div className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`}>
+        <div className={`container-fluid mb-4 ${styles.comentarioCard}`}>
             <div className="row g-0 align-items-center mb-2">
                 <div
                     className="col-auto me-2" 
