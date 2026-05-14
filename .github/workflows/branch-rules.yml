@@ -1,0 +1,32 @@
+name: Branch Rules
+
+on:
+  pull_request:
+    branches:
+      - main
+      - staging
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate PR source
+        run: |
+          BASE="${{ github.base_ref }}"
+          HEAD="${{ github.head_ref }}"
+
+          echo "Base: $BASE"
+          echo "Head: $HEAD"
+
+          if [[ "$BASE" == "main" && "$HEAD" != "staging" ]]; then
+            echo "❌ Solo se permite merge de staging -> main"
+            exit 1
+          fi
+
+          if [[ "$BASE" == "staging" && "$HEAD" != "develop" ]]; then
+            echo "❌ Solo se permite merge de develop -> staging"
+            exit 1
+          fi
+
+          echo "✅ PR válida"
