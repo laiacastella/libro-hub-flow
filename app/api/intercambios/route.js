@@ -8,6 +8,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                 u_recibe.email AS email_duenyo, 
                 u_recibe.nombre AS nombre_duenyo, 
                 u_envia.nombre AS nombre_solicitante,
+                u_envia.telefono AS telefono_solicitante,
                 l.titulo AS titulo
             FROM usuarios u_recibe
             JOIN usuarios u_envia ON u_envia.id_usuario = ?
@@ -17,8 +18,14 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
         );
 
         if (info.length > 0) {
-            const { email_duenyo, nombre_duenyo, nombre_solicitante, titulo } = info[0];
-            
+            const {
+                email_duenyo,
+                nombre_duenyo,
+                nombre_solicitante,
+                telefono_solicitante,
+                titulo
+            } = info[0];
+
             const enlaceSolicitud = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/perfilUsuario?id=${id_usuario_recibe}&intercambio=${id_solicitante}`;
 
             const transporter = nodemailer.createTransport({
@@ -44,6 +51,13 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                         <p style="font-size: 16px; line-height: 1.6;">
                             <strong>${nombre_solicitante}</strong> ha visto tu libro <span style="color: #2e7d32; font-weight: bold;">"${titulo}"</span> y le encantaría poder intercambiarlo contigo. 
                         </p>
+
+                        <div style="padding:15px; border-radius:10px; margin-top:20px;">
+                            <p style="margin:0; font-size:15px;">
+                                 <strong>Teléfono de contacto:</strong> 
+                                ${telefono_solicitante || 'No disponible'}
+                            </p>
+                        </div>
 
                         <div style="text-align: center; margin: 30px 0;">
                             <a href="${enlaceSolicitud}" 
