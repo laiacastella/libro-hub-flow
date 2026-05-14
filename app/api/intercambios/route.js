@@ -111,6 +111,8 @@ export async function GET(req) {
             return Response.json({ total: rows[0].total });
         }
 
+
+
         // Consulta para obtener los intercambios, incluyendo información de los libros y usuarios relacionados
         const [rows] = await db.query(`
             SELECT
@@ -164,6 +166,27 @@ export async function POST(req) {
 
         if (!id_usuario_envia || !id_usuario_recibe || !id_libro_solicitado) {
             return Response.json({ error: "Faltan datos" }, { status: 400 });
+        }
+
+         // Verificar si el usuario ya tiene una solicitud activa para este libro
+        const [solicitudesExistentes] = await db.query(
+            `
+            SELECT id_intercambio 
+            FROM intercambios 
+            WHERE id_usuario_envia = ? 
+              AND id_libro_solicitado = ?
+              AND estado_usuario_envia NOT IN ('finalizado', 'rechazado', 'eliminado')
+              AND estado_usuario_recibe NOT IN ('finalizado', 'rechazado', 'eliminado')
+            LIMIT 1
+            `,
+            [id_usuario_envia, id_libro_solicitado]
+        );
+
+        if (solicitudesExistentes.length > 0) {
+            return Response.json(
+                { error: "Ya tienes una solicitud activa para este libro" },
+                { status: 409 }
+            );
         }
 
         const ahora = new Date();
