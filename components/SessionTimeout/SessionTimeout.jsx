@@ -19,7 +19,7 @@ export default function SessionTimeout() {
     return () => { clearInterval(i); window.removeEventListener("usuarioActualizado", check); };
   }, []);
 
-  // Contador del popup
+  // Contador del popup (60 segundos = 1 minuto)
   useEffect(() => {
     if (!mostrarWarning) return;
     setContador(60);
@@ -33,7 +33,8 @@ export default function SessionTimeout() {
     window.location.href = "/login";
   }, []);
 
-  const reiniciar = useInactividad(cerrarSesion, 70, activo, () => setMostrarWarning(true), 60);
+  // 30 minutos totales, popup aparece con 1 minuto restante (a los 29 min)
+  const reiniciar = useInactividad(cerrarSesion, 1800, activo, () => setMostrarWarning(true), 60);
 
   if (!activo) return null;
 
