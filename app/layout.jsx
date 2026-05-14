@@ -2,6 +2,7 @@
 
 import BootstrapProvider from "@/components/BootstrapProvider";
 import { Footer } from "@/components/index";
+import SessionTimeout from "@/components/SessionTimeout/SessionTimeout";
 import useAuthRedirect from "@/hooks/useAuthRedirect";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <BootstrapProvider>{children}</BootstrapProvider>
+                <SessionTimeout />
                 <Footer />
             </body>
         </html>
