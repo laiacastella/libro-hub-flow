@@ -30,7 +30,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
             });
 
             await transporter.sendMail({
-                from: `"Libro-Hub" <${process.env.EMAIL_USER}>`,
+                from: `"LibroHubFlow" <${process.env.EMAIL_USER}>`,
                 to: email_duenyo,
                 subject: `¡Buenas noticias! ${nombre_solicitante} tiene una propuesta para ti`,
                 html: `
@@ -60,7 +60,7 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                         
                         <p style="font-size: 13px; color: #999; text-align: center;">
                             Gracias por ser parte de nuestra comunidad y por ayudar a dar una segunda vida a los libros. <br>
-                            Con cariño, el equipo de <strong>Libro-Hub</strong>.
+                            Con cariño, el equipo de <strong>LibroHubFlow</strong>.
                         </p>
                     </div>
                 `
