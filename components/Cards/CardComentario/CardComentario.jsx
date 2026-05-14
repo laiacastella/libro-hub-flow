@@ -7,9 +7,10 @@ import useTiempo from "@/hooks/useTiempo";
 import useLibroActivo from "@/hooks/useLibroActivo";
 import Boton from "@/components/UI/Boton/Boton";
 import FormEditarComentario from "@/components/Formularios/FormEditarComentario/FormEditarComentario";
+import PopUp from "@/components/UI/PopUp/PopUp";
 import { useRouter } from "next/navigation";
 
-function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, iniciarEdicionComentario, manejarEliminarComentario, cancelarEdicionComentario, manejarComentarioEditado }) {
+function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, iniciarEdicionComentario, manejarEliminarComentario, cancelarEdicionComentario, manejarComentarioEditado, mostrarError }) {
     const esMiComentario = usuarioLogueado && Number(comentario.id_usuario) === Number(usuarioLogueado.id_usuario);
     
     const router = useRouter();
@@ -46,7 +47,7 @@ function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, ini
 
             <div className="row g-0">
                 <div className="col-12">
-                    <div className={`${styles.cajaComentario} ${comentarioEditandoId === comentario.id_comentario ? styles.cajaComentarioEditando : ""}`}>{comentarioEditandoId === comentario.id_comentario ? <FormEditarComentario comentario={comentario} idUsuario={usuarioLogueado?.id_usuario} onCancelar={cancelarEdicionComentario} onComentarioEditado={(nuevoTexto) => manejarComentarioEditado(comentario.id_comentario, nuevoTexto)} /> : <p className="mb-0">{comentario.comentario}</p>}</div>
+                    <div className={`${styles.cajaComentario} ${comentarioEditandoId === comentario.id_comentario ? styles.cajaComentarioEditando : ""}`}>{comentarioEditandoId === comentario.id_comentario ? <FormEditarComentario comentario={comentario} idUsuario={usuarioLogueado?.id_usuario} onCancelar={cancelarEdicionComentario} onComentarioEditado={(nuevoTexto) => manejarComentarioEditado(comentario.id_comentario, nuevoTexto)} onError={mostrarError} /> : <p className="mb-0">{comentario.comentario}</p>}</div>
                 </div>
             </div>
         </div>
@@ -58,6 +59,10 @@ export default function CardComentario({ comentarios, setComentarios }) {
     const { libroActivo } = useLibroActivo();
     const idLibro = libroActivo?.id_libro;
     const [comentarioEditandoId, setComentarioEditandoId] = useState(null);
+    
+    // Estados para los popups
+    const [popupConfirmacion, setPopupConfirmacion] = useState({ isOpen: false, comentario: null });
+    const [popupMensaje, setPopupMensaje] = useState({ isOpen: false, mensaje: "", tipo: "error" });
 
     useEffect(() => {
         if (!idLibro) return;
@@ -81,12 +86,20 @@ export default function CardComentario({ comentarios, setComentarios }) {
     const manejarComentarioEditado = (idComentario, nuevoTexto) => {
         setComentarios((comentariosPrevios) => comentariosPrevios.map((comentarioActual) => (Number(comentarioActual.id_comentario) === Number(idComentario) ? { ...comentarioActual, comentario: nuevoTexto } : comentarioActual)));
         cancelarEdicionComentario();
+        setPopupMensaje({ isOpen: true, mensaje: "Comentario actualizado correctamente", tipo: "exito" });
     };
 
-    const manejarEliminarComentario = async (comentario) => {
-        const confirmado = window.confirm("¿Quieres eliminar este comentario?");
+    const mostrarError = (mensaje) => {
+        setPopupMensaje({ isOpen: true, mensaje, tipo: "error" });
+    };
 
-        if (!confirmado) return;
+    const manejarEliminarComentario = (comentario) => {
+        setPopupConfirmacion({ isOpen: true, comentario });
+    };
+
+    const confirmarEliminacion = async () => {
+        const comentario = popupConfirmacion.comentario;
+        setPopupConfirmacion({ isOpen: false, comentario: null });
 
         try {
             const response = await fetch("/api/comentarios", {
@@ -101,7 +114,7 @@ export default function CardComentario({ comentarios, setComentarios }) {
             const data = await response.json();
 
             if (!response.ok) {
-                window.alert(data?.error || "No se pudo eliminar el comentario");
+                setPopupMensaje({ isOpen: true, mensaje: data?.error || "No se pudo eliminar el comentario", tipo: "error" });
                 return;
             }
 
@@ -111,9 +124,64 @@ export default function CardComentario({ comentarios, setComentarios }) {
 
             setComentarios((comentariosPrevios) => comentariosPrevios.filter((comentarioActual) => Number(comentarioActual.id_comentario) !== Number(comentario.id_comentario)));
         } catch {
-            window.alert("Error de conexión. Inténtalo de nuevo.");
+            setPopupMensaje({ isOpen: true, mensaje: "Error de conexión. Inténtalo de nuevo.", tipo: "error" });
         }
     };
 
-    return comentarios.map((comentario) => <ComentarioItem key={comentario.id_comentario} comentario={comentario} usuarioLogueado={usuarioLogueado} comentarioEditandoId={comentarioEditandoId} iniciarEdicionComentario={iniciarEdicionComentario} manejarEliminarComentario={manejarEliminarComentario} cancelarEdicionComentario={cancelarEdicionComentario} manejarComentarioEditado={manejarComentarioEditado} />);
+    return (
+        <>
+            {comentarios.map((comentario) => (
+                <ComentarioItem 
+                    key={comentario.id_comentario} 
+                    comentario={comentario} 
+                    usuarioLogueado={usuarioLogueado} 
+                    comentarioEditandoId={comentarioEditandoId} 
+                    iniciarEdicionComentario={iniciarEdicionComentario} 
+                    manejarEliminarComentario={manejarEliminarComentario} 
+                    cancelarEdicionComentario={cancelarEdicionComentario} 
+                    manejarComentarioEditado={manejarComentarioEditado} 
+                    mostrarError={mostrarError}
+                />
+            ))}
+
+            {/* Popup de confirmación para eliminar */}
+            <PopUp
+                isOpen={popupConfirmacion.isOpen}
+                onClose={() => setPopupConfirmacion({ isOpen: false, comentario: null })}
+                title="¿Eliminar comentario?"
+                footer={
+                    <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
+                        <Boton 
+                            texto="Cancelar" 
+                            variant="secondary" 
+                            onClick={() => setPopupConfirmacion({ isOpen: false, comentario: null })} 
+                        />
+                        <Boton 
+                            texto="Eliminar" 
+                            variant="red" 
+                            onClick={confirmarEliminacion} 
+                        />
+                    </div>
+                }
+            >
+                <p>¿Estás seguro de que quieres eliminar este comentario? Esta acción no se puede deshacer.</p>
+            </PopUp>
+
+            {/* Popup de mensaje (éxito o error) */}
+            <PopUp
+                isOpen={popupMensaje.isOpen}
+                onClose={() => setPopupMensaje({ isOpen: false, mensaje: "", tipo: "error" })}
+                title={popupMensaje.tipo === "exito" ? "¡Éxito!" : "Error"}
+                footer={
+                    <Boton 
+                        texto="Aceptar" 
+                        variant="default" 
+                        onClick={() => setPopupMensaje({ isOpen: false, mensaje: "", tipo: "error" })} 
+                    />
+                }
+            >
+                <p>{popupMensaje.mensaje}</p>
+            </PopUp>
+        </>
+    );
 }
