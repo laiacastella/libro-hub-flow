@@ -18,7 +18,9 @@ export default function FichaLibro() {
     const [errorIntercambio, setErrorIntercambio] = useState("");
     const [abrirPopupExito, setAbrirPopupExito] = useState(false);
     const [yaSolicitado, setYaSolicitado] = useState(false);
+    const [idIntercambioActivo, setIdIntercambioActivo] = useState(null);
     const [verificandoSolicitud, setVerificandoSolicitud] = useState(true);
+    const [revirtiendoIntercambio, setRevirtiendoIntercambio] = useState(false);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
@@ -54,6 +56,9 @@ export default function FichaLibro() {
                 .then((res) => res.json())
                 .then((data) => {
                     setYaSolicitado(data.existe);
+                    if (data.existe && data.id_intercambio) {
+                        setIdIntercambioActivo(data.id_intercambio);
+                    }
                 })
                 .catch((err) => console.error("Error verificando solicitud:", err))
                 .finally(() => setVerificandoSolicitud(false));
@@ -93,20 +98,57 @@ export default function FichaLibro() {
                 }),
             });
 
-            const data = await res.json(); 
+            const data = await res.json();
 
             // Si la respuesta no es ok, mostrar error
             if (!res.ok) {
                 throw new Error(data?.error || "No se pudo solicitar el intercambio");
             }
-         
+
             setYaSolicitado(true); // Actualizar estado para deshabilitar el botón
+            setIdIntercambioActivo(data.id); // Guardar el ID del intercambio creado
             setAbrirPopupExito(true); // Abrir el popup de éxito
         } catch (error) {
             console.error("Error solicitando intercambio:", error);
             setErrorIntercambio(error?.message || "Error al solicitar intercambio");
         } finally {
             setSolicitandoIntercambio(false); // Volver a habilitar el botón
+        }
+    }
+
+    async function handleRevertirIntercambio() {
+        if (!idIntercambioActivo || !usuario?.id_usuario) {
+            setErrorIntercambio("No se pudo revertir el intercambio.");
+            return;
+        }
+
+        try {
+            setRevirtiendoIntercambio(true);
+            setErrorIntercambio("");
+
+            const res = await fetch("/api/intercambios/estado/individual", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id_intercambio: idIntercambioActivo,
+                    estado: "rechazado",
+                    id_usuario_actual: usuario.id_usuario,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data?.error || "No se pudo revertir el intercambio");
+            }
+
+            setYaSolicitado(false);
+            setIdIntercambioActivo(null);
+        } catch (error) {
+            console.error("Error revirtiendo intercambio:", error);
+            setErrorIntercambio(error?.message || "Error al revertir el intercambio");
+        } finally {
+            setRevirtiendoIntercambio(false);
         }
     }
 
@@ -165,7 +207,12 @@ export default function FichaLibro() {
                                         {libro.disponibilidad === 'reservado' ? (
                                             <Boton texto="Reservado" variant="disabled" disabled />
                                         ) : yaSolicitado ? (
-                                            <Boton texto="Solicitado" variant="disabled" disabled />
+                                            <Boton 
+                                                texto={revirtiendoIntercambio ? "Revirtiendo..." : "Revertir intercambio"} 
+                                                variant="red"
+                                                onClick={handleRevertirIntercambio}
+                                                disabled={revirtiendoIntercambio}
+                                            />
                                         ) : (
                                             <Boton 
                                                 texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
