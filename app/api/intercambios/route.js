@@ -131,7 +131,10 @@ export async function GET(req) {
                 [user, libroId]
             );
 
-            return Response.json({ existe: rows.length > 0 });
+            return Response.json({ 
+                existe: rows.length > 0,
+                id_intercambio: rows.length > 0 ? rows[0].id_intercambio : null 
+            });
         }
 
 
