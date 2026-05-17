@@ -11,7 +11,7 @@
 }
 
 .selector {
-    width:20%;
+    width: min(100%, 300px);
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border: 2px solid #63a26c;
@@ -33,12 +33,74 @@
     box-shadow: 0 0 0 3px rgba(99, 162, 108, 0.1);
 }
 
+/* Grid para solicitudes activas (cards verticales) */
 .contenedorSolicitudes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: clamp(14px, 2vw, 20px);
     align-items: stretch;
     width: 100%;
+}
+
+/* Grid para historial (cards horizontales - máximo 2 por fila) */
+.contenedorSolicitudes[data-filtro="historial"] {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 3vw, 24px);
+}
+
+@media (max-width: 900px) {
+    .contenedorSolicitudes[data-filtro="historial"] {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedorSolicitudes {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 14px;
+    }
+
+    .contenedorSolicitudes[data-filtro="historial"] {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .selector {
+        width: min(100%, 250px);
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .contenedorGeneral {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedorSolicitudes {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .contenedorSolicitudes[data-filtro="historial"] {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .selector {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .selectorContainer {
+        margin-bottom: 1.5rem;
+    }
+
+    .contenedorGeneral {
+        padding: 12px;
+        border-radius: 12px;
+    }
 }
 .contenedor {
     display: flex;

@@ -113,7 +113,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                 {!esMovil ? (
                     <>
                         <div className={styles.header}>
-                            <h2>Biblioteca del usuario</h2>
+                            <h2>Biblioteca de {intercambio?.solicitante_nick_usuario || intercambio?.solicitante_nombre || "Usuario"}</h2>
                             <div className={styles.botonesSeleccion}>
                                 <Boton texto="Aceptar intercambio" variant="default" onClick={handleAceptarIntercambio} />
                                 <Boton
@@ -212,7 +212,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                 ) : (
                     <>
                         <div className={styles.headerMobile}>
-                            <h2>Biblioteca del usuario</h2>
+                            <h2>Biblioteca de {intercambio?.solicitante_nick_usuario || intercambio?.solicitante_nombre || "Usuario"}</h2>
                             <Boton
                                 texto={<X />}
                                 variant="cerrar"
