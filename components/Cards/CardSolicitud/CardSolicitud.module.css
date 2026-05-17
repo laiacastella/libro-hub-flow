@@ -7,7 +7,7 @@
     aspect-ratio: 7 / 8;
     min-height: 380px;
     padding: clamp(12px, 2vw, 20px);
-    box-shadow: 0px 0px 10px #52925c93;;
+    box-shadow: 0px 0px 10px #52925c93;
     text-align: center;
     display: grid;
     grid-template-rows: minmax(0, 72%) auto;
@@ -29,6 +29,7 @@
     justify-content: center;
     text-align: center;
     gap: 10px;
+    grid-column: 1 / -1;
 }
 
 .estadoVacioTitulo {
@@ -44,6 +45,7 @@
     line-height: 1.45;
     color: #3f4e42;
 }
+
 .propuestaUsuario {
     color: #3f3f3f;
     display: flex;
@@ -60,7 +62,8 @@
     background-color: #52925c34;
     padding: 2px 8px;
     border-radius: 25px;
-}   
+}
+
 .librosContainer {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -69,6 +72,7 @@
     height: 100%;
     width: 100%;
 }
+
 .libro {
     width: 100%;
     height: 100%;
@@ -139,6 +143,7 @@
     width: 12px;
     height: 12px;
 }
+
 .libroImagen {
     width: 100%;
     height: 100%;
@@ -148,6 +153,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: rgb(235, 235, 235);
 }
+
 .libroNull {
     width: 100%;
     height: 100%;
@@ -162,12 +168,12 @@
     justify-content: center;
     flex-direction: column;
     gap: 8px;
-
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease,
         background-color 0.2s ease;
 }
+
 .libroNull:hover {
     background-color: #e3e3e3;
     transform: translateY(-2px);
@@ -193,13 +199,13 @@
     flex-shrink: 0;
     align-self: center;
 }
+
 .masIcono {
     width: 40px;
     height: 40px;
     color: #555;
     margin-top: 0;
     cursor: pointer;
-
     transition:
         transform 0.25s ease,
         filter 0.25s ease;
@@ -240,11 +246,11 @@
     height: 50px;
     color: #e53935;
     cursor: pointer;
-
     transition:
         transform 0.25s ease,
         filter 0.25s ease;
 }
+
 .botonVerBiblioteca {
     width: 100%;
     background-color: #52925c;
@@ -254,9 +260,7 @@
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
-
     height: 50px;
-
     text-align: center;
     display: inline-flex;
     align-items: center;
@@ -267,11 +271,13 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.5);
     border: 1px solid #000;
 }
+
 .trashIcono:hover {
     color: #ed4f4c;
     transform: scale(1.15);
     filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
 }
+
 .botonesFooter {
     display: flex;
     justify-content: space-between;
@@ -279,6 +285,7 @@
     gap: 10px;
     width: 100%;
 }
+
 .divBotones {
     display: flex;
     width: 100%;
@@ -341,13 +348,11 @@
     width: 100%;
     color: rgb(255, 255, 255);
     font-size: 1rem;
-     justify-content: center;
+    justify-content: center;
     padding: 10px 20px;
     border-radius: 8px;
-
     height: 50px;
-
-     margin-top: 0;
+    margin-top: 0;
     background-color: #9ca3af;
     cursor: not-allowed;
     display: inline-flex;
@@ -389,5 +394,3 @@
         padding: 8px 12px;
     }
 }
-
-
