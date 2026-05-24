@@ -132,7 +132,7 @@ useEffect(() => {
 
         if (resultado.success) {
             setShowSuccess(true);
-            limpiarFormulario();
+            
             //limpiar el formulario o redirigir al usuario
         } else {
             alert("Error: " + resultado.error);
@@ -142,6 +142,10 @@ useEffect(() => {
     }
   };
 
+  const manejarCierrePopup = () => {
+      setShowSuccess(false);
+      limpiarFormulario();
+  };
  
   return (
     
@@ -219,7 +223,7 @@ useEffect(() => {
 
       <PopUp 
         isOpen={showSuccess} 
-        onClose={() => setShowSuccess(false)}
+        onClose={manejarCierrePopup}
         title="¡Enhorabuena!"
       >
         <div style={{ textAlign: 'center', padding: '10px' }}>
@@ -229,7 +233,7 @@ useEffect(() => {
           <div style={{ marginTop: '20px' }}>
             <Boton 
               texto="Aceptar" 
-              onClick={() => setShowSuccess(false)} 
+              onClick={manejarCierrePopup} 
               variant="default"
             />
           </div>
