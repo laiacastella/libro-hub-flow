@@ -40,8 +40,6 @@ export default function FormComentario({ onEnviarComentario }) {
                 }),
             });
 
-            alert("Comentario guardado correctamente");
-
             const data = await response.json();
 
             if (!response.ok) {

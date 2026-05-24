@@ -35,7 +35,7 @@ export async function PATCH(req) {
     const errorAceptacion = await validarAceptacion(id_intercambio, estado);
     if (errorAceptacion) return errorAceptacion;
 
-    // Si es aceptado, actualizar solo el intercambio (los libros permanecen disponibles)
+    // Si es aceptado, obtener IDs de libros y marcar como reservados
     if (estado === "aceptado") {
       const [intercambioRows] = await db.query(
         "SELECT id_libro_solicitado, id_libro_ofrecido FROM intercambios WHERE id_intercambio = ? LIMIT 1",
@@ -54,7 +54,12 @@ export async function PATCH(req) {
         [estado, estado, id_intercambio]
       );
 
-      
+      // Marcar libros como reservados
+      await db.query(
+        "UPDATE libros SET disponibilidad = 'reservado' WHERE id_libro IN (?, ?)",
+        [id_libro_solicitado, id_libro_ofrecido]
+      );
+
       // Rechazar otros intercambios que involucren estos libros
       await db.query(
         `UPDATE intercambios 

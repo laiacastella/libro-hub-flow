@@ -47,6 +47,21 @@
     border: 1px solid #eee;
 }
 
+@media (max-width: 768px) {
+    .seccionResenas {
+        background-color: #f8f9fa;
+        border: 1px solid #eee;
+        padding: 0.5rem !important;
+    }
+    .fondoContenedor {
+        padding: 1.5rem 0.5rem !important;
+    }
+    .tarjetaPrincipal {
+        padding: 1rem !important;
+
+    }
+}
+
 .avatarMini {
     width: 45px;
     height: 45px;

@@ -1,5 +1,5 @@
 .select {
-    background-color: rgb(244, 244, 243);
+    background-color: white;
     width: 100%;
     padding: 10px;
     border: 2px solid transparent;
@@ -38,4 +38,8 @@
     cursor: pointer;
     font-size: 0.9rem;
     color: #63A26C;
+}
+
+.select:invalid {
+    color: gray
 }

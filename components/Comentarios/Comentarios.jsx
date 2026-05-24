@@ -5,11 +5,13 @@ import styles from "./Comentarios.module.css";
 import { useState } from "react";
 import useLibroActivo from "@/hooks/useLibroActivo.js";
 import Boton from "@/components/UI/Boton/Boton";
+import PopUp from "@/components/UI/PopUp/PopUp";
 
 export default function Comentarios() {
     const [mostrarForm, setMostrarForm] = useState(false);
     const { libroActivo } = useLibroActivo();
     const [comentarios, setComentarios] = useState([]);
+    const [popupExito, setPopupExito] = useState(false);
     const deshabilitarAnadir = !libroActivo?.id_libro && !mostrarForm;
 
     console.log("ID del libro en Comentarios:", libroActivo?.id_libro);
@@ -34,10 +36,27 @@ export default function Comentarios() {
                     onEnviarComentario={(n) => {
                         setComentarios([n, ...comentarios]);
                         setMostrarForm(false);
+                        setPopupExito(true);
                     }}
                 />
             )}
             <CardComentario comentarios={comentarios} setComentarios={setComentarios} />
+
+            {/* Popup de éxito */}
+            <PopUp
+                isOpen={popupExito}
+                onClose={() => setPopupExito(false)}
+                title="¡Comentario publicado!"
+                footer={
+                    <Boton
+                        texto="Aceptar"
+                        variant="default"
+                        onClick={() => setPopupExito(false)}
+                    />
+                }
+            >
+                <p>Tu comentario ha sido guardado correctamente.</p>
+            </PopUp>
         </div>
     );
 }

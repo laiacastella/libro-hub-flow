@@ -28,15 +28,9 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.5rem;
-}
-
-.title {
-    margin: 0;
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: #0f172a;
+    position: relative;
 }
 
 .closeButton {
@@ -44,12 +38,25 @@
     background: transparent;
     color: #111827;
     padding: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.title {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-align: center;
 }
 
 .subtitle {
     margin: 0.65rem 0 1rem;
     color: #4b5563;
     font-size: 0.95rem;
+    text-align: center;
 }
 
 .form {
@@ -68,11 +75,14 @@
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
+    align-items: center;
+    text-align: center;
 }
 
 .estrellasRow {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.35rem;
 }
 
@@ -103,6 +113,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    align-items: center;
+    text-align: center;
 }
 
 .textarea {
@@ -128,11 +140,12 @@
     margin: 0;
     font-size: 0.9rem;
     color: #b91c1c;
+    text-align: center;
 }
 
 .actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 0.55rem;
     flex-wrap: wrap;
 }
@@ -159,6 +172,6 @@
     }
 
     .actions {
-        justify-content: flex-start;
+        justify-content: center;
     }
 }

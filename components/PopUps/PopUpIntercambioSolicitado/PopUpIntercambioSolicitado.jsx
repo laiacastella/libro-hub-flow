@@ -8,7 +8,7 @@ const PopUpIntercambioSolicitado = ({ isOpen, onClose, userName }) => {
   const footerModal = (
     <div className={styles.footerCentered}>
       <Boton 
-        texto="ACEPTAR" 
+        texto="Aceptar" 
         variant="default" 
         size="large" 
         onClick={onClose} 
