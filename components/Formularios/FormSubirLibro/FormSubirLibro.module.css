@@ -47,7 +47,7 @@
 .columnaCampos button {
     width: 100%;
     box-sizing: border-box; 
-    height: 2.6rem;
+    height: 2.7rem;
 }
 
 
@@ -97,7 +97,15 @@
     }
 
     .columnaCampos {       
-        width: 25rem;          
+        width: 25rem;    
+        gap: 1.3rem;      
         max-width: none;
     }
+
+    .columnaCampos input,
+.columnaCampos select,
+.columnaCampos textarea,
+.columnaCampos button {
+    height: 3.2rem;
+}
 }
