@@ -158,7 +158,7 @@ export default function PerfilUsuario() {
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
-                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} />}
+                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} esPerfil={true} />}
                     {isMismoUsuario && paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones userId={usuarioMostrado?.id_usuario} />}
                 </div>
