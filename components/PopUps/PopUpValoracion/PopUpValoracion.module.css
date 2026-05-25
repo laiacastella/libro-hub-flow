@@ -1,55 +1,5 @@
-.overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1200;
-    background: rgba(0, 0, 0, 0.45);
-    display: grid;
-    place-items: center;
-    padding: 0.75rem;
-}
-
 .popup {
     width: min(520px, 95vw);
-    border-radius: 12px;
-    border: 0;
-    padding: 0;
-    background: transparent;
-}
-
-.main {
-    width: 100%;
-    background-color: #f2f0e8;
-    border-radius: 12px;
-    color: #111827;
-    padding: 1.25rem;
-    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25);
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    position: relative;
-}
-
-.closeButton {
-    border: 0;
-    background: transparent;
-    color: #111827;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.title {
-    margin: 0;
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: #0f172a;
-    text-align: center;
 }
 
 .subtitle {
@@ -151,18 +101,6 @@
 }
 
 @media (max-width: 768px) {
-    .overlay {
-        padding: 0.55rem;
-    }
-
-    .main {
-        padding: 0.95rem;
-    }
-
-    .title {
-        font-size: 1.2rem;
-    }
-
     .subtitle {
         font-size: 0.9rem;
     }
