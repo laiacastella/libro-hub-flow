@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { enviarEmailNuevaValoracion } from "@/lib/plantillas-mail-intercambio";
 
 export async function POST(req) {
     try {
@@ -48,7 +49,7 @@ export async function POST(req) {
         const ahora = new Date();
         const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
 
-        await db.query(
+        const [result] = await db.query(
             `
             INSERT INTO valoraciones (
                 id_intercambio,
@@ -75,6 +76,9 @@ export async function POST(req) {
             `,
             [idUsuarioEvaluado, idUsuarioEvaluado],
         );
+
+        // Enviar email al usuario evaluado notificándole de la nueva valoración
+        await enviarEmailNuevaValoracion(result.insertId);
 
         return Response.json({ success: true }, { status: 201 });
     } catch (error) {
