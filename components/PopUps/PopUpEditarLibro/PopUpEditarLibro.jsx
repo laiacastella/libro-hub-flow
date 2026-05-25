@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './PopUpEditarLibro.module.css';
 import { Save, X, CheckCircle } from 'lucide-react';
 import { Input, Boton, Select, AreaTexto, PopUp } from "@/components";
+import { useRouter } from 'next/navigation';
 
 const OPCIONES_ESTADO = [
   { value: 'nuevo', label: 'Como Nuevo' },
@@ -15,6 +16,7 @@ const OPCIONES_ESTADO = [
 
 const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
   const [generosBD, setGenerosBD] = useState([]);
+  const router = useRouter();
   const [estaSubiendoImagen, setEstaSubiendoImagen] = useState(false);
   
   const fileInputRef = useRef(null);
@@ -129,6 +131,7 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
       alert("Error de conexión de red.");
     } finally {
       setEstaSubiendoImagen(false);
+      router.refresh();
     }
   };
 

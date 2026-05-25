@@ -246,10 +246,7 @@ export default function FichaLibro() {
                     isOpen={abrirPopupEditar} 
                     onClose={() => setAbrirPopupEditar(false)} 
                     libroActual={libro}
-                    onActualizado={() => {
-                        router.refresh();   
-                        cargarDatosLibro(); 
-                    }} 
+                    onActualizado={() => window.location.reload()} 
                 />
             </div>
         </div>
