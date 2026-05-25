@@ -73,13 +73,26 @@ useEffect(() => {
 
   
   // Función para actualizar el estado formData cada vez que el usuario escribe o elige algo
+  
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value // Si es un archivo usa el file, si no el value
-    });
-  };
+ 
+  const name = e.target.name || e.target.getAttribute('nombre');
+  const value = e.target.value;
+  const files = e.target.files;
+
+  setFormData({
+    ...formData,
+    [name]: files ? files[0] : value
+  });
+};
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: files ? files[0] : value // Si es un archivo usa el file, si no el value
+  //   });
+  // };
 
   const formularioCompleto = 
     formData.titulo.trim() !== "" && 
@@ -121,7 +134,7 @@ useEffect(() => {
 
         if (resultado.success) {
             setShowSuccess(true);
-            limpiarFormulario();
+            
             //limpiar el formulario o redirigir al usuario
         } else {
             alert("Error: " + resultado.error);
@@ -131,6 +144,10 @@ useEffect(() => {
     }
   };
 
+  const manejarCierrePopup = () => {
+      setShowSuccess(false);
+      limpiarFormulario();
+  };
  
   return (
     
@@ -169,6 +186,7 @@ useEffect(() => {
         />
       
       <Select 
+      id='id_genero'
       nombre = 'id_genero'
       placeholder="Género (Categoría)" 
       opciones={generosBD} // Opciones dinámicas de la BD
@@ -177,12 +195,13 @@ useEffect(() => {
       />
 
       <Select 
+      id='id_estado'
       nombre = 'estado'
       placeholder='Estado del Libro'
       opciones={OPCIONES_ESTADO} 
       value={formData.estado} 
       onChange={handleChange} 
-      required 
+    
       />
   
       <AreaTexto 
@@ -206,7 +225,7 @@ useEffect(() => {
 
       <PopUp 
         isOpen={showSuccess} 
-        onClose={() => setShowSuccess(false)}
+        onClose={manejarCierrePopup}
         title="¡Enhorabuena!"
       >
         <div style={{ textAlign: 'center', padding: '10px' }}>
@@ -216,7 +235,7 @@ useEffect(() => {
           <div style={{ marginTop: '20px' }}>
             <Boton 
               texto="Aceptar" 
-              onClick={() => setShowSuccess(false)} 
+              onClick={manejarCierrePopup} 
               variant="default"
             />
           </div>

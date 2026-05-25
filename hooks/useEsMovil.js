@@ -6,7 +6,7 @@ export default function useEsMovil() {
     const [esMovil, setEsMovil] = useState(false);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia("(max-width: 900px)");
+        const mediaQuery = window.matchMedia("(max-width: 565px)");
 
         const actualizar = () => {
             setEsMovil(mediaQuery.matches);

@@ -4,6 +4,7 @@ export { default as Intercambios } from "./Intercambios/Intercambios";
 export { default as Solicitudes } from "./Solicitudes/Solicitudes";
 export { default as Valoraciones } from "./Valoraciones/Valoraciones";
 export { default as Comentarios } from "./Comentarios/Comentarios";
+export { default as SessionTimeout } from "./SessionTimeout/SessionTimeout";
 
 // UI
 export { default as Estrellas } from "./UI/Estrellas/Estrellas";

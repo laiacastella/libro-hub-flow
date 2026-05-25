@@ -352,8 +352,8 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         {estadoUsuario === "seleccionado" && (
                             <>
                                 <div className={styles.divBotones}>
-                                    <Boton texto="Aceptar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
-                                    <Boton texto="Rechazar" className={styles.botonVerBiblioteca} customClassName={true} onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario, "rechazado")} />
+                                    <Boton texto="Aceptar"  onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario)} />
+                                    <Boton texto="Rechazar" variant="red" onClick={() => avanzarEstado(intercambio.id_intercambio, estadoUsuario, "rechazado")} />
                                 </div>
                             </>
                         )}
