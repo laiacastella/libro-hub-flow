@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
-import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton } from "@/components";
+import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton, PopUpEditarLibro } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -19,7 +19,7 @@ export default function FichaLibro() {
     const [abrirPopupExito, setAbrirPopupExito] = useState(false);
     const [yaSolicitado, setYaSolicitado] = useState(false);
     const [verificandoSolicitud, setVerificandoSolicitud] = useState(true);
-
+    const [abrirPopupEditar, setAbrirPopupEditar] = useState(false);
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
 
@@ -143,6 +143,7 @@ export default function FichaLibro() {
                                         texto="Editar Datos Libro" 
                                         variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
                                         disabled={libro.disponibilidad === 'reservado'} 
+                                        onClick={() => setAbrirPopupEditar(true)}
                                     />
                                 ) : (
                                     <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
@@ -191,6 +192,13 @@ export default function FichaLibro() {
                     isOpen={abrirPopupExito} 
                     onClose={() => setAbrirPopupExito(false)} 
                     userName={libro.nick_usuario || "el usuario"} 
+                />
+
+                <PopUpEditarLibro 
+                    isOpen={abrirPopupEditar} 
+                    onClose={() => setAbrirPopupEditar(false)} 
+                    libroActual={libro}
+                    onActualizado={() => window.location.reload()} 
                 />
             </div>
         </div>
