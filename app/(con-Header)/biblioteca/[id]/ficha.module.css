@@ -9,7 +9,7 @@
 }
 
 .tarjetaPrincipal {
-    max-width: 900px;
+    max-width: 1140px !important;
     margin: 0 auto;
     /* Un blanco con ligera transparencia si quieres, o sólido */
     background-color: rgba(255, 255, 255, 0.95);

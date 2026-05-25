@@ -45,6 +45,9 @@ export async function POST(req) {
             return Response.json({ error: "Ya has valorado este intercambio" }, { status: 409 });
         }
 
+        const ahora = new Date();
+        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+
         await db.query(
             `
             INSERT INTO valoraciones (
@@ -55,9 +58,9 @@ export async function POST(req) {
                 valoracion,
                 fecha_valoracion
             )
-            VALUES (?, ?, ?, ?, ?, NOW())
+            VALUES (?, ?, ?, ?, ?, ?)
             `,
-            [idIntercambio, idUsuarioEvaluador, idUsuarioEvaluado, puntuacion, valoracion],
+            [idIntercambio, idUsuarioEvaluador, idUsuarioEvaluado, puntuacion, valoracion, fechaEspana],
         );
 
         await db.query(
