@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
         console.log("ID recibido en API:", id); 
 
         const [rows] = await db.query(
-            `SELECT libros.*, generos.tipo_genero, usuarios.nick_usuario, usuarios.puntuacion_promedio
+            `SELECT libros.*, generos.tipo_genero, usuarios.nick_usuario, usuarios.puntuacion_promedio, usuarios.foto_perfil
             FROM libros 
             INNER JOIN generos ON libros.id_genero = generos.id_genero 
             INNER JOIN usuarios ON libros.id_usuario = usuarios.id_usuario

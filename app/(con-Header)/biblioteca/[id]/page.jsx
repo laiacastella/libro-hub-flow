@@ -196,7 +196,11 @@ export default function FichaLibro() {
                                             style={{ cursor: "pointer" }}
                                             onClick={() => router.push(`/perfilUsuario?id=${libro.id_usuario}`)}
                                         >
-                                            <div className={styles.avatarMini}></div>
+                                            <img 
+                                                src={libro.foto_perfil || "/perfilUsuario.svg"} 
+                                                alt={libro.nick_usuario || "Usuario"}
+                                                className={styles.avatarMini}
+                                            />
                                             <div>
                                                 <p className="mb-0 x-small text-muted" style={{ fontSize: "0.7rem" }}>
                                                     Propietario:
