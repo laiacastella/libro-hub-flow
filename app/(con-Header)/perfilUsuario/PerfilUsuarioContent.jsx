@@ -114,7 +114,7 @@ export default function PerfilUsuario() {
                 </div>
                 {isMismoUsuario && (
                     <div className={`col-12 col-md-2 ${styles.editarDatos}`}>
-                        <Boton type="button" texto="Editar datos de la cuenta" enlace="editarCuenta" />
+                        <Boton type="button" texto="Editar datos" enlace="editarCuenta" />
                     </div>
                 )}
             </div>
