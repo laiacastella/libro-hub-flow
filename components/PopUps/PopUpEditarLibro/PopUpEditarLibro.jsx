@@ -132,6 +132,14 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
     }
   };
 
+  const handleCierreExitoso = () => {
+    setShowSuccess(false); 
+    onClose();            
+    if (onActualizado) {
+      onActualizado();    
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -217,7 +225,7 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
         <div className="text-center p-3">
           <CheckCircle size={60} color="#407c42" className="mb-3" />
           <p className="mb-4">Los cambios se han guardado exitosamente.</p>
-          <Boton texto="Aceptar" onClick={() => { setShowSuccess(false); onClose(); }} type="button" />
+          <Boton texto="Aceptar" onClick={handleCierreExitoso} type="button" />
         </div>
       </PopUp>
     </>
