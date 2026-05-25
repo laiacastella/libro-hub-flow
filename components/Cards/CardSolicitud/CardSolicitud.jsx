@@ -321,7 +321,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         <p><strong>{textoCabeceraPropuesta}</strong> {usuarioCabeceraPropuesta}</p>
                         <div>
                             {/* hace cuanto */}
-                            <p className="text-muted" style={{ fontSize: "0.8rem" }}>
+                            <p className={`text-muted ${styles.tiempoSolicitud}`} style={{ fontSize: "0.8rem" }}>
                                 <TiempoSolicitud fecha={intercambio.fecha_inicio || intercambio.fecha} />
                             </p>
                         </div>
