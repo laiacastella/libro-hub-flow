@@ -1,6 +1,7 @@
+
 .container {
-  width: 22rem;
-  height: 30rem;
+  width: 18rem;
+  height: 23rem;
   border: 1.5px solid #ddd;
   border-radius: 12px;
   display: flex;
@@ -10,7 +11,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  background-color: #f9f9f9;
+  background-color: white;
 }
 
 .placeholder {
@@ -67,3 +68,11 @@
   color: #4CAF50;
   font-weight: bold;
 }
+
+@media (min-width: 600px) {
+   .container{
+    width: 22rem;
+    height: 30rem;
+   }
+}
+

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./FormEditarComentario.module.css";
 import Boton from "@/components/UI/Boton/Boton";
 
-export default function FormEditarComentario({ comentario, idUsuario, onCancelar, onComentarioEditado }) {
+export default function FormEditarComentario({ comentario, idUsuario, onCancelar, onComentarioEditado, onError }) {
     const [textoEditando, setTextoEditando] = useState(comentario?.comentario || "");
 
     useEffect(() => {
@@ -31,13 +31,13 @@ export default function FormEditarComentario({ comentario, idUsuario, onCancelar
             const data = await response.json();
 
             if (!response.ok) {
-                window.alert(data?.error || "No se pudo actualizar el comentario");
+                onError?.(data?.error || "No se pudo actualizar el comentario");
                 return;
             }
 
             onComentarioEditado?.(data?.comentario?.comentario ?? comentarioLimpio);
         } catch {
-            window.alert("Error de conexión. Inténtalo de nuevo.");
+            onError?.("Error de conexión. Inténtalo de nuevo.");
         }
     };
 

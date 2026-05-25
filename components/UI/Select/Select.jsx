@@ -28,6 +28,7 @@ export default function Select({
                 value={value}
                 onChange={onChange}
                 disabled={disabled}
+                required
             >
                 <option value="">{placeholder}</option>
 

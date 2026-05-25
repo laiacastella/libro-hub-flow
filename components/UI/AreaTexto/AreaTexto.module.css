@@ -1,6 +1,6 @@
 .textarea {
   
-    background-color: rgb(244, 244, 243);
+    background-color: white; /* rgb(244, 244, 243) */
     width: 100%;
     padding: 10px;
     border: 2px solid transparent;
