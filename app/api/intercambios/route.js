@@ -95,15 +95,15 @@ export async function GET(req) {
         const user = searchParams.get("user");
         const mode = searchParams.get("mode");
 
-        // Consulta para obtener el numero de solicitudes de intercambio
+        // Consulta para obtener el número de solicitudes de intercambio activas en total
         if (mode === "count" && user) {
             const [rows] = await db.query(
                 `
                 SELECT COUNT(*) AS total
                 FROM intercambios
                 WHERE (id_usuario_envia = ? OR id_usuario_recibe = ?)
-                AND (estado_usuario_recibe IS NULL OR estado_usuario_recibe != 'eliminado')
-                AND (estado_usuario_envia IS NULL OR estado_usuario_envia != 'eliminado')
+                AND (estado_usuario_envia IS NULL OR estado_usuario_envia NOT IN ('eliminado', 'finalizado', 'rechazado'))
+                AND (estado_usuario_recibe IS NULL OR estado_usuario_recibe NOT IN ('eliminado', 'finalizado', 'rechazado'))
                 `,
                 [user, user]
             );
