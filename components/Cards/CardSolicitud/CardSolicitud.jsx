@@ -220,7 +220,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                 const puedeSeleccionarLibro = esPropietario;
 
                 if (estadoUsuario === "finalizado") {
-                    return <CardIntercambioCompletado key={intercambio.id_intercambio} intercambio={intercambio} />;
+                    return <CardIntercambioCompletado key={intercambio.id_intercambio} intercambio={intercambio} idUsuarioActual={idUsuarioActual} />;
                 }
 
                 const librosOrdenados = esSolicitante

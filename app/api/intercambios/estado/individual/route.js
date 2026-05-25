@@ -105,6 +105,19 @@ export async function PATCH(req) {
         // Ambos han confirmado, el intercambio está completamente finalizado
         // Los libros ya fueron archivados individualmente
       }
+      
+      // Guardar fecha de cierre cuando el usuario confirma la entrega (pasa a "finalizado")
+      if (estado === "finalizado") {
+        const ahora = new Date();
+        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+        
+        const columnaFechaCierre = esUsuarioEnvia ? "fecha_cierre_envia" : "fecha_cierre_recibe";
+        
+        await db.query(
+          `UPDATE intercambios SET ${columnaFechaCierre} = ? WHERE id_intercambio = ?`,
+          [fechaEspana, id_intercambio]
+        );
+      }
     }
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
