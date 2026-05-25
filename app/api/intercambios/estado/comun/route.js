@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { enviarEmailIntercambioAceptado, enviarEmailIntercambioRechazado } from "@/lib/plantillas-mail-intercambio";
 
 // Validar que si el estado es "aceptado", el intercambio tenga un libro ofrecido seleccionado
 async function validarAceptacion(idIntercambio, estado) {
@@ -72,6 +73,9 @@ export async function PATCH(req) {
         [id_intercambio, id_libro_solicitado, id_libro_ofrecido, id_libro_solicitado, id_libro_ofrecido]
       );
 
+      // Enviar email al solicitante notificando que fue aceptado
+      await enviarEmailIntercambioAceptado(id_intercambio);
+
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
@@ -87,6 +91,11 @@ export async function PATCH(req) {
     // Si no se afectó ninguna fila, el intercambio no se encontró
     if (!result.affectedRows) {
       return new Response(JSON.stringify({ error: "Intercambio no encontrado" }), { status: 404 });
+    }
+
+    // Si es rechazado, enviar email al solicitante
+    if (estado === "rechazado") {
+      await enviarEmailIntercambioRechazado(id_intercambio);
     }
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
