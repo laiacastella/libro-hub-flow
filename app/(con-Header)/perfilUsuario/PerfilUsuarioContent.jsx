@@ -105,8 +105,8 @@ export default function PerfilUsuario() {
                     <EscribirTexto texto={`${usuarioMostrado?.nombre || ''} ${usuarioMostrado?.apellidos || ''} (${usuarioMostrado?.nick_usuario || ''})`} Tipo="h2" velocidad="30" />
                     {isMismoUsuario && <EscribirTexto texto={usuarioMostrado?.email || ""} Tipo="h3" velocidad="30" />}
                     <EscribirTexto texto={`${usuarioMostrado?.poblacion || ''}, ${usuarioMostrado?.provincia || ''}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`Código Postal: ${usuarioMostrado?.codigo_postal || ''}`} Tipo="h3" velocidad="30" />
-                    {isMismoUsuario && <EscribirTexto texto={`Teléfono: ${usuarioMostrado?.telefono || ""}`} Tipo="h3" velocidad="30" />}
+                    {usuarioMostrado?.codigo_postal && (<EscribirTexto texto={`Código Postal: ${usuarioMostrado.codigo_postal}`} Tipo="h3" velocidad="30" />)}
+                    {isMismoUsuario && usuarioMostrado?.telefono && (<EscribirTexto texto={`Teléfono: ${usuarioMostrado.telefono}`} Tipo="h3" velocidad="30" />)}
                     <div className="d-flex align-items-baseline gap-2 justify-content-center justify-content-md-start">
                         <Contador key={`intercambios-${numIntercambios}`} valorFinal={numIntercambios || 0} colorInicio="#407c42" colorFin="#000000" duracion="300" />
                         <EscribirTexto texto="Intercambios completados" Tipo="h3" velocidad="30" />
