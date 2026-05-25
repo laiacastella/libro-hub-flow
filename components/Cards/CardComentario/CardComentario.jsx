@@ -24,7 +24,7 @@ function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, ini
                     onClick={() => router.push(`/perfilUsuario?id=${comentario.id_usuario}`)}
                 >
                     <div className={styles.avatarWrapper}>
-                        <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil} alt="avatar" className={styles.perfilUsuario} />
+                        <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil || "/perfilUsuario.svg"} alt="avatar" className={styles.perfilUsuario} />
                     </div>
                 </div>
 
