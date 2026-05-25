@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import useUsuario from "@/hooks/useUsuario";
 import stylesElement from './FormSubirLibro.module.css'
