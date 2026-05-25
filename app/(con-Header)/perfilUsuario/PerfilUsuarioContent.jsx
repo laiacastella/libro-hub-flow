@@ -119,7 +119,6 @@ export default function PerfilUsuario() {
                 )}
             </div>
 
-            {/* Fila de navegación con d-flex para igualar alturas */}
             <div className={`row text-center d-flex ${styles.navegacion}`}>
                 <div className={`col-12 ${isMismoUsuario ? "col-md-4" : "col-md-6"} mb-2`}>        
                     <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "biblioteca" ? styles.activo : ""}`} onClick={() => setPaginaActiva("biblioteca")}>
