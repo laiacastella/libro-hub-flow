@@ -206,7 +206,16 @@ export default function FichaLibro() {
                                                     Propietario:
                                                 </p>
                                                 <p className="mb-0 fw-bold small">{libro.nick_usuario || "Usuario desconocido"}</p>
-                                                <Estrellas valoracion={libro.puntuacion_promedio} />
+                                                <span 
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        router.push(`/perfilUsuario?id=${libro.id_usuario}&tab=valoraciones`);
+                                                    }}
+                                                    style={{ cursor: "pointer", display: "inline-block" }}
+                                                    title="Ver valoraciones"
+                                                >
+                                                    <Estrellas valoracion={libro.puntuacion_promedio} />
+                                                </span>
                                             </div>
                                         </div>
 
