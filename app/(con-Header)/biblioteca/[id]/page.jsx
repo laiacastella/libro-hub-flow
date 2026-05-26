@@ -189,7 +189,7 @@ export default function FichaLibro() {
                                         onClick={() => setAbrirPopupEditar(true)}
                                     />
                                 ) : (
-                                    <div className={`card border shadow-sm p-3 rounded-4 d-flex align-items-center gap-3 ${styles.propietarioCard}`}>
+                                    <div className={`border shadow-sm p-3 rounded-4 bg-white ${styles.propietarioCard}`}>
                                        
                                         <div 
                                             className="d-flex align-items-center gap-2 flex-grow-1" 
