@@ -268,7 +268,20 @@ export default function FichaLibro() {
                     isOpen={abrirPopupEditar} 
                     onClose={() => setAbrirPopupEditar(false)} 
                     libroActual={libro}
-                    onActualizado={() => window.location.reload()} 
+                    onActualizado={() => {
+                        router.refresh();
+                    
+                        fetch(`/api/libros/${id}`) // trae libro por id
+                            .then((res) => res.json())
+                            .then((data) => {
+                                const resultado = Array.isArray(data) ? data[0] : data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data;
+                                if (resultado) {
+                                    setLibro(resultado);
+                                    guardarLibroActivo(resultado);
+                                }
+                            })
+                            .catch((err) => console.error("Error recargando libro después de editar:", err));
+                        }} 
                 />
 
                 {modalImagen && (
