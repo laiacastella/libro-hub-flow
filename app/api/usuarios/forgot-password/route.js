@@ -35,8 +35,6 @@ export async function POST(req) {
         const ahora = new Date();
         ahora.setMinutes(ahora.getMinutes() + 30);
         const expira = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
-
-        console.log(expira);
         
         // 4. Guardar en BD
         await db.query(

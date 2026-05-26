@@ -56,8 +56,6 @@ useEffect(() => {
             const res = await fetch('/api/generos');
             const data = await res.json();
             
-            console.log("Datos que llegaron al componente:", data);
-
             const opcionesFormateadas = data.map(g => ({
                 value: g.id,   
                 label: g.nombre 

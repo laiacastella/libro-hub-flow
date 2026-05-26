@@ -62,9 +62,8 @@ export default function CardSolicitud({ filtro = "todas" }) {
         obtenerIntercambios()
             .then((data) => setIntercambios(data))
             .catch(() => setIntercambios([]));
-    }, [popupActivo, obtenerIntercambios]); // recarga al abrir/cerrar popup para reflejar cambios
+    }, [popupActivo, obtenerIntercambios]);
 
-    console.log("Intercambios cargados en CardSolicitud:", intercambios);
     // Avanzar al siguiente estado
     async function avanzarEstado(id, estadoActual, estadoForzado = null) {
         const siguienteEstado = estadoForzado ?? flujoEstados[estadoActual];

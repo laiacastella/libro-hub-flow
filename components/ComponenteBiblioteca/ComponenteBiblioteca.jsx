@@ -34,7 +34,6 @@ export default function ComponenteBiblioteca({
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
-                console.log("DATA:", data);
                 setLibros(data.data || []);
                 setTotalPaginas(data.totalPaginas || 1);
             })
@@ -46,7 +45,6 @@ export default function ComponenteBiblioteca({
 
     }, [paginaActual, filtro, id_usuario, librosPorPagina, soloDisponibles]);
 
-    console.log("texto búsqueda", filtro);
     return (
         <div className={styles.biblioteca}>
             {libros.length > 0 && (

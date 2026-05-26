@@ -81,7 +81,6 @@ export default function RegistroPage() {
                     setMensaje("Usuario creado y foto subida correctamente");
                 } else {
                     setMensaje("Usuario creado, pero error al subir imagen");
-                    console.log(dataUpload);
                 }
             }
         } catch (err) {

@@ -11,8 +11,6 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     const esMovil = useEsMovil();
     const idUsuarioBiblioteca = intercambio?.id_usuario_envia;
 
-    console.log("libro seleccionado: ", libroSeleccionado);
-
     useEffect(() => {
         if (isOpen) {
             document.body.classList.add("no-scroll");
@@ -105,8 +103,6 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
 
     if (!isOpen || !intercambio) return null;
 
-    console.log("Intercambio en PopUpBiblioteca:", intercambio);
-    
     return (
         <div className={styles.overlay} onClick={onClose}>
             <dialog className={styles.popup} open onClick={(e) => e.stopPropagation()}>

@@ -1,5 +1,4 @@
 "use client";
-console.log("🔥 FormComentario renderizado");
 import { useState } from "react";
 import styles from "./FormComentario.module.css";
 import useLibroActivo from "@/hooks/useLibroActivo";
@@ -25,7 +24,7 @@ export default function FormComentario({ onEnviarComentario }) {
             setEnviando(true);
 
             const idUsuario = usuarioLogueado?.id_usuario;
-            const idLibroFinal = libroActivo?.id_libro; // ahora funciona con todos los libros
+            const idLibroFinal = libroActivo?.id_libro;
             const ahora = new Date();
             const fechaComentario = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}-${String(ahora.getDate()).padStart(2, "0")} ${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}:${String(ahora.getSeconds()).padStart(2, "0")}`;
 
@@ -57,11 +56,6 @@ export default function FormComentario({ onEnviarComentario }) {
         }
     };
 
-    console.log("comentario:", JSON.stringify(comentario));
-    console.log(
-        "chars:",
-        [...comentario].map((c) => c.charCodeAt(0)),
-    );
     return (
         <form className={`container-fluid mb-4 p-4 ${styles.comentarioCard}`} onSubmit={manejarSubmit}>
             <div className="row g-0 align-items-center mb-2">
