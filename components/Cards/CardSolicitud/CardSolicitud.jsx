@@ -91,7 +91,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
         // Actualizar visualmente
         setIntercambios((prev) =>
             prev.map((i) => {
-                if (i.id_intercambio !== id) return i;
+                if (Number(i.id_intercambio) !== Number(id)) return i;
 
                 if (estadosComunes.has(siguienteEstado)) {
                     return {
@@ -109,6 +109,14 @@ export default function CardSolicitud({ filtro = "todas" }) {
                     : { ...i, estado_usuario_envia: siguienteEstado };
             })
         );
+
+        // Sincronizar con servidor para asegurar estado consistente
+        try {
+            const data = await obtenerIntercambios();
+            setIntercambios(data);
+        } catch {
+            // Ignorar error de sincronización; la UI ya está actualizada optimistamente
+        }
     }
 
     // Función para abrir el popup con el intercambio activo

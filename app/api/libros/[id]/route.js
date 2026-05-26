@@ -61,3 +61,43 @@ export async function PUT(request, { params }) {
         return Response.json({ error: "Error interno al guardar en la BBDD" }, { status: 500 });
     }
 }
+
+export async function DELETE(request, { params }) {
+    try {
+        const resolvedParams = await params;
+        const id = resolvedParams.id;
+
+        // Si tiene intercambios 'pendiente' o 'aceptado', no permitimos el cambio a 'archivado'
+        const [intercambios] = await db.query(
+            `SELECT COUNT(*) as total FROM intercambios 
+            WHERE id_libro_solicitado = ? 
+            AND (estado_usuario_envia IN ('solicitado', 'aceptado') 
+          OR estado_usuario_recibe IN ('solicitado', 'aceptado'));`,
+         [id]
+        );
+
+        if (intercambios[0].total > 0) {
+            return Response.json(
+                { error: "No se puede archivar el libro porque está en un proceso de intercambio activo." },
+                { status: 400 }
+            );
+        }
+
+        //estado archivado
+        const [result] = await db.query(
+            `UPDATE libros SET disponibilidad = 'archivado' WHERE id_libro = ?;`,
+            [id]
+        );
+
+        if (result.affectedRows === 0) {
+            return Response.json({ error: "Libro no encontrado" }, { status: 404 });
+        }
+
+        return Response.json({ success: true, message: "Libro archivado correctamente" });
+
+    } catch (error) {
+        console.error("Error al archivar libro:", error);
+        //return Response.json({ error: "Error interno al archivar en la BBDD" }, { status: 500 });
+        return Response.json({ error: error.message }, { status: 500 });
+    }
+}
