@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { enviarEmailIntercambioRechazado, enviarEmailIntercambioCompletado, enviarEmailRecordatorioConfirmar } from "@/lib/plantillas-mail-intercambio";
 
 // Validar que si el estado es "aceptado", el intercambio tenga un libro ofrecido seleccionado
 async function validarAceptacion(idIntercambio, estado) {
@@ -104,6 +105,30 @@ export async function PATCH(req) {
       if (enviaValorar && recibeValorar) {
         // Ambos han confirmado, el intercambio está completamente finalizado
         // Los libros ya fueron archivados individualmente
+        // Enviar email de intercambio completado a ambos usuarios
+        await enviarEmailIntercambioCompletado(id_intercambio);
+      } else if (estado === "valorar") {
+        // Solo uno ha confirmado, enviar recordatorio al otro usuario
+        const idOtroUsuario = esUsuarioEnvia ? s.id_usuario_recibe : s.id_usuario_envia;
+        await enviarEmailRecordatorioConfirmar(id_intercambio, idOtroUsuario);
+      }
+      
+      // Guardar fecha de cierre cuando el usuario confirma la entrega (pasa a "finalizado")
+      if (estado === "finalizado") {
+        const ahora = new Date();
+        const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+        
+        const columnaFechaCierre = esUsuarioEnvia ? "fecha_cierre_envia" : "fecha_cierre_recibe";
+        
+        await db.query(
+          `UPDATE intercambios SET ${columnaFechaCierre} = ? WHERE id_intercambio = ?`,
+          [fechaEspana, id_intercambio]
+        );
+      }
+      
+      // Enviar email de rechazo
+      if (estado === "rechazado") {
+        await enviarEmailIntercambioRechazado(id_intercambio);
       }
     }
 

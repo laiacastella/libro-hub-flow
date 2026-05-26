@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import useUsuario from "@/hooks/useUsuario";
 import stylesElement from './FormSubirLibro.module.css'
@@ -54,8 +56,6 @@ useEffect(() => {
             const res = await fetch('/api/generos');
             const data = await res.json();
             
-            console.log("Datos que llegaron al componente:", data);
-
             const opcionesFormateadas = data.map(g => ({
                 value: g.id,   
                 label: g.nombre 
@@ -153,9 +153,9 @@ useEffect(() => {
    
       <form onSubmit={handleSubmit}>
         
-        <div className={stylesElement.contenedorMain}>
+      <div className={stylesElement.contenedorMain}>
        
-       <div className={stylesElement.columnaPortada}>
+        <div className={stylesElement.columnaPortada}>
 
         <Portada 
           name="portada" 

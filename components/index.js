@@ -17,6 +17,8 @@ export { default as Contador } from "./UI/Contador/Contador";
 export { default as EscribirTexto } from "./UI/EscribirTexto/EscribirTexto";
 export { default as ItemsPorPagina } from "./UI/ItemsPorPagina/ItemsPorPagina";
 export { default as PopUp } from "./UI/PopUp/PopUp";
+export { default as AreaTexto } from "./UI/AreaTexto/AreaTexto";
+export { default as Portada } from "./UI/Portada/Portada";
 
 // Cards
 export { default as CardComentario } from "./Cards/CardComentario/CardComentario";
@@ -39,6 +41,7 @@ export { default as BarraBusqueda } from "./Formularios/BarraBusqueda/BarraBusqu
 export { default as FormRegistro } from "./Formularios/FormRegistro/FormRegistro";
 export { default as FormLogin } from "./Formularios/FormLogin/FormLogin";
 export { default as FormResetPassword } from "./Formularios/FormResetPassword/FormResetPassword";
+export { default as FormSubirLibro } from "./Formularios/FormSubirLibro/FormSubirLibro";
 
 // PopUps
 export { default as PopUpBiblioteca } from "./PopUps/PopUpBiblioteca/PopUpBiblioteca";
@@ -46,6 +49,7 @@ export { default as PopUpIncidencia } from "./PopUps/PopUpIncidencia/PopUpIncide
 export { default as PopUpValoracion } from "./PopUps/PopUpValoracion/PopUpValoracion";
 export { default as PopUpIntercambioSolicitado } from "./PopUps/PopUpIntercambioSolicitado/PopUpIntercambioSolicitado";
 export { default as PopUpProblemaIntercambio } from "./PopUps/PopUpProblemaIntercambio/PopUpProblemaIntercambio";
+export { default as PopUpEditarLibro } from "./PopUps/PopUpEditarLibro/PopUpEditarLibro";
 
 // Carrusel
 export { default as Carrusel } from "./Carrusel/Carrusel";

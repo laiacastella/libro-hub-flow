@@ -57,14 +57,19 @@ export default function CardSolicitud({ filtro = "todas" }) {
         return null;
     }
 
-    // Cargar intercambios
+    // Cargar intercambios - solo se ejecuta al montar y cuando se fuerza refresh
     useEffect(() => {
+        let cancelled = false;
         obtenerIntercambios()
-            .then((data) => setIntercambios(data))
-            .catch(() => setIntercambios([]));
-    }, [popupActivo, obtenerIntercambios]); // recarga al abrir/cerrar popup para reflejar cambios
+            .then((data) => {
+                if (!cancelled) setIntercambios(data);
+            })
+            .catch(() => {
+                if (!cancelled) setIntercambios([]);
+            });
+        return () => { cancelled = true; };
+    }, [obtenerIntercambios]);
 
-    console.log("Intercambios cargados en CardSolicitud:", intercambios);
     // Avanzar al siguiente estado
     async function avanzarEstado(id, estadoActual, estadoForzado = null) {
         const siguienteEstado = estadoForzado ?? flujoEstados[estadoActual];
@@ -220,7 +225,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                 const puedeSeleccionarLibro = esPropietario;
 
                 if (estadoUsuario === "finalizado") {
-                    return <CardIntercambioCompletado key={intercambio.id_intercambio} intercambio={intercambio} />;
+                    return <CardIntercambioCompletado key={intercambio.id_intercambio} intercambio={intercambio} idUsuarioActual={idUsuarioActual} />;
                 }
 
                 const librosOrdenados = esSolicitante
@@ -321,7 +326,7 @@ export default function CardSolicitud({ filtro = "todas" }) {
                         <p><strong>{textoCabeceraPropuesta}</strong> {usuarioCabeceraPropuesta}</p>
                         <div>
                             {/* hace cuanto */}
-                            <p className="text-muted" style={{ fontSize: "0.8rem" }}>
+                            <p className={`text-muted ${styles.tiempoSolicitud}`} style={{ fontSize: "0.8rem" }}>
                                 <TiempoSolicitud fecha={intercambio.fecha_inicio || intercambio.fecha} />
                             </p>
                         </div>

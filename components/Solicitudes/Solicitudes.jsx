@@ -1,22 +1,29 @@
 "use client";
 import { useState } from "react";
 import styles from "./Solicitudes.module.css";
-import { CardSolicitud } from "@/components/index";
+import { CardSolicitud, Select } from "@/components/index";
 import useUsuario from "@/hooks/useUsuario";
 
 export default function Solicitudes() {
     const [filtro, setFiltro] = useState("todas");
     const usuario = useUsuario();
 
+    const opcionesFiltro = [
+        { value: "todas", label: "Todas" },
+        { value: "recibidas", label: "Recibidas" },
+        { value: "realizadas", label: "Enviadas" },
+        { value: "historial", label: "Historial" }
+    ];
+
     return (
         <div className={styles.contenedorGeneral}>
             <div className={styles.selectorContainer}>
-                <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.selector}>
-                    <option value="todas">Todas</option>
-                    <option value="recibidas">Recibidas</option>
-                    <option value="realizadas">Enviadas</option>
-                    <option value="historial">Historial</option>
-                </select>
+                <Select
+                    id="filtro-solicitudes"
+                    value={filtro}
+                    onChange={(e) => setFiltro(e.target.value)}
+                    opciones={opcionesFiltro}
+                />
             </div>
 
             

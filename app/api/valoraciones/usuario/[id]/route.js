@@ -15,7 +15,7 @@ export async function GET(request, { params }) {
                 v.id_usuario_evaluador,
                 v.puntuacion,
                 v.valoracion,
-                v.fecha_valoracion,
+                DATE_FORMAT(v.fecha_valoracion, '%Y-%m-%d %H:%i:%s') AS fecha_valoracion,
                 u.nick_usuario,
                 u.foto_perfil
             FROM valoraciones v

@@ -12,8 +12,19 @@ function LibroIntercambio({ titulo, foto }) {
     );
 }
 
-export default function CardIntercambioCompletado({ intercambio }) {
-    const tiempo = useTiempo(intercambio?.fecha_cierre || intercambio?.fecha_inicio || intercambio?.fecha);
+export default function CardIntercambioCompletado({ intercambio, idUsuarioActual }) {
+    // Determinar qué fecha mostrar según el usuario que ve el historial
+    const esUsuarioEnvia = Number(idUsuarioActual) === Number(intercambio?.id_usuario_envia);
+    const esUsuarioRecibe = Number(idUsuarioActual) === Number(intercambio?.id_usuario_recibe);
+    
+    let fechaCierre;
+    if (esUsuarioEnvia) {
+        fechaCierre = intercambio?.fecha_cierre_envia;
+    } else if (esUsuarioRecibe) {
+        fechaCierre = intercambio?.fecha_cierre_recibe;
+    }
+    
+    const tiempo = useTiempo(fechaCierre || intercambio?.fecha_inicio || intercambio?.fecha);
     const solicitante = intercambio?.solicitante_nick_usuario || intercambio?.solicitante_nombre || "Usuario";
     const propietario = intercambio?.propietario_nick_usuario || intercambio?.propietario_nombre || "Usuario";
 
@@ -25,7 +36,7 @@ export default function CardIntercambioCompletado({ intercambio }) {
                 <ArrowLeftRight className={styles.iconoIntercambio} />
                 <LibroIntercambio titulo={intercambio?.libro_ofrecido_titulo} foto={intercambio?.libro_ofrecido_foto} />
             </div>
-<div className={styles.resumen}>
+            <div className={styles.resumen}>
                 <div className={styles.estado}>
                     <CheckCircle2 className={styles.iconoEstado} />
                     <span>Intercambio completado</span>

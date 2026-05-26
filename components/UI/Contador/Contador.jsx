@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Contador.module.css'
 
-const Contador = ({ 
-    valorFinal, 
-    duracion = 2000, 
+const Contador = ({
+    valorFinal,
+    duracion = 2000,
     colorInicio = "#A8D191",
     colorFin = "#63A26C",
     size = "md"
@@ -12,49 +12,71 @@ const Contador = ({
 
     const [cuenta, setCuenta] = useState(0);
     const elementoRef = useRef(null);
-    const tieneAnimado = useRef(false); // Para evitar que se repita si haces scroll arriba/abajo
+    const tieneAnimado = useRef(false);
+    const animationRef = useRef(null);
+    const mountedRef = useRef(true);
 
     useEffect(() => {
+        mountedRef.current = true;
+        return () => {
+            mountedRef.current = false;
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        const element = elementoRef.current;
+        if (!element || !mountedRef.current) return;
+
+        // Reset animation state when valorFinal changes
+        tieneAnimado.current = false;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 const [entry] = entries;
-                
-                // Si el elemento es visible y no se ha animado aún
-                if (entry.isIntersecting && !tieneAnimado.current) {
-                tieneAnimado.current = true;
-                iniciarAnimacion();
+                if (entry.isIntersecting && !tieneAnimado.current && mountedRef.current) {
+                    tieneAnimado.current = true;
+                    iniciarAnimacion();
                 }
             },
-            { threshold: 1.0 } // Se activa cuando el 50% es visible
+            { threshold: 1.0 }
         );
 
-        if (elementoRef.current) observer.observe(elementoRef.current);
+        observer.observe(element);
 
         return () => {
-            if (elementoRef.current) observer.unobserve(elementoRef.current);
+            observer.unobserve(element);
         };
     }, [valorFinal]);
 
     const iniciarAnimacion = () => {
-        // Si el valor final es 0, no hay nada que animar, fijamos en 0 y salimos
-        if (valorFinal === 0) {
-            setCuenta(0);
+        if (!mountedRef.current || valorFinal === 0) {
+            if (mountedRef.current) setCuenta(0);
             return;
         }
+
+        // Cancel any existing animation
+        if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current);
+        }
+
         let inicio = 0;
         const incremento = valorFinal / (duracion / 16);
-    
+
         const actualizar = () => {
+            if (!mountedRef.current) return;
             inicio += incremento;
             if (inicio < valorFinal) {
                 setCuenta(Math.floor(inicio));
-                requestAnimationFrame(actualizar);
+                animationRef.current = requestAnimationFrame(actualizar);
             } else {
                 setCuenta(valorFinal);
             }
         };
-    
-        actualizar();
+
+        animationRef.current = requestAnimationFrame(actualizar);
     };
 
     return (

@@ -3,7 +3,6 @@ import { db } from "@/lib/db";
 export async function PATCH(req) {
   try {
     const { id_intercambio, id_libro_ofrecido } = await req.json();
-    console.log("PATCH /api/intercambios/libro", { id_intercambio, id_libro_ofrecido });
 
     if (!id_intercambio || !id_libro_ofrecido) {
       return new Response(JSON.stringify({ error: "Faltan datos" }), { status: 400 });
