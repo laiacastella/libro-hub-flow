@@ -3,39 +3,31 @@
     background-size: cover;
     background-position: center;
     min-height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 40px 0;
+   
 }
 
 .estiloForm {
-    background-color: #E8DFD8cc;
-    border-radius: 40px;
-    padding: 40px;
+   background-color: #E8DFD8cc;
+   border-radius: 40px;
+   padding: 3rem 2rem;
+   width: 80%;
 }
 
 .contenedorLogo {
-    /* --- ESTÉTICA --- */
-    height: 4rem;           
-    width: 100%;            
-    
-    /* --- COMPORTAMIENTO --- */
     display: flex;
-    justify-content: center; 
-    align-items: center;     
-    
-    /* --- ESPACIADO --- */
-    margin-top: 0;
-    margin-bottom: 1.5rem;   
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 }
-
-.contenedorLogo img {
-    height: 100%;           
+.contenedorLogo img { 
+    height: 3rem;  
     width: auto;            /* Mantiene la proporción original */
-    object-fit: contain;    /* Evita que la imagen se deforme */
+    object-fit: contain; 
+   
 }
 
 .textoLogin {
@@ -43,4 +35,26 @@
     font-size: 0.9rem;
     text-align: center;
     margin-top: 0.5rem;      
+}
+
+@media (min-width: 600px) {
+    .estiloForm {
+         width: 48%;
+    }
+    .contenedorLogo img{
+        height: 4rem;
+    }
+}
+   
+@media (min-width: 1024px) {
+        .estiloForm {
+         width: 58%;
+    }
+        .contenedorLogo img{
+        height: 4.5rem;
+    }
+
+    .textoLogin {
+        font-size: 1.2rem;
+    }
 }
