@@ -155,9 +155,9 @@ useEffect(() => {
    
       <form onSubmit={handleSubmit}>
         
-        <div className={stylesElement.contenedorMain}>
+      <div className={stylesElement.contenedorMain}>
        
-       <div className={stylesElement.columnaPortada}>
+        <div className={stylesElement.columnaPortada}>
 
         <Portada 
           name="portada" 
