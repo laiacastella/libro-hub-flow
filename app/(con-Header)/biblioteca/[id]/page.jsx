@@ -32,7 +32,6 @@ export default function FichaLibro() {
         return libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
     }, [libro, usuario]);
 
-    console.log("ID del libro en FichaLibro:", id);
     useEffect(() => {
         if (id) {
             setCargando(true);
@@ -83,12 +82,6 @@ export default function FichaLibro() {
             setErrorIntercambio(""); // Limpiar errores previos
 
             // datos que se envian a la api para crear el intercambio
-            console.log("Enviando solicitud de intercambio con datos:", {
-                id_usuario_envia: usuario.id_usuario,
-                id_usuario_recibe: libro.id_usuario,
-                id_libro_solicitado: Number(id),
-            });
-
             // Llamada a la API para crear el intercambio, ruta POST /api/intercambios
             const res = await fetch("/api/intercambios", {
                 method: "POST",

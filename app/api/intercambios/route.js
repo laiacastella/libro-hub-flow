@@ -79,10 +79,6 @@ const enviarEmailNotificacion = async (id_usuario_recibe, id_libro, id_solicitan
                     </div>
                 `
             });
-
-            console.log("EMAIL_USER:", process.env.EMAIL_USER);
-            console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
-            console.log("Enviando email a:", email_duenyo);
         }
     } catch (e) { 
         console.error("Error al enviar el email:", e.message); 
@@ -169,8 +165,6 @@ export async function GET(req) {
                             AND (i.estado_usuario_envia IS NULL OR i.estado_usuario_envia != 'eliminado')
             ORDER BY i.fecha_inicio DESC
         `);
-
-            console.log("GET /api/intercambios ->", rows); // Log para verificar los datos obtenidos de la base de datos
 
         return Response.json(rows);
     } catch (error) {

@@ -14,8 +14,6 @@ export default function CardLibro({ setLibroSeleccionado, libroSeleccionado, lib
         }
     };
 
-    console.log("libros filtrados: ", librosFiltrados);
-
     const normalizarId = (id) => {
         const idNumerico = Number(id);
         return Number.isNaN(idNumerico) ? id : idNumerico;

@@ -5,9 +5,17 @@ theme:
 
 nav:
   - Inicio: index.md
+  - Proyecto:
+      - Estructura General: proyecto/estructura.md
+      - app/: proyecto/app.md
+      - components/: proyecto/components.md
+      - data/: proyecto/data.md
+      - hooks/: proyecto/hooks.md
+      - lib/: proyecto/lib.md
+      - public/: proyecto/public.md
   - ¿Cómo trabajar con ramas?:
       - Resumen: flujoRamas/resumen.md
-      - Convención de nombres de ramas: flujoRamas/convenciónNombreRamas.md
+      - Convención de nombres: flujoRamas/convenciónNombreRamas.md
       - Estructura de ramas: flujoRamas/estructuraRamas.md
       - Flujo de ramas: flujoRamas/flujoramas.md
       - Flujo de trabajo: flujoRamas/flujoTrabajo.md
@@ -15,8 +23,40 @@ nav:
       - Paso a staging/main: flujoRamas/pasoStagingMain.md
   - API:
       - Intercambios:
-          - Resumen: api/intercambios/intercambios.md
-          - Libro: api/intercambios/libro.md
-          - Estado:
-              - Individual: api/intercambios/estado/individual.md
-              - Comun: api/intercambios/estado/comun.md
+          - índice: api/intercambios/route.md
+          - Confirmar Email: api/intercambios/confirmar-email/route.md
+          - Fecha: api/intercambios/fecha/route.md
+          - Finalizados: api/intercambios/finalizados/route.md
+          - por Libro: api/intercambios/libro/route.md
+          - Reportar Problema: api/intercambios/problema/route.md
+          - Estado Individual: api/intercambios/estado/individual/route.md
+          - Estado Común: api/intercambios/estado/comun/route.md
+      - Libros:
+          - índice: api/libros/route.md
+          - Detalle: api/libros/id/route.md
+          - Contador: api/libros/count/route.md
+          - por Usuario (ID): api/libros/usuario/id/route.md
+      - Usuarios:
+          - Registro: api/usuarios/registro/route.md
+          - Login: api/usuarios/login/route.md
+          - Detalle: api/usuarios/id/route.md
+          - Actualizar: api/usuarios/actualizar/route.md
+          - Foto: api/usuarios/foto/route.md
+          - Olvidé Contraseña: api/usuarios/forgot-password/route.md
+          - Restablecer Contraseña: api/usuarios/reset-password/route.md
+          - Validar Token: api/usuarios/validate-reset-token/route.md
+          - Actualizar Token: api/usuarios/update-reset-token/route.md
+      - Comentarios: api/comentarios/route.md
+      - Valoraciones:
+          - índice: api/valoraciones/route.md
+          - por Usuario: api/valoraciones/usuario/id/route.md
+      - Géneros:
+          - índice: api/generos/route.md
+          - Detalle: api/generos/id/route.md
+      - Provincias: api/provincias/route.md
+      - Poblaciones: api/poblaciones/route.md
+      - Validar Email: api/check-email/route.md
+      - Validar Nick: api/check-nick/route.md
+      - Incidencia: api/incidencia/route.md
+      - Subir Libro: api/subir-libro/route.md
+      - Upload: api/upload/route.md
