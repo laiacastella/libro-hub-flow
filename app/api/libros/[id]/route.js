@@ -70,8 +70,10 @@ export async function DELETE(request, { params }) {
         // Si tiene intercambios 'pendiente' o 'aceptado', no permitimos el cambio a 'archivado'
         const [intercambios] = await db.query(
             `SELECT COUNT(*) as total FROM intercambios 
-             WHERE id_libro_solicitado = ? AND estado IN ('pendiente', 'aceptado');`,
-            [id]
+            WHERE id_libro_solicitado = ? 
+            AND (estado_usuario_envia IN ('solicitado', 'aceptado') 
+          OR estado_usuario_recibe IN ('solicitado', 'aceptado'));`,
+         [id]
         );
 
         if (intercambios[0].total > 0) {
@@ -95,6 +97,7 @@ export async function DELETE(request, { params }) {
 
     } catch (error) {
         console.error("Error al archivar libro:", error);
-        return Response.json({ error: "Error interno al archivar en la BBDD" }, { status: 500 });
+        //return Response.json({ error: "Error interno al archivar en la BBDD" }, { status: 500 });
+        return Response.json({ error: error.message }, { status: 500 });
     }
 }
