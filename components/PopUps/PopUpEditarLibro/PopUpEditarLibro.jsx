@@ -224,7 +224,7 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
       </PopUp>
 
       {/*popUp: éxito*/}
-      <PopUp isOpen={showSuccess} onClose={() => { setShowSuccess(false); onClose(); }} title="¡Guardado!">
+      <PopUp isOpen={showSuccess} onClose={handleCierreExitoso} title="¡Guardado!">
         <div className="text-center p-3">
           <CheckCircle size={60} color="#407c42" className="mb-3" />
           <p className="mb-4">Los cambios se han guardado exitosamente.</p>
