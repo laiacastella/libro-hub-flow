@@ -37,32 +37,34 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 18rem;         
-    max-width: 100%;      
+    flex: 1;    
+    min-width: 0;   
 }
+
 
 .columnaCampos input,
 .columnaCampos select,
-.columnaCampos textarea,
 .columnaCampos button {
     width: 100%;
     box-sizing: border-box; 
     height: 2.7rem;
 }
 
+.columnaCampos textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 6rem; 
+    resize: none; 
+}
 
-/* Pantallas medianas  */
+
+/* Pantallas medianas */
 @media (min-width: 600px) {
-    .contenedorMain{
-        padding: 2rem;
-        gap: 1.5rem;  
-    }
     .formContenedor {
-        width: 80%;            
+        width: 70%;            
         margin: 2rem auto;     
         padding: 1rem;
         border-radius: 25px;  
-        width: 60%;  
     }
 
     .contenedorMain {
@@ -72,15 +74,16 @@
 
     .columnaCampos {
         width: 22rem;  
+        width: 100%;
         gap: 0.8rem;       
     }
 }
 
 
-/* pantalla ordenador */
+/* Pantalla ordenador */
 @media (min-width: 1024px) {
     .formContenedor {
-        width: 60%;   
+        width: 78%;   
         padding: 1.5rem;
         margin: 4.6rem auto;
     }
@@ -89,6 +92,7 @@
         flex-direction: row;   
         gap: 2.5rem;           
         padding: 1.5rem;
+        justify-content: center;
     }
 
     .columnaPortada :global(.container) { 
@@ -96,16 +100,15 @@
         width: 100%;
     }
 
-    .columnaCampos {       
+    .columnaCampos {   
         width: 25rem;    
-        gap: 1.3rem;      
-        max-width: none;
+        flex: 0 0 25rem;
+        gap: 1.3rem;
     }
 
     .columnaCampos input,
-.columnaCampos select,
-.columnaCampos textarea,
-.columnaCampos button {
-    height: 3.2rem;
-}
+    .columnaCampos select,
+    .columnaCampos button {
+        height: 3.2rem;
+    }
 }
