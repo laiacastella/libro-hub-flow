@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
-import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton, PopUpEditarLibro } from "@/components";
+import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton, PopUpEditarLibro, PopUp } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -22,6 +22,7 @@ export default function FichaLibro() {
     const [verificandoSolicitud, setVerificandoSolicitud] = useState(true);
     const [abrirPopupEditar, setAbrirPopupEditar] = useState(false);
     const [revirtiendoIntercambio, setRevirtiendoIntercambio] = useState(false);
+    const [modalImagen, setModalImagen] = useState(false);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
@@ -161,7 +162,13 @@ export default function FichaLibro() {
                     {/* Portada */}
                     <div className="col-12 col-md-4 text-center">
                         <div className={styles.portadaWrapper}>
-                            <img src={libro.foto_portada} alt={libro.titulo} className={`img-fluid rounded-3 shadow ${styles.portada}`} />
+                            <img 
+                                src={libro.foto_portada} 
+                                alt={libro.titulo} 
+                                className={`rounded-3 shadow ${styles.portada}`}
+                                onClick={() => setModalImagen(true)}
+                                title="Haz clic para ver la imagen completa"
+                            />
                             {libro.disponibilidad === 'reservado' && (
                                 <span className={styles.badgeReservado}>Reservado</span>
                             )}
@@ -263,6 +270,32 @@ export default function FichaLibro() {
                     libroActual={libro}
                     onActualizado={() => window.location.reload()} 
                 />
+
+                {modalImagen && (
+                    <div 
+                        className={styles.modalImagenOverlay}
+                        onClick={() => setModalImagen(false)}
+                    >
+                        <div 
+                            className={styles.modalImagenContenedor}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button 
+                                className={styles.modalImagenCerrar}
+                                onClick={() => setModalImagen(false)}
+                                aria-label="Cerrar"
+                            >
+                                ✕
+                            </button>
+                            <img 
+                                src={libro.foto_portada} 
+                                alt={libro.titulo}
+                                className={styles.modalImagen}
+                            />
+                            <p className={styles.modalImagenTitulo}>{libro.titulo}</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
         
