@@ -1,6 +1,5 @@
 .fondoContenedor {
     padding: 40px 15px;
-    /* Imagen de fondo normal sin filtros raros */
     background-image: url("/imagen-fondo.jpg");
     background-size: cover;
     background-position: center;
@@ -10,7 +9,6 @@
 .tarjetaPrincipal {
     max-width: 1140px !important;
     margin: 0 auto;
-    /* Un blanco con ligera transparencia si quieres, o sólido */
     background-color: rgba(255, 255, 255, 0.95);
 }
 
@@ -21,7 +19,6 @@
     border: 5px solid #2e4d34;
     cursor: pointer;
     transition: transform 0.2s ease;
-    /* El borde verde oscuro de tu imagen */
 }
 
 .portada:hover {
@@ -36,12 +33,6 @@
     aspect-ratio: 2 / 3;
     overflow: hidden;
     border-radius: 12px;
-}
-
-@media (max-width: 576px) {
-    .portadaWrapper {
-        max-width: 220px;
-    }
 }
 
 .badgeReservado {
@@ -59,25 +50,9 @@
     z-index: 1;
 }
 
-/* El cuadro gris de las reseñas que se ve en tu imagen */
 .seccionResenas {
     background-color: #f8f9fa;
     border: 1px solid #eee;
-}
-
-@media (max-width: 768px) {
-    .seccionResenas {
-        background-color: #f8f9fa;
-        border: 1px solid #eee;
-        padding: 0.5rem !important;
-    }
-    .fondoContenedor {
-        padding: 1.5rem 0.5rem !important;
-    }
-    .tarjetaPrincipal {
-        padding: 1rem !important;
-
-    }
 }
 
 .avatarMini {
@@ -101,22 +76,6 @@
     flex-shrink: 0;
 }
 
-@media (max-width: 991px) {
-    .propietarioCard {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 15px;
-    }
-    
-    .botonIntercambio {
-        width: 100%;
-    }
-    
-    .botonIntercambio button {
-        width: 100%;
-    }
-}
-
 .btnPrincipal {
     background-color: #72a477 !important;
     border: none !important;
@@ -125,12 +84,11 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Botón Solicitar intercambio más estilizado */
 .btnPrincipal:hover {
     background-color: #5f8a63 !important;
 }
 
-/* MODAL DE IMAGEN PERSONALIZADA */
+/* MODAL DE IMAGEN */
 .modalImagenOverlay {
     position: fixed;
     inset: 0;
@@ -188,4 +146,39 @@
     font-size: 1.1rem;
     text-align: center;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 991px) {
+    .propietarioCard {
+        flex-direction: column !important;
+        gap: 15px;
+    }
+
+    .botonIntercambio {
+        width: 100%;
+    }
+
+    .botonIntercambio button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .seccionResenas {
+        padding: 0.5rem !important;
+    }
+
+    .fondoContenedor {
+        padding: 1.5rem 0.5rem !important;
+    }
+
+    .tarjetaPrincipal {
+        padding: 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .portadaWrapper {
+        max-width: 220px;
+    }
 }
