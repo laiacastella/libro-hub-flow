@@ -13,8 +13,12 @@ const Contador = ({
     const [cuenta, setCuenta] = useState(0);
     const elementoRef = useRef(null);
     const tieneAnimado = useRef(false); // Para evitar que se repita si haces scroll arriba/abajo
+    const animationRef = useRef(null); // Para limpiar la animación
 
     useEffect(() => {
+        const element = elementoRef.current;
+        if (!element) return;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 const [entry] = entries;
@@ -28,10 +32,10 @@ const Contador = ({
             { threshold: 1.0 } // Se activa cuando el 50% es visible
         );
 
-        if (elementoRef.current) observer.observe(elementoRef.current);
+        observer.observe(element);
 
         return () => {
-            if (elementoRef.current) observer.unobserve(elementoRef.current);
+            observer.unobserve(element);
         };
     }, [valorFinal]);
 
@@ -48,7 +52,7 @@ const Contador = ({
             inicio += incremento;
             if (inicio < valorFinal) {
                 setCuenta(Math.floor(inicio));
-                requestAnimationFrame(actualizar);
+                animationRef.current = requestAnimationFrame(actualizar);
             } else {
                 setCuenta(valorFinal);
             }
@@ -56,6 +60,14 @@ const Contador = ({
     
         actualizar();
     };
+
+    useEffect(() => {
+        return () => {
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
+    }, []);
 
     return (
         <span

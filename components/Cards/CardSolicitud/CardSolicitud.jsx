@@ -57,12 +57,18 @@ export default function CardSolicitud({ filtro = "todas" }) {
         return null;
     }
 
-    // Cargar intercambios
+    // Cargar intercambios - solo se ejecuta al montar y cuando se fuerza refresh
     useEffect(() => {
+        let cancelled = false;
         obtenerIntercambios()
-            .then((data) => setIntercambios(data))
-            .catch(() => setIntercambios([]));
-    }, [popupActivo, obtenerIntercambios]);
+            .then((data) => {
+                if (!cancelled) setIntercambios(data);
+            })
+            .catch(() => {
+                if (!cancelled) setIntercambios([]);
+            });
+        return () => { cancelled = true; };
+    }, [obtenerIntercambios]);
 
     // Avanzar al siguiente estado
     async function avanzarEstado(id, estadoActual, estadoForzado = null) {
