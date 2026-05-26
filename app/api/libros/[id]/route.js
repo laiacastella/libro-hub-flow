@@ -61,3 +61,40 @@ export async function PUT(request, { params }) {
         return Response.json({ error: "Error interno al guardar en la BBDD" }, { status: 500 });
     }
 }
+
+export async function DELETE(request, { params }) {
+    try {
+        const resolvedParams = await params;
+        const id = resolvedParams.id;
+
+        // Existen solicitudes pendientes o aceptadas para este libro?
+        const [intercambios] = await db.query(
+            `SELECT COUNT(*) as total FROM intercambios 
+             WHERE id_libro_solicitado = ? AND estado IN ('pendiente', 'aceptado');`,
+            [id]
+        );
+
+        if (intercambios[0].total > 0) {
+            return Response.json(
+                { error: "No se puede eliminar el libro porque está asociado a un intercambio activo." },
+                { status: 400 }
+            );
+        }
+
+        //si no se borra
+        const [result] = await db.query(
+            `DELETE FROM libros WHERE id_libro = ?;`,
+            [id]
+        );
+
+        if (result.affectedRows === 0) {
+            return Response.json({ error: "No se encontró el libro para eliminar" }, { status: 404 });
+        }
+
+        return Response.json({ success: true, message: "Libro eliminado correctamente" });
+
+    } catch (error) {
+        console.error("Error al eliminar libro en la BBDD:", error);
+        return Response.json({ error: "Error interno al borrar en la BBDD" }, { status: 500 });
+    }
+}
