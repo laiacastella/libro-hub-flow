@@ -1,4 +1,6 @@
 "use client";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import { FormEditarCuenta, Boton, Input, EscribirTexto, PopUp } from "@/components/index";
 import { Undo2 } from "lucide-react";
 import Link from "next/link";
@@ -96,37 +98,41 @@ export default function EditarCuenta() {
     };
 
     return (
-        <div className={`container my-4 ${styles.fondo}`}>
-                <div>
+        <div className={`container-fluid my-4 ${styles.fondo}`}>
+            
+            <div className="row">
+                <div className="col-12">
                     <h2 className={styles.titulo}>
-                        <br />
                         <Link href="perfilUsuario" >
                             <Undo2 size="30" color="#000000"/> 
                         </Link>
                         {" "}Mi información personal
                     </h2>
                 </div>
+            </div>
 
-                <div className={`row ${styles.perfil}`}>
-                    <div className={`col-12 col-md-4 text-center ${styles.foto}`}>
-                        <Image src={usuario?.foto_perfil || "/perfilUsuario.svg"} alt="perfil" width={200} height={200} className={styles.fotoPerfil} unoptimized />
-                        <br />
-                        <Boton type="button" onClick={abrirPopup} texto="Cambiar foto de perfil" size="small"/>
-                        <br />
-                    </div>
-
-                    <div className={`col-12 col-md-8 text-center text-md-start ${styles.datos}`}>
-                        <EscribirTexto texto={`${usuario?.nombre} ${usuario?.apellidos} (${usuario?.nick_usuario})`} Tipo="h2" velocidad="30" />
-                        <EscribirTexto texto={`${usuario?.email}`} Tipo="h3" velocidad="30" />
-                        <EscribirTexto texto={`${usuario?.poblacion}, ${usuario?.provincia}`} Tipo="h3" velocidad="30" />
-                        <EscribirTexto texto={`${usuario?.codigo_postal}`} Tipo="h3" velocidad="30" />
-                        <EscribirTexto texto={`${usuario?.telefono}`} Tipo="h3" velocidad="30" />
-                    </div>
+            <div className={`row align-items-center ${styles.perfil}`}>
+                <div className={`col-12 col-md-4 text-center ${styles.foto}`}>
+                    <Image src={usuario?.foto_perfil || "/perfilUsuario.svg"} alt="perfil" width={200} height={200} className={styles.fotoPerfil} unoptimized />
+                    <br />
+                    <Boton type="button" onClick={abrirPopup} texto="Cambiar foto de perfil" size="small"/>
+                    <br />
                 </div>
 
-                <div className={`row ${styles.form}`}>
+                <div className={`col-12 col-md-8 text-center text-md-start ${styles.datos}`}>
+                    <EscribirTexto texto={`${usuario?.nombre} ${usuario?.apellidos} (${usuario?.nick_usuario})`} Tipo="h2" velocidad="30" />
+                    <EscribirTexto texto={`${usuario?.email}`} Tipo="h3" velocidad="30" />
+                    <EscribirTexto texto={`${usuario?.poblacion}, ${usuario?.provincia}`} Tipo="h3" velocidad="30" />
+                    {usuario?.codigo_postal && (<EscribirTexto texto={`Código Postal: ${usuario.codigo_postal}`} Tipo="h3" velocidad="30" />)}
+                    {usuario?.telefono && (<EscribirTexto texto={`Teléfono: ${usuario.telefono}`} Tipo="h3" velocidad="30" />)}
+                </div>
+            </div>
+
+            <div className={`row ${styles.form}`}>
+                <div className="col-12">
                     <FormEditarCuenta />
                 </div>
+            </div>
 
             <PopUp
                 isOpen={mostrarPopup}
