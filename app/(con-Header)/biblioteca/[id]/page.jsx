@@ -192,18 +192,18 @@ export default function FichaLibro() {
 
                             {/* Botones de acciones */}
                             <div className="mt-4">
-                                {esMiLibro ? (
+                                {esMiLibro ? (  
                                     <div>
-                                        <div className="d-flex flex-column flex-sm-row gap-2 w-100">
-                                            <div className="flex-fill">
+                                        <div className="d-flex flex-column gap-2 w-100">
+                                            <div className="w-100">
                                                 <Boton 
-                                                    texto="Editar Datos Libro" 
+                                                    texto="Editar Libro" 
                                                     variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
                                                     disabled={libro.disponibilidad === 'reservado'} 
                                                     onClick={() => setAbrirPopupEditar(true)}
                                                 />
                                             </div>
-                                            <div className="flex-fill">
+                                            <div className="w-100">
                                                 {/*botón eliminar*/}
                                                 <Boton 
                                                     texto="Eliminar Libro" 
@@ -214,7 +214,7 @@ export default function FichaLibro() {
                                             </div>
                                         </div>
                                         
-                                        {/*Cartel de bloqueo visible*/}
+                                        {/*bloqueo visible*/}
                                         {libro.disponibilidad === 'reservado' && (
                                             <div className="alert alert-warning d-flex align-items-center mt-3 rounded-3 small py-2" role="alert">
                                                 <div>
@@ -222,7 +222,7 @@ export default function FichaLibro() {
                                                 </div>
                                             </div>
                                         )}
-                                    </div>
+                                    </div>   
                                 ) : (
                                     <div className={`card border shadow-sm p-3 rounded-4 d-flex align-items-center gap-3 ${styles.propietarioCard}`}>
                                         <div 

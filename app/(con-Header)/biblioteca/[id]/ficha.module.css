@@ -145,11 +145,9 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* 📱 BREAKPOINTS EXCLUSIVOS CSS */
 @media (max-width: 991px) {
     .propietarioCard {
         flex-direction: column !important;
-        align-items: stretch !important;
         gap: 15px;
     }
 
