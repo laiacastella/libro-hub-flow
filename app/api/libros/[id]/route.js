@@ -67,7 +67,7 @@ export async function DELETE(request, { params }) {
         const resolvedParams = await params;
         const id = resolvedParams.id;
 
-        // Existen solicitudes pendientes o aceptadas para este libro?
+        // Si tiene intercambios 'pendiente' o 'aceptado', no permitimos el cambio a 'archivado'
         const [intercambios] = await db.query(
             `SELECT COUNT(*) as total FROM intercambios 
              WHERE id_libro_solicitado = ? AND estado IN ('pendiente', 'aceptado');`,
@@ -76,25 +76,25 @@ export async function DELETE(request, { params }) {
 
         if (intercambios[0].total > 0) {
             return Response.json(
-                { error: "No se puede eliminar el libro porque está asociado a un intercambio activo." },
+                { error: "No se puede archivar el libro porque está en un proceso de intercambio activo." },
                 { status: 400 }
             );
         }
 
-        //si no se borra
+        //estado archivado
         const [result] = await db.query(
-            `DELETE FROM libros WHERE id_libro = ?;`,
+            `UPDATE libros SET disponibilidad = 'archivado' WHERE id_libro = ?;`,
             [id]
         );
 
         if (result.affectedRows === 0) {
-            return Response.json({ error: "No se encontró el libro para eliminar" }, { status: 404 });
+            return Response.json({ error: "Libro no encontrado" }, { status: 404 });
         }
 
-        return Response.json({ success: true, message: "Libro eliminado correctamente" });
+        return Response.json({ success: true, message: "Libro archivado correctamente" });
 
     } catch (error) {
-        console.error("Error al eliminar libro en la BBDD:", error);
-        return Response.json({ error: "Error interno al borrar en la BBDD" }, { status: 500 });
+        console.error("Error al archivar libro:", error);
+        return Response.json({ error: "Error interno al archivar en la BBDD" }, { status: 500 });
     }
 }
