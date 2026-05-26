@@ -110,7 +110,6 @@ async function enviarEmailIncidencia(datos) {
         };
 
         await transporter.sendMail(mailOptions);
-        console.log("Email de incidencia enviado correctamente");
     } catch (error) {
         console.error("Error al enviar email:", error);
         throw error;
