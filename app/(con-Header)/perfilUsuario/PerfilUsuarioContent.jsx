@@ -105,8 +105,8 @@ export default function PerfilUsuario() {
                     <EscribirTexto texto={`${usuarioMostrado?.nombre || ''} ${usuarioMostrado?.apellidos || ''} (${usuarioMostrado?.nick_usuario || ''})`} Tipo="h2" velocidad="30" />
                     {isMismoUsuario && <EscribirTexto texto={usuarioMostrado?.email || ""} Tipo="h3" velocidad="30" />}
                     <EscribirTexto texto={`${usuarioMostrado?.poblacion || ''}, ${usuarioMostrado?.provincia || ''}`} Tipo="h3" velocidad="30" />
-                    <EscribirTexto texto={`Código Postal: ${usuarioMostrado?.codigo_postal || ''}`} Tipo="h3" velocidad="30" />
-                    {isMismoUsuario && <EscribirTexto texto={`Teléfono: ${usuarioMostrado?.telefono || ""}`} Tipo="h3" velocidad="30" />}
+                    {usuarioMostrado?.codigo_postal && (<EscribirTexto texto={`Código Postal: ${usuarioMostrado.codigo_postal}`} Tipo="h3" velocidad="30" />)}
+                    {isMismoUsuario && usuarioMostrado?.telefono && (<EscribirTexto texto={`Teléfono: ${usuarioMostrado.telefono}`} Tipo="h3" velocidad="30" />)}
                     <div className="d-flex align-items-baseline gap-2 justify-content-center justify-content-md-start">
                         <Contador key={`intercambios-${numIntercambios}`} valorFinal={numIntercambios || 0} colorInicio="#407c42" colorFin="#000000" duracion="300" />
                         <EscribirTexto texto="Intercambios completados" Tipo="h3" velocidad="30" />
@@ -114,12 +114,11 @@ export default function PerfilUsuario() {
                 </div>
                 {isMismoUsuario && (
                     <div className={`col-12 col-md-2 ${styles.editarDatos}`}>
-                        <Boton type="button" texto="Editar datos de la cuenta" enlace="editarCuenta" />
+                        <Boton type="button" texto="Editar datos" enlace="editarCuenta" />
                     </div>
                 )}
             </div>
 
-            {/* Fila de navegación con d-flex para igualar alturas */}
             <div className={`row text-center d-flex ${styles.navegacion}`}>
                 <div className={`col-12 ${isMismoUsuario ? "col-md-4" : "col-md-6"} mb-2`}>        
                     <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "biblioteca" ? styles.activo : ""}`} onClick={() => setPaginaActiva("biblioteca")}>
@@ -159,7 +158,7 @@ export default function PerfilUsuario() {
 
             <div className={`row ${styles.contenido}`}>
                 <div className="col-12">
-                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} />}
+                    {paginaActiva === "biblioteca" && <ComponenteBiblioteca id_usuario={isMismoUsuario ? usuarioLogueado?.id_usuario : targetId} esPerfil={true} />}
                     {isMismoUsuario && paginaActiva === "solicitudes" && <Solicitudes />}
                     {paginaActiva === "valoraciones" && <Valoraciones userId={usuarioMostrado?.id_usuario} />}
                 </div>

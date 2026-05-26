@@ -1,22 +1,234 @@
+.container {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* encabezado */
+.encabezado {
+    margin-top: 0.5rem;
+    width: 95%;
+}
+
+.frase{
+ font-size: 0.8rem;
+ letter-spacing: 1;
+ text-align: center;
+}
+
+.avatarContenedor {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.inputOculto {
+    display: none !important;
+}
+
+.circuloAvatar {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    /* Borde blanco grueso y sombra suave idéntica a tu imagen */
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background-color: #e2e2df; /* Fondo gris claro mientras carga */
+}
+
+.previewImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover; /* Evita que la foto se deforme si no es cuadrada */
+}
+
+.insigniaCamara {
+    position: absolute;
+    bottom: 10px;
+    right: 2px;
+    background-color: #2b612d; /* El verde oscuro de tu paleta */
+    width: 42px;
+    height: 48px;
+    border-radius: 18px; /* Le da esa forma ligeramente ovalada vertical */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.avatarContenedor:hover .insigniaCamara {
+    transform: scale(1.08);
+}
+
+.textoElegir {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #63A26C;         
+    display: inline-block;
+    position: relative;        
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+
+.textoElegir::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #63A26C;
+    transform: scaleX(0); 
+    transition: transform 0.3s ease;
+}
+
+.avatarContenedor:hover .textoElegir::after {
+    transform: scaleX(1);
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+   
+}
+
+.seguridadUbi, .infoGeneral, .fotoPerfil{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .form {
     margin: 40px auto;           
     width: 100%;
-    background-color: white;
+    
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     justify-self: center;
+    
+}
+
+.errorMensaje {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem 0.5rem 0 0.5rem;    /* O 16px */
+    margin-bottom: 0.5rem;
+}
+
+.botonEnviar{
+    width: 100%;       
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.inputField {
+    float: left;
+    height: 8rem;
+    width: 8rem;
+    border-radius: 50%;
 }
 
 .previewContainer {
     margin-top: 10px;
     text-align: center;
+    float: left;
+    border-radius: 50%;
+    
 }
 
 .previewImage {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid #ccc;
+    
+}
+
+.seccionTitulo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid black;
+}
+
+.subtitulos {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: black;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.icono {
+    color: black;
+  
+}
+
+@media (min-width: 600px) {
+.subtitulos {
+    font-size: 1.2rem;
+}
+.frase {
+    font-size: 0.9rem;
+}
+.fantasma {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.fotoPerfil {
+    width: 15rem;
+}
+}
+   
+@media (min-width: 1024px) {
+
+    .errorMensaje{
+    margin-top: 0.2rem;    /* O 16px */
+    margin-bottom: 0.2rem;
+
+    }
+    .frase {
+    font-size: 1.2rem;
+}
+
+
+
+
+.fotoPerfil{
+    
+    flex-shrink: 0;
+}
+.infoGeneral, .seguridadUbi {
+    width: 25rem;
+    flex-shrink: 0;
+}
+.formulario {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+  
+    
+}
+
+.fantasma {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 }

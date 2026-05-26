@@ -14,7 +14,6 @@ export default function Comentarios() {
     const [popupExito, setPopupExito] = useState(false);
     const deshabilitarAnadir = !libroActivo?.id_libro && !mostrarForm;
 
-    console.log("ID del libro en Comentarios:", libroActivo?.id_libro);
     return (
         <div className={styles.comentariosContainer}>
             <div className={styles.header}>

@@ -7,7 +7,7 @@ export default function Select({
     value,
     onChange,
     opciones = [],
-    placeholder = "Selecciona una opción",
+    placeholder,
     disabled = false,
     className = styles.select,
 }) {
@@ -30,7 +30,9 @@ export default function Select({
                 disabled={disabled}
                 required
             >
-                <option value="">{placeholder}</option>
+                {placeholder && (
+                    <option value="">{placeholder}</option>
+                )}
 
                 {opciones.map((op) => (
                     <option key={op.value} value={op.value}>

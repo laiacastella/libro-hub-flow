@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import useUsuario from "@/hooks/useUsuario";
 import useLibroActivo from "@/hooks/useLibroActivo";
-import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton } from "@/components";
+import { Comentarios, Estrellas, PopUpIntercambioSolicitado, Boton, PopUpEditarLibro, PopUp } from "@/components";
 import styles from "./ficha.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,7 +20,9 @@ export default function FichaLibro() {
     const [yaSolicitado, setYaSolicitado] = useState(false);
     const [idIntercambioActivo, setIdIntercambioActivo] = useState(null);
     const [verificandoSolicitud, setVerificandoSolicitud] = useState(true);
+    const [abrirPopupEditar, setAbrirPopupEditar] = useState(false);
     const [revirtiendoIntercambio, setRevirtiendoIntercambio] = useState(false);
+    const [modalImagen, setModalImagen] = useState(false);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
@@ -30,7 +32,6 @@ export default function FichaLibro() {
         return libro && usuario && Number(libro.id_usuario) === Number(usuario.id_usuario);
     }, [libro, usuario]);
 
-    console.log("ID del libro en FichaLibro:", id);
     useEffect(() => {
         if (id) {
             setCargando(true);
@@ -81,12 +82,6 @@ export default function FichaLibro() {
             setErrorIntercambio(""); // Limpiar errores previos
 
             // datos que se envian a la api para crear el intercambio
-            console.log("Enviando solicitud de intercambio con datos:", {
-                id_usuario_envia: usuario.id_usuario,
-                id_usuario_recibe: libro.id_usuario,
-                id_libro_solicitado: Number(id),
-            });
-
             // Llamada a la API para crear el intercambio, ruta POST /api/intercambios
             const res = await fetch("/api/intercambios", {
                 method: "POST",
@@ -158,9 +153,15 @@ export default function FichaLibro() {
             <div className={`container shadow-sm bg-white rounded-4 p-4 p-md-5 ${styles.tarjetaPrincipal}`}>
                 <div className="row g-4 align-items-start">
                     {/* Portada */}
-                    <div className="col-12 col-md-4 text-center">
+                    <div className="col-12 col-sm-5 col-lg-4 text-center">
                         <div className={styles.portadaWrapper}>
-                            <img src={libro.foto_portada} alt={libro.titulo} className={`img-fluid rounded-3 shadow ${styles.portada}`} />
+                            <img 
+                                src={libro.foto_portada} 
+                                alt={libro.titulo} 
+                                className={`rounded-3 shadow ${styles.portada}`}
+                                onClick={() => setModalImagen(true)}
+                                title="Haz clic para ver la imagen completa"
+                            />
                             {libro.disponibilidad === 'reservado' && (
                                 <span className={styles.badgeReservado}>Reservado</span>
                             )}
@@ -168,7 +169,7 @@ export default function FichaLibro() {
                     </div>
 
                     {/* Info del Libro */}
-                    <div className="col-12 col-md-8">
+                    <div className="col-12 col-sm-7 col-lg-8">
                         <div className="ps-md-3">
                             <h1 className="fw-bold h2">{libro.titulo}</h1>
                             <p className="text-muted mb-4">de {libro.autor}</p>
@@ -185,42 +186,58 @@ export default function FichaLibro() {
                                         texto="Editar Datos Libro" 
                                         variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
                                         disabled={libro.disponibilidad === 'reservado'} 
+                                        onClick={() => setAbrirPopupEditar(true)}
                                     />
                                 ) : (
-                                    <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
+                                    <div className={`card border shadow-sm p-3 rounded-4 d-flex align-items-center gap-3 ${styles.propietarioCard}`}>
                                        
                                         <div 
-                                            className="d-flex align-items-center gap-2" 
+                                            className="d-flex align-items-center gap-2 flex-grow-1" 
                                             style={{ cursor: "pointer" }}
                                             onClick={() => router.push(`/perfilUsuario?id=${libro.id_usuario}`)}
                                         >
-                                            <div className={styles.avatarMini}></div>
+                                            <img 
+                                                src={libro.foto_perfil || "/perfilUsuario.svg"} 
+                                                alt={libro.nick_usuario || "Usuario"}
+                                                className={styles.avatarMini}
+                                            />
                                             <div>
                                                 <p className="mb-0 x-small text-muted" style={{ fontSize: "0.7rem" }}>
                                                     Propietario:
                                                 </p>
                                                 <p className="mb-0 fw-bold small">{libro.nick_usuario || "Usuario desconocido"}</p>
-                                                <Estrellas valoracion={libro.puntuacion_promedio} />
+                                                <span 
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        router.push(`/perfilUsuario?id=${libro.id_usuario}&tab=valoraciones`);
+                                                    }}
+                                                    style={{ cursor: "pointer", display: "inline-block" }}
+                                                    title="Ver valoraciones"
+                                                >
+                                                    <Estrellas valoracion={libro.puntuacion_promedio} />
+                                                </span>
                                             </div>
                                         </div>
 
-                                        {libro.disponibilidad === 'reservado' ? (
-                                            <Boton texto="Reservado" variant="disabled" disabled />
-                                        ) : yaSolicitado ? (
-                                            <Boton 
-                                                texto={revirtiendoIntercambio ? "Revirtiendo..." : "Revertir intercambio"} 
-                                                variant="red"
-                                                onClick={handleRevertirIntercambio}
-                                                disabled={revirtiendoIntercambio}
-                                            />
-                                        ) : (
-                                            <Boton 
-                                                texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
-                                                variant="default" 
-                                                onClick={handleSolicitarIntercambio} 
-                                                disabled={solicitandoIntercambio || verificandoSolicitud} 
-                                            />
-                                        )}
+                                        <div className={styles.botonIntercambio}>
+                                            {libro.disponibilidad === 'reservado' ? (
+                                                <Boton texto="Reservado" variant="disabled" disabled />
+                                            ) : yaSolicitado ? (
+                                                <Boton 
+                                                    texto={revirtiendoIntercambio ? "Revirtiendo..." : "Revertir intercambio"} 
+                                                    variant="red"
+                                                    onClick={handleRevertirIntercambio}
+                                                    disabled={revirtiendoIntercambio}
+                                                />
+                                            ) : (
+                                                <Boton 
+                                                    texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
+                                                    variant="default" 
+                                                    onClick={handleSolicitarIntercambio} 
+                                                    disabled={solicitandoIntercambio || verificandoSolicitud} 
+                                                />
+                                            )}
+                                        </div>
                                     </div>
                                 )}
                                 {errorIntercambio && <p className="text-danger small mt-2 mb-0">{errorIntercambio}</p>}
@@ -239,6 +256,52 @@ export default function FichaLibro() {
                     onClose={() => setAbrirPopupExito(false)} 
                     userName={libro.nick_usuario || "el usuario"} 
                 />
+
+                <PopUpEditarLibro 
+                    isOpen={abrirPopupEditar} 
+                    onClose={() => setAbrirPopupEditar(false)} 
+                    libroActual={libro}
+                    onActualizado={() => {
+                        router.refresh();
+                    
+                        fetch(`/api/libros/${id}`) // trae libro por id
+                            .then((res) => res.json())
+                            .then((data) => {
+                                const resultado = Array.isArray(data) ? data[0] : data.data ? (Array.isArray(data.data) ? data.data[0] : data.data) : data;
+                                if (resultado) {
+                                    setLibro(resultado);
+                                    guardarLibroActivo(resultado);
+                                }
+                            })
+                            .catch((err) => console.error("Error recargando libro después de editar:", err));
+                        }} 
+                />
+
+                {modalImagen && (
+                    <div 
+                        className={styles.modalImagenOverlay}
+                        onClick={() => setModalImagen(false)}
+                    >
+                        <div 
+                            className={styles.modalImagenContenedor}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button 
+                                className={styles.modalImagenCerrar}
+                                onClick={() => setModalImagen(false)}
+                                aria-label="Cerrar"
+                            >
+                                ✕
+                            </button>
+                            <img 
+                                src={libro.foto_portada} 
+                                alt={libro.titulo}
+                                className={styles.modalImagen}
+                            />
+                            <p className={styles.modalImagenTitulo}>{libro.titulo}</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
         

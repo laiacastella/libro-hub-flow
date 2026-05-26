@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 export default function Registro() {
     return (
         <main className = {styles.contenedorPagina}>
+            
             <div className={styles.estiloForm}>
                 <div className={styles.contenedorLogo}>
                     <Link href="/">

@@ -4,11 +4,14 @@ import { db } from "@/lib/db";
 export async function POST(req) {
     const { token } = await req.json();
 
+    const ahora = new Date();
+    const horaActualMadrid = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+
     const [rows] = await db.query(
         `SELECT id_usuario FROM usuarios 
-         WHERE reset_token = ? 
-         AND reset_token_expira > NOW()`,
-        [token]
+        WHERE reset_token = ? 
+        AND reset_token_expira > ?`,
+        [token, horaActualMadrid]
     );
 
     if (rows.length === 0) {

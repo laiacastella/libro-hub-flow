@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useRef } from 'react';
 import styles from './Portada.module.css';
 import { useEffect } from 'react';

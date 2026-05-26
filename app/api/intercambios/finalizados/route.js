@@ -16,7 +16,7 @@ export async function GET(req) {
       WHERE 
         (id_usuario_envia = ? OR id_usuario_recibe = ?)
         AND estado_usuario_envia = 'finalizado'
-        AND estado_usuario_recibe = 'finalizado'
+        OR estado_usuario_recibe = 'finalizado'
       `,
       [id_usuario, id_usuario]
     );

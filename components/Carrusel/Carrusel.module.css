@@ -48,3 +48,10 @@
 .slide > * {
     height: 100%;
 }
+
+/* Margen para flechas en mobile */
+@media (max-width: 768px) {
+    .boton {
+        margin: 0 25px;
+    }
+}

@@ -24,7 +24,7 @@ function ComentarioItem({ comentario, usuarioLogueado, comentarioEditandoId, ini
                     onClick={() => router.push(`/perfilUsuario?id=${comentario.id_usuario}`)}
                 >
                     <div className={styles.avatarWrapper}>
-                        <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil} alt="avatar" className={styles.perfilUsuario} />
+                        <img src={esMiComentario ? usuarioLogueado?.foto_perfil || "/perfilUsuario.svg" : comentario.foto_perfil || "/perfilUsuario.svg"} alt="avatar" className={styles.perfilUsuario} />
                     </div>
                 </div>
 
@@ -66,14 +66,20 @@ export default function CardComentario({ comentarios, setComentarios }) {
 
     useEffect(() => {
         if (!idLibro) return;
-        fetch(`/api/comentarios?id_libro=${idLibro}`) // trae comentarios por id_libro
+        let cancelled = false;
+        fetch(`/api/comentarios?id_libro=${idLibro}`)
             .then((res) => res.json())
             .then((data) => {
-                const comentarios = data?.data ?? data ?? [];
-                setComentarios(Array.isArray(comentarios) ? comentarios : []);
+                if (!cancelled) {
+                    const comentarios = data?.data ?? data ?? [];
+                    setComentarios(Array.isArray(comentarios) ? comentarios : []);
+                }
             })
-            .catch(() => setComentarios([]));
-    }, [idLibro, setComentarios]);
+            .catch(() => {
+                if (!cancelled) setComentarios([]);
+            });
+        return () => { cancelled = true; };
+    }, [idLibro]);
 
     const iniciarEdicionComentario = (comentario) => {
         setComentarioEditandoId(comentario.id_comentario);
