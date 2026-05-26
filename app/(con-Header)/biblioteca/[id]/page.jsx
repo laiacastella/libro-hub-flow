@@ -160,7 +160,7 @@ export default function FichaLibro() {
             <div className={`container shadow-sm bg-white rounded-4 p-4 p-md-5 ${styles.tarjetaPrincipal}`}>
                 <div className="row g-4 align-items-start">
                     {/* Portada */}
-                    <div className="col-12 col-md-4 text-center">
+                    <div className="col-12 col-sm-5 col-lg-4 text-center">
                         <div className={styles.portadaWrapper}>
                             <img 
                                 src={libro.foto_portada} 
@@ -176,7 +176,7 @@ export default function FichaLibro() {
                     </div>
 
                     {/* Info del Libro */}
-                    <div className="col-12 col-md-8">
+                    <div className="col-12 col-sm-7 col-lg-8">
                         <div className="ps-md-3">
                             <h1 className="fw-bold h2">{libro.titulo}</h1>
                             <p className="text-muted mb-4">de {libro.autor}</p>

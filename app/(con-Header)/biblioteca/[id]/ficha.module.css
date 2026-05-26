@@ -1,5 +1,4 @@
 .fondoContenedor {
-    min-height: 100vh;
     padding: 40px 15px;
     /* Imagen de fondo normal sin filtros raros */
     background-image: url("/imagen-fondo.jpg");
@@ -32,10 +31,17 @@
 .portadaWrapper {
     position: relative;
     display: inline-block;
-    width: 280px;
-    height: 400px;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 2 / 3;
     overflow: hidden;
     border-radius: 12px;
+}
+
+@media (max-width: 576px) {
+    .portadaWrapper {
+        max-width: 220px;
+    }
 }
 
 .badgeReservado {
@@ -92,10 +98,11 @@
     flex-shrink: 0;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 991px) {
     .propietarioCard {
         flex-direction: column !important;
         align-items: stretch !important;
+        gap: 15px;
     }
     
     .botonIntercambio {
