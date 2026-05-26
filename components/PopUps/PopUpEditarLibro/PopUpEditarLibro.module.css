@@ -99,8 +99,8 @@
 @media (max-width: 767px) {
     .formCard {
         max-height: none;
-        overflow-y: auto;
         padding: 1rem;
+        overflow: visible;
     }
 
     .contenedorMain {
