@@ -312,20 +312,20 @@ export default function FichaLibro() {
                 />
 
                 {/*Confirmación de eliminación definitiva*/}
-                <PopUp isOpen={abrirPopupEliminar} onClose={() => setAbrirPopupEliminar(false)} title="¿Eliminar este libro de tu biblioteca?">
+                <PopUp isOpen={abrirPopupEliminar} onClose={() => setAbrirPopupEliminar(false)} title="¿Deseas eliminar este libro de tu biblioteca?">
                     <div className="p-2 text-center">
                         <p className="mb-4 text-secondary">
                             Esta acción eliminará de forma permanente el libro de la comunidad. Esta acción no se puede deshacer.
                         </p>
                         <div className="d-flex flex-column flex-sm-row justify-content-center gap-2">
                             <Boton 
-                                texto={eliminando ? "Eliminando..." : "Sí, eliminar definitivo"} 
+                                texto={eliminando ? "Eliminando..." : "Sí, eliminar"} 
                                 variant="red" 
                                 onClick={handleEliminarLibro} 
                                 disabled={eliminando}
                             />
                             <Boton 
-                                texto="No, conservar libro" 
+                                texto="No eliminar" 
                                 onClick={() => setAbrirPopupEliminar(false)} 
                                 disabled={eliminando}
                             />
