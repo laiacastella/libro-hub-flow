@@ -175,6 +175,24 @@
     .tarjetaPrincipal {
         padding: 1rem !important;
     }
+
+    .contenedorBotones {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .contenedorBotones button {
+         width: 100% !important;
+    }
+
+    .contenedorBotones>div {
+         width: 100%;
+        max-width: 300px;
+     }
 }
 
 @media (max-width: 576px) {
@@ -182,3 +200,5 @@
         max-width: 220px;
     }
 }
+
+

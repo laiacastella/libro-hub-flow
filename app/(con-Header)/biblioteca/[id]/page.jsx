@@ -195,24 +195,23 @@ export default function FichaLibro() {
                             <div className="mt-4">
                                 {esMiLibro ? (  
                                     <div>
-                                        <div className="d-flex flex-column gap-2 w-100">
-                                            <div className="w-100">
-                                                <Boton 
-                                                    texto="Editar Libro" 
-                                                    variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
-                                                    disabled={libro.disponibilidad === 'reservado'} 
-                                                    onClick={() => setAbrirPopupEditar(true)}
+                                        <div className="d-flex flex-row gap-2 w-200">
+                                            <div className="w-50">
+                                            <   Boton className="w-100"
+                                                texto="Editar Libro" 
+                                                variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
+                                                disabled={libro.disponibilidad === 'reservado'} 
+                                                onClick={() => setAbrirPopupEditar(true)}
                                                 />
                                             </div>
-                                            <div className="w-100">
-                                                {/*botón eliminar*/}
-                                                <Boton 
+                                            <div className="w-50">
+                                                <Boton className="w-100"
                                                     texto="Eliminar Libro" 
                                                     variant={libro.disponibilidad === 'reservado' ? "disabled" : "red"}
                                                     disabled={libro.disponibilidad === 'reservado'} 
                                                     onClick={() => setAbrirPopupEliminar(true)}
                                                 />
-                                            </div>
+                                            </div>      
                                         </div>
                                         
                                         {/*bloqueo visible*/}
