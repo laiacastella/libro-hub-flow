@@ -83,7 +83,8 @@ export default function FichaLibro() {
                 router.push(`/perfilUsuario?id=${usuario.id_usuario}&tab=biblioteca`); // Redirige a la biblioteca del usuario después de eliminar
                 router.refresh();
             } else {
-                alert("Ocurrió un error en el servidor al intentar eliminar el libro.");
+                const errorData = await res.json();
+                alert(errorData.error || "Ocurrió un error en el servidor al intentar eliminar el libro."); 
             }
         } catch (error) {
             console.error("Error al eliminar libro:", error);
