@@ -1,5 +1,6 @@
 "use client";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import { 
     Estrellas,
     ComponenteBiblioteca,
@@ -11,9 +12,8 @@ import {
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import styles from "./page.module.css";
 import useUsuario from "@/hooks/useUsuario";
-import "bootstrap/dist/css/bootstrap.min.css";
+import styles from "./page.module.css";
 
 export default function PerfilUsuario() {
     

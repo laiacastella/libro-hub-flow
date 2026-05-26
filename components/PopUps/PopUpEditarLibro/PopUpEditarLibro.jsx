@@ -147,11 +147,11 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
 
   return (
     <>
-      {/* MODAL PRINCIPAL */}
       <div style={{
         position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
         backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex',
-        alignItems: 'center', justifyContent: 'center', zIndex: 999, padding: '1rem'
+        alignItems: 'center', justifyContent: 'center', zIndex: 999,
+        padding: '1.5rem 1rem', overflowY: 'auto'
       }}>
         
         <div className={styles.formCard} style={{ width: '800px', maxWidth: '100%', position: 'relative' }}>
@@ -170,17 +170,14 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
               <div className="d-flex flex-column align-items-center">
                 <div className={styles.columnaPortada} onClick={() => fileInputRef.current?.click()}>
                   <div className={styles.wrapperImagen}>
-                    
                     <img 
                       src={formData.portada && formData.portada instanceof File ? URL.createObjectURL(formData.portada) : libroActual.foto_portada} 
                       alt="Portada del libro" 
                       className={styles.imagenActual} 
                     />
-                    
                     <div className={styles.textoModificarCentrado}>
                       Modificar Portada
                     </div>
-
                     <input 
                       type="file" 
                       ref={fileInputRef}
@@ -188,7 +185,6 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
                       onChange={handlePortadaChange}
                       style={{ display: 'none' }}
                     />
-
                   </div>
                 </div>
                 <p className={styles.textoInformativoImagen}>JPG o PNG hasta 10MB. (Opcional)</p>
@@ -201,12 +197,12 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
                 <Select nombre='id_genero' opciones={generosBD} value={formData.id_genero} onChange={handleChange} />
                 <Select nombre='estado' opciones={OPCIONES_ESTADO} value={formData.estado} onChange={handleChange} />
                 <AreaTexto nombre="descripcion" value={formData.descripcion} onChange={handleChange} rows={6} />
+                
+                <div className={styles.acciones}>
+                  <Boton texto="Guardar cambios" icono={Save} type="submit" disabled={estaSubiendoImagen} />
+                  <Boton texto="Cancelar" variant="red" onClick={onClose} type="button" />
+                </div>
               </div>
-            </div>
-
-            <div className={styles.acciones}>
-              <Boton texto="Guardar cambios" icono={Save} type="submit" disabled={estaSubiendoImagen} />
-              <Boton texto="Cancelar" variant="red" onClick={onClose} type="button" />
             </div>
           </form>
         </div>

@@ -7,6 +7,8 @@
     gap: 1.5rem;
     width: 100%;
     box-sizing: border-box;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .contenedorMain {
@@ -84,7 +86,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    padding-right: 1.8remHeader !important; 
 }
 
 .acciones {
@@ -97,9 +98,9 @@
 
 @media (max-width: 767px) {
     .formCard {
-        max-height: 85vh;
-        overflow-y: auto;
+        max-height: none;
         padding: 1rem;
+        overflow: visible;
     }
 
     .contenedorMain {
@@ -107,16 +108,17 @@
     }
 
     .wrapperImagen {
-        min-height: 240px;
+        min-height: 250px;
     }
 
     .acciones {
-        position: sticky;
+        position: static;
         bottom: 0;
         background-color: #ffffff;
         padding-top: 0.75rem;
         z-index: 10;
         margin-top: 0.5rem;
         border-top: 1px solid #f3f4f6;
+        flex-direction: column;
     }
 }

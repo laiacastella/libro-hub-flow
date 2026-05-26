@@ -8,19 +8,19 @@ body {
 .fondo {
     background-color: #f0efeacc;
     border-radius: 12px;
-    justify-self: center;
+    padding: 40px;
+    width: 90% !important;
+}
+
+.perfil {
+    border-radius: 12px;
+    padding: 30px 10px;
+    margin-bottom: 20px;
 }
 
 .titulo {
     font-size: 36px;
     margin-bottom: 30px;
-}
-
-.perfil {
-    background-color: #f9f9f9cc;
-    border-radius: 12px;
-    padding: 60px;
-    margin: 20px;
 }
 
 .foto{
@@ -38,7 +38,11 @@ body {
 }
 
 .form {
-    margin: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 20px;
 }
 
 .contenido {
