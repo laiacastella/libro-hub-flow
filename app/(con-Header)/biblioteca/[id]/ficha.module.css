@@ -71,6 +71,30 @@
     border: 2px solid #dee2e6;
 }
 
+.propietarioCard {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.botonIntercambio {
+    flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+    .propietarioCard {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    
+    .botonIntercambio {
+        width: 100%;
+    }
+    
+    .botonIntercambio button {
+        width: 100%;
+    }
+}
+
 .btnPrincipal {
     background-color: #72a477 !important;
     border: none !important;

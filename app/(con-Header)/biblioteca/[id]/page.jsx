@@ -189,10 +189,10 @@ export default function FichaLibro() {
                                         onClick={() => setAbrirPopupEditar(true)}
                                     />
                                 ) : (
-                                    <div className="card border shadow-sm p-3 rounded-4 d-flex flex-row align-items-center justify-content-between gap-3">
+                                    <div className={`card border shadow-sm p-3 rounded-4 d-flex align-items-center gap-3 ${styles.propietarioCard}`}>
                                        
                                         <div 
-                                            className="d-flex align-items-center gap-2" 
+                                            className="d-flex align-items-center gap-2 flex-grow-1" 
                                             style={{ cursor: "pointer" }}
                                             onClick={() => router.push(`/perfilUsuario?id=${libro.id_usuario}`)}
                                         >
@@ -219,23 +219,25 @@ export default function FichaLibro() {
                                             </div>
                                         </div>
 
-                                        {libro.disponibilidad === 'reservado' ? (
-                                            <Boton texto="Reservado" variant="disabled" disabled />
-                                        ) : yaSolicitado ? (
-                                            <Boton 
-                                                texto={revirtiendoIntercambio ? "Revirtiendo..." : "Revertir intercambio"} 
-                                                variant="red"
-                                                onClick={handleRevertirIntercambio}
-                                                disabled={revirtiendoIntercambio}
-                                            />
-                                        ) : (
-                                            <Boton 
-                                                texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
-                                                variant="default" 
-                                                onClick={handleSolicitarIntercambio} 
-                                                disabled={solicitandoIntercambio || verificandoSolicitud} 
-                                            />
-                                        )}
+                                        <div className={styles.botonIntercambio}>
+                                            {libro.disponibilidad === 'reservado' ? (
+                                                <Boton texto="Reservado" variant="disabled" disabled />
+                                            ) : yaSolicitado ? (
+                                                <Boton 
+                                                    texto={revirtiendoIntercambio ? "Revirtiendo..." : "Revertir intercambio"} 
+                                                    variant="red"
+                                                    onClick={handleRevertirIntercambio}
+                                                    disabled={revirtiendoIntercambio}
+                                                />
+                                            ) : (
+                                                <Boton 
+                                                    texto={solicitandoIntercambio ? "Enviando..." : "Solicitar intercambio"} 
+                                                    variant="default" 
+                                                    onClick={handleSolicitarIntercambio} 
+                                                    disabled={solicitandoIntercambio || verificandoSolicitud} 
+                                                />
+                                            )}
+                                        </div>
                                     </div>
                                 )}
                                 {errorIntercambio && <p className="text-danger small mt-2 mb-0">{errorIntercambio}</p>}
