@@ -125,6 +125,9 @@ export async function POST(req) {
                     valoracion: textoValoracion,
                 } = valoracion;
 
+                const ahora = new Date();
+                const fechaEspana = ahora.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+
                 await db.query(
                     `INSERT INTO valoraciones (
                         id_intercambio,
@@ -133,13 +136,14 @@ export async function POST(req) {
                         puntuacion,
                         valoracion,
                         fecha_valoracion
-                    ) VALUES (?, ?, ?, ?, ?, NOW())`,
+                    ) VALUES (?, ?, ?, ?, ?, ?)`,
                     [
                         id_intercambio,
                         id_usuario_evaluador,
                         id_usuario_evaluado,
                         puntuacion,
                         textoValoracion,
+                        fechaEspana,
                     ]
                 );
             }
