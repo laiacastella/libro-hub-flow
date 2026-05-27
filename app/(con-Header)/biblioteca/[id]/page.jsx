@@ -23,6 +23,7 @@ export default function FichaLibro() {
     const [abrirPopupEditar, setAbrirPopupEditar] = useState(false);
     const [revirtiendoIntercambio, setRevirtiendoIntercambio] = useState(false);
     const [modalImagen, setModalImagen] = useState(false);
+    const [mostrarPopupRevertir, setMostrarPopupRevertir] = useState(false);
     const [abrirPopupEliminar, setAbrirPopupEliminar] = useState(false);
     const [eliminando, setEliminando] = useState(false);
 
@@ -260,7 +261,7 @@ export default function FichaLibro() {
                                                 <Boton 
                                                     texto={revirtiendoIntercambio ? "Revirtiendo..." : "Revertir intercambio"} 
                                                     variant="red"
-                                                    onClick={handleRevertirIntercambio}
+                                                    onClick={() => setMostrarPopupRevertir(true)}
                                                     disabled={revirtiendoIntercambio}
                                                 />
                                             ) : (
@@ -311,25 +312,35 @@ export default function FichaLibro() {
                     }} 
                 />
 
-                {/*Confirmación de eliminación definitiva*/}
-                <PopUp isOpen={abrirPopupEliminar} onClose={() => setAbrirPopupEliminar(false)} title="¿Deseas eliminar este libro de tu biblioteca?">
-                    <div className="p-2 text-center">
-                        <p className="mb-4 text-secondary">
-                            Esta acción eliminará de forma permanente el libro de la comunidad. Esta acción no se puede deshacer.
-                        </p>
-                        <div className="d-flex flex-column flex-sm-row justify-content-center gap-2">
-                            <Boton 
-                                texto={eliminando ? "Eliminando..." : "Sí, eliminar"} 
-                                variant="red" 
-                                onClick={handleEliminarLibro} 
-                                disabled={eliminando}
+                {/* Popup confirmación revertir intercambio */}
+                <PopUp
+                    isOpen={mostrarPopupRevertir}
+                    onClose={() => setMostrarPopupRevertir(false)}
+                    title="¿Revertir la solicitud?"
+                    footer={
+                        <div className="d-flex justify-content-center gap-2">
+                            <Boton
+                                texto={revirtiendoIntercambio ? "Revirtiendo..." : "Sí, revertir"}
+                                variant="red"
+                                onClick={async () => {
+                                    await handleRevertirIntercambio();
+                                    setMostrarPopupRevertir(false);
+                                }}
+                                disabled={revirtiendoIntercambio}
                             />
-                            <Boton 
-                                texto="No eliminar" 
-                                onClick={() => setAbrirPopupEliminar(false)} 
-                                disabled={eliminando}
+                            <Boton
+                                texto="Cancelar"
+                                onClick={() => setMostrarPopupRevertir(false)}
+                                disabled={revirtiendoIntercambio}
                             />
                         </div>
+                    }
+                >
+                    <div className="p-2 text-center">
+                        <p className="mb-3 text-secondary">
+                            ¿Estás seguro de que quieres <strong>revertir tu solicitud</strong> de intercambio? Esta acción cancelará tu propuesta y liberará tu libro.
+                        </p>
+                        <p className="small text-muted">El otro usuario ya no podrá aceptar el intercambio.</p>
                     </div>
                 </PopUp>
 
