@@ -133,6 +133,30 @@ export async function GET(req) {
             });
         }
 
+        // Verificar si un libro tiene intercambios activos (cualquier usuario)
+        if (mode === "check-libro") {
+            const libroId = searchParams.get("libro");
+            if (!libroId) {
+                return Response.json({ error: "Falta el ID del libro" }, { status: 400 });
+            }
+
+            const [rows] = await db.query(
+                `
+                SELECT COUNT(*) as total
+                FROM intercambios 
+                WHERE id_libro_solicitado = ?
+                  AND estado_usuario_envia NOT IN ('finalizado', 'rechazado', 'eliminado')
+                  AND estado_usuario_recibe NOT IN ('finalizado', 'rechazado', 'eliminado')
+                `,
+                [libroId]
+            );
+
+            return Response.json({ 
+                tieneIntercambios: rows[0].total > 0,
+                total: rows[0].total 
+            });
+        }
+
 
 
         // Consulta para obtener los intercambios, incluyendo información de los libros y usuarios relacionados
