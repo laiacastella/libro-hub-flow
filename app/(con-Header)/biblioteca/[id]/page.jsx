@@ -26,6 +26,8 @@ export default function FichaLibro() {
     const [mostrarPopupRevertir, setMostrarPopupRevertir] = useState(false);
     const [abrirPopupEliminar, setAbrirPopupEliminar] = useState(false);
     const [eliminando, setEliminando] = useState(false);
+    const [tieneIntercambiosActivos, setTieneIntercambiosActivos] = useState(false);
+    const [verificandoIntercambios, setVerificandoIntercambios] = useState(false);
 
     const usuario = useUsuario();
     const { guardarLibroActivo } = useLibroActivo();
@@ -51,6 +53,20 @@ export default function FichaLibro() {
                 .finally(() => setCargando(false));
         }
     }, [id, guardarLibroActivo]);
+
+    // Verificar si el libro tiene intercambios activos (para bloquear editar/eliminar)
+    useEffect(() => {
+        if (id && esMiLibro) {
+            setVerificandoIntercambios(true);
+            fetch(`/api/intercambios?mode=check-libro&libro=${id}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setTieneIntercambiosActivos(data.tieneIntercambios || false);
+                })
+                .catch((err) => console.error("Error verificando intercambios del libro:", err))
+                .finally(() => setVerificandoIntercambios(false));
+        }
+    }, [id, esMiLibro]);
 
     // Verificar si el usuario ya tiene una solicitud activa
     useEffect(() => {
@@ -200,26 +216,26 @@ export default function FichaLibro() {
                                             <div className="w-50">
                                             <   Boton className="w-100"
                                                 texto="Editar Libro" 
-                                                variant={libro.disponibilidad === 'reservado' ? "disabled" : "default"} 
-                                                disabled={libro.disponibilidad === 'reservado'} 
+                                                variant={(libro.disponibilidad === 'reservado' || tieneIntercambiosActivos) ? "disabled" : "default"} 
+                                                disabled={libro.disponibilidad === 'reservado' || tieneIntercambiosActivos} 
                                                 onClick={() => setAbrirPopupEditar(true)}
                                                 />
                                             </div>
                                             <div className="w-50">
                                                 <Boton className="w-100"
                                                     texto="Eliminar Libro" 
-                                                    variant={libro.disponibilidad === 'reservado' ? "disabled" : "red"}
-                                                    disabled={libro.disponibilidad === 'reservado'} 
+                                                    variant={(libro.disponibilidad === 'reservado' || tieneIntercambiosActivos) ? "disabled" : "red"}
+                                                    disabled={libro.disponibilidad === 'reservado' || tieneIntercambiosActivos} 
                                                     onClick={() => setAbrirPopupEliminar(true)}
                                                 />
                                             </div>      
                                         </div>
                                         
                                         {/*bloqueo visible*/}
-                                        {libro.disponibilidad === 'reservado' && (
+                                        {(libro.disponibilidad === 'reservado' || tieneIntercambiosActivos) && (
                                             <div className="alert alert-warning d-flex align-items-center mt-3 rounded-3 small py-2" role="alert">
                                                 <div>
-                                                    No puedes modificar ni eliminar este libro porque se encuentra bloqueado en un intercambio activo.
+                                                    No puedes modificar ni eliminar este libro porque se encuentra en un intercambio activo.
                                                 </div>
                                             </div>
                                         )}
