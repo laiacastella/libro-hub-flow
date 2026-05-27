@@ -97,9 +97,14 @@ export async function GET(req) {
                 `
                 SELECT COUNT(*) AS total
                 FROM intercambios
-                WHERE (id_usuario_envia = ? OR id_usuario_recibe = ?)
-                AND (estado_usuario_envia IS NULL OR estado_usuario_envia NOT IN ('eliminado', 'finalizado', 'rechazado'))
-                AND (estado_usuario_recibe IS NULL OR estado_usuario_recibe NOT IN ('eliminado', 'finalizado', 'rechazado'))
+                WHERE (
+                    id_usuario_envia = ?
+                    AND (estado_usuario_envia IS NULL OR estado_usuario_envia NOT IN ('eliminado', 'finalizado', 'rechazado'))
+                )
+                OR (
+                    id_usuario_recibe = ?
+                    AND (estado_usuario_recibe IS NULL OR estado_usuario_recibe NOT IN ('eliminado', 'finalizado', 'rechazado'))
+                )
                 `,
                 [user, user]
             );
