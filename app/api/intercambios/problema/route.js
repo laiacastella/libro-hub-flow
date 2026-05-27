@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { enviarEmailReporteProblema } from "@/lib/plantillas-mail-intercambio";
 
 export async function POST(req) {
     try {
@@ -147,6 +148,13 @@ export async function POST(req) {
             // Por ahora solo procesamos la acción solicitada
 
             await db.query("COMMIT");
+
+            // Notificar al equipo de LibroHubFlow sobre el problema reportado
+            try {
+                await enviarEmailReporteProblema(id_intercambio, id_usuario_reporta, tipo_accion, descripcion);
+            } catch (err) {
+                console.error("Error enviando email de reporte:", err);
+            }
 
             const libroLiberado = tipo_accion === "revertir" ? 
                 (esSolicitante ? "tu libro ofrecido" : "tu libro solicitado") : 
