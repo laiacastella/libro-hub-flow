@@ -196,7 +196,7 @@ const PopUpEditarLibro = ({ isOpen, onClose, libroActual, onActualizado }) => {
                 <Input nombre='autor' placeholder='Autor' value={formData.autor} onChange={handleChange} />
                 <Select nombre='id_genero' opciones={generosBD} value={formData.id_genero} onChange={handleChange} />
                 <Select nombre='estado' opciones={OPCIONES_ESTADO} value={formData.estado} onChange={handleChange} />
-                <AreaTexto nombre="descripcion" value={formData.descripcion} onChange={handleChange} rows={6} />
+                <AreaTexto name="descripcion" value={formData.descripcion} onChange={handleChange} rows={6} />
                 
                 <div className={styles.acciones}>
                   <Boton texto="Guardar cambios" icono={Save} type="submit" disabled={estaSubiendoImagen} />
