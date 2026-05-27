@@ -30,15 +30,8 @@ export default function PerfilUsuario() {
     const [numIntercambios, setNumIntercambios] = useState(0);
     
     const tabParam = searchParams.get("tab");
-    const [paginaActiva, setPaginaActiva] = useState(tabParam || "biblioteca");
-
-    useEffect(() => {
-        if (tabParam === "solicitudes" && !isMismoUsuario) {
-            setPaginaActiva("biblioteca");
-        } else {
-            setPaginaActiva(tabParam || "biblioteca");
-        }
-    }, [tabParam, isMismoUsuario]);
+    const [paginaSeleccionada, setPaginaSeleccionada] = useState(tabParam || "biblioteca");
+    const paginaActiva = tabParam === "solicitudes" && !isMismoUsuario ? "biblioteca" : paginaSeleccionada;
     
     const esActivo = (tab) => paginaActiva === tab;
 
@@ -52,7 +45,6 @@ export default function PerfilUsuario() {
     const colorValoracion = colorTextoColor("valoraciones");
 
     useEffect(() => {
-        setUsuarioMostrado(null);
         const idActual = paginaActiva === "solicitudes" 
             ? usuarioLogueado?.id_usuario 
             : (targetId || usuarioLogueado?.id_usuario);
@@ -121,7 +113,7 @@ export default function PerfilUsuario() {
 
             <div className={`row text-center d-flex ${styles.navegacion}`}>
                 <div className={`col-12 ${isMismoUsuario ? "col-md-4" : "col-md-6"} mb-2`}>        
-                    <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "biblioteca" ? styles.activo : ""}`} onClick={() => setPaginaActiva("biblioteca")}>
+                    <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "biblioteca" ? styles.activo : ""}`} onClick={() => setPaginaSeleccionada("biblioteca")}>
                         <h1><Contador key={`libros-${paginaActiva}-${numLibros}`} valorFinal={numLibros || 0} colorInicio={colorLibros.inicio} colorFin={colorLibros.fin} duracion="500" /></h1>
                         <h2>Libros disponibles</h2>
                     </div>
@@ -129,7 +121,7 @@ export default function PerfilUsuario() {
 
                 {isMismoUsuario && (
                     <div className="col-12 col-md-4 mb-2">
-                        <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "solicitudes" ? styles.activo : ""}`} onClick={() => setPaginaActiva("solicitudes")}>
+                        <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "solicitudes" ? styles.activo : ""}`} onClick={() => setPaginaSeleccionada("solicitudes")}>
                             <h1><Contador key={`solicitudes-${paginaActiva}-${numSolicitudes}`} valorFinal={numSolicitudes || 0} colorInicio={colorSolicitud.inicio} colorFin={colorSolicitud.fin} duracion="500" /></h1>
                             <h2>Solicitudes de intercambio</h2>
                         </div>
@@ -137,7 +129,7 @@ export default function PerfilUsuario() {
                 )}
 
                 <div className={`col-12 ${isMismoUsuario ? "col-md-4" : "col-md-6"} mb-2`}>
-                    <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "valoraciones" ? styles.activo : ""}`} onClick={() => setPaginaActiva("valoraciones")}>
+                    <div tabIndex={0} className={`${styles.paginas} ${paginaActiva === "valoraciones" ? styles.activo : ""}`} onClick={() => setPaginaSeleccionada("valoraciones")}>
                         <h1>
                             {/* Solo mostramos el número si hay valoraciones reales */}
                             {tieneValoraciones && (

@@ -14,9 +14,9 @@ export async function GET(req) {
       SELECT COUNT(*) AS total
       FROM intercambios
       WHERE 
-        (id_usuario_envia = ? OR id_usuario_recibe = ?)
-        AND estado_usuario_envia = 'finalizado'
-        OR estado_usuario_recibe = 'finalizado'
+        (id_usuario_envia = ? AND estado_usuario_envia = 'finalizado')
+        OR
+        (id_usuario_recibe = ? AND estado_usuario_recibe = 'finalizado')
       `,
       [id_usuario, id_usuario]
     );
