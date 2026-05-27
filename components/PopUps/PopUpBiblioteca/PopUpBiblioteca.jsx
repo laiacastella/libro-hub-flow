@@ -1,13 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./PopUpBiblioteca.module.css";
-import { Boton, ComponenteBiblioteca } from "@/components/index";
+import { Boton, ComponenteBiblioteca, PopUp } from "@/components/index";
 import { X } from "lucide-react";
 import useEsMovil from "@/hooks/useEsMovil";
 
 const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
     const [libroSeleccionado, setLibroSeleccionado] = useState(null);
     const [infoLibro, setInfoLibro] = useState(null);
+    const [mostrarPopupSinLibro, setMostrarPopupSinLibro] = useState(false);
     const esMovil = useEsMovil();
     const idUsuarioBiblioteca = intercambio?.id_usuario_envia;
 
@@ -51,7 +52,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
 
         const idLibroSeleccionado = idLibroDesdeBoton || libroSeleccionado || intercambio.id_libro_ofrecido;
         if (!idLibroSeleccionado) {
-            alert("Selecciona un libro antes de continuar");
+            setMostrarPopupSinLibro(true);
             return false;
         }
 
@@ -83,7 +84,7 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
         const idLibroActual = libroSeleccionado ? Number(libroSeleccionado) : null;
 
         if (!idLibroGuardado && !idLibroActual) {
-            alert("Selecciona un libro antes de aceptar el intercambio");
+            setMostrarPopupSinLibro(true);
             return;
         }
 
@@ -298,6 +299,25 @@ const PopUpBiblioteca = ({ isOpen, onClose, intercambio, avanzarEstado }) => {
                     </>
                 )}
             </dialog>
+
+            {/* Popup: Sin libro seleccionado */}
+            <PopUp
+                isOpen={mostrarPopupSinLibro}
+                onClose={() => setMostrarPopupSinLibro(false)}
+                title="Ningún libro seleccionado"
+                cerrarAlHacerClickFuera={false}
+                footer={
+                    <div className="d-flex justify-content-center">
+                        <Boton texto="Aceptar" onClick={() => setMostrarPopupSinLibro(false)} />
+                    </div>
+                }
+            >
+                <div className="p-2 text-center">
+                    <p className="mb-0 text-secondary">
+                        Selecciona un libro de la biblioteca del otro usuario antes de continuar con el intercambio.
+                    </p>
+                </div>
+            </PopUp>
         </div>
     );
 };

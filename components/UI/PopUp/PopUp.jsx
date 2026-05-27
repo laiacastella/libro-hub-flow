@@ -61,6 +61,7 @@ export default function PopUp({
         aria-modal="true"
         aria-label={ariaLabel}
         ref={popupRef}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* HEADER */}
         <div className={styles.header}>
