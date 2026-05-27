@@ -101,7 +101,7 @@ export default function PerfilUsuario() {
                 <div className={`col-12 col-md-3 text-center ${styles.foto}`}>
                     <Image src={usuarioMostrado?.foto_perfil || "/perfilUsuario.svg"} alt="perfil" width={200} height={200} className={styles.fotoPerfil} unoptimized />
                 </div>
-                <div className={`col-12 col-md-7 text-center text-md-start ${styles.datos}`}>
+                <div className={`col-12 col-md-6 text-center text-md-start ${styles.datos}`}>
                     <EscribirTexto texto={`${usuarioMostrado?.nombre || ''} ${usuarioMostrado?.apellidos || ''} (${usuarioMostrado?.nick_usuario || ''})`} Tipo="h2" velocidad="30" />
                     {isMismoUsuario && <EscribirTexto texto={usuarioMostrado?.email || ""} Tipo="h3" velocidad="30" />}
                     <EscribirTexto texto={`${usuarioMostrado?.poblacion || ''}, ${usuarioMostrado?.provincia || ''}`} Tipo="h3" velocidad="30" />
